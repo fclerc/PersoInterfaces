@@ -13,23 +13,24 @@ In mode 'select', "leafValueReading" events will be triggered, containing the id
 
 
 //mode : 'modify', 'select'
-//container : the id of the container of the displayed XML, for example : '#MyXMLContainer'
+//container : the id of the container of the displayed XML, for example : '#MyXMLContainer'. Used as a sort of namespace for data manipulation in case of using several times this function in the same page (see xml[container] or selectors to define events).
 //reader : "leafValueReading" events will be triggered, and reader will be your own element (on your web page) that will trigger these events, and then treat them (to display the content on which the user clicked).
 function manipulateXML(filename, container, mode, reader){
     id = 0; //used to add ids to ul and li tags...not yet used
 
     
     $.get(filename, function(data){//get the xml document
-        xml=$(data);//load xml tree
+        var xml = new Array;
+        xml[container]=$(data);//load xml tree
         
         
         //going recursively through the xml, and displaying its content
         
-        $(container).append($('<div>').addClass('XMLContainer').addClass(filename.split('.').join("")).append(displayAndChildren($(xml).children().first()[0])));
+        $(container).append($('<div>').addClass('XMLContainer').addClass(filename.split('.').join("")).append(displayAndChildren($(xml[container]).children().first()[0])));
     
         
         //for elements having list below them : toggle visibility of this list when clicking on the element
-        $('.reducer').click(function(event){
+        $(container +' .reducer').click(function(event){
             var toToggle = $(event.target).next().next();
                 $(toToggle).toggle();
                 
@@ -50,7 +51,7 @@ function manipulateXML(filename, container, mode, reader){
         //If element can be modified :
         //-on click : replace it by input containing the value
         //-when enter on the input : replace input by simple text with the new value
-        $('.'+filename.split('.').join("")+' .value').click(function(event){
+        $(container +' .value').click(function(event){
             var elem = event.target;
             var value = $(elem).html();
             
@@ -67,10 +68,15 @@ function manipulateXML(filename, container, mode, reader){
                             var input = event.target;
                             var value = $(input).prop('value');
                             var id = $(input).parent().attr("id");//corresponding id in the xml tree
+                            console.log(id);
                             $(input).parent().html(value);
                             
                             //modifying value in XML tree
-                            $(xml).find('[id="' + id + '"]').text(value);
+                            console.log($(xml[container]).find('[id="' + id + '"]'));
+                            console.log('[id="' + id + '"]');
+                            $(xml[container]).find('[id="' + id + '"]').text(value);
+                            console.log(value);
+                            console.log($(xml[container]));
                         }
                     });
                 }
@@ -92,8 +98,10 @@ function manipulateXML(filename, container, mode, reader){
             //<button type="button" class="btn btn-info" id="XMLSaveButton">Save modifications</button>
         
         }
-        $('#XMLSaveButton').click(function(){//using ajax to store the xml on the server.
-            xmlS = (new XMLSerializer()).serializeToString(xml[0]);
+        
+        
+        $(container +' #XMLSaveButton').click(function(){//using ajax to store the xml on the server.
+            xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);console.log(xmlS);
             $.post('saveXMLDocument.php', { file: filename , data: xmlS}, 
                 function(data, txt, jqXHR){
                     if(txt=="success"){

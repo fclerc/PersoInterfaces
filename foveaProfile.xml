@@ -5,7 +5,7 @@
 		<id id="LP0">NMTOKEN</id>
 		<email id="LP1">rien@nothing.com</email>
 		<birthDate id="LP2">1967-08-13</birthDate>
-		<sex id="LP3">M</sex>
+		<sex id="LP3">F</sex>
 		<professionalSituation id="LP4">active</professionalSituation>
 		<educationLevel id="LP5">primary</educationLevel>
 		<educationDomain id="LP6">String</educationDomain>

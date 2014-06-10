@@ -23,7 +23,7 @@
             $(function(){
                 
                     manipulateXML('foveaProfile.xml','#Profile', 'select', "#Rules");
-                    manipulateXML('foveaResources.xml','#Activities', 'select', '#Rules');
+                    manipulateXML('foveaResources.xml','#Activities', 'modify', '#Rules');
                     
                     $("#Rules").on("leafValueReading", function(event, value, id, container){
                         $(event.target).append('You clicked on '+id+ ' which contains value ' + value + 'in the '+container+' part.<br/>');
