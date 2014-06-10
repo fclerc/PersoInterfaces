@@ -68,15 +68,10 @@ function manipulateXML(filename, container, mode, reader){
                             var input = event.target;
                             var value = $(input).prop('value');
                             var id = $(input).parent().attr("id");//corresponding id in the xml tree
-                            console.log(id);
                             $(input).parent().html(value);
                             
                             //modifying value in XML tree
-                            console.log($(xml[container]).find('[id="' + id + '"]'));
-                            console.log('[id="' + id + '"]');
                             $(xml[container]).find('[id="' + id + '"]').text(value);
-                            console.log(value);
-                            console.log($(xml[container]));
                         }
                     });
                 }

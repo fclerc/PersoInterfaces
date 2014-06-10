@@ -30,27 +30,34 @@
                     
                     });
                     
-                    for(var j=0; j<50; j++){
-                        $("#Rules").append(j+'<br/>');
-                    }
                     
-                //keeping the "rules" part always visible
-                var initialTop = $("#Rules").offset().top;
-                var left = $("#Rules").offset().left;
+                //function used to keep the colons always visible when scrolling
+                function alwaysVisible(elementId){
+                    var initialTop = $(elementId).offset().top;
                 
-                $(document).scroll(function(){
-                    var bottomWindowPosition = $(document).scrollTop() + $(window).height();
-                    
-                    if(bottomWindowPosition < $(document).height()){
-                        if($('#Rules').height() < bottomWindowPosition){
-                            $('#Rules').css('margin-top',initialTop + bottomWindowPosition - $("#Rules").height());
+                    $(document).scroll(function(){
+                        var bottomWindowPosition = $(document).scrollTop() + $(window).height();
+                        
+                        if(bottomWindowPosition < $(document).height()){
+                            
+                            if($(elementId).height() < bottomWindowPosition){
+                                if($(elementId).height() > $(window).height()){
+                                    $(elementId).css('margin-top',initialTop + bottomWindowPosition - $(elementId).height());
+                                }
+                                else{
+                                    $(elementId).css('margin-top',initialTop + $(document).scrollTop());
+                                }
+                                
+                            }
+                            else{
+                                $(elementId).css('margin-top',initialTop);
+                            }
                         }
-                        else{
-                            $('#Rules').css('margin-top',initialTop);
-                        }
-                    }
-                });
-                
+                    });
+                }
+                alwaysVisible('#Rules');
+                alwaysVisible('#Profile');
+                alwaysVisible('#Activities');
                 
             
             });
