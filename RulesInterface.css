@@ -1,0 +1,8 @@
+.mains{
+    width : 32%;
+    float:left;
+    padding:0.1%;
+    margin:0.1%;
+    
+    border : 1px dotted black;
+}

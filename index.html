@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        <link href="XMLDisplay.css" type="text/css" rel="stylesheet"/>
+        <link href="RulesInterface.css" type="text/css" rel="stylesheet"/>
+        
+        <style>
+        
+        </style>
+    </head>
+    
+    <body>
+    <div id="Profile" class="mains"></div>
+    <div id="Rules" class="mains"></div>
+    <div id="Activities" class="mains"></div>
+        <script type="text/javascript" src="jquery-2.1.1.js"></script>
+        
+        <script type="text/javascript" src="xmlManipulator.js"></script>
+        <script type="text/javascript">
+        
+            $(function(){
+                
+                    manipulateXML('foveaProfile.xml','#Profile', 'select', "#Rules");
+                    manipulateXML('foveaResources.xml','#Activities', 'select', '#Rules');
+                    
+                    $("#Rules").on("leafValueReading", function(event, value, id, container){
+                        $(event.target).append('You clicked on '+id+ ' which contains value ' + value + 'in the '+container+' part.<br/>');
+                    
+                    });
+                    
+                    for(var j=0; j<50; j++){
+                        $("#Rules").append(j+'<br/>');
+                    }
+                    
+                //keeping the "rules" part always visible
+                var initialTop = $("#Rules").offset().top;
+                var left = $("#Rules").offset().left;
+                
+                $(document).scroll(function(){
+                    var bottomWindowPosition = $(document).scrollTop() + $(window).height();
+                    
+                    if(bottomWindowPosition < $(document).height()){
+                        if($('#Rules').height() < bottomWindowPosition){
+                            $('#Rules').css('margin-top',initialTop + bottomWindowPosition - $("#Rules").height());
+                        }
+                        else{
+                            $('#Rules').css('margin-top',initialTop);
+                        }
+                    }
+                });
+                
+                
+            
+            });
+            
+            
+        </script>
+    </body>
+
+
+</html>
