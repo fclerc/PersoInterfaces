@@ -25,14 +25,13 @@ function manipulateXML(filename, container, mode, reader){
         
         
         //going recursively through the xml, and displaying its content
-        
         $(container).append($('<div>').addClass('XMLContainer').addClass(filename.split('.').join("")).append(displayAndChildren($(xml[container]).children().first()[0])));
     
         
         //for elements having list below them : toggle visibility of this list when clicking on the element
         $(container +' .reducer').click(function(event){
             var toToggle = $(event.target).next().next();
-                $(toToggle).toggle();
+                $(toToggle).toggle(300);
                 
                 //just changing the glyphicon
                 if($(event.target).hasClass('glyphicon-plus')){
@@ -119,9 +118,10 @@ function displayAndChildren(xmlNode, mode){
     //if the node has children : display the list of these children.
     //reducer class enables to toggle visibility of children
     //other classes are used for style
-        $(result).css('list-style-type', 'none').addClass('hasChild');
-        $(result).wrapInner($('<span>').css('color', 'blue'));
+        $(result).addClass('hasChild');
+        $(result).wrapInner($('<span>'));
         $(result).prepend($('<span>').addClass('glyphicon glyphicon-minus').addClass('reducer'));
+        //variable containing the texts returned by the call of the function on the children (in a html list)
         var chs = $('<ul>').attr('id', 'ul'+id);                        
         $(xmlNode).children().each(function(){
             $(chs).append(displayAndChildren(this));

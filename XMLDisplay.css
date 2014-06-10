@@ -1,6 +1,24 @@
+.XMLContainer .value{
+    font-style: italic;   
+}
+
+.XMLContainer ul{
+    padding-left: 20px;
+    list-style-position: inside;
+}
+
 .XMLContainer .reducer{
     margin-right:3px;
 }
+.XMLContainer li .hasChild{
+    list-style-type: none;
+}
+
+.XMLContainer li .hasChild > span{
+    color:blue;
+    font-size:103%
+}
+
 
 .XMLContainer .hasChild li{
     background-color:#EEEEEE
@@ -36,9 +54,4 @@
 
 .XMLContainer .hasChild li li li li li li li li li{
     background-color:#666666
-}
-
-.XMLContainer ul{
-    padding-left: 20px;
-    list-style-position: inside;
 }
