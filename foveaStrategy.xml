@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<strategyRules>
+	<exploitedProfile>foveaProfile.xml</exploitedProfile>
+	<exploitedContext>foveaContext.xml</exploitedContext>
+	<OKEP>foveaOKEP.xml</OKEP>
+	<rule id="R1">
+		<priority>3</priority>
+		<if><!--  You can use <and> <or> to combine conditions  -->
+			<indicator>LP25</indicator>
+			<operator>=</operator> <!--  Also >   <    !=   -->
+			<referenceValue>absent</referenceValue>
+		</if>
+		<then>
+			<activities>
+				<activity>
+					<typeOfActivity>Social</typeOfActivity>
+					<parameters>
+						<parameter>
+							<id>P005</id>
+							<value>Twitter</value>
+						</parameter>
+					</parameters>
+				</activity>
+			</activities>
+		</then>
+		<else>
+			<!-- optional - same organization as <then> -->
+			<activities>
+				<activity>
+					<typeOfActivity>Social</typeOfActivity>
+					<parameters>
+						<parameter>
+							<id>P005</id>
+							<value>Facebook</value>
+						</parameter>
+					</parameters>
+				</activity>
+			</activities>
+		</else>
+	</rule>
+    <rule id="R2">
+		<priority>3</priority>
+		<if><!--  You can use <and> <or> to combine conditions  -->
+			<indicator>LP28</indicator>
+			<operator>=</operator> <!--  Also >   <    !=   -->
+			<referenceValue>absent</referenceValue>
+		</if>
+		<then>
+			<activities>
+				<activity>
+					<typeOfActivity>Social</typeOfActivity>
+					<parameters>
+						<parameter>
+							<id>P005</id>
+							<value>Twitter</value>
+						</parameter>
+					</parameters>
+				</activity>
+			</activities>
+		</then>
+		<else>
+			<!-- optional - same organization as <then> -->
+			<activities>
+				<activity>
+					<typeOfActivity>Social</typeOfActivity>
+					<parameters>
+						<parameter>
+							<id>P005</id>
+							<value>Facebook</value>
+						</parameter>
+					</parameters>
+				</activity>
+			</activities>
+		</else>
+	</rule>
+</strategyRules>

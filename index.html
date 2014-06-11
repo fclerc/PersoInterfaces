@@ -23,15 +23,26 @@
             $(function(){
                 
                     manipulateXML('foveaProfile.xml','#Profile', 'select', "#Rules");
-                    manipulateXML('foveaResources.xml','#Activities', 'modify', '#Rules');
+                    manipulateXML('foveaResources.xml','#Activities', 'select', '#Rules');
+                    
+                    //var rules = $.parseXML('<rules></rules>');
+                    //$(rules).append('ojbiob');
+                    var currentOperation = 'start';
+                    
                     
                     $("#Rules").on("leafValueReading", function(event, value, id, container){
                         $(event.target).append('You clicked on '+id+ ' which contains value ' + value + 'in the '+container+' part.<br/>');
+                        
+                        if(container == "#Profile"){
+                        
+                        }
+                        
                     
                     });
                     
                     
-                    
+                    var rulesString = (new XMLSerializer()).serializeToString($(rules)[0]);
+                    console.log(rulesString);
                     
                     
                     

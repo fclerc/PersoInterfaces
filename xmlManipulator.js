@@ -56,8 +56,9 @@ function manipulateXML(filename, container, mode, reader){
             
             if(mode == 'modify'){
             //the target can be 2 things : the span (thus check if it doesn't already contain an input), or the input (this don't try to add a new input into this)
-                if($(elem).children('input').length == 0 && $(elem).prop('tagName')!='INPUT'){
+                if($(elem).children('input').length == 0 && $(elem).prop('tagName')!='INPUT'){//we have to add an input
                     input=$('<input>').attr("type", "text").attr('value', value);
+                    
                     $(elem).html(input);
                     $(input).select();
                     
@@ -66,11 +67,24 @@ function manipulateXML(filename, container, mode, reader){
                             //replacing input by plain text
                             var input = event.target;
                             var value = $(input).prop('value');
-                            var id = $(input).parent().attr("id");//corresponding id in the xml tree
-                            $(input).parent().html(value);
                             
-                            //modifying value in XML tree
-                            $(xml[container]).find('[id="' + id + '"]').text(value);
+                            if($(input).parent().hasClass('attribute')){
+                                //finding the right element having this attribute
+                                var data = $(input).parent().attr('id').split('//');
+                                var id  = data[0];
+                                var attribute = data[1];
+                                $(input).parent().html(value);
+                                $(xml[container]).find('[id="' + id + '"]').attr(attribute, value);
+                            
+                            }
+                            
+                            else{//replace the value of an element
+                                var id = $(input).parent().attr("id");//corresponding id in the xml tree
+                                $(input).parent().html(value);
+                                
+                                //modifying value in XML tree
+                                $(xml[container]).find('[id="' + id + '"]').text(value);
+                            }
                         }
                     });
                 }
@@ -78,7 +92,6 @@ function manipulateXML(filename, container, mode, reader){
             
             
             else{
-                //alert($(event.target).html());
                 var value = $(event.target).html();
                 var id = $(event.target).attr('id');
                 $(reader).trigger("leafValueReading",  [value, id, container]);
@@ -89,13 +102,12 @@ function manipulateXML(filename, container, mode, reader){
 
         if(mode=='modify'){
             $(container).append($('<button>').addClass('btn btn-info').attr('id', "XMLSaveButton").html("Save modifications"));
-            //<button type="button" class="btn btn-info" id="XMLSaveButton">Save modifications</button>
         
         }
         
         
         $(container +' #XMLSaveButton').click(function(){//using ajax to store the xml on the server.
-            xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);console.log(xmlS);
+            xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
             $.post('saveXMLDocument.php', { file: filename , data: xmlS}, 
                 function(data, txt, jqXHR){
                     if(txt=="success"){
@@ -112,17 +124,29 @@ function manipulateXML(filename, container, mode, reader){
     //-if it has no child: display  its value
 function displayAndChildren(xmlNode, mode){
     //for each node : add it as an item to the list of its parent's elements (except for first element)
-    var result = $('<li>').append(xmlNode.nodeName).attr('id', 'li'+id);
+    var result = $('<li>').append(xmlNode.nodeName + ' (' + $(xmlNode).attr('id') + ') ').attr('id', 'li'+id);
     
-    if($(xmlNode).children().length>0){
+    if($(xmlNode).children().length>0 || xmlNode.attributes.length > 1){
     //if the node has children : display the list of these children.
     //reducer class enables to toggle visibility of children
     //other classes are used for style
         $(result).addClass('hasChild');
         $(result).wrapInner($('<span>'));
         $(result).prepend($('<span>').addClass('glyphicon glyphicon-minus').addClass('reducer'));
+        
         //variable containing the texts returned by the call of the function on the children (in a html list)
-        var chs = $('<ul>').attr('id', 'ul'+id);                        
+        var chs = $('<ul>').attr('id', 'ul'+id);
+        
+        $.each(xmlNode.attributes, function(i, attrib){//going through the attibutes
+            var attributesToIgnore = ["id", "xmlns:xsi", "xsi:noNamespaceSchemaLocation"]
+            if(attributesToIgnore.indexOf(attrib.name) == -1){
+                var txt = $('<li>').text(attrib.name + ' (' + $(xmlNode).attr('id') +'//'+ attrib.name + '): ').attr('id', 'li'+id);
+                id++;
+                $(txt).append($('<span>').append(attrib.value).addClass('attribute value').attr('id', $(xmlNode).attr('id') +'//'+ attrib.name ));
+                $(chs).append(txt);
+            }
+        });
+        
         $(xmlNode).children().each(function(){
             $(chs).append(displayAndChildren(this));
         });
