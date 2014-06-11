@@ -8,9 +8,16 @@
 }
 
 
-
-#Rules{
+#Rules .then >span, #Rules .else >span, #Rules .ifContainer{
+    font-weight : bold;
     
+}
 
 
+
+#Rules .ruleContainer{
+    background-color: #9999FF;
+    border-radius: 10px;
+    padding-right: 4px;
+    padding-left: 4px;
 }

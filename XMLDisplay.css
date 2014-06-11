@@ -14,6 +14,11 @@
 .XMLContainer .reducer{
     margin-right:3px;
 }
+
+#XMLSaveButton .glyphicon{
+	margin-right : 3px;
+}
+
 .XMLContainer li .hasChild{
     list-style-type: none;
 }

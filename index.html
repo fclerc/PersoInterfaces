@@ -2,6 +2,7 @@
 
 <html>
     <head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
         <link href="XMLDisplay.css" type="text/css" rel="stylesheet"/>
         <link href="RulesInterface.css" type="text/css" rel="stylesheet"/>
@@ -24,7 +25,10 @@
 	
 	</div>
 	
-		<div id="Rules" class="mains"></div>
+		<div id="Rules" class="mains">
+			<h2>Definition of pedagogical strategy</h2>
+			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> Add new Rule</button>
+		</div>
 		<div id="Activities" class="mains"></div>
 		
         <script type="text/javascript" src="jquery-2.1.1.js"></script>
@@ -43,13 +47,86 @@
 						//loading the content of the other xml docs
 						var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
 						var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
-						manipulateXML(profileFilename,'#Profile', 'select', "#Rules");
+						manipulateXML(profileFilename,'#Profile', 'modify', "#Rules");
 						manipulateXML(contextFilename,'#Context', 'select', '#Rules');
 						manipulateXML('foveaResources.xml','#Activities', 'select', '#Rules');
-
 						
-						var currentOperation = 'start';
+						$(strategy).find("rule").each(function(){
+							displayRule(this, '#ruleAdder');
+						});
+						/*
+							Argument is a xml node containing a rule .
+							This function displays the rule just before the second argument
 						
+						
+						*/
+						function displayRule(rule, insBefore){
+							var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h3>').append('Rule' + $(rule).attr('id')).append($('<span>').addClass('glyphicon glyphicon-remove-circle')));
+							
+							var ifContainer = $('<div>').addClass('ifContainer').append('IF');
+							var ifElement = $(rule).find("if")[0];
+							var indicator = $($(ifElement).find("indicator")[0]).text();
+							var operator = $($(ifElement).find("operator")[0]).text();
+							var referenceValue = $($(ifElement).find("referenceValue")[0]).text();
+							var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicator);
+							var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
+							var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
+							$(ifContainer).append(indicatorContainer)
+							$(ifContainer).append(operatorContainer)
+							$(ifContainer).append(referenceValueContainer)
+							
+							//from one of the 2 tags containing the activities (<then> or <else>), returns the activities contained in it, displayed with their parameters
+							function getConsequencesContainer(consequencesElement, containerName){
+							
+								var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(containerName.toUpperCase()+' the learner will do the following activities: '));
+								var activitiesContainer = $('<ul>');
+								$(consequencesElement).find('activity').each(function(){
+									var activityContainer = $('<li>').addClass('activityContainer');
+									var typeOfActivity = $($(rule).find("typeOfActivity")[0]).text();
+									var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+typeOfActivity + ', with parameters: ');
+									
+									var parametersContainer =$('<ul>').addClass('parameters');
+									$(rule).find('parameter').each(function(){
+										var parameterContainer = $('<li>').append($(rule).text());
+										//TODO : use parameter dictionnary
+										$(parametersContainer).append(parameterContainer);
+									});
+									$(activityContainer).append(typeOfActivityContainer);
+									$(activityContainer).append(parametersContainer);
+									$(activitiesContainer).append(activityContainer);
+								})
+								
+								return $(consequenceContainer.append(activitiesContainer));
+								
+							}
+							var thenContainer = getConsequencesContainer($(rule).find('then')[0], 'then');
+							var elseContainer = getConsequencesContainer($(rule).find('else')[0], 'else');
+							
+							$(ruleContainer).append(ifContainer);
+							$(ruleContainer).append(thenContainer);
+							$(ruleContainer).append(elseContainer);
+							$(ruleContainer).insertBefore($(insBefore));
+						
+						}
+						
+						
+						//responding to user definition of rules
+						/*
+						1: Selection of indicator
+						2: Selection of operator
+						3: referenceValue is given
+						4: Selection of activity for then
+						5: Selection of parameter for then
+						6: value of parameter is given for then
+						7: Selection of activity for else
+						8: Selection of parameter for else
+						9: value of parameter is given for else
+						
+						
+						At each time : change the xml tree, and make a new call on the displayer.
+						
+						*/
+						var currentOperation = 1;
 						
 						$("#Rules").on("leafValueReading", function(event, value, id, container){
 							$(event.target).append('You clicked on '+id+ ' which contains value ' + value + 'in the '+container+' part.<br/>');
@@ -61,9 +138,7 @@
 						
 						});
 						
-						
-						//var rulesString = (new XMLSerializer()).serializeToString($(rules)[0]);
-						//console.log(rulesString);
+
 						
 						
 						
@@ -94,8 +169,10 @@
 							});
 						}
 						alwaysVisible('#Rules');
-						alwaysVisible('#Profile');
-						alwaysVisible('#Context');
+						alwaysVisible('#Activities');
+						alwaysVisible('#ProfileAndContext');
+						
+						
 					},
 					cache: false
                 });
