@@ -19,104 +19,109 @@ function manipulateXML(filename, container, mode, reader){
     id = 0; //used to add ids to ul and li tags...not yet used
 
     
-    $.get(filename, function(data){//get the xml document
-        var xml = new Array;
-        xml[container]=$(data);//load xml tree
-        
-        
-        //going recursively through the xml, and displaying its content
-        $(container).append($('<div>').addClass('XMLContainer').addClass(filename.split('.').join("")).append(displayAndChildren($(xml[container]).children().first()[0])));
-    
-        
-        //for elements having list below them : toggle visibility of this list when clicking on the element
-        $(container +' .reducer').click(function(event){
-            var toToggle = $(event.target).next().next();
-                $(toToggle).toggle(300);
-                
-                //just changing the glyphicon
-                if($(event.target).hasClass('glyphicon-plus')){
-                    $(event.target).addClass('glyphicon-minus');
-                    $(event.target).removeClass('glyphicon-plus');
-                }
-                else{
-                    $(event.target).addClass('glyphicon-plus');
-                    $(event.target).removeClass('glyphicon-minus');
-                }
-            
-            return false;
-        });
-        
-        
-        //If element can be modified :
-        //-on click : replace it by input containing the value
-        //-when enter on the input : replace input by simple text with the new value
-        $(container +' .value').click(function(event){
-            var elem = event.target;
-            var value = $(elem).html();
-            
-            if(mode == 'modify'){
-            //the target can be 2 things : the span (thus check if it doesn't already contain an input), or the input (this don't try to add a new input into this)
-                if($(elem).children('input').length == 0 && $(elem).prop('tagName')!='INPUT'){//we have to add an input
-                    input=$('<input>').attr("type", "text").attr('value', value);
-                    
-                    $(elem).html(input);
-                    $(input).select();
-                    
-                    $(input).keyup(function (event) {//event when submiting content of input : replace by plain text and modify xml tree, based on id.
-                        if (event.keyCode == 13) {
-                            //replacing input by plain text
-                            var input = event.target;
-                            var value = $(input).prop('value');
-                            
-                            if($(input).parent().hasClass('attribute')){
-                                //finding the right element having this attribute
-                                var data = $(input).parent().attr('id').split('//');
-                                var id  = data[0];
-                                var attribute = data[1];
-                                $(input).parent().html(value);
-                                $(xml[container]).find('[id="' + id + '"]').attr(attribute, value);
-                            
-                            }
-                            
-                            else{//replace the value of an element
-                                var id = $(input).parent().attr("id");//corresponding id in the xml tree
-                                $(input).parent().html(value);
-                                
-                                //modifying value in XML tree
-                                $(xml[container]).find('[id="' + id + '"]').text(value);
-                            }
-                        }
-                    });
-                }
-            }
-            
-            
-            else{
-                var value = $(event.target).html();
-                var id = $(event.target).attr('id');
-                $(reader).trigger("leafValueReading",  [value, id, container]);
-            }
-            
-            return false;
-        });                   
+    $.ajax({
+		type: "GET",
+		url: filename,
+		success: function(data){//get the xml document
+			var xml = new Array;
+			xml[container]=$(data);//load xml tree
+			
+			
+			//going recursively through the xml, and displaying its content
+			$(container).append($('<div>').addClass('XMLContainer').addClass(filename.split('.').join("")).append(displayAndChildren($(xml[container]).children().first()[0])));
+		
+			
+			//for elements having list below them : toggle visibility of this list when clicking on the element
+			$(container +' .reducer').click(function(event){
+				var toToggle = $(event.target).next().next();
+					$(toToggle).toggle(300);
+					
+					//just changing the glyphicon
+					if($(event.target).hasClass('glyphicon-plus')){
+						$(event.target).addClass('glyphicon-minus');
+						$(event.target).removeClass('glyphicon-plus');
+					}
+					else{
+						$(event.target).addClass('glyphicon-plus');
+						$(event.target).removeClass('glyphicon-minus');
+					}
+				
+				return false;
+			});
+			
+			
+			//If element can be modified :
+			//-on click : replace it by input containing the value
+			//-when enter on the input : replace input by simple text with the new value
+			$(container +' .value').click(function(event){
+				var elem = event.target;
+				var value = $(elem).html();
+				
+				if(mode == 'modify'){
+				//the target can be 2 things : the span (thus check if it doesn't already contain an input), or the input (this don't try to add a new input into this)
+					if($(elem).children('input').length == 0 && $(elem).prop('tagName')!='INPUT'){//we have to add an input
+						input=$('<input>').attr("type", "text").attr('value', value);
+						
+						$(elem).html(input);
+						$(input).select();
+						
+						$(input).keyup(function (event) {//event when submiting content of input : replace by plain text and modify xml tree, based on id.
+							if (event.keyCode == 13) {
+								//replacing input by plain text
+								var input = event.target;
+								var value = $(input).prop('value');
+								
+								if($(input).parent().hasClass('attribute')){
+									//finding the right element having this attribute
+									var data = $(input).parent().attr('id').split('//');
+									var id  = data[0];
+									var attribute = data[1];
+									$(input).parent().html(value);
+									$(xml[container]).find('[id="' + id + '"]').attr(attribute, value);
+								
+								}
+								
+								else{//replace the value of an element
+									var id = $(input).parent().attr("id");//corresponding id in the xml tree
+									$(input).parent().html(value);
+									
+									//modifying value in XML tree
+									$(xml[container]).find('[id="' + id + '"]').text(value);
+								}
+							}
+						});
+					}
+				}
+				
+				
+				else{
+					var value = $(event.target).html();
+					var id = $(event.target).attr('id');
+					$(reader).trigger("leafValueReading",  [value, id, container]);
+				}
+				
+				return false;
+			});                   
 
-        if(mode=='modify'){
-            $(container).append($('<button>').addClass('btn btn-info').attr('id', "XMLSaveButton").html("Save modifications"));
-        
-        }
-        
-        
-        $(container +' #XMLSaveButton').click(function(){//using ajax to store the xml on the server.
-            xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
-            $.post('saveXMLDocument.php', { file: filename , data: xmlS}, 
-                function(data, txt, jqXHR){
-                    if(txt=="success"){
-                        alert('Your data have been successfully saved');
-                    }
-                }
-            );
-        });
-    });
+			if(mode=='modify'){
+				$(container).append($('<button>').addClass('btn btn-info').attr('id', "XMLSaveButton").html("Save modifications"));
+			
+			}
+			
+			
+			$(container +' #XMLSaveButton').click(function(){//using ajax to store the xml on the server.
+				xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
+				$.post('saveXMLDocument.php', { file: filename , data: xmlS}, 
+					function(data, txt, jqXHR){
+						if(txt=="success"){
+							alert('Your data have been successfully saved');
+						}
+					}
+				);
+			});
+		},
+		cache: false
+	});
 }        
         
     //this function takes a XML node as argument, and returns an element <li> containing his Name, and:

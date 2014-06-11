@@ -23,17 +23,15 @@
             $(function(){
                 
 				$.get('foveaStrategy.xml', function(data){//get the xml document
-					//var xml = new Array;
-					//xml['strategy']= $(data);//load xml tree
 					var strategy = $(data);//load xml tree
 					
-					var profileFilename = $($(strategy).find('exploitedProfile')[0]).html();
-					var contextFilename = $($(strategy).find('exploitedContext')[0]).html();
-                    manipulateXML(profileFilename,'#Profile', 'select', "#Rules");
+					//loading the content of the other xml docs
+					var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
+					var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
+					manipulateXML(profileFilename,'#Profile', 'modify', "#Rules");
                     manipulateXML(contextFilename,'#Context', 'select', '#Rules');
-                    
-                    //var rules = $.parseXML('<rules></rules>');
-                    //$(rules).append('ojbiob');
+
+					
                     var currentOperation = 'start';
                     
                     
