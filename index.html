@@ -12,74 +12,92 @@
     </head>
     
     <body>
-    <div id="Profile" class="mains"></div>
-    <div id="Rules" class="mains"></div>
-    <div id="Context" class="mains"></div>
+	<div id="ProfileAndContext" class="mains">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#Profile" data-toggle="tab">Profile</a></li>
+			<li><a href="#Context" data-toggle="tab">Context</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="Profile"></div>
+			<div class="tab-pane" id="Context"></div>
+		</div>
+	
+	</div>
+	
+		<div id="Rules" class="mains"></div>
+		<div id="Activities" class="mains"></div>
+		
         <script type="text/javascript" src="jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
         
         <script type="text/javascript" src="xmlManipulator.js"></script>
         <script type="text/javascript">
         
             $(function(){
-                
-				$.get('foveaStrategy.xml', function(data){//get the xml document
-					var strategy = $(data);//load xml tree
-					
-					//loading the content of the other xml docs
-					var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
-					var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
-					manipulateXML(profileFilename,'#Profile', 'modify', "#Rules");
-                    manipulateXML(contextFilename,'#Context', 'select', '#Rules');
+                $.ajax({
+					type: "GET",
+					url: 'foveaStrategy.xml',
+					success: function(data){//get the xml document
+						var strategy = $(data);//load xml tree
+						
+						//loading the content of the other xml docs
+						var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
+						var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
+						manipulateXML(profileFilename,'#Profile', 'select', "#Rules");
+						manipulateXML(contextFilename,'#Context', 'select', '#Rules');
+						manipulateXML('foveaResources.xml','#Activities', 'select', '#Rules');
 
-					
-                    var currentOperation = 'start';
-                    
-                    
-                    $("#Rules").on("leafValueReading", function(event, value, id, container){
-                        $(event.target).append('You clicked on '+id+ ' which contains value ' + value + 'in the '+container+' part.<br/>');
-                        
-                        if(container == "#Profile"){
-                        
-                        }
-                        
-                    
-                    });
-                    
-                    
-                    //var rulesString = (new XMLSerializer()).serializeToString($(rules)[0]);
-                    //console.log(rulesString);
-                    
-                    
-                    
-                    
-                    
-					//function used to keep the colons always visible when scrolling
-					function alwaysVisible(elementId){
-						var initialTop = $(elementId).offset().top;
-					
-						$(document).scroll(function(){
-							var bottomWindowPosition = $(document).scrollTop() + $(window).height();
+						
+						var currentOperation = 'start';
+						
+						
+						$("#Rules").on("leafValueReading", function(event, value, id, container){
+							$(event.target).append('You clicked on '+id+ ' which contains value ' + value + 'in the '+container+' part.<br/>');
 							
-							if(bottomWindowPosition < $(document).height()){
+							if(container == "#Profile"){
+							
+							}
+							
+						
+						});
+						
+						
+						//var rulesString = (new XMLSerializer()).serializeToString($(rules)[0]);
+						//console.log(rulesString);
+						
+						
+						
+						
+						
+						//function used to keep the colons always visible when scrolling
+						function alwaysVisible(elementId){
+							var initialTop = $(elementId).offset().top;
+						
+							$(document).scroll(function(){
+								var bottomWindowPosition = $(document).scrollTop() + $(window).height();
 								
-								if($(elementId).height() < bottomWindowPosition){
-									if($(elementId).height() > $(window).height()){
-										$(elementId).css('margin-top',initialTop + bottomWindowPosition - $(elementId).height());
+								if(bottomWindowPosition < $(document).height()){
+									
+									if($(elementId).height() < bottomWindowPosition){
+										if($(elementId).height() > $(window).height()){
+											$(elementId).css('margin-top',initialTop + bottomWindowPosition - $(elementId).height());
+										}
+										else{
+											$(elementId).css('margin-top',initialTop + $(document).scrollTop());
+										}
+										
 									}
 									else{
-										$(elementId).css('margin-top',initialTop + $(document).scrollTop());
+										$(elementId).css('margin-top',initialTop);
 									}
-									
 								}
-								else{
-									$(elementId).css('margin-top',initialTop);
-								}
-							}
-						});
-					}
-					alwaysVisible('#Rules');
-					alwaysVisible('#Profile');
-					alwaysVisible('#Context');
+							});
+						}
+						alwaysVisible('#Rules');
+						alwaysVisible('#Profile');
+						alwaysVisible('#Context');
+					},
+					cache: false
                 });
             
             });
