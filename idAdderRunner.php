@@ -2,5 +2,5 @@
     include 'XMLIdAdder.class.php';
     $x = new XMLIdAdder();
     
-    $x->addIdsToXML('foveaResources.xml', 'R', '', 'all');
+    $x->addIdsToXML('foveaContext.xml', 'CTX', '', 'all');
 ?>

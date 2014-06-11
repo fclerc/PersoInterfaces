@@ -2,6 +2,10 @@
     font-style: italic;   
 }
 
+.XMLContainer span.value:hover{
+	background-color : green;
+}
+
 .XMLContainer ul{
     padding-left: 20px;
     list-style-position: inside;

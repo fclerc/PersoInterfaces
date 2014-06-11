@@ -14,7 +14,7 @@
     <body>
     <div id="Profile" class="mains"></div>
     <div id="Rules" class="mains"></div>
-    <div id="Activities" class="mains"></div>
+    <div id="Context" class="mains"></div>
         <script type="text/javascript" src="jquery-2.1.1.js"></script>
         
         <script type="text/javascript" src="xmlManipulator.js"></script>
@@ -22,8 +22,15 @@
         
             $(function(){
                 
-                    manipulateXML('foveaProfile.xml','#Profile', 'select', "#Rules");
-                    manipulateXML('foveaResources.xml','#Activities', 'select', '#Rules');
+				$.get('foveaStrategy.xml', function(data){//get the xml document
+					//var xml = new Array;
+					//xml['strategy']= $(data);//load xml tree
+					var strategy = $(data);//load xml tree
+					
+					var profileFilename = $($(strategy).find('exploitedProfile')[0]).html();
+					var contextFilename = $($(strategy).find('exploitedContext')[0]).html();
+                    manipulateXML(profileFilename,'#Profile', 'select', "#Rules");
+                    manipulateXML(contextFilename,'#Context', 'select', '#Rules');
                     
                     //var rules = $.parseXML('<rules></rules>');
                     //$(rules).append('ojbiob');
@@ -41,41 +48,41 @@
                     });
                     
                     
-                    var rulesString = (new XMLSerializer()).serializeToString($(rules)[0]);
-                    console.log(rulesString);
+                    //var rulesString = (new XMLSerializer()).serializeToString($(rules)[0]);
+                    //console.log(rulesString);
                     
                     
                     
                     
                     
-                //function used to keep the colons always visible when scrolling
-                function alwaysVisible(elementId){
-                    var initialTop = $(elementId).offset().top;
-                
-                    $(document).scroll(function(){
-                        var bottomWindowPosition = $(document).scrollTop() + $(window).height();
-                        
-                        if(bottomWindowPosition < $(document).height()){
-                            
-                            if($(elementId).height() < bottomWindowPosition){
-                                if($(elementId).height() > $(window).height()){
-                                    $(elementId).css('margin-top',initialTop + bottomWindowPosition - $(elementId).height());
-                                }
-                                else{
-                                    $(elementId).css('margin-top',initialTop + $(document).scrollTop());
-                                }
-                                
-                            }
-                            else{
-                                $(elementId).css('margin-top',initialTop);
-                            }
-                        }
-                    });
-                }
-                alwaysVisible('#Rules');
-                alwaysVisible('#Profile');
-                alwaysVisible('#Activities');
-                
+					//function used to keep the colons always visible when scrolling
+					function alwaysVisible(elementId){
+						var initialTop = $(elementId).offset().top;
+					
+						$(document).scroll(function(){
+							var bottomWindowPosition = $(document).scrollTop() + $(window).height();
+							
+							if(bottomWindowPosition < $(document).height()){
+								
+								if($(elementId).height() < bottomWindowPosition){
+									if($(elementId).height() > $(window).height()){
+										$(elementId).css('margin-top',initialTop + bottomWindowPosition - $(elementId).height());
+									}
+									else{
+										$(elementId).css('margin-top',initialTop + $(document).scrollTop());
+									}
+									
+								}
+								else{
+									$(elementId).css('margin-top',initialTop);
+								}
+							}
+						});
+					}
+					alwaysVisible('#Rules');
+					alwaysVisible('#Profile');
+					alwaysVisible('#Context');
+                });
             
             });
             
