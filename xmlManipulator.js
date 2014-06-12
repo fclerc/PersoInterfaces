@@ -110,7 +110,7 @@ function manipulateXML(filename, container, mode, reader){
 			
 			
 			$(container +' #XMLSaveButton').click(function(){//using ajax to store the xml on the server.
-				xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
+				var xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
 				$.post('saveXMLDocument.php', { file: filename , data: xmlS}, 
 					function(data, txt, jqXHR){
 						if(txt=="success"){

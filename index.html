@@ -28,7 +28,11 @@
 	
 		<div id="Rules" class="mains">
 			<h2>Definition of pedagogical strategy</h2>
+			<div id="newRuleContainer"></div>
+			<div id="newRuleInstruction"></div>
+			<div id="newRuleForm"></div>
 			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> Add new Rule</button>
+			<button id="ruleSaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save my strategy</button>
 		</div>
 		<div id="Activities" class="mains">
 			<h2>Selection of the activities</h2>
@@ -61,9 +65,7 @@
 						var parametersDictionnary= new Object;
 								
 								
-						$(strategy).find("rule").each(function(){
-							displayRule(this, '#ruleAdder');
-						});
+						
 						
 						
 						$.ajax({
@@ -91,6 +93,7 @@
 									}
 								});
 								
+								
 								//going through activities to display them and their parameters as lists.
 								$(xml['#Activities']).find('TypeOfActivity').each(function(){
 									$(activitiesContainer).append(displayActivity(this, allActivityParameters));
@@ -99,7 +102,8 @@
 								
 								$('#Activities').append(activitiesContainer);
 								
-								//setting events when clicking in activities and parameters
+								//setting events when clicking on activities and parameters
+								
 								//event when clicking on activity names. Msg is 'activity', id, '#Activities' 
 								$('#Activities .activity > span').click(function(event){
 								
@@ -110,13 +114,23 @@
 								$('#Activities .parameters li').click(function(event){
 									var parameterId = $(event.target).attr('id');
 									$(reader).trigger("leafValueReading",  ['parameter', parameterId, '#Activities']);
-									console.log(parameterId);
+								});
+								
+								
+								//displaying the rules in the center part of the page.
+								//placed here in the code : the parametersDictionnary is defined just above and ready to be used.
+								$(strategy).find("rule").each(function(){
+									displayRule(this, '#newRuleContainer');
 								});
 								
 								
 							},
 							cache: false
 						});
+						
+						
+						
+						
 						
 						/*
 						Takes an xml element containing the activity, and the list of parameters contained in the 'All' activity.
@@ -141,9 +155,6 @@
 								});
 								
 								$(activityContainer).append(parametersContainer);
-								
-								
-								
 								return activityContainer;
 							}
 							
@@ -168,11 +179,6 @@
 								parametersDictionnary[parameterId] = parameterName;
 							}
 						}
-						
-						
-						
-						
-						
 						
 						
 						
@@ -222,7 +228,7 @@
 							var ifElement = $(rule).find("if")[0];
 							var indicator = $($(ifElement).find("indicator")[0]).text();
 							var operator = $($(ifElement).find("operator")[0]).text();
-							var referenceValue = $($(ifElement).find("referenceValue")[0]).text();
+							var referenceValue = $($(ifElement).find("referencevalue")[0]).text();
 							var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicator);
 							var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
 							var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
@@ -237,12 +243,14 @@
 								var activitiesContainer = $('<ul>');
 								$(consequencesElement).find('activity').each(function(){
 									var activityContainer = $('<li>').addClass('activityContainer');
-									var typeOfActivity = $($(rule).find("typeOfActivity")[0]).text();
+									var typeOfActivity = $($(this).find("typeofactivity")[0]).text();
 									var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+typeOfActivity + ', with parameters: ');
 									
 									var parametersContainer =$('<ul>').addClass('parameters');
-									$(rule).find('parameter').each(function(){
-										var parameterContainer = $('<li>').append($(rule).text());
+									$(consequencesElement).find('parameter').each(function(){
+										var paramId = $($(this).find('id')[0]).text();
+										var paramValue = $($(this).find('value')[0]).text();
+										var parameterContainer = $('<li>').append(parametersDictionnary[paramId]+': ' + paramValue);
 										//TODO : use parameter dictionnary
 										$(parametersContainer).append(parameterContainer);
 									});
@@ -281,19 +289,154 @@
 						At each time : change the xml tree, and make a new call on the displayer.
 						
 						*/
-						var currentOperation = 1;
-						var buil
+						var currentOperation = 0;
+						var instructions = ['Click on new rule', 'Choose the indicator you want to base your rule on from the profile or the context', 'Choose the operator you want to use in this rule in the form below', 'Give the value used for the comparison', 'Select the activity for the then part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Select the activity for the else part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter']
+						
+						//used in last operations, to know whether we are in the definition of <then> or <else>
+						var operationToConsequence = ['', '', '', '', 'then','then','then','else','else','else'];
+						
+						var builtRule = new Object;
+						
+						var lastParameter;//used in stages when asking parameter value to the user, to add this parameter the <value>
 						
 						$("#Rules").on("leafValueReading", function(event, value, id, container){
-							$(event.target).append('You clicked on '+id+ ' which contains value ' + value + 'in the '+container+' part.<br/>');
 							
-							if(container == "#Profile"){
+							if(currentOperation ==1){//user gives an indicator, other things are just ignored
 							
+								if(container == "#Profile"){
+									$(builtRule).append($('<if>').append($('<indicator>').text(id)));
+									
+									var operatorSelect = $('<select>');
+									var operators = ['=', '>', '<', '!='];
+									$(operators).each(function(id, op){
+										$(operatorSelect).append($('<option>').append(op));
+									});
+									$('#newRuleForm').append(operatorSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
+									
+									$('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
+										var op = $('#newRuleForm select').val();
+										$(reader).trigger("leafValueReading",  [op, 0, '#newRuleForm']);									
+									});
+									
+									currentOperation = 2;
+								}
+							}
+							
+							else if(currentOperation ==2){//received event contains the operator
+								if(container=='#newRuleForm'){
+									var op = $('<operator>').text(value);
+									op.insertAfter($($(builtRule).find('indicator')[0]))
+									
+									displayValueInput();
+									
+									currentOperation = 3;
+								}
+							}
+							
+							else if(currentOperation == 3){//event contains the value to compare the indicator with
+								if(container=='#newRuleForm'){
+									var refVal = $('<referencevalue>').text(value);
+									refVal.insertAfter($($(builtRule).find('operator')[0]))
+									
+									removeForms();
+									
+									currentOperation = 4;
+								}
+							
+							
+							
+							}
+							
+							else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts)
+								if(container=='#Activities' && value == 'activity'){
+									$(builtRule).append($('<'+operationToConsequence[currentOperation]+'>').append($('<activities>').append($('<activity>').append($('<typeofactivity>').append(id)).append($('<parameters>')))));
+									currentOperation++;
+								}
+							}
+							
+							else if(currentOperation == 5 ||currentOperation==8){//a parameter has been clicked on
+								if(container=='#Activities' && value == 'parameter'){
+									var activity = $($(builtRule).find(operationToConsequence[currentOperation])[0]).find('activity').last();
+									
+									var parameter = $('<parameter>').append($('<id>').text(id));
+									
+									$($(activity).find('parameters')[0]).append(parameter);
+									displayValueInput();
+									lastParameter = parameter;
+									currentOperation++;
+								}
+							}
+							
+							else if(currentOperation == 6 || currentOperation == 9){
+								
+								if(container == '#newRuleForm'){
+									$(lastParameter).append($('<value>').append(value));
+									removeForms();
+									currentOperation++;
+									if(currentOperation == 10){
+										currentOperation = 0;
+										$($(strategy).find('strategyRules')[0]).append(builtRule);
+										displayRule(builtRule, '#newRuleContainer');
+										$('#newRuleContainer').empty();
+										$('#newRuleInstruction').text('Success, your rule has been created! You can create another one if you want');
+										
+									}
+								}
+							}
+							//displaying the currently built rule
+							if(currentOperation != 0){
+								$('#newRuleContainer').text('');//empty the container
+								$('#newRuleContainer').append($('<div>').attr('id', 'emptyDiv'));//adding empty div to pass it as insBeofre argument in displayRule function
+								(displayRule(builtRule[0], '#emptyDiv'));//displaying the in-process rule
+								$('#newRuleInstruction').text(instructions[currentOperation]);//giving next instruction to the user
+							}
+							
+							
+							
+							
+							//displays the value input together with a button to click on
+							function displayValueInput(){							
+								var valueInput = $('<input>').attr('type', 'text');
+								removeForms();
+								
+								$('#newRuleForm').append(valueInput);
+								$('#newRuleForm').append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
+								
+								$('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
+									var val = $('#newRuleForm input').val();
+									$(reader).trigger("leafValueReading",  [val, 0, '#newRuleForm']);									
+								});
+							}
+							
+							//removes all forms in the rules part.
+							function removeForms(){
+								$('#newRuleForm select').remove();
+								$('#newRuleForm .glyphicon').remove();
+								$('#newRuleForm input').remove();
 							}
 							
 						
 						});
 						
+						$('#ruleAdder').click(function(){
+							if(currentOperation == 0){
+								currentOperation = 1;
+								builtRule = $('<rule>');
+								$('#newRuleInstruction').text(instructions[currentOperation]);
+							}
+						});
+						
+						$('#ruleSaver').click(function(){
+							var xmlS = (new XMLSerializer()).serializeToString(strategy[0]);
+							$.post('saveXMLDocument.php', { file: 'foveaStrategy.xml' , data: xmlS}, 
+								function(data, txt, jqXHR){
+									if(txt=="success"){
+										alert('Your data have been successfully saved');
+									}
+								}
+							);
+						
+						});
 
 						
 						

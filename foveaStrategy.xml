@@ -9,12 +9,12 @@
 		<if><!--  You can use <and> <or> to combine conditions  -->
 			<indicator>LP25</indicator>
 			<operator>=</operator> <!--  Also >   <    !=   -->
-			<referenceValue>absent</referenceValue>
+			<referencevalue>absent</referencevalue>
 		</if>
 		<then>
 			<activities>
 				<activity>
-					<typeOfActivity>Social</typeOfActivity>
+					<typeofactivity>A002</typeofactivity>
 					<parameters>
 						<parameter>
 							<id>P005</id>
@@ -28,10 +28,10 @@
 			<!-- optional - same organization as <then> -->
 			<activities>
 				<activity>
-					<typeOfActivity>Social</typeOfActivity>
+					<typeofactivity>A002</typeofactivity>
 					<parameters>
 						<parameter>
-							<id>P005</id>
+							<id>P002</id>
 							<value>Facebook</value>
 						</parameter>
 					</parameters>
@@ -44,12 +44,12 @@
 		<if><!--  You can use <and> <or> to combine conditions  -->
 			<indicator>LP28</indicator>
 			<operator>=</operator> <!--  Also >   <    !=   -->
-			<referenceValue>absent</referenceValue>
+			<referencevalue>absent</referencevalue>
 		</if>
 		<then>
 			<activities>
 				<activity>
-					<typeOfActivity>Social</typeOfActivity>
+					<typeofactivity>A002</typeofactivity>
 					<parameters>
 						<parameter>
 							<id>P005</id>
@@ -63,7 +63,7 @@
 			<!-- optional - same organization as <then> -->
 			<activities>
 				<activity>
-					<typeOfActivity>Social</typeOfActivity>
+					<typeofactivity>A002</typeofactivity>
 					<parameters>
 						<parameter>
 							<id>P005</id>
@@ -74,4 +74,4 @@
 			</activities>
 		</else>
 	</rule>
-</strategyRules>
+<rule xmlns="http://www.w3.org/1999/xhtml"><if><indicator>LP43//scale</indicator><operator>&lt;</operator><referencevalue>AZ</referencevalue></if><then><activities><activity><typeofactivity>toto</typeofactivity><parameters><parameter><id>P004</id><value>ze</value></parameter></parameters></activity></activities></then><else><activities><activity><typeofactivity>A004</typeofactivity><parameters><parameter><id>P003</id><value>rt</value></parameter></parameters></activity></activities></else></rule><rule xmlns="http://www.w3.org/1999/xhtml"><if><indicator>LP43//scale</indicator><operator>&lt;</operator><referencevalue>truc</referencevalue></if><then><activities><activity><typeofactivity>A003</typeofactivity><parameters><parameter><id>P003</id><value>tr</value></parameter></parameters></activity></activities></then><else><activities><activity><typeofactivity>A004</typeofactivity><parameters><parameter><id>P003</id><value>rt</value></parameter></parameters></activity></activities></else></rule></strategyRules>
