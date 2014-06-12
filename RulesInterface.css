@@ -13,6 +13,7 @@
 
 #Activities .activity li:hover, #Activities .activity >span:hover{
     background-color: green;
+	cursor: pointer;
 }
 
 #Activities >ul{
@@ -26,6 +27,8 @@
 #Rules{
     width : 39%;
 }
+
+
 
 #Activities{
     width : 16%;
@@ -45,6 +48,7 @@
     
 }
 
+
 #Rules .glyphicon-remove-circle{
     margin-left: 10px;
     margin-top: 2px;
@@ -61,4 +65,28 @@
     border-radius: 10px;
     padding-right: 4px;
     padding-left: 4px;
+}
+
+#Rules #newRuleInstruction{
+    font-style: italic;
+    margin-bottom:5px;
+    background-color: #77FF77;
+    padding:3px;
+    border-radius: 5px;
+}
+
+#Rules #newRuleForm .glyphicon{
+    margin-left:5px;
+    color:#116611
+}
+
+#Rules #newRuleForm .glyphicon:hover{
+    margin-left:5px;
+    color:#116611;
+	cursor: pointer;
+	
+}
+
+#Rules #newRuleForm{
+    margin-bottom:5px;   
 }
