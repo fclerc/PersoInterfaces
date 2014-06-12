@@ -61,7 +61,7 @@
 						
 						*/
 						function displayRule(rule, insBefore){
-							var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h3>').append('Rule' + $(rule).attr('id')).append($('<span>').addClass('glyphicon glyphicon-remove-circle')));
+							var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h3>').append('Rule' + $(rule).attr('id')).append($('<span>').addClass('glyphicon glyphicon-remove-circle pull-right')));
 							
 							var ifContainer = $('<div>').addClass('ifContainer').append('IF');
 							var ifElement = $(rule).find("if")[0];
