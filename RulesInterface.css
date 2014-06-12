@@ -1,12 +1,44 @@
+#Activities .activity{
+	background-color: #FF9999;
+    list-style-type: none;
+    border : 1px solid black;
+    border-radius: 10px;
+    padding: 2px;
+    margin-bottom: 5px;
+}
+
+#Activities .activity >span{
+    font-weight: bold;
+}
+
+#Activities .activity li:hover, #Activities .activity >span:hover{
+    background-color: green;
+}
+
+#Activities >ul{
+    padding-left:5px;
+}
+
+#ProfileAndContext{
+    width : 39%;
+}
+
+#Rules{
+    width : 39%;
+}
+
+#Activities{
+    width : 16%;
+}
+
 .mains{
-    width : 32%;
+    /*width : 32%;*/
     float:left;
     padding:0.1%;
     margin:0.1%;
-    
+	margin-right: 1.2%;
     border : 1px dotted black;
 }
-
 
 #Rules .then >span, #Rules .else >span, #Rules .ifContainer{
     font-weight : bold;

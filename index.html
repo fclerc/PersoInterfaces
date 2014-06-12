@@ -51,9 +51,10 @@
 						var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
 						var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
 						var pedagogicalPropertiesFilename = $($(strategy).find('pedagogicalProperties')[0]).text();
-						manipulateXML(profileFilename,'#Profile', 'modify', "#Rules");
+						manipulateXML(profileFilename,'#Profile', 'select', "#Rules");
 						manipulateXML(contextFilename,'#Context', 'select', '#Rules');	
 						
+						//the element which triggers events to treat them when an element is clicked.
 						var reader = $('#Rules');
 						
 						//this object will be used as a dictionnary to make a list of parameters corresponding to their IDs, like 'P012' : 'Length' .
@@ -74,7 +75,7 @@
 								
 								
 								
-								
+								//the element that will contain all the activities
 								var activitiesContainer = $('<ul>').addClass('activities');
 								
 								//going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters.
@@ -90,7 +91,7 @@
 									}
 								});
 								
-								
+								//going through activities to display them and their parameters as lists.
 								$(xml['#Activities']).find('TypeOfActivity').each(function(){
 									$(activitiesContainer).append(displayActivity(this, allActivityParameters));
 								});
@@ -98,13 +99,14 @@
 								
 								$('#Activities').append(activitiesContainer);
 								
-								//TODO
+								//setting events when clicking in activities and parameters
+								//event when clicking on activity names. Msg is 'activity', id, '#Activities' 
 								$('#Activities .activity > span').click(function(event){
+								
 									var activityId = $(event.target).attr('id');
 									$(reader).trigger("leafValueReading",  ['activity', activityId, '#Activities']);
 								});
-								
-								
+								//event when clicking on parameters names. Msg is 'parameter', id, '#Activities' 
 								$('#Activities .parameters li').click(function(event){
 									var parameterId = $(event.target).attr('id');
 									$(reader).trigger("leafValueReading",  ['parameter', parameterId, '#Activities']);
@@ -116,7 +118,12 @@
 							cache: false
 						});
 						
+						/*
+						Takes an xml element containing the activity, and the list of parameters contained in the 'All' activity.
+						Returns the html.
 						
+						
+						*/
 						function displayActivity(activity, allActivityParameters){
 							var activityName = $($(activity).children('Name')[0]).text();
 							var activityId = $(activity).attr('ID');
@@ -145,7 +152,11 @@
 							}
 						}
 						
+						/*
+						Takes a parameter xml element, with the div which will have to contain it.
+						Appends the container with html.
 						
+						*/
 						function addParameterToList(parameter, container){
 							var parameterName = $($(parameter).children('Name')[0]).text();
 							var parameterId = $(parameter).attr('ID');
@@ -157,17 +168,6 @@
 								parametersDictionnary[parameterId] = parameterName;
 							}
 						}
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
 						
 						
 						
@@ -212,8 +212,7 @@
 						
 						/*
 							Argument is a xml node containing a rule .
-							This function displays the rule just before the second argument
-						
+							This function displays the rule just before the second argument insBefore
 						
 						*/
 						function displayRule(rule, insBefore){
@@ -283,6 +282,7 @@
 						
 						*/
 						var currentOperation = 1;
+						var buil
 						
 						$("#Rules").on("leafValueReading", function(event, value, id, container){
 							$(event.target).append('You clicked on '+id+ ' which contains value ' + value + 'in the '+container+' part.<br/>');
