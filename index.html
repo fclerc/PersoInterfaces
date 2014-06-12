@@ -14,6 +14,7 @@
     
     <body>
 	<div id="ProfileAndContext" class="mains">
+		<h2>Selection of indicators</h2>
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#Profile" data-toggle="tab">Profile</a></li>
 			<li><a href="#Context" data-toggle="tab">Context</a></li>
@@ -29,7 +30,9 @@
 			<h2>Definition of pedagogical strategy</h2>
 			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> Add new Rule</button>
 		</div>
-		<div id="Activities" class="mains"></div>
+		<div id="Activities" class="mains">
+			<h2>Selection of the activities</h2>
+		</div>
 		
         <script type="text/javascript" src="jquery-2.1.1.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -47,13 +50,166 @@
 						//loading the content of the other xml docs
 						var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
 						var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
+						var pedagogicalPropertiesFilename = $($(strategy).find('pedagogicalProperties')[0]).text();
 						manipulateXML(profileFilename,'#Profile', 'modify', "#Rules");
-						manipulateXML(contextFilename,'#Context', 'select', '#Rules');
-						manipulateXML('foveaResources.xml','#Activities', 'select', '#Rules');
+						manipulateXML(contextFilename,'#Context', 'select', '#Rules');	
 						
+						var reader = $('#Rules');
+						
+						//this object will be used as a dictionnary to make a list of parameters corresponding to their IDs, like 'P012' : 'Length' .
+						var parametersDictionnary= new Object;
+								
+								
 						$(strategy).find("rule").each(function(){
 							displayRule(this, '#ruleAdder');
 						});
+						
+						
+						$.ajax({
+							type: "GET",
+							url: pedagogicalPropertiesFilename,
+							success: function(data){
+								var xml = new Array;
+								xml['#Activities']=$(data);//load xml tree
+								
+								
+								
+								
+								var activitiesContainer = $('<ul>').addClass('activities');
+								
+								//going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters.
+								var allActivityParameters = new Array;
+								$(xml['#Activities']).find('TypeOfActivity').each(function(){
+									var activity = this;
+									var activityName = $($(activity).children('Name')[0]).text();
+							
+									if(activityName == 'All'){
+										$(activity).find('Parameter').each(function(){
+											allActivityParameters.push(this);
+										});
+									}
+								});
+								
+								
+								$(xml['#Activities']).find('TypeOfActivity').each(function(){
+									$(activitiesContainer).append(displayActivity(this, allActivityParameters));
+								});
+								
+								
+								$('#Activities').append(activitiesContainer);
+								
+								//TODO
+								$('#Activities .activity > span').click(function(event){
+									var activityId = $(event.target).attr('id');
+									$(reader).trigger("leafValueReading",  ['activity', activityId, '#Activities']);
+								});
+								
+								
+								$('#Activities .parameters li').click(function(event){
+									var parameterId = $(event.target).attr('id');
+									$(reader).trigger("leafValueReading",  ['parameter', parameterId, '#Activities']);
+									console.log(parameterId);
+								});
+								
+								
+							},
+							cache: false
+						});
+						
+						
+						function displayActivity(activity, allActivityParameters){
+							var activityName = $($(activity).children('Name')[0]).text();
+							var activityId = $(activity).attr('ID');
+							if(activityName != 'All'){//the 'All' activity is only used to factorize parameters that apply to all activities, and is therefore not displayed
+								//displaying the parameters of the activity, including the parameters contained in the 'All' activity
+								var activityContainer=$('<li>').addClass('activity').append($('<span>').append(activityName).attr('id', activityId));
+								
+								var parametersContainer =$('<ul>').addClass('parameters');
+								
+								$(allActivityParameters).each(function(){
+									addParameterToList(this, parametersContainer);								
+								});
+								$(activity).find('Parameter').each(function(){
+									addParameterToList(this, parametersContainer);
+								});
+								
+								$(activityContainer).append(parametersContainer);
+								
+								
+								
+								return activityContainer;
+							}
+							
+							else{								
+								return '';
+							}
+						}
+						
+						
+						function addParameterToList(parameter, container){
+							var parameterName = $($(parameter).children('Name')[0]).text();
+							var parameterId = $(parameter).attr('ID');
+							var parameterComment = $($(parameter).children('Comment')[0]).text();//TODO : use it and use scales
+							var parameterContainer = $('<li>').append(parameterName).attr('id', parameterId);
+							$(container).append(parameterContainer);
+							
+							if(!parametersDictionnary.hasOwnProperty(parameterId)){
+								parametersDictionnary[parameterId] = parameterName;
+							}
+						}
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						function getParameterId(parameterName){
+							$.each(parametersDictionnary, function(id, value){
+								if(value==parameterName){
+									return id;
+								}
+							});
+						}
+						
+						
+						
+						
+						
+						
+						
+						/*
+						
+						
+						
+						
+						Rules Section
+						
+						*/
+						
+						
+						
+						
+						
+						
+						
+						
 						/*
 							Argument is a xml node containing a rule .
 							This function displays the rule just before the second argument

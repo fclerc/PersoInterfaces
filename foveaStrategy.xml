@@ -3,6 +3,7 @@
 	<exploitedProfile>foveaProfile.xml</exploitedProfile>
 	<exploitedContext>foveaContext.xml</exploitedContext>
 	<OKEP>foveaOKEP.xml</OKEP>
+	<pedagogicalProperties>foveaPedagogicalProperties.xml</pedagogicalProperties>
 	<rule id="R1">
 		<priority>3</priority>
 		<if><!--  You can use <and> <or> to combine conditions  -->

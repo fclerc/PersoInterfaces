@@ -1,0 +1,1 @@
+Pour activités : nécessité de réécrire un code spécifique pour l'afficher, dans la mesure où on ne veut pas aficher la même chose, et la fonction manipulateXML que j'ai écrite doit rester générique.
