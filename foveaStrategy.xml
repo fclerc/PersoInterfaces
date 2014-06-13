@@ -74,4 +74,4 @@
 			</activities>
 		</else>
 	</rule>
-</strategyRules>
+<rule xmlns="http://www.w3.org/1999/xhtml" id="R3"><if><indicator>LP30</indicator><operator>=</operator><referencevalue/></if><then><activities><activity><typeofactivity>A003</typeofactivity><parameters><parameter><id>P004</id><value/></parameter></parameters></activity></activities></then></rule></strategyRules>

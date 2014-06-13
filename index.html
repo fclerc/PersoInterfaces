@@ -430,11 +430,18 @@
 							
 							}
 							
-							else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts)
+							else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts), or usr has clicked on the button 'noelse'
+                                removeForms();
 								if(container=='#Activities' && value == 'activity'){
+                                    
 									$(builtRule).append($('<'+operationToConsequence[currentOperation]+'>').append($('<activities>').append($('<activity>').append($('<typeofactivity>').append(id)).append($('<parameters>')))));
 									currentOperation++;
 								}
+                                
+                                else if(container == '#noElse'){
+                                    alert('noelse');
+                                    currentOperation = 10;//go directly to the end
+                                }
 							}
 							
 							else if(currentOperation == 5 ||currentOperation==8){//a parameter has been clicked on
@@ -450,23 +457,42 @@
 								}
 							}
 							
-							else if(currentOperation == 6 || currentOperation == 9){
+							else if(currentOperation == 6 || currentOperation == 9){//value of the parameter has  been given
 								
 								if(container == '#newRuleForm'){
 									$(lastParameter).append($('<value>').append(value));
 									removeForms();
+                                    
+                                    
+                                    if(currentOperation == 6){
+                                        $('#newRuleForm').append($('<button>').attr('id', 'noElse').append('No \'else\' condition'))
+                                        
+                                        $('#noElse').click(function(){
+                                            $(reader).trigger("leafValueReading",  [op, 0, '#noElse']);
+                                        });
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    
 									currentOperation++;
-									if(currentOperation == 10){//the process is over, store the rule in the strategy tree
-										$($(strategy).find('strategyRules')[0]).append(builtRule);
-                                        rulesMaxId++;//the rule is now stored, let's go the next id for future rules
-										displayRule(builtRule, '#newRuleContainer', true);
-										$('#newRuleContainer').empty();
-										$('#newRuleInstruction').text('Success, your rule has been created! You can create another one if you want');
-										currentOperation = 0;
-										
-									}
+									
 								}
 							}
+                            
+                            if(currentOperation == 10){//the process is over, store the rule in the strategy tree
+                                $($(strategy).find('strategyRules')[0]).append(builtRule);
+                                rulesMaxId++;//the rule is now stored, let's go the next id for future rules
+                                displayRule(builtRule, '#newRuleContainer', true);
+                                $('#newRuleContainer').empty();
+                                $('#newRuleInstruction').text('Success, your rule has been created! You can create another one if you want');
+                                currentOperation = 0;
+                                
+                            }
+                            
+                            
+                            
 							//displaying the currently built rule
 							if(currentOperation != 0){
 								$('#newRuleContainer').text('');//empty the container
@@ -493,9 +519,10 @@
 							
 							//removes all forms in the rules part.
 							function removeForms(){
-								$('#newRuleForm select').remove();
-								$('#newRuleForm .glyphicon').remove();
-								$('#newRuleForm input').remove();
+								$('#newRuleForm').empty();
+                                //$('#newRuleForm select').remove();
+								//$('#newRuleForm .glyphicon').remove();
+								//$('#newRuleForm input').remove();
 							}
 							
 						
