@@ -63,6 +63,8 @@
 						
 						//this object will be used as a dictionnary to make a list of parameters corresponding to their IDs, like 'P012' : 'Length' .
 						var parametersDictionnary= new Object;
+                        //this object will be used as a dictionnary to make a list of activities corresponding to their IDs, like 'A001' : 'Learning' .
+						var activitiesDictionnary= new Object;
 								
 								
 						
@@ -80,12 +82,18 @@
 								//the element that will contain all the activities
 								var activitiesContainer = $('<ul>').addClass('activities');
 								
-								//going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters.
+								//going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters. At the same time, we fill the activitiesDictionnary.
 								var allActivityParameters = new Array;
 								$(xml['#Activities']).find('TypeOfActivity').each(function(){
 									var activity = this;
 									var activityName = $($(activity).children('Name')[0]).text();
-							
+                                    
+                                    //filling the activitiesDictionnary                                    
+                                    var activityId = $(activity).attr('ID');
+                                    if(!activitiesDictionnary.hasOwnProperty(activityId)){
+                                        activitiesDictionnary[activityId] = activityName;
+                                    }
+                                    
 									if(activityName == 'All'){
 										$(activity).find('Parameter').each(function(){
 											allActivityParameters.push(this);
@@ -226,10 +234,15 @@
 							
 							var ifContainer = $('<div>').addClass('ifContainer').append('IF');
 							var ifElement = $(rule).find("if")[0];
-							var indicator = $($(ifElement).find("indicator")[0]).text();
-							var operator = $($(ifElement).find("operator")[0]).text();
+							var indicatorId = $($(ifElement).find("indicator")[0]).text();
+							
+                            //finding the corresponding element in the left part of the page, to display the name of the indicator, and indicate it when hovering the indicator in the page.
+                            //var indicatorSelectionContainer = $('#ProfileAndContext').find('#'+indicatorId);
+                            
+                            
+                            var operator = $($(ifElement).find("operator")[0]).text();
 							var referenceValue = $($(ifElement).find("referencevalue")[0]).text();
-							var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicator);
+							var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorId);
 							var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
 							var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
 							$(ifContainer).append(indicatorContainer)
@@ -243,8 +256,8 @@
 								var activitiesContainer = $('<ul>');
 								$(consequencesElement).find('activity').each(function(){
 									var activityContainer = $('<li>').addClass('activityContainer');
-									var typeOfActivity = $($(this).find("typeofactivity")[0]).text();
-									var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+typeOfActivity + ', with parameters: ');
+									var typeOfActivityId = $($(this).find("typeofactivity")[0]).text();
+									var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + ', with parameters: ');
 									
 									var parametersContainer =$('<ul>').addClass('parameters');
 									$(consequencesElement).find('parameter').each(function(){
@@ -261,6 +274,10 @@
 								
 								return $(consequenceContainer.append(activitiesContainer));
 								
+                                
+                                
+                                
+                                
 							}
 							var thenContainer = getConsequencesContainer($(rule).find('then')[0], 'then');
 							var elseContainer = getConsequencesContainer($(rule).find('else')[0], 'else');
@@ -303,7 +320,7 @@
 							
 							if(currentOperation ==1){//user gives an indicator, other things are just ignored
 							
-								if(container == "#Profile"){
+								if(container == "#Profile" || container == "#Context"){
 									$(builtRule).append($('<if>').append($('<indicator>').text(id)));
 									
 									var operatorSelect = $('<select>');

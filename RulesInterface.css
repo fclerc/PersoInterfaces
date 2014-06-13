@@ -11,8 +11,10 @@
     font-weight: bold;
 }
 
+
 #Activities .activity li:hover, #Activities .activity >span:hover{
     background-color: green;
+    cursor: pointer;
 }
 
 #Activities >ul{
@@ -61,4 +63,47 @@
     border-radius: 10px;
     padding-right: 4px;
     padding-left: 4px;
+}
+
+#Rules #newRuleInstruction{
+    background-color: #9ACD32;
+    padding:4px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right:5px;
+}
+
+#Rules #newRuleForm .glyphicon{
+    color:#698B22;
+    margin-left:5px;
+}
+
+
+#Rules #newRuleForm .glyphicon:hover{
+    cursor: pointer;
+    font-size:20px;
+}
+
+#Rules #newRuleForm {
+    margin-bottom: 5px;
+    margin-left:5px;
+    vertical-align: middle;
+}
+
+#Rules #newRuleForm select, #Rules #newRuleForm input{
+      height: 30px;
+      padding: 5px 7px;
+      font-size: 16px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+}
+
+#Rules #newRuleForm select:hover, #Rules #newRuleForm input:hover{
+      border-color: #66afe9;
+      outline: 0; 
 }

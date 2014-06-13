@@ -4,6 +4,7 @@
 
 .XMLContainer span.value:hover{
 	background-color : green;
+    cursor: pointer;
 }
 
 .XMLContainer ul{
