@@ -4,8 +4,8 @@
 	<sequenceContext id="CTX1">
 		<activitiesContext id="SC1">tutiti</activitiesContext>
 		<numberOfActivities id="CTX2">
-			<min id="SC2">21</min>
-			<max id="SC3">2</max>
+			<min id="SC2">10</min>
+			<max id="SC3">18</max>
 		</numberOfActivities>
 		<activitiesDuration id="CTX3">
 			<min id="SC4">P1Y2M3DT10H30M</min>
@@ -28,7 +28,7 @@
 			<device id="LC5">phone</device>
 			<OS id="LC6">String</OS>
 			<browser id="LC7">String</browser>
-			<bandwidth id="LC8">0</bandwidth>
+			<bandwidth id="LC8">120</bandwidth>
 			<availableTime id="LC9">P1Y2M3DT10H30M</availableTime>
 			<delay id="LC10">P1Y2M3DT10H30M</delay>
 			<timeAlreadySpent id="LC11">P1Y2M3DT10H30M</timeAlreadySpent>
