@@ -122,6 +122,8 @@ function manipulateXML(filename, container, mode, reader){
 		},
 		cache: false
 	});
+    
+    
 }        
         
     //this function takes a XML node as argument, and returns an element <li> containing his Name, and:
@@ -129,7 +131,9 @@ function manipulateXML(filename, container, mode, reader){
     //-if it has no child: display  its value
 function displayAndChildren(xmlNode, mode){
     //for each node : add it as an item to the list of its parent's elements (except for first element)
-    var result = $('<li>').append(xmlNode.nodeName + ' (' + $(xmlNode).attr('id') + ') ').attr('id', 'li'+id);
+    var idText='';//uncomment next line to display the id
+    //var idText=' (' + $(xmlNode).attr('id') + ') ';
+    var result = $('<li>').append(xmlNode.nodeName + idText).attr('id', 'li'+id);
     
     if($(xmlNode).children().length>0 || xmlNode.attributes.length > 1){
     //if the node has children : display the list of these children.
@@ -145,7 +149,10 @@ function displayAndChildren(xmlNode, mode){
         $.each(xmlNode.attributes, function(i, attrib){//going through the attibutes
             var attributesToIgnore = ["id", "xmlns:xsi", "xsi:noNamespaceSchemaLocation"]
             if(attributesToIgnore.indexOf(attrib.name) == -1){
-                var txt = $('<li>').text(attrib.name + ' (' + $(xmlNode).attr('id') +'//'+ attrib.name + '): ').attr('id', 'li'+id);
+                
+                var idText='';//uncomment next line to display the id
+                //var idText=' (' + $(xmlNode).attr('id') +'//'+ attrib.name + '): ';
+                var txt = $('<li>').text(attrib.name + idText).attr('id', 'li'+id);
                 id++;
                 $(txt).append($('<span>').append(attrib.value).addClass('attribute value').attr('id', $(xmlNode).attr('id') +'//'+ attrib.name ));
                 $(chs).append(txt);

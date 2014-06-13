@@ -44,7 +44,7 @@
 		<if><!--  You can use <and> <or> to combine conditions  -->
 			<indicator>LP28</indicator>
 			<operator>=</operator> <!--  Also >   <    !=   -->
-			<referencevalue>absent</referencevalue>
+			<referencevalue>ref</referencevalue>
 		</if>
 		<then>
 			<activities>

@@ -45,7 +45,7 @@
         <script type="text/javascript">
         
             $(function(){
-                $.ajax({
+                $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
 					type: "GET",
 					url: 'foveaStrategy.xml',
 					success: function(data){//get the xml document
@@ -56,87 +56,92 @@
 						var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
 						var pedagogicalPropertiesFilename = $($(strategy).find('pedagogicalProperties')[0]).text();
 						manipulateXML(profileFilename,'#Profile', 'select', "#Rules");
-						manipulateXML(contextFilename,'#Context', 'select', '#Rules');	
+                        manipulateXML(contextFilename,'#Context', 'select', '#Rules');
+                        
+                        
+                        
+                        displayActivitiesAndRules(pedagogicalPropertiesFilename, strategy);
+                        
 						
-						//the element which triggers events to treat them when an element is clicked.
-						var reader = $('#Rules');
-						
-						//this object will be used as a dictionnary to make a list of parameters corresponding to their IDs, like 'P012' : 'Length' .
-						var parametersDictionnary= new Object;
+                        
+                        //this object will be used as a dictionnary to make a list of parameters corresponding to their IDs, like 'P012' : 'Length' .
+                        var parametersDictionnary= new Object;
                         //this object will be used as a dictionnary to make a list of activities corresponding to their IDs, like 'A001' : 'Learning' .
-						var activitiesDictionnary= new Object;
-								
-								
-						
-						
-						
-						$.ajax({
-							type: "GET",
-							url: pedagogicalPropertiesFilename,
-							success: function(data){
-								var xml = new Array;
-								xml['#Activities']=$(data);//load xml tree
-								
-								
-								
-								//the element that will contain all the activities
-								var activitiesContainer = $('<ul>').addClass('activities');
-								
-								//going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters. At the same time, we fill the activitiesDictionnary.
-								var allActivityParameters = new Array;
-								$(xml['#Activities']).find('TypeOfActivity').each(function(){
-									var activity = this;
-									var activityName = $($(activity).children('Name')[0]).text();
+                        var activitiesDictionnary= new Object;
+                        
+						function displayActivitiesAndRules(pedagogicalPropertiesFilename, strategy){
+                            
+                        
+                            //the element which triggers events to treat them when an element is clicked.
+                            var reader = $('#Rules');
+                            
+                            $.ajax({
+                                type: "GET",
+                                url: pedagogicalPropertiesFilename,
+                                success: function(data){
+                                    var xml = new Array;
+                                    xml['#Activities']=$(data);//load xml tree
                                     
-                                    //filling the activitiesDictionnary                                    
-                                    var activityId = $(activity).attr('ID');
-                                    if(!activitiesDictionnary.hasOwnProperty(activityId)){
-                                        activitiesDictionnary[activityId] = activityName;
-                                    }
                                     
-									if(activityName == 'All'){
-										$(activity).find('Parameter').each(function(){
-											allActivityParameters.push(this);
-										});
-									}
-								});
-								
-								
-								//going through activities to display them and their parameters as lists.
-								$(xml['#Activities']).find('TypeOfActivity').each(function(){
-									$(activitiesContainer).append(displayActivity(this, allActivityParameters));
-								});
-								
-								
-								$('#Activities').append(activitiesContainer);
-								
-								//setting events when clicking on activities and parameters
-								
-								//event when clicking on activity names. Msg is 'activity', id, '#Activities' 
-								$('#Activities .activity > span').click(function(event){
-								
-									var activityId = $(event.target).attr('id');
-									$(reader).trigger("leafValueReading",  ['activity', activityId, '#Activities']);
-								});
-								//event when clicking on parameters names. Msg is 'parameter', id, '#Activities' 
-								$('#Activities .parameters li').click(function(event){
-									var parameterId = $(event.target).attr('id');
-									$(reader).trigger("leafValueReading",  ['parameter', parameterId, '#Activities']);
-								});
-								
-								
-								//displaying the rules in the center part of the page.
-								//placed here in the code : the parametersDictionnary is defined just above and ready to be used.
-								$(strategy).find("rule").each(function(){
-									displayRule(this, '#newRuleContainer');
-								});
-								
-								
-							},
-							cache: false
-						});
+                                    
+                                    //the element that will contain all the activities
+                                    var activitiesContainer = $('<ul>').addClass('activities');
+                                    
+                                    //going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters. At the same time, we fill the activitiesDictionnary.
+                                    var allActivityParameters = new Array;
+                                    $(xml['#Activities']).find('TypeOfActivity').each(function(){
+                                        var activity = this;
+                                        var activityName = $($(activity).children('Name')[0]).text();
+                                        
+                                        //filling the activitiesDictionnary                                    
+                                        var activityId = $(activity).attr('ID');
+                                        if(!activitiesDictionnary.hasOwnProperty(activityId)){
+                                            activitiesDictionnary[activityId] = activityName;
+                                        }
+                                        
+                                        if(activityName == 'All'){
+                                            $(activity).find('Parameter').each(function(){
+                                                allActivityParameters.push(this);
+                                            });
+                                        }
+                                    });
+                                    
+                                    
+                                    //going through activities to display them and their parameters as lists.
+                                    $(xml['#Activities']).find('TypeOfActivity').each(function(){
+                                        $(activitiesContainer).append(displayActivity(this, allActivityParameters));
+                                    });
+                                    
+                                    
+                                    $('#Activities').append(activitiesContainer);
+                                    
+                                    //setting events when clicking on activities and parameters
+                                    
+                                    //event when clicking on activity names. Msg is 'activity', id, '#Activities' 
+                                    $('#Activities .activity > span').click(function(event){
+                                    
+                                        var activityId = $(event.target).attr('id');
+                                        $(reader).trigger("leafValueReading",  ['activity', activityId, '#Activities']);
+                                    });
+                                    //event when clicking on parameters names. Msg is 'parameter', id, '#Activities' 
+                                    $('#Activities .parameters li').click(function(event){
+                                        var parameterId = $(event.target).attr('id');
+                                        $(reader).trigger("leafValueReading",  ['parameter', parameterId, '#Activities']);
+                                    });
+                                    
+                                    
+                                    //displaying the rules in the center part of the page.
+                                    //placed here in the code : the parametersDictionnary is defined just above and ready to be used.
+                                    $(strategy).find("rule").each(function(){
+                                        displayRule(this, '#newRuleContainer');
+                                    });
+                                    
+                                    
+                                },
+                                cache: false
+                            });
 						
-						
+                        }	
 						
 						
 						
@@ -190,10 +195,6 @@
 						
 						
 						
-						
-						
-						
-						
 						function getParameterId(parameterName){
 							$.each(parametersDictionnary, function(id, value){
 								if(value==parameterName){
@@ -237,18 +238,53 @@
 							var indicatorId = $($(ifElement).find("indicator")[0]).text();
 							
                             //finding the corresponding element in the left part of the page, to display the name of the indicator, and indicate it when hovering the indicator in the page.
-                            //var indicatorSelectionContainer = $('#ProfileAndContext').find('#'+indicatorId);
+                            var indicatorName='';
+                            var indicatorSelectionContainer;
+                                //using a timeout to regularly check if left part of the page is displayed...not very elegant
+                            var indicatorChecker = setInterval(function(){
+                                indicatorSelectionContainer = $('#ProfileAndContext').find('#'+indicatorId);
+                                indicatorName = $(indicatorSelectionContainer).parent().text().split(':')[0];
+                                
+                                if(indicatorName != ''){//if we managed to find the indicator name, then we can go to the next part.
+                                    clearInterval(indicatorChecker);
+                                    todoWhenIndicatorReady();
+                                }
+                            }, 20);  
                             
                             
-                            var operator = $($(ifElement).find("operator")[0]).text();
-							var referenceValue = $($(ifElement).find("referencevalue")[0]).text();
-							var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorId);
-							var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
-							var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
-							$(ifContainer).append(indicatorContainer)
-							$(ifContainer).append(operatorContainer)
-							$(ifContainer).append(referenceValueContainer)
-							
+                            //TODO : solve problem that it doesn't always display correctly. (adding timeouts while not here).
+                            function todoWhenIndicatorReady(){
+                                var operator = $($(ifElement).find("operator")[0]).text();
+                                var referenceValue = $($(ifElement).find("referencevalue")[0]).text();
+                                var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
+                                var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
+                                var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
+                                $(ifContainer).append(indicatorContainer)
+                                $(ifContainer).append(operatorContainer)
+                                $(ifContainer).append(referenceValueContainer)
+                                
+                                
+                                //displaying the indicator in red when hovering
+                                var indicatorSelectionContainerColor = $(indicatorSelectionContainer).css('background-color');
+                                $(indicatorContainer).hover(function(event){
+                                    $(indicatorSelectionContainer).css('background-color', 'red');
+                                },
+                                function(event){
+                                    $(indicatorSelectionContainer).css('background-color', indicatorSelectionContainerColor);
+                                
+                                });
+                                
+                                
+                                var thenContainer = getConsequencesContainer($(rule).find('then')[0], 'then');
+                                var elseContainer = getConsequencesContainer($(rule).find('else')[0], 'else');
+                                
+                                $(ruleContainer).append(ifContainer);
+                                $(ruleContainer).append(thenContainer);
+                                $(ruleContainer).append(elseContainer);
+                                $(ruleContainer).insertBefore($(insBefore));
+                            
+                            }
+                            
 							//from one of the 2 tags containing the activities (<then> or <else>), returns the activities contained in it, displayed with their parameters
 							function getConsequencesContainer(consequencesElement, containerName){
 							
@@ -279,13 +315,7 @@
                                 
                                 
 							}
-							var thenContainer = getConsequencesContainer($(rule).find('then')[0], 'then');
-							var elseContainer = getConsequencesContainer($(rule).find('else')[0], 'else');
 							
-							$(ruleContainer).append(ifContainer);
-							$(ruleContainer).append(thenContainer);
-							$(ruleContainer).append(elseContainer);
-							$(ruleContainer).insertBefore($(insBefore));
 						
 						}
 						
