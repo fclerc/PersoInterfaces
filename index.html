@@ -258,16 +258,25 @@
                             //finding the corresponding element in the left part of the page, to display the name of the indicator, and indicate it when hovering the indicator in the page.
                             var indicatorName='';
                             var indicatorSelectionContainer;
-                                //using a timeout to regularly check if left part of the page is displayed...not very elegant
-                            var indicatorChecker = setInterval(function(){
+                                //using a timeout to regularly check if left part of the page is displayed...not very elegant but works. This check doesn't have to be made when this is a newly created rule : everything is already loaded.
+                            getIndicatorInfos();
+                            if(indicatorName == ''){//didn't manage to get the name, left part of the page is not yet loaded
+                                var indicatorChecker = setInterval(function(){
+                                    getIndicatorInfos();
+                                    
+                                    if(indicatorName != ''){//if we managed to find the indicator name, then we can go to the next part.
+                                        clearInterval(indicatorChecker);
+                                    }
+                                }, 200);
+                            }
+                            else{
+                                todoWhenIndicatorReady();
+                            }
+                            
+                            function getIndicatorInfos(){
                                 indicatorSelectionContainer = $('#ProfileAndContext').find('#'+indicatorId);
                                 indicatorName = $(indicatorSelectionContainer).parent().text().split(':')[0];
-                                
-                                if(indicatorName != ''){//if we managed to find the indicator name, then we can go to the next part.
-                                    clearInterval(indicatorChecker);
-                                    todoWhenIndicatorReady();
-                                }
-                            }, 200);  
+                            }
                             
                             
                             //TODO : solve problem that it doesn't always display correctly. (adding timeouts while not here).
