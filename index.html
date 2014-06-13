@@ -68,12 +68,15 @@
                         var parametersDictionnary= new Object;
                         //this object will be used as a dictionnary to make a list of activities corresponding to their IDs, like 'A001' : 'Learning' .
                         var activitiesDictionnary= new Object;
+                        //when creating new rule, we need to give it an id, like R12. This variable contains the highest id a rule currently has.
+                        var rulesMaxId = 0;
+                        
+                        //the element which triggers events to treat them when an element is clicked.
+                        var reader = $('#Rules');
                         
 						function displayActivitiesAndRules(pedagogicalPropertiesFilename, strategy){
                             
                         
-                            //the element which triggers events to treat them when an element is clicked.
-                            var reader = $('#Rules');
                             
                             $.ajax({
                                 type: "GET",
@@ -133,7 +136,7 @@
                                     //displaying the rules in the center part of the page.
                                     //placed here in the code : the parametersDictionnary is defined just above and ready to be used.
                                     $(strategy).find("rule").each(function(){
-                                        displayRule(this, '#newRuleContainer');
+                                        displayRule(this, '#newRuleContainer', false);
                                     });
                                     
                                     
@@ -228,11 +231,29 @@
 						/*
 							Argument is a xml node containing a rule .
 							This function displays the rule just before the second argument insBefore
-						
+                            createdRule is a boolean, true iff the rule is has been built by the user during current use of the page (thus don't go in the part that tries to find the highest id of rules)
 						*/
-						function displayRule(rule, insBefore){
-							var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h3>').append('Rule' + $(rule).attr('id')).append($('<span>').addClass('glyphicon glyphicon-remove-circle pull-right')));
+						function displayRule(rule, insBefore, createdRule){
 							
+                            //top-right sign to remove the rule
+                            var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right');
+                            
+                            var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h3>').append('Rule' + $(rule).attr('id')).append(ruleRemover));
+							
+                            if(!createdRule){
+                                var ruleIdNumber = parseInt($(rule).attr('id').split('R')[1]);
+                            
+                                if(rulesMaxId <= ruleIdNumber){
+                                    rulesMaxId = ruleIdNumber;
+                                }
+                            }
+                            
+                            $(ruleRemover).click(function(){
+                                alert("Honestly I can't do that.");
+                            
+                            });
+                            
+                            
 							var ifContainer = $('<div>').addClass('ifContainer').append('IF');
 							var ifElement = $(rule).find("if")[0];
 							var indicatorId = $($(ifElement).find("indicator")[0]).text();
@@ -249,7 +270,7 @@
                                     clearInterval(indicatorChecker);
                                     todoWhenIndicatorReady();
                                 }
-                            }, 20);  
+                            }, 200);  
                             
                             
                             //TODO : solve problem that it doesn't always display correctly. (adding timeouts while not here).
@@ -265,12 +286,12 @@
                                 
                                 
                                 //displaying the indicator in red when hovering
-                                var indicatorSelectionContainerColor = $(indicatorSelectionContainer).css('background-color');
+                                var indicatorSelectionContainerColor = $(indicatorSelectionContainer).parent().css('background-color');
                                 $(indicatorContainer).hover(function(event){
-                                    $(indicatorSelectionContainer).css('background-color', 'red');
+                                    $(indicatorSelectionContainer).parent().css('background-color', '#FF7F24');
                                 },
                                 function(event){
-                                    $(indicatorSelectionContainer).css('background-color', indicatorSelectionContainerColor);
+                                    $(indicatorSelectionContainer).parent().css('background-color', indicatorSelectionContainerColor);
                                 
                                 });
                                 
@@ -420,12 +441,13 @@
 									$(lastParameter).append($('<value>').append(value));
 									removeForms();
 									currentOperation++;
-									if(currentOperation == 10){
-										currentOperation = 0;
+									if(currentOperation == 10){//the process is over, store the rule in the strategy tree
 										$($(strategy).find('strategyRules')[0]).append(builtRule);
-										displayRule(builtRule, '#newRuleContainer');
+                                        rulesMaxId++;//the rule is now stored, let's go the next id for future rules
+										displayRule(builtRule, '#newRuleContainer', true);
 										$('#newRuleContainer').empty();
 										$('#newRuleInstruction').text('Success, your rule has been created! You can create another one if you want');
+										currentOperation = 0;
 										
 									}
 								}
@@ -434,12 +456,12 @@
 							if(currentOperation != 0){
 								$('#newRuleContainer').text('');//empty the container
 								$('#newRuleContainer').append($('<div>').attr('id', 'emptyDiv'));//adding empty div to pass it as insBeofre argument in displayRule function
-								(displayRule(builtRule[0], '#emptyDiv'));//displaying the in-process rule
+								(displayRule(builtRule[0], '#emptyDiv', true));//displaying the in-process rule
 								$('#newRuleInstruction').text(instructions[currentOperation]);//giving next instruction to the user
 							}
 							
 							
-							
+							console.log(rulesMaxId);
 							
 							//displays the value input together with a button to click on
 							function displayValueInput(){							
@@ -468,9 +490,10 @@
 						$('#ruleAdder').click(function(){
 							if(currentOperation == 0){
 								currentOperation = 1;
-								builtRule = $('<rule>');
+                                var nextRuleId = rulesMaxId+1;
+								builtRule = $('<rule>').attr('id', 'R'+(nextRuleId));
 								$('#newRuleInstruction').text(instructions[currentOperation]);
-							}
+                            }
 						});
 						
 						$('#ruleSaver').click(function(){

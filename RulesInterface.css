@@ -47,11 +47,15 @@
     
 }
 
-#Rules .glyphicon-remove-circle{
+#Rules .ruleRemover{
     margin-left: 10px;
     margin-top: 2px;
     color: red;
     font-size: 20px;
+}
+
+#Rules .ruleRemover:hover{
+    cursor:pointer;
 }
 
 #Rules h3{

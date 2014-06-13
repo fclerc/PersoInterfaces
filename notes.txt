@@ -2,3 +2,6 @@ Pour activités : nécessité de réécrire un code spécifique pour l'afficher,
 
 
 For xml documents where jquery might add elements : there are case problems, thus I write everything in lower case.
+
+
+Useful link for colors : http://web.njit.edu/~kevin/rgb.txt.html#columns
