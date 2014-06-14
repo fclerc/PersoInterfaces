@@ -28,11 +28,15 @@
 	
 		<div id="Rules" class="mains">
 			<h2>Definition of pedagogical strategy</h2>
-			<div id="newRuleContainer"></div>
 			<div id="newRuleInstruction"></div>
 			<div id="newRuleForm"></div>
+			<div id="newRuleContainer"></div>
 			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> Add new Rule</button>
 			<button id="ruleSaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save my strategy</button>
+            <hr/>
+            <h3>Rules you already defined:</h3>
+            
+            <div id="uselessDivToInsertRulesAbove"></div>
 		</div>
 		<div id="Activities" class="mains">
 			<h2>Selection of the activities</h2>
@@ -136,7 +140,7 @@
                                     //displaying the rules in the center part of the page.
                                     //placed here in the code : the parametersDictionnary is defined just above and ready to be used.
                                     $(strategy).find("rule").each(function(){
-                                        displayRule(this, '#newRuleContainer', false);
+                                        displayRule(this, '#uselessDivToInsertRulesAbove', false);
                                     });
                                     
                                     
@@ -235,7 +239,7 @@
                             //top-right sign to remove the rule
                             var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right');
                             
-                            var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h3>').append('Rule' + $(rule).attr('id')).append(ruleRemover));
+                            var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append('Rule' + $(rule).attr('id')).append(ruleRemover));
 							
                             if(!createdRule){
                                 var ruleIdNumber = parseInt($(rule).attr('id').split('R')[1]);
@@ -439,7 +443,6 @@
 								}
                                 
                                 else if(container == '#noElse'){
-                                    alert('noelse');
                                     currentOperation = 10;//go directly to the end
                                 }
 							}
@@ -484,7 +487,7 @@
                             if(currentOperation == 10){//the process is over, store the rule in the strategy tree
                                 $($(strategy).find('strategyRules')[0]).append(builtRule);
                                 rulesMaxId++;//the rule is now stored, let's go the next id for future rules
-                                displayRule(builtRule, '#newRuleContainer', true);
+                                displayRule(builtRule, '#uselessDivToInsertRulesAbove', true);
                                 $('#newRuleContainer').empty();
                                 $('#newRuleInstruction').text('Success, your rule has been created! You can create another one if you want');
                                 currentOperation = 0;

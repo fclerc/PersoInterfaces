@@ -86,9 +86,11 @@ body{
     cursor:pointer;
 }
 
-#Rules h3{
+#Rules h4{
     margin-top:2px;
 }
+
+
 
 #Rules .ruleContainer{
     background-color: #9999FF;
@@ -97,6 +99,11 @@ body{
     padding-left: 4px;
     width:97%;
     margin-left:1.5%;
+}
+
+#Rules #ruleAdder{
+    
+    margin-left:1%;
 }
 
 #Rules #newRuleInstruction{
