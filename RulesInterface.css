@@ -104,6 +104,7 @@ body{
     position:absolute;
     right:5px;
     bottom:5px;
+    font-weight:bold;
 }
 
 #Rules .ruleContainer{

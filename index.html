@@ -30,6 +30,7 @@
 			<h2>Definition of pedagogical strategy</h2>
 			<div id="newRuleInstruction"></div>
 			<div id="newRuleForm"></div>
+            <div id="newRuleButtons"></div>
 			<div id="newRuleContainer"></div>
 			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> Add new Rule</button>
 			<button id="ruleSaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save my strategy</button>
@@ -375,13 +376,14 @@
 						7: Selection of activity for else
 						8: Selection of parameter for else
 						9: value of parameter is given for else
+                        10: Priority for the rule is given
 						
 						
 						At each time : change the xml tree, and make a new call on the displayer.
 						
 						*/
 						var currentOperation = 0;
-						var instructions = ['Click on new rule', 'Choose the indicator you want to base your rule on from the profile or the context', 'Choose the operator you want to use in this rule in the form below', 'Give the value used for the comparison', 'Select the activity for the then part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Select the activity for the else part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter']
+						var instructions = ['Click on new rule', 'Choose the indicator you want to base your rule on from the profile or the context', 'Choose the operator you want to use in this rule in the form below', 'Give the value used for the comparison', 'Select the activity for the then part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Select the activity for the else part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Give the priority for this rule']
 						
 						//used in last operations, to know whether we are in the definition of <then> or <else>
 						var operationToConsequence = ['', '', '', '', 'then','then','then','else','else','else'];
@@ -447,6 +449,7 @@
 								}
                                 
                                 else if(container == '#noElse'){
+                                    displayValueInput();
                                     currentOperation = 10;//go directly to the end
                                 }
 							}
@@ -480,15 +483,22 @@
                                         
                                     }
                                     
-                                    
-                                    
+                                    else if(currentOperation = 9){//display input for the priority
+                                        displayValueInput();
+                                    }
                                     
 									currentOperation++;
 									
 								}
 							}
                             
-                            if(currentOperation == 10){//the process is over, store the rule in the strategy tree
+                            else if(currentOperation==10){
+                                $(builtRule).prepend($('<priority>').append(value));
+                                removeForms();
+                                currentOperation++;
+                            }
+                            
+                            if(currentOperation == 11){//the process is over, store the rule in the strategy tree
                                 $($(strategy).find('strategyRules')[0]).append(builtRule);
                                 rulesMaxId++;//the rule is now stored, let's go the next id for future rules
                                 displayRule(builtRule, '#uselessDivToInsertRulesAbove', true);
@@ -531,6 +541,14 @@
 								//$('#newRuleForm .glyphicon').remove();
 								//$('#newRuleForm input').remove();
 							}
+                            
+                            function addButton(value, operationIfClicked){
+                                var button = $('<button>').append(value).addClass('operationButton');
+                                $(button).click(function(){
+                                    currentOperation = operationIfClicked;
+                                });
+                                $('#newRuleButtons').append(button);
+                            }
 							
 						
 						});
