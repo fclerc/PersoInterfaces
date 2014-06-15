@@ -238,8 +238,12 @@
 							
                             //top-right sign to remove the rule
                             var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right');
+                            var ruleEditor = $('<span>').addClass('glyphicon glyphicon-edit ruleEditor pull-right');
                             
-                            var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append('Rule' + $(rule).attr('id')).append(ruleRemover));
+                            var priority = $($(rule).find("priority")[0]).text();
+                            var priorityContainer = $($('<div>').addClass('priority').append('Priority: '+priority));
+                            
+                            var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append('Rule' + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(priorityContainer);
 							
                             if(!createdRule){
                                 var ruleIdNumber = parseInt($(rule).attr('id').split('R')[1]);

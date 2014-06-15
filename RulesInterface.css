@@ -74,23 +74,37 @@ body{
     font-weight : bold;
     
 }
+#Rules .ruleEditor, #Rules .ruleRemover{
+    top: 5px;
+    font-size: 20px;
+    opacity: 0.6;
+    position:absolute;
+}
+
+#Rules .ruleRemover:hover, #Rules .ruleEditor:hover{
+    cursor:pointer;
+    opacity: 1;
+}
 
 #Rules .ruleRemover{
-    margin-left: 10px;
-    margin-top: 2px;
     color: red;
-    font-size: 20px;
+    right:5px;
 }
 
-#Rules .ruleRemover:hover{
-    cursor:pointer;
+#Rules .ruleEditor{
+    color: #FD4590;
+    right: 30px;
 }
 
-#Rules h4{
-    margin-top:2px;
+#Rules .ruleContainer h4{
+    padding-top:3px;
 }
 
-
+#Rules .priority{
+    position:absolute;
+    right:5px;
+    bottom:5px;
+}
 
 #Rules .ruleContainer{
     background-color: #9999FF;
@@ -99,10 +113,10 @@ body{
     padding-left: 4px;
     width:97%;
     margin-left:1.5%;
+    position: relative;
 }
 
 #Rules #ruleAdder{
-    
     margin-left:1%;
 }
 
