@@ -16,8 +16,6 @@ In mode 'select', "leafValueReading" events will be triggered, containing the id
 //container : the id of the container of the displayed XML, for example : '#MyXMLContainer'. Used as a sort of namespace for data manipulation in case of using several times this function in the same page (see xml[container] or selectors to define events).
 //reader : "leafValueReading" events will be triggered, and reader will be your own element (on your web page) that will trigger these events, and then treat them (to display the content on which the user clicked).
 function manipulateXML(filename, container, mode, reader){
-    id = 0; //used to add ids to ul and li tags...not yet used
-
     
     $.ajax({
 		type: "GET",
@@ -58,7 +56,7 @@ function manipulateXML(filename, container, mode, reader){
 				var value = $(elem).html();
 				
 				if(mode == 'modify'){
-				//the target can be 2 things : the span (thus check if it doesn't already contain an input), or the input (this don't try to add a new input into this)
+				//the target can be 2 things : the span (thus check if it doesn't already contain an input), or the input (thus don't try to add a new input into this)
 					if($(elem).children('input').length == 0 && $(elem).prop('tagName')!='INPUT'){//we have to add an input
 						input=$('<input>').attr("type", "text").attr('value', value);
 						
@@ -73,16 +71,15 @@ function manipulateXML(filename, container, mode, reader){
 								
 								if($(input).parent().hasClass('attribute')){
 									//finding the right element having this attribute
-									var data = $(input).parent().attr('id').split('//');
+									var data = $(input).parent().parent().attr('id').split('--');
 									var id  = data[0];
 									var attribute = data[1];
 									$(input).parent().html(value);
 									$(xml[container]).find('[id="' + id + '"]').attr(attribute, value);
-								
 								}
 								
 								else{//replace the value of an element
-									var id = $(input).parent().attr("id");//corresponding id in the xml tree
+									var id = $(input).parent().parent().attr("id");//corresponding id in the xml tree
 									$(input).parent().html(value);
 									
 									//modifying value in XML tree
@@ -93,32 +90,38 @@ function manipulateXML(filename, container, mode, reader){
 					}
 				}
 				
-				
-				else{
-					var value = $(event.target).html();
-					var id = $(event.target).attr('id');
-					$(reader).trigger("leafValueReading",  [value, id, container]);
-				}
-				
 				return false;
 			});                   
 
+            $(container +' .elementName').click(function(event){
+				var elem = event.target;
+                var id = $(event.target).parent().attr('id');
+                var value = $($(event.target).parent().find('.value')[0]).html();
+                
+                $(reader).trigger("leafValueReading",  [value, id, container]);
+                
+                
+                
+            });
+            
+            
 			if(mode=='modify'){
 				$(container).append($('<button>').addClass('btn btn-info').attr('id', "XMLSaveButton").append($('<span>').addClass('glyphicon glyphicon-floppy-disk')).append("Save modifications"));
 			
-			}
 			
 			
-			$(container +' #XMLSaveButton').click(function(){//using ajax to store the xml on the server.
-				var xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
-				$.post('saveXMLDocument.php', { file: filename , data: xmlS}, 
-					function(data, txt, jqXHR){
-						if(txt=="success"){
-							alert('Your data have been successfully saved');
-						}
-					}
-				);
-			});
+			
+                $(container +' #XMLSaveButton').click(function(){//using ajax to store the xml on the server.
+                    var xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
+                    $.post('saveXMLDocument.php', { file: filename , data: xmlS}, 
+                        function(data, txt, jqXHR){
+                            if(txt=="success"){
+                                alert('Your data have been successfully saved');
+                            }
+                        }
+                    );
+                });
+            }
 		},
 		cache: false
 	});
@@ -133,28 +136,26 @@ function displayAndChildren(xmlNode, mode){
     //for each node : add it as an item to the list of its parent's elements (except for first element)
     var idText='';//uncomment next line to display the id
     //var idText=' (' + $(xmlNode).attr('id') + ') ';
-    var result = $('<li>').append(xmlNode.nodeName + idText).attr('id', 'li'+id);
+    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append($('<span>').append(xmlNode.nodeName + idText).addClass('elementName'));
     
     if($(xmlNode).children().length>0 || xmlNode.attributes.length > 1){
     //if the node has children : display the list of these children.
     //reducer class enables to toggle visibility of children
     //other classes are used for style
         $(result).addClass('hasChild');
-        $(result).wrapInner($('<span>'));
         $(result).prepend($('<span>').addClass('glyphicon glyphicon-minus').addClass('reducer'));
         
         //variable containing the texts returned by the call of the function on the children (in a html list)
-        var chs = $('<ul>').attr('id', 'ul'+id);
+        var chs = $('<ul>');
         
         $.each(xmlNode.attributes, function(i, attrib){//going through the attibutes
             var attributesToIgnore = ["id", "xmlns:xsi", "xsi:noNamespaceSchemaLocation"]
             if(attributesToIgnore.indexOf(attrib.name) == -1){
                 
                 var idText='';//uncomment next line to display the id
-                //var idText=' (' + $(xmlNode).attr('id') +'//'+ attrib.name + '): ';
-                var txt = $('<li>').text(attrib.name + idText).attr('id', 'li'+id);
-                id++;
-                $(txt).append($('<span>').append(attrib.value).addClass('attribute value').attr('id', $(xmlNode).attr('id') +'//'+ attrib.name ));
+                //var idText=' (' + $(xmlNode).attr('id') +'--'+ attrib.name + '): ';
+                var txt = $('<li>').attr('id', $(xmlNode).attr('id') +'--'+ attrib.name ).append($('<span>').addClass('elementName').text(attrib.name + idText)).append(': ');
+                $(txt).append($('<span>').append(attrib.value).addClass('attribute value'));
                 $(chs).append(txt);
             }
         });
@@ -168,9 +169,8 @@ function displayAndChildren(xmlNode, mode){
     
     else{
     //if no child: display the node value, with class indicating you can modify it
-        result.append(': ').append($('<span>').append($(xmlNode).html()).attr("id", $(xmlNode).attr("id")).addClass("value"));
+        result.append(': ').append($('<span>').append($(xmlNode).html()).addClass("value"));
         
     }
-    id++;
     return result;
 }

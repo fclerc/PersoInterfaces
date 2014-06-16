@@ -45,7 +45,7 @@
 		<priority>3</priority>
 		<if><!--  You can use <and> <or> to combine conditions  -->
             <constraint>
-                <indicator>LP28</indicator>
+                <indicator>LP3</indicator>
                 <operator>=</operator> <!--  Also >   <    !=   -->
                 <referencevalue>ref</referencevalue>
             </constraint>

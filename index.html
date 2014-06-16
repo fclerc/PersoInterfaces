@@ -15,6 +15,7 @@
     <body>
 	<div id="ProfileAndContext" class="mains">
 		<h2>Selection of indicators</h2>
+        <p>For each indicator, an example value is given (italic).</p>
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#Profile" data-toggle="tab">Profile</a></li>
 			<li><a href="#Context" data-toggle="tab">Context</a></li>
@@ -292,7 +293,7 @@
 
                             function getIndicatorInfos(){
                                 indicatorSelectionContainer = $('#ProfileAndContext').find('#'+indicatorId);
-                                indicatorName = $(indicatorSelectionContainer).parent().text().split(':')[0];
+                                indicatorName = $($(indicatorSelectionContainer).find('.elementName')[0]).text();
                             }
                            
                             
@@ -310,12 +311,12 @@
                                 
                                 
                                 //displaying the indicator in red when hovering
-                                var indicatorSelectionContainerColor = $(indicatorSelectionContainer).parent().css('background-color');
+                                var indicatorSelectionContainerColor = $(indicatorSelectionContainer).css('background-color');
                                 $(indicatorContainer).hover(function(event){
-                                    $(indicatorSelectionContainer).parent().css('background-color', '#FF7F24');
+                                    $(indicatorSelectionContainer).css('background-color', '#FF7F24');
                                 },
                                 function(event){
-                                    $(indicatorSelectionContainer).parent().css('background-color', indicatorSelectionContainerColor);
+                                    $(indicatorSelectionContainer).css('background-color', indicatorSelectionContainerColor);
                                 
                                 });
                                 
@@ -398,7 +399,8 @@
 							
 								if(container == "#Profile" || container == "#Context"){
 									$(builtRule).append($('<if>').append($('<indicator>').text(id)));
-									
+                                    
+                                    
 									var operatorSelect = $('<select>');
 									var operators = ['=', '>', '<', '!='];
 									$(operators).each(function(id, op){
