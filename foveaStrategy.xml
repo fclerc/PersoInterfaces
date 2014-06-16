@@ -78,4 +78,4 @@
 			</activities>
 		</else>
 	</rule>
-</strategyRules>
+<rule xmlns="http://www.w3.org/1999/xhtml" id="R3"><priority>21</priority><if><indicator>LP1</indicator><operator>=</operator><referencevalue/></if><then><activities><activity><typeofactivity>A001</typeofactivity><parameters><parameter><id>P006</id><value/></parameter></parameters></activity></activities></then></rule><rule xmlns="http://www.w3.org/1999/xhtml" id="R4"><if><indicator>LP2</indicator></if></rule></strategyRules>

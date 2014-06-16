@@ -102,6 +102,7 @@ body{
 
 #Rules #newRuleButtons button{
     margin-left: 4px;
+    margin-bottom:2px;
 }
 
 #Rules .priority{
