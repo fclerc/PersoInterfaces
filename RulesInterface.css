@@ -107,6 +107,13 @@ body{
     font-weight:bold;
 }
 
+#Rules .indicator:hover{
+	background-color : #E9967A;
+    cursor: pointer;
+    border-radius:5px;
+}
+
+
 #Rules .ruleContainer{
     background-color: #9999FF;
     border-radius: 10px;

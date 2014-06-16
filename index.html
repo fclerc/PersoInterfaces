@@ -310,7 +310,7 @@
                                 $(ifContainer).append(referenceValueContainer)
                                 
                                 
-                                //displaying the indicator in red when hovering
+                                //displaying the indicator in color when hovering
                                 var indicatorSelectionContainerColor = $(indicatorSelectionContainer).css('background-color');
                                 $(indicatorContainer).hover(function(event){
                                     $(indicatorSelectionContainer).css('background-color', '#FF7F24');
@@ -319,6 +319,15 @@
                                     $(indicatorSelectionContainer).css('background-color', indicatorSelectionContainerColor);
                                 
                                 });
+                                
+                                //scrolling to the indicator in left part when clicking on it in rule part.
+                                 $(indicatorContainer).click(function(event){
+                                    indicatorSelectionContainer[0].scrollIntoView(true);
+                                    
+                                 });
+                                
+                                
+                                
                                 
                                 
                                 var thenContainer = getConsequencesContainer($(rule).find('then')[0], 'then');
