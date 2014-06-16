@@ -78,5 +78,5 @@
 			</activities>
 		</else>
 	</rule>
-    <rule id="R4"><if><indicator>LP1</indicator><operator xmlns="http://www.w3.org/1999/xhtml">&gt;</operator><referencevalue xmlns="http://www.w3.org/1999/xhtml">22</referencevalue></if></rule>
+    
 <rule xmlns="http://www.w3.org/1999/xhtml" id="R3"><if><indicator>LP2</indicator></if></rule></strategyRules>

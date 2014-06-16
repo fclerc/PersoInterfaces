@@ -578,8 +578,7 @@
                             
                             //Action to delete the rule
                             $(ruleRemover).click(function(){
-                                
-                                if($(insBefore).parents().find('#newRuleContainer').length==0){//this is not the currently created rule : delete it in the xml tree
+                                if($('#newRuleContainer #' +$(rule).attr('id') ).length==0){//this is not the currently created rule : delete it in the xml tree
                                     if(confirm('Are you sure to delete this rule ? It won\'t be possible to retrieve it later.')){
                                         $(rule).remove();
                                         $(ruleContainer).remove();
