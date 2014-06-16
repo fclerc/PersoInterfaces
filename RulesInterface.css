@@ -74,14 +74,14 @@ body{
     font-weight : bold;
     
 }
-#Rules .ruleEditor, #Rules .ruleRemover{
+#Rules .ruleEditor, #Rules .ruleRemover, #Rules .ruleDuplicator{
     top: 5px;
     font-size: 20px;
     opacity: 0.6;
     position:absolute;
 }
 
-#Rules .ruleRemover:hover, #Rules .ruleEditor:hover{
+#Rules .ruleRemover:hover, #Rules .ruleEditor:hover, #Rules .ruleDuplicator:hover{
     cursor:pointer;
     opacity: 1;
 }
@@ -94,6 +94,10 @@ body{
 #Rules .ruleEditor{
     color: #FD4590;
     right: 30px;
+}
+
+#Rules .ruleDuplicator{
+    right: 55px;
 }
 
 #Rules .ruleContainer h4{

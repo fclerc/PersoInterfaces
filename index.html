@@ -365,7 +365,7 @@
                             
                             else if(currentOperation == 11){//the process is over, store the rule in the strategy tree
                                 saveRule();
-                                todoBefore[12];
+                                todoBefore[0];
                             }
                             
                             
@@ -374,8 +374,9 @@
 							if(currentOperation != 0){
 								displayNewRule();
 							}
-							console.log(builtRule);
 						});
+                        
+                        
                         
 						function saveRule(){
                             var ruleInXMLFile = $(strategy).find('rule[id="' + $(builtRule).attr('id') + '"]');
@@ -470,6 +471,7 @@
                                     displayNewRule();
                                     if(id=="ruleSaver"){
                                         saveRule();
+                                        todoBefore[0]();
                                     }
                                     
                                 });
@@ -484,6 +486,7 @@
                         
                         var todoBefore = [//contains what has to be done before each operation
                             function(){//0
+                            console.log('here');
                                 $('#newRuleContainer').empty();
                                 currentOperation = 0;
                                 removeAllButtons();
@@ -551,6 +554,17 @@
                             displayRule(ruleXML, insBefore, false)                        
                         }
                         
+                        function duplicateAndEditRule(rule){
+                            if($('#newRuleContainer').text().length==0){//no rule is currently being edited
+                                    currentOperation = 11;
+                                    builtRule = $(rule).clone();
+                                    var nextRuleId = rulesMaxId+1;
+                                    $(builtRule).attr('id', 'R'+(nextRuleId));
+                                    addEditButtons();
+                                    displayNewRule();
+                                    $('#newRuleInstruction')[0].scrollIntoView(true);
+                            }
+                        }
                         
                         /*
 							Argument is a xml node containing a rule .
@@ -562,11 +576,12 @@
                             //top-right sign to remove the rule
                             var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right');
                             var ruleEditor = $('<span>').addClass('glyphicon glyphicon-edit ruleEditor pull-right');
+                            var ruleDuplicator = $('<span>').addClass('glyphicon glyphicon-share ruleDuplicator pull-right');
                             
                             var priority = $($(rule).find("priority")[0]).text();
                             var priorityContainer = $($('<div>').addClass('priority').append('Priority: '+priority));
                             
-                            var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append('Rule' + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(priorityContainer);
+                            var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append('Rule' + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(ruleDuplicator).append(priorityContainer);
 							
                             if(!createdRule){
                                 var ruleIdNumber = parseInt($(rule).attr('id').split('R')[1]);
@@ -607,6 +622,10 @@
                                 else{
                                     alert('Please save or delete your current rule before editing this one.')
                                 }
+                            });
+                            
+                            $(ruleDuplicator).click(function(){
+                                duplicateAndEditRule(rule);
                             });
                             
                                 var ifContainer = $('<div>').addClass('ifContainer').append('IF');
