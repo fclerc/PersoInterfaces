@@ -100,8 +100,6 @@ function manipulateXML(filename, container, mode, reader){
                 
                 $(reader).trigger("leafValueReading",  [value, id, container]);
                 
-                
-                
             });
             
             

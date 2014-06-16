@@ -254,7 +254,7 @@
 						
 						*/
 						var currentOperation = 0;
-						var instructions = ['Click on new rule', 'Choose the indicator you want to base your rule on from the profile or the context', 'Choose the operator you want to use in this rule in the form below', 'Give the value used for the comparison', 'Select the activity for the then part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Select the activity for the else part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Give the priority for this rule', 'Save your new rule']
+						var instructions = ['Click on new rule', 'Choose the indicator you want to base your rule on from the profile or the context', 'Choose the operator you want to use in this rule in the form below', 'Give the value used for the comparison', 'Select the activity for the then part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Select the activity for the else part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Give the priority for this rule', 'Save your new rule', 'Success, your rule has been saved! You can create/edit another one if you want']
 						
 						//used in last operations, to know whether we are in the definition of <then> or <else>
 						var operationToConsequence = ['if', 'if', 'if', 'if', 'then','then','then','else','else','else'];
@@ -364,13 +364,8 @@
                             }
                             
                             else if(currentOperation == 11){//the process is over, store the rule in the strategy tree
-                                $($(strategy).find('strategyRules')[0]).append(builtRule);
-                                rulesMaxId++;//the rule is now stored, let's go the next id for future rules
-                                displayRule(builtRule, '#uselessDivToInsertRulesAbove', true);
-                                $('#newRuleContainer').empty();
-                                $('#newRuleInstruction').text('Success, your rule has been created! You can create another one if you want');
-                                currentOperation = 0;
-                                removeAllButtons();
+                                saveRule();
+                                todoBefore[12];
                             }
                             
                             
@@ -379,23 +374,44 @@
 							if(currentOperation != 0){
 								displayNewRule();
 							}
-							
+							console.log(builtRule);
 						});
                         
-						
+						function saveRule(){
+                            var ruleInXMLFile = $(strategy).find('rule[id="' + $(builtRule).attr('id') + '"]');
+                            if(ruleInXMLFile.length == 0){//this is a new rule, add it to the end of the file
+                                $($(strategy).find('strategyRules')[0]).append(builtRule);
+                               rulesMaxId++;//the rule is now stored, let's go the next id for future rules
+                               displayRule(builtRule, '#uselessDivToInsertRulesAbove', true);
+                            }
+                            else{//the rule already exists, replace it in the file
+                                $(ruleInXMLFile[0]).replaceWith(builtRule);
+                                todoBefore[0]();
+                            }
+                           
+                            currentOperation = 12;
+                            instruct();
+                            
+                        }
+                        
 						$('#ruleAdder').click(function(){
 							if(currentOperation == 0){
 								currentOperation = 1;
                                 var nextRuleId = rulesMaxId+1;
 								builtRule = $('<rule>').attr('id', 'R'+(nextRuleId));
-								$('#newRuleInstruction').text(instructions[currentOperation]);
-                                addButton("Edit 'IF'", 'ifEditorButton', 1);
-                                addButton("Edit 'THEN'", 'thenEditorButton', 4);
-                                addButton("Edit 'ELSE'", 'elseEditorButton', 7);
-                                addButton("Edit Priority", 'priorityEditorButton', 10);
-                                addButton('Save rule', 'ruleSaver', 11);
+                                displayNewRule();
+								instruct();
+                                addEditButtons();
                             }
 						});
+                        
+                        function addEditButtons(){
+                            addButton("Edit 'IF'", 'ifEditorButton', 1);
+                            addButton("Edit 'THEN'", 'thenEditorButton', 4);
+                            addButton("Edit 'ELSE'", 'elseEditorButton', 7);
+                            addButton("Edit Priority", 'priorityEditorButton', 10);
+                            addButton('Save rule', 'ruleSaver', 11);
+                        }
 						
 						$('#strategySaver').click(function(){
 							var xmlS = (new XMLSerializer()).serializeToString(strategy[0]);
@@ -409,10 +425,14 @@
 						
 						});
                         
-                        function displayNewRule(){
+                        function displayNewRule(){//when creating a new rule, displays the rule in the #newRuleContainer and displays instruction
                             $('#newRuleContainer').text('');//empty the container
                             $('#newRuleContainer').append($('<div>').attr('id', 'emptyDiv'));//adding empty div to pass it as insBeofre argument in displayRule function
                             (displayRule(builtRule[0], '#emptyDiv', true));//displaying the in-process rule
+                            instruct();
+                        }
+                        
+                        function instruct(){
                             $('#newRuleInstruction').text(instructions[currentOperation] +', or click on a button below');//giving next instruction to the user
                         }
                         
@@ -440,13 +460,20 @@
                         }
                         
                         function addButton(value, id, operationIfClicked){//adding a button to chose next interaction with the rule; and triggering event to the reader
-                            var button = $('<button>').append(value).addClass('operationButton btn btn-primary').attr('id', id);
-                            $(button).click(function(){
-                                currentOperation = operationIfClicked;
-                                todoBefore[operationIfClicked]();
-                                displayNewRule();
-                            });
-                            $('#newRuleButtons').append(button);
+                            if($('#newRuleButtons').find('#'+id).length==0){                            
+                                var button = $('<button>').append(value).addClass('operationButton btn btn-primary').attr('id', id);
+                                $(button).click(function(){
+                                    removeForms();
+                                    currentOperation = operationIfClicked;
+                                    todoBefore[operationIfClicked]();
+                                    displayNewRule();
+                                    if(id=="ruleSaver"){
+                                        saveRule();
+                                    }
+                                    
+                                });
+                                $('#newRuleButtons').append(button);
+                            }
                         }
                         
                         function removeAllButtons(){
@@ -456,8 +483,10 @@
                         
                         var todoBefore = [//contains what has to be done before each operation
                             function(){//0
-                            
-                            
+                                $('#newRuleContainer').empty();
+                                currentOperation = 0;
+                                removeAllButtons();
+                                removeForms();
                             },
                             function(){//1
                             
@@ -504,8 +533,19 @@
                                 removeForms();
                                 currentOperation = 11;
                             
+                            },
+                            function(){//12
+                                $('#newRuleContainer').empty();
+                                currentOperation = 0;
+                                removeAllButtons();
                             }
                         ]
+                        
+                        
+                        function updateRule(id){
+                            //TODO
+                        
+                        }
                         
                         
                         /*
@@ -534,39 +574,66 @@
                             
                             //Action to delete the rule
                             $(ruleRemover).click(function(){
-                                if(confirm('Are you sure to delete this rule ? It won\'t be possible to retrieve it later.')){
-                                    $(rule).remove();
-                                    $(ruleContainer).remove();
-                                    //var idToDelete = $(rule).attr('id');
-                                    
+                                
+                                if($(insBefore).parents().find('#newRuleContainer').length==0){//this is not the currently created rule : delete it in the xml tree
+                                    if(confirm('Are you sure to delete this rule ? It won\'t be possible to retrieve it later.')){
+                                        $(rule).remove();
+                                        $(ruleContainer).remove();
+                                    }
+                                }
+                                
+                                else{//this is the currently created rule
+                                    if(confirm('Are you sure to delete this new rule ?')){
+                                        builtRule = new Object;
+                                        currentOperation = 0;
+                                        todoBefore[0]();
+                                        instruct();
+                                    }
                                     
                                 }
                             });
                             
+                            $(ruleEditor).click(function(){
+                                if($('#newRuleContainer').text().length==0){//no rule is currently being edited
+                                    currentOperation = 11;
+                                    builtRule = $(rule);
+                                    addEditButtons();
+                                    displayNewRule();
+                                    $('#newRuleInstruction')[0].scrollIntoView(true);
+                                }
+                                else{
+                                    alert('Please save or delete your current rule before editing this one.')
+                                }
+                            });
                             
-							var ifContainer = $('<div>').addClass('ifContainer').append('IF');
-							var ifElement = $(rule).find("if")[0];
-							var indicatorId = $($(ifElement).find("indicator")[0]).text();
-							
-                            //finding the corresponding element in the left part of the page, to display the name of the indicator, and indicate it when hovering the indicator in the page.
-                            var indicatorName='';
-                            var indicatorSelectionContainer;
+                                var ifContainer = $('<div>').addClass('ifContainer').append('IF');
+                                var ifElement = $(rule).find("if")[0];
+                                var indicatorId = $($(ifElement).find("indicator")[0]).text();
                                 
-                             //using a timeout to regularly check if left part of the page is displayed...not very elegant but works. This check doesn't have to be made when this is a newly created rule : everything is already loaded.
-                            getIndicatorInfos();
-                            if(indicatorName == ''){//didn't manage to get the name, left part of the page is not yet loaded
-                                var indicatorChecker = setInterval(function(){
+                                //finding the corresponding element in the left part of the page, to display the name of the indicator, and indicate it when hovering the indicator in the page.
+                                var indicatorName='';
+                                var indicatorSelectionContainer;
+                                
+
+                                if($(rule).find('if').length != 0){
+                                     //using a timeout to regularly check if left part of the page is displayed...not very elegant but works. This check doesn't have to be made when this is a newly created rule : everything is already loaded.
                                     getIndicatorInfos();
-                                    if(indicatorName != ''){//if we managed to find the indicator name, then we can go to the next part.
-                                        clearInterval(indicatorChecker);
+                                    if(indicatorName == ''){//didn't manage to get the name, left part of the page is not yet loaded
+                                        var indicatorChecker = setInterval(function(){
+                                            getIndicatorInfos();
+                                            if(indicatorName != ''){//if we managed to find the indicator name, then we can go to the next part.
+                                                clearInterval(indicatorChecker);
+                                                todoWhenIndicatorReady();
+                                            }
+                                        }, 200);
+                                    }
+                                    else{
                                         todoWhenIndicatorReady();
                                     }
-                                }, 200);
-                            }
-                            else{
-                                todoWhenIndicatorReady();
-                            }
-
+                                }
+                                else{
+                                    todoWhenIndicatorReady();
+                                }
 
                             function getIndicatorInfos(){
                                 indicatorSelectionContainer = $('#ProfileAndContext').find('#'+indicatorId);
@@ -575,7 +642,6 @@
                            
                             
                             
-                            //TODO : solve problem that it doesn't always display correctly. (adding timeouts while not here).
                             function todoWhenIndicatorReady(){
                                 var operator = $($(ifElement).find("operator")[0]).text();
                                 var referenceValue = $($(ifElement).find("referencevalue")[0]).text();
@@ -632,7 +698,6 @@
 										var paramId = $($(this).find('id')[0]).text();
 										var paramValue = $($(this).find('value')[0]).text();
 										var parameterContainer = $('<li>').append(parametersDictionnary[paramId]+': ' + paramValue);
-										//TODO : use parameter dictionnary
 										$(parametersContainer).append(parameterContainer);
 									});
 									$(activityContainer).append(typeOfActivityContainer);
@@ -642,7 +707,6 @@
 								
 								return $(consequenceContainer.append(activitiesContainer));
 								
-                                
 							}
 							
 						
