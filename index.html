@@ -33,6 +33,7 @@
 			<div id="newRuleForm"></div>
             <div id="newRuleButtons"></div>
 			<div id="newRuleContainer"></div>
+            <hr/>
 			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> Add new Rule</button>
 			<button id="ruleSaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save my strategy</button>
             <hr/>
@@ -366,9 +367,6 @@
 								return $(consequenceContainer.append(activitiesContainer));
 								
                                 
-                                
-                                
-                                
 							}
 							
 						
@@ -460,8 +458,7 @@
 								}
                                 
                                 else if(container == '#noElse'){
-                                    displayValueInput();
-                                    currentOperation = 10;//go directly to the end
+                                    todoBefore10();
                                 }
 							}
 							
@@ -486,11 +483,13 @@
                                     
                                     
                                     if(currentOperation == 6){
-                                        $('#newRuleForm').append($('<button>').attr('id', 'noElse').append('No \'else\' condition'))
+                                        //$('#newRuleForm').append($('<button>').attr('id', 'noElse').append('No \'else\' condition'))
                                         
-                                        $('#noElse').click(function(){
-                                            $(reader).trigger("leafValueReading",  [op, 0, '#noElse']);
-                                        });
+                                        //$('#noElse').click(function(){
+                                          //  $(reader).trigger("leafValueReading",  ['', '', '#noElse']);
+                                        //});
+                                        
+                                        addButton("no 'else' condition", '#noElse', 10);
                                         
                                     }
                                     
@@ -553,12 +552,18 @@
 								//$('#newRuleForm input').remove();
 							}
                             
-                            function addButton(value, operationIfClicked){
-                                var button = $('<button>').append(value).addClass('operationButton');
+                            function addButton(value, id, operationIfClicked){//adding a button to chose next interaction with the rule; and triggering event to the reader
+                                var button = $('<button>').append(value).addClass('operationButton btn btn-primary').attr('id', id);
                                 $(button).click(function(){
                                     currentOperation = operationIfClicked;
+                                    $(reader).trigger("leafValueReading",  ['', '', id]);
                                 });
                                 $('#newRuleButtons').append(button);
+                            }
+                            
+                            function todoBefore10(){
+                                displayValueInput();
+                                currentOperation  = 10;
                             }
 							
 						

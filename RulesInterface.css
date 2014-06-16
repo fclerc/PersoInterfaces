@@ -100,6 +100,10 @@ body{
     padding-top:3px;
 }
 
+#Rules #newRuleButtons button{
+    margin-left: 4px;
+}
+
 #Rules .priority{
     position:absolute;
     right:5px;
@@ -108,7 +112,7 @@ body{
 }
 
 #Rules .indicator:hover{
-	background-color : #E9967A;
+	background-color : #FF7F24;
     cursor: pointer;
     border-radius:5px;
 }
