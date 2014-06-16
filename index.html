@@ -387,6 +387,7 @@
                             else{//the rule already exists, replace it in the file
                                 $(ruleInXMLFile[0]).replaceWith(builtRule);
                                 todoBefore[0]();
+                                updateRule(builtRule, $(builtRule).attr('id'))
                             }
                            
                             currentOperation = 12;
@@ -542,9 +543,12 @@
                         ]
                         
                         
-                        function updateRule(id){
+                        function updateRule(ruleXML, id){//updates a rule which is displayed : removes the rule and displays the new one at the same place/
                             //TODO
-                        
+                            formerRuleContainer = $('#Rules').find('.ruleContainer[id="' + id + '"]');
+                            insBefore = $(formerRuleContainer).next();
+                            $(formerRuleContainer).remove();
+                            displayRule(ruleXML, insBefore, false)                        
                         }
                         
                         
