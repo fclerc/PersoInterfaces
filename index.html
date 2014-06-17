@@ -257,7 +257,7 @@
 						var instructions = ['Click on new rule', 'Choose the indicator you want to base your rule on from the profile or the context', 'Choose the operator you want to use in this rule in the form below', 'Give the value used for the comparison', 'Select the activity for the then part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Select the activity for the else part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Give the priority for this rule', 'Save your new rule', 'Success, your rule has been saved! You can create/edit another one if you want']
 						
 						//used in last operations, to know whether we are in the definition of <then> or <else>
-						var operationToConsequence = ['if', 'if', 'if', 'if', 'then','then','then','else','else','else'];
+						var operationToConsequence = ['new','if', 'if', 'if', 'then','then','then','else','else','else', 'priority', 'save', 'save'];
 						
 						var builtRule = new Object;
 						
@@ -275,20 +275,7 @@
                                     else{
                                         $($(builtRule).find('indicator')[0]).text(id);
                                     }
-                                    
-									var operatorSelect = $('<select>');
-									var operators = ['=', '>', '<', '!='];
-									$(operators).each(function(id, op){
-										$(operatorSelect).append($('<option>').append(op));
-									});
-									$('#newRuleForm').append(operatorSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
-									
-									$('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
-										var op = $('#newRuleForm select').val();
-										$(reader).trigger("leafValueReading",  [op, 0, '#newRuleForm']);									
-									});
-									
-									currentOperation = 2;
+									goFromTo(1,2);
 								}
 							}
 							
@@ -297,9 +284,8 @@
 									var op = $('<operator>').text(value);
 									op.insertAfter($($(builtRule).find('indicator')[0]))
 									
-									displayValueInput();
+                                    goFromTo(2,3);
 									
-									currentOperation = 3;
 								}
 							}
 							
@@ -308,9 +294,7 @@
 									var refVal = $('<referencevalue>').text(value);
 									refVal.insertAfter($($(builtRule).find('operator')[0]))
 									
-									removeForms();
-									
-									currentOperation = 4;
+									goFromTo(3,4);
 								}
 							
 							
@@ -318,11 +302,11 @@
 							}
 							
 							else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts), or usr has clicked on the button 'noelse'
-                                removeForms();
 								if(container=='#Activities' && value == 'activity'){
                                     
 									$(builtRule).append($('<'+operationToConsequence[currentOperation]+'>').append($('<activities>').append($('<activity>').append($('<typeofactivity>').append(id)).append($('<parameters>')))));
-									currentOperation++;
+                                    
+                                    goFromTo(currentOperation, currentOperation+1);
 								}
                                 
 							}
@@ -332,11 +316,10 @@
 									var activity = $($(builtRule).find(operationToConsequence[currentOperation])[0]).find('activity').last();
 									
 									var parameter = $('<parameter>').append($('<id>').text(id));
-									
 									$($(activity).find('parameters')[0]).append(parameter);
-									displayValueInput();
 									lastParameter = parameter;
-									currentOperation++;
+									
+                                    goFromTo(currentOperation, currentOperation+1);
 								}
 							}
 							
@@ -344,37 +327,142 @@
 								
 								if(container == '#newRuleForm'){
 									$(lastParameter).append($('<value>').append(value));
-									removeForms();
-                                    
-                                    
-                                    if(currentOperation == 9){//display input for the priority
-                                        todoBefore[10]();
-                                    }
-									else{
-                                        currentOperation++;
-                                    }
+                                    goFromTo(currentOperation, currentOperation+1);
 								}
 							}
                             
                             else if(currentOperation==10){
                                 if(container == '#newRuleForm'){
                                     $(builtRule).prepend($('<priority>').append(value));
-                                    todoBefore[11]();
+                                    goFromTo(10,11);
                                 }
                             }
                             
-                            else if(currentOperation == 11){//the process is over, store the rule in the strategy tree
-                                saveRule();
-                                todoBefore[0];
-                            }
-                            
-                            
-                            
-							//displaying the currently built rule
-							if(currentOperation != 0){
-								displayNewRule();
-							}
 						});
+                        
+                        
+                        function goFromTo(origin, target){
+                            currentOperation = target;
+                            todoAfter[origin]();
+                            todoBefore[target]();
+                            
+                            if(target!=0 && target !=12){displayNewRule()};
+                            instruct();
+                        }
+                        
+                        var todoBefore = [//contains what has to be done before each operation
+                            function(){//0
+                                removeAllButtons()
+                            },
+                            function(){//1
+                                addEditButtons();
+                            },
+                            function(){//2
+                                var operatorSelect = $('<select>');
+                                var operators = ['=', '>', '<', '!='];
+                                $(operators).each(function(id, op){
+                                    $(operatorSelect).append($('<option>').append(op));
+                                });
+                                $('#newRuleForm').append(operatorSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
+                                
+                                $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
+                                    var op = $('#newRuleForm select').val();
+                                    $(reader).trigger("leafValueReading",  [op, 0, '#newRuleForm']);									
+                                });
+                            
+                            },
+                            function(){//3
+                                displayValueInput();
+                            
+                            },
+                            function(){//4
+                            
+                            
+                            },
+                            function(){//5
+                            
+                            
+                            },
+                            function(){//6
+                                displayValueInput();
+                            
+                            },
+                            function(){//7
+                            
+                            
+                            },
+                            function(){//8
+                            
+                            
+                            },
+                            function(){//9
+                                displayValueInput();
+                            
+                            },
+                            function(){//10
+                                displayValueInput();
+                            
+                            },
+                            function(){//11
+                            
+                            },
+                            function(){//12
+                                removeAllButtons();
+                                $('#newRuleContainer').empty();
+                            }
+                        ];
+                        
+                        var todoAfter = [//contains what has to be done after each operation
+                            function(){//0
+                            
+                            
+                            },
+                            function(){//1
+                            
+                            
+                            },
+                            function(){//2
+                                removeForms();
+                            
+                            },
+                            function(){//3
+                                removeForms();
+                            
+                            },
+                            function(){//4
+                            
+                            
+                            },
+                            function(){//5
+                            
+                            
+                            },
+                            function(){//6
+                                removeForms();
+                            
+                            },
+                            function(){//7
+                            
+                            
+                            },
+                            function(){//8
+                            
+                            
+                            },
+                            function(){//9
+                                removeForms();
+                            
+                            },
+                            function(){//10
+                                removeForms();
+                            },
+                            function(){//11
+                                removeForms();
+                            },
+                            function(){//12
+                            }
+                        ];
+                        
                         
                         
                         
@@ -387,23 +475,18 @@
                             }
                             else{//the rule already exists, replace it in the file
                                 $(ruleInXMLFile[0]).replaceWith(builtRule);
-                                todoBefore[0]();
                                 updateRule(builtRule, $(builtRule).attr('id'))
                             }
                            
-                            currentOperation = 12;
-                            instruct();
+                            goFromTo(11,12);
                             
                         }
                         
 						$('#ruleAdder').click(function(){
-							if(currentOperation == 0){
-								currentOperation = 1;
+							if(currentOperation == 0 || currentOperation == 12){
                                 var nextRuleId = rulesMaxId+1;
 								builtRule = $('<rule>').attr('id', 'R'+(nextRuleId));
-                                displayNewRule();
-								instruct();
-                                addEditButtons();
+								goFromTo(0,1);
                             }
 						});
                         
@@ -442,7 +525,6 @@
                         //displays the value input together with a button to click on
                         function displayValueInput(){							
                             var valueInput = $('<input>').attr('type', 'text');
-                            removeForms();
                             
                             $('#newRuleForm').append(valueInput);
                             $('#newRuleForm').append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
@@ -456,22 +538,15 @@
                         //removes all forms in the rules part.
                         function removeForms(){
                             $('#newRuleForm').empty();
-                            //$('#newRuleForm select').remove();
-                            //$('#newRuleForm .glyphicon').remove();
-                            //$('#newRuleForm input').remove();
                         }
                         
                         function addButton(value, id, operationIfClicked){//adding a button to chose next interaction with the rule; and triggering event to the reader
                             if($('#newRuleButtons').find('#'+id).length==0){                            
                                 var button = $('<button>').append(value).addClass('operationButton btn btn-primary').attr('id', id);
                                 $(button).click(function(){
-                                    removeForms();
-                                    currentOperation = operationIfClicked;
-                                    todoBefore[operationIfClicked]();
-                                    displayNewRule();
+                                    goFromTo(currentOperation, operationIfClicked);
                                     if(id=="ruleSaver"){
                                         saveRule();
-                                        todoBefore[0]();
                                     }
                                     
                                 });
@@ -484,70 +559,10 @@
                         }
                         
                         
-                        var todoBefore = [//contains what has to be done before each operation
-                            function(){//0
-                            console.log('here');
-                                $('#newRuleContainer').empty();
-                                currentOperation = 0;
-                                removeAllButtons();
-                                removeForms();
-                            },
-                            function(){//1
-                            
-                            
-                            },
-                            function(){//2
-                            
-                            
-                            },
-                            function(){//3
-                            
-                            
-                            },
-                            function(){//4
-                            
-                            
-                            },
-                            function(){//5
-                            
-                            
-                            },
-                            function(){//6
-                            
-                            
-                            },
-                            function(){//7
-                            
-                            
-                            },
-                            function(){//8
-                            
-                            
-                            },
-                            function(){//9
-                            
-                            
-                            },
-                            function(){//10
-                                displayValueInput();
-                                currentOperation  = 10;
-                            
-                            },
-                            function(){//11
-                                removeForms();
-                                currentOperation = 11;
-                            
-                            },
-                            function(){//12
-                                $('#newRuleContainer').empty();
-                                currentOperation = 0;
-                                removeAllButtons();
-                            }
-                        ]
+                        
                         
                         
                         function updateRule(ruleXML, id){//updates a rule which is displayed : removes the rule and displays the new one at the same place/
-                            //TODO
                             formerRuleContainer = $('#Rules').find('.ruleContainer[id="' + id + '"]');
                             insBefore = $(formerRuleContainer).next();
                             $(formerRuleContainer).remove();
