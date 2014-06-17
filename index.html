@@ -731,11 +731,12 @@
                                     var conditionTypeContainer = $('<span>').addClass('conditionType').append(' '+element.nodeName.toUpperCase());
                                     
                                     $(toReturn).append(' (').append(c1).append(conditionTypeContainer).append(c2).append(' )');
-                                    
-                                    $(conditionTypeContainer).click(function(){
-                                       goFromTo(currentOperation, 13);
-                                       currentCondition = element;
-                                    });
+                                    if(editMode){
+                                        $(conditionTypeContainer).addClass('conditionAdder').click(function(){
+                                           goFromTo(currentOperation, 13);
+                                           currentCondition = element;
+                                        });
+                                    }
                                     
                                     return toReturn;
                                 }
@@ -766,18 +767,50 @@
                                     var operator = $($(constraint).find("operator")[0]).text();
                                     var referenceValue = $($(constraint).find("referencevalue")[0]).text();
                                     var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
+                                    //var operatorAndEditContainer;
                                     var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
                                     var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
-                                    
-                                    $(operatorContainer).click(function(){
-                                        goFromTo(currentOperation, 13);
-                                        currentCondition = constraint;
-                                    });
                                     
                                     var constraintContainer = $('<span>').addClass('constraint');
                                     $(constraintContainer).append(indicatorContainer)
                                     $(constraintContainer).append(operatorContainer)
                                     $(constraintContainer).append(referenceValueContainer)
+                                    
+                                    if(editMode){
+                                        
+                                        $(operatorContainer).addClass('conditionAdder').click(function(){
+                                            goFromTo(currentOperation, 13);
+                                            currentCondition = constraint;
+                                        });
+                                        
+                                        var constraintRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle constraintRemover');
+                                        var constraintEditor = $('<span>').addClass('glyphicon glyphicon-edit constraintEditor');
+                                        
+                                        $(constraintRemover).click(function(){
+                                            var parent = $(constraint).parent()[0];//if it is and or or : only keep the other constraint
+                                            if(['and', 'AND', 'or', 'OR'].indexOf(parent.nodeName) != -1){
+                                                constraint.remove();
+                                                var theSecondConstraint = $(parent).children()[0];
+                                                $(parent).replaceWith(theSecondConstraint);
+                                            }
+                                            else{
+                                                constraint.remove();
+                                            }
+                                            
+                                           
+                                            goFromTo(currentOperation, 11);
+                                        });
+                                        $(constraintEditor).click(function(){
+                                            currentCondition = constraint;
+                                            goFromTo(currentOperation, 1);
+                                        });
+                                        
+                                        $(operatorContainer).after(constraintEditor).after(constraintRemover);
+                                    }
+                                    
+                                    
+                                    
+                                    
                                     
                                     
                                     //displaying the indicator in color when hovering
