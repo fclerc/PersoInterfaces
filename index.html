@@ -342,7 +342,12 @@
 							else if(currentOperation == 6 || currentOperation == 9){//value of the parameter has  been given
 								
 								if(container == '#newRuleForm'){
-									$(currentParameter).append($('<value>').append(value));
+									if($(currentParameter).find('value').length==0){
+										$(currentParameter).append($('<value>').append(value));
+									}
+									else{
+										$($(currentParameter).find('value')[0]);
+									}
                                     goFromTo(currentOperation, currentOperation-1);
 								}
 							}
@@ -771,6 +776,14 @@
 										var parameterContainer = $('<li>').append(parametersDictionnary[paramId]+': ' + paramValue);
 										
 										if(editMode){
+										
+											var parameterValueEditor = $('<span>').addClass('glyphicon glyphicon-edit parameterValueEditor');
+											$(parameterContainer).append(parameterValueEditor);
+											$(parameterValueEditor).click(function(){
+												currentParameter = parameter;
+												goFromTo(currentOperation, 6);
+											});
+										
 											var parameterRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle parameterRemover');
 											$(parameterContainer).append(parameterRemover);
 											$(parameterRemover).click(function(){
