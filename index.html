@@ -271,7 +271,7 @@
 							
 								if(container == "#Profile" || container == "#Context"){
 									if($(builtRule).find('if').length == 0){                                    
-                                        $(builtRule).append($('<if>').append($('<indicator>').text(id)));
+                                        $(builtRule).append($('<if>').append($('<constraint>').append($('<indicator>').text(id))));
                                     }
                                     else{
                                         $($(builtRule).find('indicator')[0]).text(id);
@@ -318,7 +318,6 @@
 									}
 									
 									
-									console.log(consequenceContainer);
 									
 									//$(builtRule).append($('<'+operationToConsequence[currentOperation]+'>').append($('<activities>').append(activity)));
                                     
@@ -665,72 +664,105 @@
                                 duplicateAndEditRule(rule);
                             });
                             
-                                var ifContainer = $('<div>').addClass('ifContainer').append('IF');
-                                var ifElement = $(rule).find("if")[0];
-                                var indicatorId = $($(ifElement).find("indicator")[0]).text();
-                                
+                            
+                            
+                            
+                            
+                            
+                            
+                            var ifContainer = $('<div>').addClass('ifContainer').append('IF');
+
+                            var ifElement = $(rule).find("if")[0];
+                            $(ifElement).children().each(function(){
+                                $(ifContainer).append(getConditionElementContainer(this));
+                            
+                            });
+                            todoWhenConditionReady();
+                            
+                            function getConditionElementContainer(element){console.log(element);
+                                if(element.nodeName == 'constraint' ||element.nodeName == 'CONSTRAINT'){
+                                    return getConstraintContainer(element);
+                                }
+                                else{//AND or OR, with 2 conditionElement children
+                                    var c1 = getConditionElementContainer($(element).children()[0]);
+                                    var c2 = getConditionElementContainer($(element).children()[1]);
+                                    
+                                    var toReturn = $('<span>').addClass('conditionElement');
+                                    $(toReturn).append(' (').append(c1).append(' '+ element.nodeName.toUpperCase() + ' ').append(c2).append(' )');
+                                    
+                                    return toReturn;
+                                }
+                            }
+                            
+                            function getConstraintContainer(constraint){
+                                var indicatorId = $($(constraint).find("indicator")[0]).text();
                                 //finding the corresponding element in the left part of the page, to display the name of the indicator, and indicate it when hovering the indicator in the page.
                                 var indicatorName='';
                                 var indicatorSelectionContainer;
                                 
-
-                                if($(rule).find('if').length != 0){
-                                     //using a timeout to regularly check if left part of the page is displayed...not very elegant but works. This check doesn't have to be made when this is a newly created rule : everything is already loaded.
-                                    getIndicatorInfos();
-                                    if(indicatorName == ''){//didn't manage to get the name, left part of the page is not yet loaded
-                                        var indicatorChecker = setInterval(function(){
-                                            getIndicatorInfos();
-                                            if(indicatorName != ''){//if we managed to find the indicator name, then we can go to the next part.
-                                                clearInterval(indicatorChecker);
-                                                todoWhenIndicatorReady();
-                                            }
-                                        }, 200);
-                                    }
-                                    else{
-                                        todoWhenIndicatorReady();
-                                    }
+                                 //using a timeout to regularly check if left part of the page is displayed...not very elegant but works. This check doesn't have to be made when this is a newly created rule : everything is already loaded.
+                                getIndicatorInfos();
+                                if(indicatorName == ''){//didn't manage to get the name, left part of the page is not yet loaded
+                                    var indicatorChecker = setInterval(function(){
+                                        getIndicatorInfos();
+                                        if(indicatorName != ''){//if we managed to find the indicator name, then we can go to the next part.
+                                            clearInterval(indicatorChecker);
+                                            return todoWhenIndicatorReady();
+                                        }
+                                    }, 200);
                                 }
                                 else{
-                                    todoWhenIndicatorReady();
+                                    return todoWhenIndicatorReady();
                                 }
-
-                            function getIndicatorInfos(){
-                                indicatorSelectionContainer = $('#ProfileAndContext').find('#'+indicatorId);
-                                indicatorName = $($(indicatorSelectionContainer).find('.elementName')[0]).text();
+                                
+                                function todoWhenIndicatorReady(){
+                                    var operator = $($(constraint).find("operator")[0]).text();
+                                    var referenceValue = $($(constraint).find("referencevalue")[0]).text();
+                                    var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
+                                    var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
+                                    var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
+                                    
+                                    var constraintContainer = $('<span>').addClass('constraint');
+                                    $(constraintContainer).append(indicatorContainer)
+                                    $(constraintContainer).append(operatorContainer)
+                                    $(constraintContainer).append(referenceValueContainer)
+                                    
+                                    
+                                    //displaying the indicator in color when hovering
+                                    var indicatorSelectionContainerColor = $(indicatorSelectionContainer).css('background-color');
+                                    $(indicatorContainer).hover(function(event){
+                                        $(indicatorSelectionContainer).css('background-color', '#FF7F24');
+                                    },
+                                    function(event){
+                                        $(indicatorSelectionContainer).css('background-color', indicatorSelectionContainerColor);
+                                    
+                                    });
+                                    
+                                    //scrolling to the indicator in left part when clicking on it in rule part.
+                                     $(indicatorContainer).click(function(event){
+                                        indicatorSelectionContainer[0].scrollIntoView(true);
+                                        
+                                     });
+                                    
+                                    
+                                    
+                                    return constraintContainer;
+                                }
+                                
+                                function getIndicatorInfos(){
+                                    indicatorSelectionContainer = $('#ProfileAndContext').find('#'+indicatorId);
+                                    indicatorName = $($(indicatorSelectionContainer).find('.elementName')[0]).text();
+                                }
                             }
                            
                             
                             
-                            function todoWhenIndicatorReady(){
-                                var operator = $($(ifElement).find("operator")[0]).text();
-                                var referenceValue = $($(ifElement).find("referencevalue")[0]).text();
-                                var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
-                                var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
-                                var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
-                                $(ifContainer).append(indicatorContainer)
-                                $(ifContainer).append(operatorContainer)
-                                $(ifContainer).append(referenceValueContainer)
-                                
-                                
-                                //displaying the indicator in color when hovering
-                                var indicatorSelectionContainerColor = $(indicatorSelectionContainer).css('background-color');
-                                $(indicatorContainer).hover(function(event){
-                                    $(indicatorSelectionContainer).css('background-color', '#FF7F24');
-                                },
-                                function(event){
-                                    $(indicatorSelectionContainer).css('background-color', indicatorSelectionContainerColor);
-                                
-                                });
-                                
-                                //scrolling to the indicator in left part when clicking on it in rule part.
-                                 $(indicatorContainer).click(function(event){
-                                    indicatorSelectionContainer[0].scrollIntoView(true);
-                                    
-                                 });
-                                
-                                
-                                
-                                
+                            
+                            
+                            
+                            
+                            
+                            function todoWhenConditionReady(){
                                 
                                 var thenContainer = getConsequencesContainer($(rule).find('then')[0], 'then');
                                 var elseContainer = getConsequencesContainer($(rule).find('else')[0], 'else');

@@ -7,11 +7,25 @@
 	<rule id="R1">
 		<priority>3</priority>
 		<if><!--  You can use <and> <or> to combine conditions  -->
-			<constraint>            
-                <indicator>LP25</indicator>
-                <operator>=</operator> <!--  Also >   <    !=   -->
-                <referencevalue>absent</referencevalue>
-            </constraint>
+			<and>
+                <constraint>            
+                    <indicator>LP25</indicator>
+                    <operator>=</operator> <!--  Also >   <    !=   -->
+                    <referencevalue>absent</referencevalue>
+                </constraint>
+                <or>
+                    <constraint>            
+                        <indicator>LP21</indicator>
+                        <operator>=</operator> <!--  Also >   <    !=   -->
+                        <referencevalue>absent</referencevalue>
+                    </constraint>
+                    <constraint>            
+                        <indicator>LP25</indicator>
+                        <operator>=</operator> <!--  Also >   <    !=   -->
+                        <referencevalue>absent</referencevalue>
+                    </constraint>
+                </or>
+            </and>
 		</if>
 		<then>
 			<activities>
@@ -78,5 +92,36 @@
 			</activities>
 		</else>
 	</rule>
+    <rule id="R2">
+		<priority>3</priority>
+		
+		<then>
+			<activities>
+				<activity>
+					<typeofactivity>A002</typeofactivity>
+					<parameters>
+						<parameter>
+							<id>P005</id>
+							<value>Twitter</value>
+						</parameter>
+					</parameters>
+				</activity>
+			</activities>
+		</then>
+		<else>
+			<!-- optional - same organization as <then> -->
+			<activities>
+				<activity>
+					<typeofactivity>A002</typeofactivity>
+					<parameters>
+						<parameter>
+							<id>P005</id>
+							<value>Google+</value>
+						</parameter>
+					</parameters>
+				</activity>
+			</activities>
+		</else>
+	</rule>
     
-<rule xmlns="http://www.w3.org/1999/xhtml" id="R3"><if><indicator>LP2</indicator></if></rule><rule xmlns="http://www.w3.org/1999/xhtml" id="R4"><if><indicator>LP0</indicator><operator>=</operator><referencevalue/></if><then><activities><activity><typeofactivity>A001</typeofactivity><parameters/></activity></activities></then></rule><rule xmlns="http://www.w3.org/1999/xhtml" id="R5"><if><indicator>LP0</indicator><operator>=</operator><referencevalue/></if><then><activities><activity><typeofactivity>A001</typeofactivity><parameters/></activity></activities></then></rule><rule xmlns="http://www.w3.org/1999/xhtml" id="R7"><priority/><if><indicator>LP3</indicator><operator>=</operator><referencevalue/></if><then><activities><activity><typeofactivity>A001</typeofactivity><parameters><parameter><id>P004</id><value>aa</value></parameter><parameter><id>P006</id><value>dd</value></parameter></parameters></activity></activities></then><else><activities><activity><typeofactivity>A001</typeofactivity><parameters><parameter><id>P006</id><value/></parameter></parameters></activity></activities></else></rule></strategyRules>
+</strategyRules>
