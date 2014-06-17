@@ -302,12 +302,25 @@
 							
 							}
 							
-							else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts), or usr has clicked on the button 'noelse'
+							else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts), or user has clicked on the button 'noelse'
 								if(container=='#Activities' && value == 'activity'){
-                                    
                                     var activity = $('<activity>').append($('<typeofactivity>').append(id)).append($('<parameters>'));
                                     currentActivity = activity;
-									$(builtRule).append($('<'+operationToConsequence[currentOperation]+'>').append($('<activities>').append(activity)));
+                                    
+									var consequenceContainer = new Object;
+									if($(builtRule).find(operationToConsequence[currentOperation]).length ==0){
+										consequenceContainer = $('<'+operationToConsequence[currentOperation]+'>').append($('<activities>')).append(activity);
+										$(builtRule).append(consequenceContainer);
+									}
+									else{
+										consequenceContainer = $(builtRule).find(operationToConsequence[currentOperation])[0];
+										$(consequenceContainer).append(activity);
+									}
+									
+									
+									console.log(consequenceContainer);
+									
+									//$(builtRule).append($('<'+operationToConsequence[currentOperation]+'>').append($('<activities>').append(activity)));
                                     
                                     goFromTo(currentOperation, currentOperation+1);
 								}
@@ -315,7 +328,6 @@
 							}
 							
 							else if(currentOperation == 5 ||currentOperation==8){//a parameter has been clicked on
-								console.log(currentActivity);
                                 if(container=='#Activities' && value == 'parameter'){
 									//var activity = $($(builtRule).find(operationToConsequence[currentOperation])[0]).find('activity').last();
 									
@@ -331,7 +343,7 @@
 								
 								if(container == '#newRuleForm'){
 									$(currentParameter).append($('<value>').append(value));
-                                    goFromTo(currentOperation, currentOperation+1);
+                                    goFromTo(currentOperation, currentOperation-1);
 								}
 							}
                             
@@ -357,6 +369,7 @@
                         var todoBefore = [//contains what has to be done before each operation
                             function(){//0
                                 removeAllButtons()
+								$('#newRuleContainer').empty();
                             },
                             function(){//1
                                 addEditButtons();
@@ -408,7 +421,7 @@
                             
                             },
                             function(){//11
-                            
+								addEditButtons();
                             },
                             function(){//12
                                 removeAllButtons();
@@ -496,8 +509,8 @@
                         
                         function addEditButtons(){
                             addButton("Edit 'IF'", 'ifEditorButton', 1);
-                            addButton("Edit 'THEN'", 'thenEditorButton', 4);
-                            addButton("Edit 'ELSE'", 'elseEditorButton', 7);
+                            addButton("Add 'THEN' Activity", 'thenEditorButton', 4);
+                            addButton("Add 'ELSE' Activity", 'elseEditorButton', 7);
                             addButton("Edit Priority", 'priorityEditorButton', 10);
                             addButton('Save rule', 'ruleSaver', 11);
                         }
@@ -634,10 +647,8 @@
                             
                             $(ruleEditor).click(function(){
                                 if($('#newRuleContainer').text().length==0){//no rule is currently being edited
-                                    currentOperation = 11;
                                     builtRule = $(rule);
-                                    addEditButtons();
-                                    displayNewRule();
+                                    goFromTo(currentOperation, 11);
                                     $('#newRuleInstruction')[0].scrollIntoView(true);
                                 }
                                 else{
@@ -734,26 +745,58 @@
 								$(consequencesElement).find('activity').each(function(){
                                     var activity = this;
 									var activityContainer = $('<li>').addClass('activityContainer');
+									
+									
+									
+									
 									var typeOfActivityId = $($(this).find("typeofactivity")[0]).text();
 									var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + ', with parameters: ');
 									
+									if(editMode){
+										var activityRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle activityRemover');
+										$(typeOfActivityContainer).append(activityRemover);
+										$(activityRemover).click(function(){
+											if(confirm('Are you sure to delete this activity?')){										
+												activity.remove();
+												goFromTo(currentOperation, 11);
+											}
+										});
+									}
+									
 									var parametersContainer =$('<ul>').addClass('parameters');
-									$(consequencesElement).find('parameter').each(function(){
+									$(this).find('parameter').each(function(){
+										var parameter = this;
 										var paramId = $($(this).find('id')[0]).text();
 										var paramValue = $($(this).find('value')[0]).text();
 										var parameterContainer = $('<li>').append(parametersDictionnary[paramId]+': ' + paramValue);
+										
+										if(editMode){
+											var parameterRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle parameterRemover');
+											$(parameterContainer).append(parameterRemover);
+											$(parameterRemover).click(function(){
+												parameter.remove();
+												goFromTo(currentOperation, 11);
+											});
+										
+										}
+										
 										$(parametersContainer).append(parameterContainer);
+										
 									});
+									
+									if(editMode){//enabling to add a parameter
+										var parameterAdder = $('<span>').addClass('glyphicon glyphicon-plus parameterAdder');
+										parametersContainer.append($('<li>').append(parameterAdder));
+										$(parameterAdder).click(function(){
+                                            currentActivity = activity;
+                                            goFromTo(currentOperation, 5);
+                                        });
+									}
+									
 									$(activityContainer).append(typeOfActivityContainer);
 									$(activityContainer).append(parametersContainer);
 									$(activitiesContainer).append(activityContainer);
                                     
-                                    if(editMode){
-                                        $(activityContainer).click(function(){
-                                            currentActivity = activity;
-                                            goFromTo(currentOperation, 5);
-                                        });
-                                    }
                                     
                                     
 								})
