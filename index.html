@@ -143,7 +143,7 @@
                                     //displaying the rules in the center part of the page.
                                     //placed here in the code : the parametersDictionnary is defined just above and ready to be used.
                                     $(strategy).find("rule").each(function(){
-                                        displayRule(this, '#uselessDivToInsertRulesAbove', false);
+                                        displayRule(this, '#uselessDivToInsertRulesAbove', false, false);
                                     });
                                     
                                     
@@ -261,8 +261,9 @@
 						
 						var builtRule = new Object;
 						
-						var lastParameter;//used in stages when asking parameter value to the user, to add this parameter the <value>
-						
+						var currentParameter;//used in stages when asking parameter value to the user, to add this parameter the <value>
+						var currentActivity;//used in stages when asking parameter to the user, to add the parameter to this activity
+                        
 						$("#Rules").on("leafValueReading", function(event, value, id, container){
 							
                             
@@ -304,7 +305,9 @@
 							else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts), or usr has clicked on the button 'noelse'
 								if(container=='#Activities' && value == 'activity'){
                                     
-									$(builtRule).append($('<'+operationToConsequence[currentOperation]+'>').append($('<activities>').append($('<activity>').append($('<typeofactivity>').append(id)).append($('<parameters>')))));
+                                    var activity = $('<activity>').append($('<typeofactivity>').append(id)).append($('<parameters>'));
+                                    currentActivity = activity;
+									$(builtRule).append($('<'+operationToConsequence[currentOperation]+'>').append($('<activities>').append(activity)));
                                     
                                     goFromTo(currentOperation, currentOperation+1);
 								}
@@ -312,12 +315,13 @@
 							}
 							
 							else if(currentOperation == 5 ||currentOperation==8){//a parameter has been clicked on
-								if(container=='#Activities' && value == 'parameter'){
-									var activity = $($(builtRule).find(operationToConsequence[currentOperation])[0]).find('activity').last();
+								console.log(currentActivity);
+                                if(container=='#Activities' && value == 'parameter'){
+									//var activity = $($(builtRule).find(operationToConsequence[currentOperation])[0]).find('activity').last();
 									
 									var parameter = $('<parameter>').append($('<id>').text(id));
-									$($(activity).find('parameters')[0]).append(parameter);
-									lastParameter = parameter;
+									$($(currentActivity).find('parameters')[0]).append(parameter);
+									currentParameter = parameter;
 									
                                     goFromTo(currentOperation, currentOperation+1);
 								}
@@ -326,7 +330,7 @@
 							else if(currentOperation == 6 || currentOperation == 9){//value of the parameter has  been given
 								
 								if(container == '#newRuleForm'){
-									$(lastParameter).append($('<value>').append(value));
+									$(currentParameter).append($('<value>').append(value));
                                     goFromTo(currentOperation, currentOperation+1);
 								}
 							}
@@ -471,7 +475,7 @@
                             if(ruleInXMLFile.length == 0){//this is a new rule, add it to the end of the file
                                 $($(strategy).find('strategyRules')[0]).append(builtRule);
                                rulesMaxId++;//the rule is now stored, let's go the next id for future rules
-                               displayRule(builtRule, '#uselessDivToInsertRulesAbove', true);
+                               displayRule(builtRule, '#uselessDivToInsertRulesAbove', true, false);
                             }
                             else{//the rule already exists, replace it in the file
                                 $(ruleInXMLFile[0]).replaceWith(builtRule);
@@ -513,12 +517,15 @@
                         function displayNewRule(){//when creating a new rule, displays the rule in the #newRuleContainer and displays instruction
                             $('#newRuleContainer').text('');//empty the container
                             $('#newRuleContainer').append($('<div>').attr('id', 'emptyDiv'));//adding empty div to pass it as insBeofre argument in displayRule function
-                            (displayRule(builtRule[0], '#emptyDiv', true));//displaying the in-process rule
-                            instruct();
+                            (displayRule(builtRule[0], '#emptyDiv', true, true));//displaying the in-process rule
+                            
                         }
                         
-                        function instruct(){
-                            $('#newRuleInstruction').text(instructions[currentOperation] +', or click on a button below');//giving next instruction to the user
+                        function instruct(){//giving next instruction to the user
+                            $('#newRuleInstruction').text(instructions[currentOperation]);
+                            if(currentOperation != 0 && currentOperation != 12){
+                                $('#newRuleInstruction').append(', or click on a button below');
+                            }
                         }
                         
                         
@@ -566,7 +573,7 @@
                             formerRuleContainer = $('#Rules').find('.ruleContainer[id="' + id + '"]');
                             insBefore = $(formerRuleContainer).next();
                             $(formerRuleContainer).remove();
-                            displayRule(ruleXML, insBefore, false)                        
+                            displayRule(ruleXML, insBefore, false, false)                        
                         }
                         
                         function duplicateAndEditRule(rule){
@@ -585,8 +592,9 @@
 							Argument is a xml node containing a rule .
 							This function displays the rule just before the second argument insBefore
                             createdRule is a boolean, true iff the rule is has been built by the user during current use of the page (thus don't go in the part that tries to find the highest id of rules)
+                            editMode is a boolean, true iff rule is currently being enabled (this allow click on elements to edit them directly)
 						*/
-						function displayRule(rule, insBefore, createdRule){
+						function displayRule(rule, insBefore, createdRule, editMode){
 							
                             //top-right sign to remove the rule
                             var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right');
@@ -618,9 +626,7 @@
                                 else{//this is the currently created rule
                                     if(confirm('Are you sure to delete this new rule ?')){
                                         builtRule = new Object;
-                                        currentOperation = 0;
-                                        todoBefore[0]();
-                                        instruct();
+                                        goFromTo(currentOperation, 0);
                                     }
                                     
                                 }
@@ -726,6 +732,7 @@
 								var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(containerName.toUpperCase()+' the learner will do the following activities: '));
 								var activitiesContainer = $('<ul>');
 								$(consequencesElement).find('activity').each(function(){
+                                    var activity = this;
 									var activityContainer = $('<li>').addClass('activityContainer');
 									var typeOfActivityId = $($(this).find("typeofactivity")[0]).text();
 									var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + ', with parameters: ');
@@ -740,6 +747,15 @@
 									$(activityContainer).append(typeOfActivityContainer);
 									$(activityContainer).append(parametersContainer);
 									$(activitiesContainer).append(activityContainer);
+                                    
+                                    if(editMode){
+                                        $(activityContainer).click(function(){
+                                            currentActivity = activity;
+                                            goFromTo(currentOperation, 5);
+                                        });
+                                    }
+                                    
+                                    
 								})
 								
 								return $(consequenceContainer.append(activitiesContainer));
