@@ -767,7 +767,6 @@
                                     var operator = $($(constraint).find("operator")[0]).text();
                                     var referenceValue = $($(constraint).find("referencevalue")[0]).text();
                                     var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
-                                    //var operatorAndEditContainer;
                                     var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
                                     var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
                                     
@@ -805,7 +804,7 @@
                                             goFromTo(currentOperation, 1);
                                         });
                                         
-                                        $(operatorContainer).after(constraintEditor).after(constraintRemover);
+                                        $(referenceValueContainer).after(constraintEditor).after(constraintRemover);
                                     }
                                     
                                     
