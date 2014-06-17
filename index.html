@@ -247,7 +247,9 @@
 						8: Selection of parameter for else
 						9: value of parameter is given for else
                         10: Priority for the rule is given
-                        11: Rule is saved
+                        11: Rule is ready to be edited
+                        12: Rule is saved
+                        13: chosing 'AND' or 'OR'
 						
 						
 						At each time : change the xml tree, and make a new call on the displayer.
@@ -263,19 +265,30 @@
 						
 						var currentParameter;//used in stages when asking parameter value to the user, to add this parameter the <value>
 						var currentActivity;//used in stages when asking parameter to the user, to add the parameter to this activity
+                        var currentCondition;//used in the case the user wants to define complex conditions, using AND and OR. It stores the constraint which is going to be combined with the next defined constraint.
+                        var conditionOperator;//used when new constraint is defined to sotre 'AND' or 'OR'
                         
 						$("#Rules").on("leafValueReading", function(event, value, id, container){
 							
                             
 							if(currentOperation ==1){//user gives an indicator, other things are just ignored
-							
+                                
 								if(container == "#Profile" || container == "#Context"){
-									if($(builtRule).find('if').length == 0){                                    
-                                        $(builtRule).append($('<if>').append($('<constraint>').append($('<indicator>').text(id))));
+                                    var newConstraint = $('<constraint>').append($('<indicator>').text(id));
+                                    if($(builtRule).find('if').length == 0){                                    
+                                        $(builtRule).append($('<if>').append(newConstraint));
                                     }
-                                    else{
-                                        $($(builtRule).find('indicator')[0]).text(id);
+                                    
+                                    else if(typeof currentCondition != 'undefined' && currentCondition != null){
+                                        
+                                        $(currentCondition).parent().append(newConstraint);
+                                        
+                                        
                                     }
+                                    else{//else : replace the value of the first indicator
+                                        $($(builtRule).find('indicator')[0]).replaceWith(newConstraint);
+                                    }
+                                    currentCondition = newConstraint;
 									goFromTo(1,2);
 								}
 							}
@@ -283,7 +296,7 @@
 							else if(currentOperation ==2){//received event contains the operator
 								if(container=='#newRuleForm'){
 									var op = $('<operator>').text(value);
-									op.insertAfter($($(builtRule).find('indicator')[0]))
+									op.insertAfter($($(currentCondition).find('indicator')[0]))
 									
                                     goFromTo(2,3);
 									
@@ -293,12 +306,10 @@
 							else if(currentOperation == 3){//event contains the value to compare the indicator with
 								if(container=='#newRuleForm'){
 									var refVal = $('<referencevalue>').text(value);
-									refVal.insertAfter($($(builtRule).find('operator')[0]))
+									refVal.insertAfter($($(currentCondition).find('operator')[0]))
 									
 									goFromTo(3,4);
 								}
-							
-							
 							
 							}
 							
@@ -316,10 +327,6 @@
 										consequenceContainer = $(builtRule).find(operationToConsequence[currentOperation])[0];
 										$(consequenceContainer).append(activity);
 									}
-									
-									
-									
-									//$(builtRule).append($('<'+operationToConsequence[currentOperation]+'>').append($('<activities>').append(activity)));
                                     
                                     goFromTo(currentOperation, currentOperation+1);
 								}
@@ -356,6 +363,11 @@
                                     $(builtRule).prepend($('<priority>').append(value));
                                     goFromTo(10,11);
                                 }
+                            }
+                            
+                            else if(currentOperation == 13){
+                                $(currentCondition).wrap($('<'+ value +'>'));
+                                goFromTo(13, 1);
                             }
                             
 						});
@@ -430,6 +442,19 @@
                             function(){//12
                                 removeAllButtons();
                                 $('#newRuleContainer').empty();
+                            },
+                            function(){//13
+                                var conditionSelect = $('<select>');
+                                var conditions = ['AND', 'OR'];
+                                $(conditions).each(function(id, op){
+                                    $(conditionSelect).append($('<option>').append(op));
+                                });
+                                $('#newRuleForm').append(conditionSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
+                                
+                                $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
+                                    var cond = $('#newRuleForm select').val();
+                                    $(reader).trigger("leafValueReading",  [cond, 0, '#newRuleForm']);									
+                                });
                             }
                         ];
                         
@@ -479,8 +504,15 @@
                             },
                             function(){//11
                                 removeForms();
+                                currentActivity = null;
+                                currentCondition = null;
+                                currentParameter = null;
                             },
                             function(){//12
+                            
+                            },
+                            function(){//13
+                                removeForms();
                             }
                         ];
                         
@@ -571,6 +603,9 @@
                                     goFromTo(currentOperation, operationIfClicked);
                                     if(id=="ruleSaver"){
                                         saveRule();
+                                    }
+                                    else if(id=='ifEditorButton'){
+                                        currentCondition = null;
                                     }
                                     
                                 });
@@ -675,20 +710,32 @@
                             var ifElement = $(rule).find("if")[0];
                             $(ifElement).children().each(function(){
                                 $(ifContainer).append(getConditionElementContainer(this));
-                            
                             });
                             todoWhenConditionReady();
                             
-                            function getConditionElementContainer(element){console.log(element);
+                            function getConditionElementContainer(element){
                                 if(element.nodeName == 'constraint' ||element.nodeName == 'CONSTRAINT'){
                                     return getConstraintContainer(element);
                                 }
                                 else{//AND or OR, with 2 conditionElement children
-                                    var c1 = getConditionElementContainer($(element).children()[0]);
-                                    var c2 = getConditionElementContainer($(element).children()[1]);
+                                    var c1, c2;
+                                    if($(element).children().length >= 1){
+                                        c1 = getConditionElementContainer($(element).children()[0]);
+                                            if($(element).children().length >= 2){
+                                                c2 = getConditionElementContainer($(element).children()[1]);
+                                            }                                        
+                                    }
+                                    
                                     
                                     var toReturn = $('<span>').addClass('conditionElement');
-                                    $(toReturn).append(' (').append(c1).append(' '+ element.nodeName.toUpperCase() + ' ').append(c2).append(' )');
+                                    var conditionTypeContainer = $('<span>').addClass('conditionType').append(' '+element.nodeName.toUpperCase());
+                                    
+                                    $(toReturn).append(' (').append(c1).append(conditionTypeContainer).append(c2).append(' )');
+                                    
+                                    $(conditionTypeContainer).click(function(){
+                                       goFromTo(currentOperation, 13);
+                                       currentCondition = element;
+                                    });
                                     
                                     return toReturn;
                                 }
@@ -721,6 +768,11 @@
                                     var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
                                     var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
                                     var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
+                                    
+                                    $(operatorContainer).click(function(){
+                                        goFromTo(currentOperation, 13);
+                                        currentCondition = constraint;
+                                    });
                                     
                                     var constraintContainer = $('<span>').addClass('constraint');
                                     $(constraintContainer).append(indicatorContainer)
