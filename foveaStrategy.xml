@@ -7,9 +7,11 @@
 	<rule id="R1">
 		<priority>3</priority>
 		<if><!--  You can use <and> <or> to combine conditions  -->
-			<indicator>LP25</indicator>
-			<operator>=</operator> <!--  Also >   <    !=   -->
-			<referencevalue>absent</referencevalue>
+			<constraint>            
+                <indicator>LP25</indicator>
+                <operator>=</operator> <!--  Also >   <    !=   -->
+                <referencevalue>absent</referencevalue>
+            </constraint>
 		</if>
 		<then>
 			<activities>
@@ -28,11 +30,11 @@
 			<!-- optional - same organization as <then> -->
 			<activities>
 				<activity>
-					<typeofactivity>A002</typeofactivity>
+					<typeofactivity>A004</typeofactivity>
 					<parameters>
 						<parameter>
-							<id>P002</id>
-							<value>Facebook</value>
+							<id>P012</id>
+							<value>Greeting</value>
 						</parameter>
 					</parameters>
 				</activity>
@@ -42,9 +44,11 @@
     <rule id="R2">
 		<priority>3</priority>
 		<if><!--  You can use <and> <or> to combine conditions  -->
-			<indicator>LP28</indicator>
-			<operator>=</operator> <!--  Also >   <    !=   -->
-			<referencevalue>absent</referencevalue>
+            <constraint>
+                <indicator>LP3</indicator>
+                <operator>=</operator> <!--  Also >   <    !=   -->
+                <referencevalue>ref</referencevalue>
+            </constraint>
 		</if>
 		<then>
 			<activities>
@@ -74,4 +78,5 @@
 			</activities>
 		</else>
 	</rule>
-<rule xmlns="http://www.w3.org/1999/xhtml"><if><indicator>LP43//scale</indicator><operator>&lt;</operator><referencevalue>AZ</referencevalue></if><then><activities><activity><typeofactivity>toto</typeofactivity><parameters><parameter><id>P004</id><value>ze</value></parameter></parameters></activity></activities></then><else><activities><activity><typeofactivity>A004</typeofactivity><parameters><parameter><id>P003</id><value>rt</value></parameter></parameters></activity></activities></else></rule><rule xmlns="http://www.w3.org/1999/xhtml"><if><indicator>LP43//scale</indicator><operator>&lt;</operator><referencevalue>truc</referencevalue></if><then><activities><activity><typeofactivity>A003</typeofactivity><parameters><parameter><id>P003</id><value>tr</value></parameter></parameters></activity></activities></then><else><activities><activity><typeofactivity>A004</typeofactivity><parameters><parameter><id>P003</id><value>rt</value></parameter></parameters></activity></activities></else></rule></strategyRules>
+    
+<rule xmlns="http://www.w3.org/1999/xhtml" id="R3"><if><indicator>LP2</indicator></if></rule><rule xmlns="http://www.w3.org/1999/xhtml" id="R4"><if><indicator>LP0</indicator><operator>=</operator><referencevalue/></if><then><activities><activity><typeofactivity>A001</typeofactivity><parameters/></activity></activities></then></rule><rule xmlns="http://www.w3.org/1999/xhtml" id="R5"><if><indicator>LP0</indicator><operator>=</operator><referencevalue/></if><then><activities><activity><typeofactivity>A001</typeofactivity><parameters/></activity></activities></then></rule><rule xmlns="http://www.w3.org/1999/xhtml" id="R6"><if><indicator>LP2</indicator><operator>=</operator><referencevalue>AS</referencevalue><operator>=</operator><referencevalue/></if><then><activities><activity><typeofactivity>A001</typeofactivity><parameters/></activity></activities></then></rule><rule xmlns="http://www.w3.org/1999/xhtml" id="R7"><priority/><if><indicator>LP3</indicator><operator>=</operator><referencevalue/></if><then><activities><activity><typeofactivity>A001</typeofactivity><parameters><parameter><id>P004</id><value/></parameter></parameters></activity></activities></then><else><activities><activity><typeofactivity>A001</typeofactivity><parameters><parameter><id>P006</id><value/></parameter></parameters></activity></activities></else></rule></strategyRules>

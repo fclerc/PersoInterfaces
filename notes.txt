@@ -1,4 +1,11 @@
+TODOs after :
+-swhitch profile context when clicking on indicator in rule
+
+
 Pour activités : nécessité de réécrire un code spécifique pour l'afficher, dans la mesure où on ne veut pas aficher la même chose, et la fonction manipulateXML que j'ai écrite doit rester générique.
 
 
 For xml documents where jquery might add elements : there are case problems, thus I write everything in lower case.
+
+
+Useful link for colors : http://web.njit.edu/~kevin/rgb.txt.html#columns

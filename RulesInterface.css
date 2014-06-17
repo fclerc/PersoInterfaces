@@ -1,3 +1,45 @@
+body{
+    overflow: hidden;
+    background-color: #FFAA2F;
+}
+.mains{
+    border : 2px solid black;
+    border-radius: 20px;
+    top:3px;
+    bottom:3px;
+}
+
+#ProfileAndContext{
+    width : 39%;
+    position:absolute;
+    left: 0.5%;
+    overflow-y: scroll;
+}
+
+#ProfileAndContext>div{
+    width:97%;
+}
+
+#ProfileAndContext div > li>ul>li{
+    border-radius: 10px;
+    margin-bottom:3px;
+}
+
+#Rules{
+    width : 39%;
+    position: absolute;
+    left: 40.5%;
+    overflow-y: scroll;
+}
+
+#Activities{
+    width : 18%;
+    position: absolute;
+    left:80.5%;
+    overflow-y: scroll;
+}
+
+
 #Activities .activity{
 	background-color: #EF9999;
     list-style-type: none;
@@ -5,15 +47,17 @@
     border-radius: 10px;
     padding: 2px;
     margin-bottom: 5px;
+    width:97%;
 }
 
 #Activities .activity >span{
     font-weight: bold;
 }
 
+
 #Activities .activity li:hover, #Activities .activity >span:hover{
     background-color: green;
-	cursor: pointer;
+    cursor: pointer;
 }
 
 #Activities >ul{
@@ -35,36 +79,119 @@
 }
 
 .mains{
-    /*width : 32%;*/
-    float:left;
     padding:0.1%;
     margin:0.1%;
-	margin-right: 1.2%;
-    border : 1px dotted black;
 }
 
 #Rules .then >span, #Rules .else >span, #Rules .ifContainer{
     font-weight : bold;
     
 }
+#Rules .ruleEditor, #Rules .ruleRemover, #Rules .ruleDuplicator{
+    top: 5px;
+    font-size: 20px;
+    opacity: 0.6;
+    position:absolute;
+}
+
+#Rules .ruleRemover:hover, #Rules .ruleEditor:hover, #Rules .ruleDuplicator:hover{
+    cursor:pointer;
+    opacity: 1;
+}
 
 
 #Rules .glyphicon-remove-circle{
     margin-left: 10px;
     margin-top: 2px;
+	
+}
+#Rules .ruleRemover{
     color: red;
-    font-size: 20px;
+    right:5px;
 }
 
-#Rules h3{
-    margin-top:2px;
+#Rules .ruleEditor{
+    color: #FD4590;
+    right: 30px;
 }
+
+#Rules .ruleDuplicator{
+    right: 55px;
+}
+
+#Rules .ruleContainer h4{
+    padding-top:3px;
+}
+
+#Rules #newRuleButtons button{
+    margin-left: 4px;
+    margin-bottom:2px;
+}
+
+#Rules .priority{
+    position:absolute;
+    right:5px;
+    bottom:5px;
+    font-weight:bold;
+}
+
+#Rules .indicator:hover{
+	background-color : #FF7F24;
+    cursor: pointer;
+    border-radius:5px;
+}
+
 
 #Rules .ruleContainer{
     background-color: #9999FF;
     border-radius: 10px;
     padding-right: 4px;
     padding-left: 4px;
+    width:97%;
+    margin-left:1.5%;
+    position: relative;
+}
+
+#Rules #ruleAdder{
+    margin-left:1%;
+}
+
+#Rules #newRuleInstruction{
+    background-color: #9ACD32;
+    padding:4px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right:5px;
+}
+
+#Rules #newRuleForm .glyphicon{
+    color:#698B22;
+    margin-left:5px;
+}
+
+
+#Rules #newRuleForm .glyphicon:hover{
+    cursor: pointer;
+    font-size:20px;
+}
+
+#Rules #newRuleForm {
+    margin-bottom: 5px;
+    margin-left:5px;
+    vertical-align: middle;
+}
+
+#Rules #newRuleForm select, #Rules #newRuleForm input{
+      height: 30px;
+      padding: 5px 7px;
+      font-size: 16px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
 }
 
 #Rules #newRuleInstruction{
@@ -89,4 +216,8 @@
 
 #Rules #newRuleForm{
     margin-bottom:5px;   
+}
+#Rules #newRuleForm select:hover, #Rules #newRuleForm input:hover{
+      border-color: #66afe9;
+      outline: 0; 
 }
