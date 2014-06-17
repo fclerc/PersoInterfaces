@@ -83,10 +83,32 @@ body{
     margin:0.1%;
 }
 
+#Rules .parameterAdder,#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .activityRemover{
+    opacity:0.6;
+}
+
+#Rules .parameterAdder:hover,#Rules .parameterRemover:hover,#Rules .parameterValueEditor:hover, #Rules .activityRemover:hover{
+    cursor:pointer;
+    opacity:1;
+}
+
+#Rules .parameterAdder{
+    color:green;
+}
+
+#Rules .parameterRemover, #Rules .activityRemover{
+    color:red;
+}
+#Rules .parameterRemover,#Rules .parameterValueEditor{
+    margin-left:3px;
+}
+
 #Rules .then >span, #Rules .else >span, #Rules .ifContainer{
     font-weight : bold;
-    
 }
+
+
+
 #Rules .ruleEditor, #Rules .ruleRemover, #Rules .ruleDuplicator{
     top: 5px;
     font-size: 20px;
@@ -100,14 +122,10 @@ body{
 }
 
 
-#Rules .glyphicon-remove-circle{
-    margin-left: 10px;
-    margin-top: 2px;
-	
-}
 #Rules .ruleRemover{
     color: red;
     right:5px;
+    margin-left: 10px;
 }
 
 #Rules .ruleEditor{
