@@ -54,7 +54,6 @@
 	translate.setTranslation = function(newTranslation)
 	{
 		translation = newTranslation;
-        console.log(translation);
 	};
 	
 	function translateLookup(target)

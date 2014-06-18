@@ -13,19 +13,19 @@
     </head>
     
     <body>
-	<div id="ProfileAndContext" class="mains">
-		<h2>Selection of indicators</h2>
-        <p>For each indicator, an example value is given (italic).</p>
-		<ul class="nav nav-tabs">
-			<li class="active" id="profileTabLi"><a href="#Profile" data-toggle="tab">Profile</a></li>
-			<li id="contextTabLi"><a href="#Context" data-toggle="tab">Context</a></li>
-		</ul>
-		<div class="tab-content">
-			<div class="tab-pane active" id="Profile"></div>
-			<div class="tab-pane" id="Context"></div>
-		</div>
-	
-	</div>
+        <div id="ProfileAndContext" class="mains">
+            <h2>Selection of indicators</h2>
+            <p>For each indicator, an example value is given (italic).</p>
+            <ul class="nav nav-tabs">
+                <li class="active" id="profileTabLi"><a href="#Profile" data-toggle="tab">Profile</a></li>
+                <li id="contextTabLi"><a href="#Context" data-toggle="tab">Context</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="Profile"></div>
+                <div class="tab-pane" id="Context"></div>
+            </div>
+        
+        </div>
 	
 		<div id="Rules" class="mains">
 			<h2>Definition of pedagogical strategy</h2>
@@ -34,8 +34,8 @@
             <div id="newRuleButtons"></div>
 			<div id="newRuleContainer"></div>
             <hr/>
-			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> Add new Rule</button>
-			<button id="strategySaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save my strategy</button>
+			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>Add new Rule</span></button>
+			<button id="strategySaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Save my strategy</span></button>
             <hr/>
             <h3>Rules you already defined:</h3>
             
@@ -49,948 +49,959 @@
         <script type="text/javascript" src="js/bootstrap.js"></script>
         
         <script type="text/javascript" src="xmlManipulator.js"></script>
+        <script type="text/javascript" src="translate.js"></script>
+        <script type="text/javascript" src="icu.js"></script>
         <script type="text/javascript">
             
             
             
             $(function(){
-            
-                function switchProfileContext(){//switches from profile to context and vice-versa in left part.
-                    if($('#Profile').hasClass('active')){
-                        $('#Context').addClass('active');
-                        $('#contextTabLi').addClass('active');
-                        $('#Profile').removeClass('active');
-                        $('#profileTabLi').removeClass('active');
-                    }
-                    else{
-                        $('#Context').removeClass('active');
-                        $('#contextTabLi').removeClass('active');
-                        $('#Profile').addClass('active');
-                        $('#profileTabLi').addClass('active');
-                    }
-                }
-            
-            
-                $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
-					type: "GET",
-					url: 'foveaStrategy.xml',
-					success: function(data){//get the xml document
-						var strategy = $(data);//load xml tree
-						
-						//loading the content of the other xml docs
-						var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
-						var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
-						var pedagogicalPropertiesFilename = $($(strategy).find('pedagogicalProperties')[0]).text();
-						var t1 = manipulateXML(profileFilename,'#Profile', 'select', "#Rules");
-                        var t2 = manipulateXML(contextFilename,'#Context', 'select', '#Rules');
-                        
-                        $.when(t1, t2).done(function() {//when profile and context are displayed
-                            
-                            displayActivitiesAndRules(pedagogicalPropertiesFilename, strategy);
-                            
-                            
-                            
-                            //this object will be used as a dictionnary to make a list of parameters corresponding to their IDs, like 'P012' : 'Length' .
-                            var parametersDictionnary= new Object;
-                            //this object will be used as a dictionnary to make a list of activities corresponding to their IDs, like 'A001' : 'Learning' .
-                            var activitiesDictionnary= new Object;
-                            //when creating new rule, we need to give it an id, like R12. This variable contains the highest id a rule currently has.
-                            var rulesMaxId = 0;
-                            
-                            //the element which triggers events to treat them when an element is clicked.
-                            var reader = $('#Rules');
-                            
-                            function displayActivitiesAndRules(pedagogicalPropertiesFilename, strategy){
+                var translationFile = 'en.json'
+                $.ajax({//loading translation
+                    type: "GET",
+                    url: translationFile,
+                    success: function(data){
+                        _.setTranslation(data)
+                
+                $('#ProfileAndContext h2, #ProfileAndContext p, #Rules h2, #Rules h3, #Rules button span, #Activities h2').each(function(){
+                    $(this).text(_($(this).text()));
+                    //console.log($(this).text());
+                
+                });
+                
+                
+                
+                
+                
+                
+                
+                
+                        function switchProfileContext(){//switches from profile to context and vice-versa in left part.
+                            if($('#Profile').hasClass('active')){
+                                $('#Context').addClass('active');
+                                $('#contextTabLi').addClass('active');
+                                $('#Profile').removeClass('active');
+                                $('#profileTabLi').removeClass('active');
+                            }
+                            else{
+                                $('#Context').removeClass('active');
+                                $('#contextTabLi').removeClass('active');
+                                $('#Profile').addClass('active');
+                                $('#profileTabLi').addClass('active');
+                            }
+                        }
+                    
+                    
+                        $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
+                            type: "GET",
+                            url: 'foveaStrategy.xml',
+                            success: function(data){//get the xml document
+                                var strategy = $(data);//load xml tree
                                 
-                            
+                                //loading the content of the other xml docs
+                                var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
+                                var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
+                                var pedagogicalPropertiesFilename = $($(strategy).find('pedagogicalProperties')[0]).text();
+                                var t1 = manipulateXML(profileFilename,'#Profile', 'select', "#Rules");
+                                var t2 = manipulateXML(contextFilename,'#Context', 'select', '#Rules');
                                 
-                                $.ajax({
-                                    type: "GET",
-                                    url: pedagogicalPropertiesFilename,
-                                    success: function(data){
-                                        var xml = new Array;
-                                        xml['#Activities']=$(data);//load xml tree
+                                $.when(t1, t2).done(function() {//when profile and context are displayed
+                                    
+                                    displayActivitiesAndRules(pedagogicalPropertiesFilename, strategy);
+                                    
+                                    
+                                    
+                                    //this object will be used as a dictionnary to make a list of parameters corresponding to their IDs, like 'P012' : 'Length' .
+                                    var parametersDictionnary= new Object;
+                                    //this object will be used as a dictionnary to make a list of activities corresponding to their IDs, like 'A001' : 'Learning' .
+                                    var activitiesDictionnary= new Object;
+                                    //when creating new rule, we need to give it an id, like R12. This variable contains the highest id a rule currently has.
+                                    var rulesMaxId = 0;
+                                    
+                                    //the element which triggers events to treat them when an element is clicked.
+                                    var reader = $('#Rules');
+                                    
+                                    function displayActivitiesAndRules(pedagogicalPropertiesFilename, strategy){
                                         
+                                    
                                         
-                                        
-                                        //the element that will contain all the activities
-                                        var activitiesContainer = $('<ul>').addClass('activities');
-                                        
-                                        //going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters. At the same time, we fill the activitiesDictionnary.
-                                        var allActivityParameters = new Array;
-                                        $(xml['#Activities']).find('TypeOfActivity').each(function(){
-                                            var activity = this;
-                                            var activityName = $($(activity).children('Name')[0]).text();
-                                            
-                                            //filling the activitiesDictionnary                                    
-                                            var activityId = $(activity).attr('ID');
-                                            if(!activitiesDictionnary.hasOwnProperty(activityId)){
-                                                activitiesDictionnary[activityId] = activityName;
-                                            }
-                                            
-                                            if(activityName == 'All'){
-                                                $(activity).find('Parameter').each(function(){
-                                                    allActivityParameters.push(this);
+                                        $.ajax({
+                                            type: "GET",
+                                            url: pedagogicalPropertiesFilename,
+                                            success: function(data){
+                                                var xml = new Array;
+                                                xml['#Activities']=$(data);//load xml tree
+                                                
+                                                
+                                                
+                                                //the element that will contain all the activities
+                                                var activitiesContainer = $('<ul>').addClass('activities');
+                                                
+                                                //going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters. At the same time, we fill the activitiesDictionnary.
+                                                var allActivityParameters = new Array;
+                                                $(xml['#Activities']).find('TypeOfActivity').each(function(){
+                                                    var activity = this;
+                                                    var activityName = $($(activity).children('Name')[0]).text();
+                                                    
+                                                    //filling the activitiesDictionnary                                    
+                                                    var activityId = $(activity).attr('ID');
+                                                    if(!activitiesDictionnary.hasOwnProperty(activityId)){
+                                                        activitiesDictionnary[activityId] = activityName;
+                                                    }
+                                                    
+                                                    if(activityName == 'All'){
+                                                        $(activity).find('Parameter').each(function(){
+                                                            allActivityParameters.push(this);
+                                                        });
+                                                    }
                                                 });
-                                            }
+                                                
+                                                
+                                                //going through activities to display them and their parameters as lists.
+                                                $(xml['#Activities']).find('TypeOfActivity').each(function(){
+                                                    $(activitiesContainer).append(displayActivity(this, allActivityParameters));
+                                                });
+                                                
+                                                
+                                                $('#Activities').append(activitiesContainer);
+                                                
+                                                //setting events when clicking on activities and parameters
+                                                
+                                                //event when clicking on activity names. Msg is 'activity', id, '#Activities' 
+                                                $('#Activities .activity > span').click(function(event){
+                                                
+                                                    var activityId = $(event.target).attr('id');
+                                                    $(reader).trigger("leafValueReading",  ['activity', activityId, '#Activities']);
+                                                });
+                                                //event when clicking on parameters names. Msg is 'parameter', id, '#Activities' 
+                                                $('#Activities .parameters li').click(function(event){
+                                                    var parameterId = $(event.target).attr('id');
+                                                    $(reader).trigger("leafValueReading",  ['parameter', parameterId, '#Activities']);
+                                                });
+                                                
+                                                
+                                                //displaying the rules in the center part of the page.
+                                                //placed here in the code : the parametersDictionnary is defined just above and ready to be used.
+                                                $(strategy).find("rule").each(function(){
+                                                    displayRule(this, '#uselessDivToInsertRulesAbove', false, false);
+                                                });
+                                                
+                                                
+                                            },
+                                            cache: false
                                         });
-                                        
-                                        
-                                        //going through activities to display them and their parameters as lists.
-                                        $(xml['#Activities']).find('TypeOfActivity').each(function(){
-                                            $(activitiesContainer).append(displayActivity(this, allActivityParameters));
-                                        });
-                                        
-                                        
-                                        $('#Activities').append(activitiesContainer);
-                                        
-                                        //setting events when clicking on activities and parameters
-                                        
-                                        //event when clicking on activity names. Msg is 'activity', id, '#Activities' 
-                                        $('#Activities .activity > span').click(function(event){
-                                        
-                                            var activityId = $(event.target).attr('id');
-                                            $(reader).trigger("leafValueReading",  ['activity', activityId, '#Activities']);
-                                        });
-                                        //event when clicking on parameters names. Msg is 'parameter', id, '#Activities' 
-                                        $('#Activities .parameters li').click(function(event){
-                                            var parameterId = $(event.target).attr('id');
-                                            $(reader).trigger("leafValueReading",  ['parameter', parameterId, '#Activities']);
-                                        });
-                                        
-                                        
-                                        //displaying the rules in the center part of the page.
-                                        //placed here in the code : the parametersDictionnary is defined just above and ready to be used.
-                                        $(strategy).find("rule").each(function(){
-                                            displayRule(this, '#uselessDivToInsertRulesAbove', false, false);
-                                        });
-                                        
-                                        
-                                    },
-                                    cache: false
-                                });
-                            
-                            }	
-                            
-                            
-                            
-                            /*
-                            Takes an xml element containing the activity, and the list of parameters contained in the 'All' activity.
-                            Returns the html.
-                            
-                            
-                            */
-                            function displayActivity(activity, allActivityParameters){
-                                var activityName = $($(activity).children('Name')[0]).text();
-                                var activityId = $(activity).attr('ID');
-                                if(activityName != 'All'){//the 'All' activity is only used to factorize parameters that apply to all activities, and is therefore not displayed
-                                    //displaying the parameters of the activity, including the parameters contained in the 'All' activity
-                                    var activityContainer=$('<li>').addClass('activity').append($('<span>').append(activityName).attr('id', activityId));
                                     
-                                    var parametersContainer =$('<ul>').addClass('parameters');
+                                    }	
                                     
-                                    $(allActivityParameters).each(function(){
-                                        addParameterToList(this, parametersContainer);								
-                                    });
-                                    $(activity).find('Parameter').each(function(){
-                                        addParameterToList(this, parametersContainer);
-                                    });
                                     
-                                    $(activityContainer).append(parametersContainer);
-                                    return activityContainer;
-                                }
-                                
-                                else{								
-                                    return '';
-                                }
-                            }
-                            
-                            /*
-                            Takes a parameter xml element, with the div which will have to contain it.
-                            Appends the container with html.
-                            
-                            */
-                            function addParameterToList(parameter, container){
-                                var parameterName = $($(parameter).children('Name')[0]).text();
-                                var parameterId = $(parameter).attr('ID');
-                                var parameterComment = $($(parameter).children('Comment')[0]).text();//TODO : use it and use scales
-                                var parameterContainer = $('<li>').append(parameterName).attr('id', parameterId);
-                                $(container).append(parameterContainer);
-                                
-                                if(!parametersDictionnary.hasOwnProperty(parameterId)){
-                                    parametersDictionnary[parameterId] = parameterName;
-                                }
-                            }
-                            
-                            
-                            
-                            function getParameterId(parameterName){
-                                $.each(parametersDictionnary, function(id, value){
-                                    if(value==parameterName){
-                                        return id;
-                                    }
-                                });
-                            }
-                            
-                            
-                            
-                            
-                            /*
-                            
-                            
-                            
-                            
-                            Rules Section
-                            
-                            */
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            //responding to user definition of rules
-                            /*
-                            1: Selection of indicator
-                            2: Selection of operator
-                            3: referenceValue is given
-                            4: Selection of activity for then
-                            5: Selection of parameter for then
-                            6: value of parameter is given for then
-                            7: Selection of activity for else
-                            8: Selection of parameter for else
-                            9: value of parameter is given for else
-                            10: Priority for the rule is given
-                            11: Rule is ready to be edited
-                            12: Rule is saved
-                            13: chosing 'AND' or 'OR'
-                            
-                            
-                            At each time : change the xml tree, and make a new call on the displayer.
-                            
-                            */
-                            var currentOperation = 0;
-                            var instructions = ['Click on new rule', 'Choose the indicator you want to base your rule on from the profile or the context', 'Choose the operator you want to use in this rule in the form below', 'Give the value used for the comparison', 'Select the activity for the then part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Select the activity for the else part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Give the priority for this rule', 'Save your new rule', 'Success, your rule has been saved! You can create/edit another one if you want']
-                            
-                            //used in last operations, to know whether we are in the definition of <then> or <else>
-                            var operationToConsequence = ['new','if', 'if', 'if', 'then','then','then','else','else','else', 'priority', 'save', 'save'];
-                            
-                            var builtRule = new Object;
-                            
-                            var currentParameter;//used in stages when asking parameter value to the user, to add this parameter the <value>
-                            var currentActivity;//used in stages when asking parameter to the user, to add the parameter to this activity
-                            var currentCondition;//used in the case the user wants to define complex conditions, using AND and OR. It stores the constraint which is going to be combined with the next defined constraint.
-                            var conditionOperator;//used when new constraint is defined to sotre 'AND' or 'OR'
-                            
-                            $("#Rules").on("leafValueReading", function(event, value, id, container){
-                                
-                                
-                                if(currentOperation ==1){//user gives an indicator, other things are just ignored
                                     
-                                    if(container == "#Profile" || container == "#Context"){
-                                        var newConstraint = $('<constraint>').append($('<indicator>').text(id));
-                                        if($(builtRule).find('if').length == 0){                                    
-                                            $(builtRule).append($('<if>').append(newConstraint));
-                                        }
-                                        
-                                        else if(typeof currentCondition != 'undefined' && currentCondition != null){
+                                    /*
+                                    Takes an xml element containing the activity, and the list of parameters contained in the 'All' activity.
+                                    Returns the html.
+                                    
+                                    
+                                    */
+                                    function displayActivity(activity, allActivityParameters){
+                                        var activityName = $($(activity).children('Name')[0]).text();
+                                        var activityId = $(activity).attr('ID');
+                                        if(activityName != 'All'){//the 'All' activity is only used to factorize parameters that apply to all activities, and is therefore not displayed
+                                            //displaying the parameters of the activity, including the parameters contained in the 'All' activity
+                                            var activityContainer=$('<li>').addClass('activity').append($('<span>').append(activityName).attr('id', activityId));
                                             
-                                            $(currentCondition).parent().append(newConstraint);
+                                            var parametersContainer =$('<ul>').addClass('parameters');
                                             
-                                            
-                                        }
-                                        else{//else : replace the value of the first indicator
-                                            $($(builtRule).find('indicator')[0]).replaceWith(newConstraint);
-                                        }
-                                        currentCondition = newConstraint;
-                                        goFromTo(1,2);
-                                    }
-                                }
-                                
-                                else if(currentOperation ==2){//received event contains the operator
-                                    if(container=='#newRuleForm'){
-                                        var op = $('<operator>').text(value);
-                                        op.insertAfter($($(currentCondition).find('indicator')[0]))
-                                        
-                                        goFromTo(2,3);
-                                        
-                                    }
-                                }
-                                
-                                else if(currentOperation == 3){//event contains the value to compare the indicator with
-                                    if(container=='#newRuleForm'){
-                                        var refVal = $('<referencevalue>').text(value);
-                                        refVal.insertAfter($($(currentCondition).find('operator')[0]))
-                                        
-                                        goFromTo(3,4);
-                                    }
-                                
-                                }
-                                
-                                else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts), or user has clicked on the button 'noelse'
-                                    if(container=='#Activities' && value == 'activity'){
-                                        var activity = $('<activity>').append($('<typeofactivity>').append(id)).append($('<parameters>'));
-                                        currentActivity = activity;
-                                        
-                                        var consequenceContainer = new Object;
-                                        if($(builtRule).find(operationToConsequence[currentOperation]).length ==0){
-                                            consequenceContainer = $('<'+operationToConsequence[currentOperation]+'>').append($('<activities>')).append(activity);
-                                            $(builtRule).append(consequenceContainer);
-                                        }
-                                        else{
-                                            consequenceContainer = $(builtRule).find(operationToConsequence[currentOperation])[0];
-                                            $(consequenceContainer).append(activity);
-                                        }
-                                        
-                                        goFromTo(currentOperation, currentOperation+1);
-                                    }
-                                    
-                                }
-                                
-                                else if(currentOperation == 5 ||currentOperation==8){//a parameter has been clicked on
-                                    if(container=='#Activities' && value == 'parameter'){
-                                        //var activity = $($(builtRule).find(operationToConsequence[currentOperation])[0]).find('activity').last();
-                                        
-                                        var parameter = $('<parameter>').append($('<id>').text(id));
-                                        $($(currentActivity).find('parameters')[0]).append(parameter);
-                                        currentParameter = parameter;
-                                        
-                                        goFromTo(currentOperation, currentOperation+1);
-                                    }
-                                }
-                                
-                                else if(currentOperation == 6 || currentOperation == 9){//value of the parameter has  been given
-                                    
-                                    if(container == '#newRuleForm'){
-                                        if($(currentParameter).find('value').length==0){
-                                            $(currentParameter).append($('<value>').append(value));
-                                        }
-                                        else{
-                                            $($(currentParameter).find('value')[0]);
-                                        }
-                                        goFromTo(currentOperation, currentOperation-1);
-                                    }
-                                }
-                                
-                                else if(currentOperation==10){
-                                    if(container == '#newRuleForm'){
-                                        $(builtRule).prepend($('<priority>').append(value));
-                                        goFromTo(10,11);
-                                    }
-                                }
-                                
-                                else if(currentOperation == 13){
-                                    $(currentCondition).wrap($('<'+ value +'>'));
-                                    goFromTo(13, 1);
-                                }
-                                
-                            });
-                            
-                            
-                            function goFromTo(origin, target){
-                                currentOperation = target;
-                                todoAfter[origin]();
-                                todoBefore[target]();
-                                
-                                if(target!=0 && target !=12){displayNewRule()};
-                                instruct();
-                            }
-                            
-                            var todoBefore = [//contains what has to be done before each operation
-                                function(){//0
-                                    removeAllButtons()
-                                    $('#newRuleContainer').empty();
-                                },
-                                function(){//1
-                                    addEditButtons();
-                                },
-                                function(){//2
-                                    var operatorSelect = $('<select>');
-                                    var operators = ['=', '>', '<', '!='];
-                                    $(operators).each(function(id, op){
-                                        $(operatorSelect).append($('<option>').append(op));
-                                    });
-                                    $('#newRuleForm').append(operatorSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
-                                    
-                                    $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
-                                        var op = $('#newRuleForm select').val();
-                                        $(reader).trigger("leafValueReading",  [op, 0, '#newRuleForm']);									
-                                    });
-                                
-                                },
-                                function(){//3
-                                    displayValueInput();
-                                
-                                },
-                                function(){//4
-                                
-                                
-                                },
-                                function(){//5
-                                
-                                
-                                },
-                                function(){//6
-                                    displayValueInput();
-                                
-                                },
-                                function(){//7
-                                
-                                
-                                },
-                                function(){//8
-                                
-                                
-                                },
-                                function(){//9
-                                    displayValueInput();
-                                
-                                },
-                                function(){//10
-                                    displayValueInput();
-                                
-                                },
-                                function(){//11
-                                    addEditButtons();
-                                },
-                                function(){//12
-                                    removeAllButtons();
-                                    $('#newRuleContainer').empty();
-                                },
-                                function(){//13
-                                    var conditionSelect = $('<select>');
-                                    var conditions = ['AND', 'OR'];
-                                    $(conditions).each(function(id, op){
-                                        $(conditionSelect).append($('<option>').append(op));
-                                    });
-                                    $('#newRuleForm').append(conditionSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
-                                    
-                                    $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
-                                        var cond = $('#newRuleForm select').val();
-                                        $(reader).trigger("leafValueReading",  [cond, 0, '#newRuleForm']);									
-                                    });
-                                }
-                            ];
-                            
-                            var todoAfter = [//contains what has to be done after each operation
-                                function(){//0
-                                
-                                
-                                },
-                                function(){//1
-                                
-                                
-                                },
-                                function(){//2
-                                    removeForms();
-                                
-                                },
-                                function(){//3
-                                    removeForms();
-                                
-                                },
-                                function(){//4
-                                
-                                
-                                },
-                                function(){//5
-                                
-                                
-                                },
-                                function(){//6
-                                    removeForms();
-                                
-                                },
-                                function(){//7
-                                
-                                
-                                },
-                                function(){//8
-                                
-                                
-                                },
-                                function(){//9
-                                    removeForms();
-                                
-                                },
-                                function(){//10
-                                    removeForms();
-                                },
-                                function(){//11
-                                    removeForms();
-                                    currentActivity = null;
-                                    currentCondition = null;
-                                    currentParameter = null;
-                                },
-                                function(){//12
-                                
-                                },
-                                function(){//13
-                                    removeForms();
-                                }
-                            ];
-                            
-                            
-                            
-                            
-                            function saveRule(){
-                                var ruleInXMLFile = $(strategy).find('rule[id="' + $(builtRule).attr('id') + '"]');
-                                if(ruleInXMLFile.length == 0){//this is a new rule, add it to the end of the file
-                                    $($(strategy).find('strategyRules')[0]).append(builtRule);
-                                   rulesMaxId++;//the rule is now stored, let's go the next id for future rules
-                                   displayRule(builtRule, '#uselessDivToInsertRulesAbove', true, false);
-                                }
-                                else{//the rule already exists, replace it in the file
-                                    $(ruleInXMLFile[0]).replaceWith(builtRule);
-                                    updateRule(builtRule, $(builtRule).attr('id'))
-                                }
-                               
-                                goFromTo(11,12);
-                                
-                            }
-                            
-                            $('#ruleAdder').click(function(){
-                                if(currentOperation == 0 || currentOperation == 12){
-                                    var nextRuleId = rulesMaxId+1;
-                                    builtRule = $('<rule>').attr('id', 'R'+(nextRuleId));
-                                    goFromTo(0,1);
-                                }
-                            });
-                            
-                            function addEditButtons(){
-                                addButton("Edit 'IF'", 'ifEditorButton', 1);
-                                addButton("Add 'THEN' Activity", 'thenEditorButton', 4);
-                                addButton("Add 'ELSE' Activity", 'elseEditorButton', 7);
-                                addButton("Edit Priority", 'priorityEditorButton', 10);
-                                addButton('Save rule', 'ruleSaver', 11);
-                            }
-                            
-                            $('#strategySaver').click(function(){
-                                var xmlS = (new XMLSerializer()).serializeToString(strategy[0]);
-                                $.post('saveXMLDocument.php', { file: 'foveaStrategy.xml' , data: xmlS}, 
-                                    function(data, txt, jqXHR){
-                                        if(txt=="success"){
-                                            alert('Your data have been successfully saved');
-                                        }
-                                    }
-                                );
-                            
-                            });
-                            
-                            function displayNewRule(){//when creating a new rule, displays the rule in the #newRuleContainer and displays instruction
-                                $('#newRuleContainer').text('');//empty the container
-                                $('#newRuleContainer').append($('<div>').attr('id', 'emptyDiv'));//adding empty div to pass it as insBeofre argument in displayRule function
-                                (displayRule(builtRule[0], '#emptyDiv', true, true));//displaying the in-process rule
-                                
-                            }
-                            
-                            function instruct(){//giving next instruction to the user
-                                $('#newRuleInstruction').text(instructions[currentOperation]);
-                                if(currentOperation != 0 && currentOperation != 12){
-                                    $('#newRuleInstruction').append(', or click on a button below');
-                                }
-                            }
-                            
-                            
-                            //displays the value input together with a button to click on
-                            function displayValueInput(){							
-                                var valueInput = $('<input>').attr('type', 'text');
-                                
-                                $('#newRuleForm').append(valueInput);
-                                $('#newRuleForm').append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
-                                
-                                $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
-                                    var val = $('#newRuleForm input').val();
-                                    $(reader).trigger("leafValueReading",  [val, 0, '#newRuleForm']);									
-                                });
-                            }
-                            
-                            //removes all forms in the rules part.
-                            function removeForms(){
-                                $('#newRuleForm').empty();
-                            }
-                            
-                            function addButton(value, id, operationIfClicked){//adding a button to chose next interaction with the rule; and triggering event to the reader
-                                if($('#newRuleButtons').find('#'+id).length==0){                            
-                                    var button = $('<button>').append(value).addClass('operationButton btn btn-primary').attr('id', id);
-                                    $(button).click(function(){
-                                        goFromTo(currentOperation, operationIfClicked);
-                                        if(id=="ruleSaver"){
-                                            saveRule();
-                                        }
-                                        else if(id=='ifEditorButton'){
-                                            currentCondition = null;
-                                        }
-                                        
-                                    });
-                                    $('#newRuleButtons').append(button);
-                                }
-                            }
-                            
-                            function removeAllButtons(){
-                                $('#newRuleButtons').empty();
-                            }
-                            
-                            
-                            
-                            
-                            
-                            function updateRule(ruleXML, id){//updates a rule which is displayed : removes the rule and displays the new one at the same place/
-                                formerRuleContainer = $('#Rules').find('.ruleContainer[id="' + id + '"]');
-                                insBefore = $(formerRuleContainer).next();
-                                $(formerRuleContainer).remove();
-                                displayRule(ruleXML, insBefore, false, false)                        
-                            }
-                            
-                            function duplicateAndEditRule(rule){
-                                if($('#newRuleContainer').text().length==0){//no rule is currently being edited
-                                        currentOperation = 11;
-                                        builtRule = $(rule).clone();
-                                        var nextRuleId = rulesMaxId+1;
-                                        $(builtRule).attr('id', 'R'+(nextRuleId));
-                                        addEditButtons();
-                                        displayNewRule();
-                                        $('#newRuleInstruction')[0].scrollIntoView(true);
-                                }
-                            }
-                            
-                            /*
-                                Argument is a xml node containing a rule .
-                                This function displays the rule just before the second argument insBefore
-                                createdRule is a boolean, true iff the rule is has been built by the user during current use of the page (thus don't go in the part that tries to find the highest id of rules)
-                                editMode is a boolean, true iff rule is currently being enabled (this allow click on elements to edit them directly)
-                            */
-                            function displayRule(rule, insBefore, createdRule, editMode){
-                                
-                                //top-right sign to remove the rule
-                                var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right');
-                                var ruleEditor = $('<span>').addClass('glyphicon glyphicon-edit ruleEditor pull-right');
-                                var ruleDuplicator = $('<span>').addClass('glyphicon glyphicon-share ruleDuplicator pull-right');
-                                
-                                var priority = $($(rule).find("priority")[0]).text();
-                                var priorityContainer = $($('<div>').addClass('priority').append('Priority: '+priority));
-                                
-                                var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append('Rule' + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(ruleDuplicator).append(priorityContainer);
-                                
-                                if(!createdRule){
-                                    var ruleIdNumber = parseInt($(rule).attr('id').split('R')[1]);
-                                
-                                    if(rulesMaxId <= ruleIdNumber){
-                                        rulesMaxId = ruleIdNumber;
-                                    }
-                                }
-                                
-                                //Action to delete the rule
-                                $(ruleRemover).click(function(){
-                                    if($('#newRuleContainer #' +$(rule).attr('id') ).length==0){//this is not the currently created rule : delete it in the xml tree
-                                        if(confirm('Are you sure to delete this rule ? It won\'t be possible to retrieve it later.')){
-                                            $(rule).remove();
-                                            $(ruleContainer).remove();
-                                        }
-                                    }
-                                    
-                                    else{//this is the currently created rule
-                                        if(confirm('Are you sure to delete this new rule ?')){
-                                            builtRule = new Object;
-                                            goFromTo(currentOperation, 0);
-                                        }
-                                        
-                                    }
-                                });
-                                
-                                $(ruleEditor).click(function(){
-                                    if($('#newRuleContainer').text().length==0){//no rule is currently being edited
-                                        builtRule = $(rule);
-                                        goFromTo(currentOperation, 11);
-                                        $('#newRuleInstruction')[0].scrollIntoView(true);
-                                    }
-                                    else{
-                                        alert('Please save or delete your current rule before editing this one.')
-                                    }
-                                });
-                                
-                                $(ruleDuplicator).click(function(){
-                                    duplicateAndEditRule(rule);
-                                });
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                var ifContainer = $('<div>').addClass('ifContainer').append('IF');
-
-                                var ifElement = $(rule).find("if")[0];
-                                $(ifElement).children().each(function(){
-                                    $(ifContainer).append(getConditionElementContainer(this));
-                                });
-                                todoWhenConditionReady();
-                                
-                                function getConditionElementContainer(element){
-                                    if(element.nodeName == 'constraint' ||element.nodeName == 'CONSTRAINT'){
-                                        return getConstraintContainer(element);
-                                    }
-                                    else{//AND or OR, with 2 conditionElement children
-                                        var c1, c2;
-                                        if($(element).children().length >= 1){
-                                            c1 = getConditionElementContainer($(element).children()[0]);
-                                                if($(element).children().length >= 2){
-                                                    c2 = getConditionElementContainer($(element).children()[1]);
-                                                }                                        
-                                        }
-                                        
-                                        
-                                        var toReturn = $('<span>').addClass('conditionElement');
-                                        var conditionTypeContainer = $('<span>').addClass('conditionType').append(' '+element.nodeName.toUpperCase());
-                                        
-                                        $(toReturn).append(' (').append(c1).append(conditionTypeContainer).append(c2).append(' )');
-                                        if(editMode){
-                                            $(conditionTypeContainer).addClass('conditionAdder').click(function(){
-                                               goFromTo(currentOperation, 13);
-                                               currentCondition = element;
+                                            $(allActivityParameters).each(function(){
+                                                addParameterToList(this, parametersContainer);								
                                             });
-                                        }
-                                        
-                                        return toReturn;
-                                    }
-                                }
-                                
-                                function getConstraintContainer(constraint){
-                                    var indicatorId = $($(constraint).find("indicator")[0]).text();
-                                    //finding the corresponding element in the left part of the page, to display the name of the indicator, and indicate it when hovering the indicator in the page.
-                                    var indicatorName='';
-                                    var indicatorSelectionContainer;
-                                    getIndicatorInfos();
-                                    return todoWhenIndicatorReady();
-                                    
-                                    //Next part was used in the past to avoid synchronism problem (in unelegant manner), now unnecessary
-                                     //using a timeout to regularly check if left part of the page is displayed...not very elegant but works. This check doesn't have to be made when this is a newly created rule : everything is already loaded.
-                                    /*if(indicatorName == ''){//didn't manage to get the name, left part of the page is not yet loaded
-                                        var indicatorChecker = setInterval(function(){
-                                            getIndicatorInfos();
-                                            if(indicatorName != ''){//if we managed to find the indicator name, then we can go to the next part.
-                                                clearInterval(indicatorChecker);
-                                                return todoWhenIndicatorReady();
-                                            }
-                                        }, 200);
-                                    }
-                                    else{
-                                        return todoWhenIndicatorReady();
-                                    }*/
-                                    
-                                    function todoWhenIndicatorReady(){
-                                        var operator = $($(constraint).find("operator")[0]).text();
-                                        var referenceValue = $($(constraint).find("referencevalue")[0]).text();
-                                        var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
-                                        var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
-                                        var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
-                                        
-                                        var constraintContainer = $('<span>').addClass('constraint');
-                                        $(constraintContainer).append(indicatorContainer)
-                                        $(constraintContainer).append(operatorContainer)
-                                        $(constraintContainer).append(referenceValueContainer)
-                                        
-                                        if(editMode){
-                                            
-                                            $(operatorContainer).addClass('conditionAdder').click(function(){
-                                                goFromTo(currentOperation, 13);
-                                                currentCondition = constraint;
+                                            $(activity).find('Parameter').each(function(){
+                                                addParameterToList(this, parametersContainer);
                                             });
                                             
-                                            var constraintRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle constraintRemover');
-                                            var constraintEditor = $('<span>').addClass('glyphicon glyphicon-edit constraintEditor');
+                                            $(activityContainer).append(parametersContainer);
+                                            return activityContainer;
+                                        }
+                                        
+                                        else{								
+                                            return '';
+                                        }
+                                    }
+                                    
+                                    /*
+                                    Takes a parameter xml element, with the div which will have to contain it.
+                                    Appends the container with html.
+                                    
+                                    */
+                                    function addParameterToList(parameter, container){
+                                        var parameterName = $($(parameter).children('Name')[0]).text();
+                                        var parameterId = $(parameter).attr('ID');
+                                        var parameterComment = $($(parameter).children('Comment')[0]).text();//TODO : use it and use scales
+                                        var parameterContainer = $('<li>').append(parameterName).attr('id', parameterId);
+                                        $(container).append(parameterContainer);
+                                        
+                                        if(!parametersDictionnary.hasOwnProperty(parameterId)){
+                                            parametersDictionnary[parameterId] = parameterName;
+                                        }
+                                    }
+                                    
+                                    
+                                    
+                                    function getParameterId(parameterName){
+                                        $.each(parametersDictionnary, function(id, value){
+                                            if(value==parameterName){
+                                                return id;
+                                            }
+                                        });
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                    /*
+                                    
+                                    
+                                    
+                                    
+                                    Rules Section
+                                    
+                                    */
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    //responding to user definition of rules
+                                    /*
+                                    1: Selection of indicator
+                                    2: Selection of operator
+                                    3: referenceValue is given
+                                    4: Selection of activity for then
+                                    5: Selection of parameter for then
+                                    6: value of parameter is given for then
+                                    7: Selection of activity for else
+                                    8: Selection of parameter for else
+                                    9: value of parameter is given for else
+                                    10: Priority for the rule is given
+                                    11: Rule is ready to be edited
+                                    12: Rule is saved
+                                    13: chosing 'AND' or 'OR'
+                                    
+                                    
+                                    At each time : change the xml tree, and make a new call on the displayer.
+                                    
+                                    */
+                                    var currentOperation = 0;
+                                    var instructions = ['Click on new rule', 'Choose the indicator you want to base your rule on from the profile or the context', 'Choose the operator you want to use in this rule in the form below', 'Give the value used for the comparison', 'Select the activity for the then part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Select the activity for the else part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Give the priority for this rule', 'Save your new rule', 'Success, your rule has been saved! You can create/edit another one if you want']
+                                    
+                                    //used in last operations, to know whether we are in the definition of <then> or <else>
+                                    var operationToConsequence = ['new','if', 'if', 'if', 'then','then','then','else','else','else', 'priority', 'save', 'save'];
+                                    
+                                    var builtRule = new Object;
+                                    
+                                    var currentParameter;//used in stages when asking parameter value to the user, to add this parameter the <value>
+                                    var currentActivity;//used in stages when asking parameter to the user, to add the parameter to this activity
+                                    var currentCondition;//used in the case the user wants to define complex conditions, using AND and OR. It stores the constraint which is going to be combined with the next defined constraint.
+                                    var conditionOperator;//used when new constraint is defined to sotre 'AND' or 'OR'
+                                    
+                                    $("#Rules").on("leafValueReading", function(event, value, id, container){
+                                        
+                                        
+                                        if(currentOperation ==1){//user gives an indicator, other things are just ignored
                                             
-                                            $(constraintRemover).click(function(){
-                                                var parent = $(constraint).parent()[0];//if it is and or or : only keep the other constraint
-                                                if(['and', 'AND', 'or', 'OR'].indexOf(parent.nodeName) != -1){
-                                                    constraint.remove();
-                                                    var theSecondConstraint = $(parent).children()[0];
-                                                    $(parent).replaceWith(theSecondConstraint);
-                                                }
-                                                else{
-                                                    constraint.remove();
+                                            if(container == "#Profile" || container == "#Context"){
+                                                var newConstraint = $('<constraint>').append($('<indicator>').text(id));
+                                                if($(builtRule).find('if').length == 0){                                    
+                                                    $(builtRule).append($('<if>').append(newConstraint));
                                                 }
                                                 
-                                               
-                                                goFromTo(currentOperation, 11);
-                                            });
-                                            $(constraintEditor).click(function(){
-                                                currentCondition = constraint;
-                                                goFromTo(currentOperation, 1);
-                                            });
-                                            
-                                            $(referenceValueContainer).after(constraintEditor).after(constraintRemover);
+                                                else if(typeof currentCondition != 'undefined' && currentCondition != null){
+                                                    
+                                                    $(currentCondition).parent().append(newConstraint);
+                                                    
+                                                    
+                                                }
+                                                else{//else : replace the value of the first indicator
+                                                    $($(builtRule).find('indicator')[0]).replaceWith(newConstraint);
+                                                }
+                                                currentCondition = newConstraint;
+                                                goFromTo(1,2);
+                                            }
                                         }
                                         
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        //displaying the indicator in color when hovering
-                                        var indicatorSelectionContainerColor = $(indicatorSelectionContainer).css('background-color');
-                                        $(indicatorContainer).hover(function(event){
-                                            $(indicatorSelectionContainer).css('background-color', '#FF7F24');
-                                        },
-                                        function(event){
-                                            $(indicatorSelectionContainer).css('background-color', indicatorSelectionContainerColor);
-                                        
-                                        });
-                                        
-                                        //scrolling to the indicator in left part when clicking on it in rule part (and swithing if necessary to context or profile).
-                                        $(indicatorContainer).click(function(event){
-                                        
-                                            if($('#Profile' + ' #' +indicatorId).length > 0){
-                                                if(!$('#Profile').hasClass('active')){
-                                                    switchProfileContext();
-                                                }
-                                                indicatorSelectionContainer[0].scrollIntoView(true);
+                                        else if(currentOperation ==2){//received event contains the operator
+                                            if(container=='#newRuleForm'){
+                                                var op = $('<operator>').text(value);
+                                                op.insertAfter($($(currentCondition).find('indicator')[0]))
+                                                
+                                                goFromTo(2,3);
+                                                
                                             }
-                                            else if($('#Context' + ' #' +indicatorId).length > 0){
-                                                if(!$('#Context').hasClass('active')){
-                                                    switchProfileContext();
-                                                }
-                                                indicatorSelectionContainer[0].scrollIntoView(true);
-                                            }
-                                        });
-                                        
-                                        
-                                        
-                                        return constraintContainer;
-                                    }
-                                    
-                                    function getIndicatorInfos(){
-                                        indicatorSelectionContainer = $('#ProfileAndContext').find('#'+indicatorId);
-                                        indicatorName = $($(indicatorSelectionContainer).find('.elementName')[0]).text();
-                                    }
-                                }
-                               
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                function todoWhenConditionReady(){
-                                    
-                                    var thenContainer = getConsequencesContainer($(rule).find('then')[0], 'then');
-                                    var elseContainer = getConsequencesContainer($(rule).find('else')[0], 'else');
-                                    
-                                    $(ruleContainer).append(ifContainer);
-                                    $(ruleContainer).append(thenContainer);
-                                    $(ruleContainer).append(elseContainer);
-                                    $(ruleContainer).insertBefore($(insBefore));
-                                
-                                }
-                                
-                                //from one of the 2 tags containing the activities (<then> or <else>), returns the activities contained in it, displayed with their parameters
-                                function getConsequencesContainer(consequencesElement, containerName){
-                                
-                                    var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(containerName.toUpperCase()+' the learner will do the following activities: '));
-                                    var activitiesContainer = $('<ul>');
-                                    $(consequencesElement).find('activity').each(function(){
-                                        var activity = this;
-                                        var activityContainer = $('<li>').addClass('activityContainer');
-                                        
-                                        
-                                        
-                                        
-                                        var typeOfActivityId = $($(this).find("typeofactivity")[0]).text();
-                                        var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + ', with parameters: ');
-                                        
-                                        if(editMode){
-                                            var activityRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle activityRemover');
-                                            $(typeOfActivityContainer).append(activityRemover);
-                                            $(activityRemover).click(function(){
-                                                if(confirm('Are you sure to delete this activity?')){										
-                                                    activity.remove();
-                                                    goFromTo(currentOperation, 11);
-                                                }
-                                            });
                                         }
                                         
-                                        var parametersContainer =$('<ul>').addClass('parameters');
-                                        $(this).find('parameter').each(function(){
-                                            var parameter = this;
-                                            var paramId = $($(this).find('id')[0]).text();
-                                            var paramValue = $($(this).find('value')[0]).text();
-                                            var parameterContainer = $('<li>').append(parametersDictionnary[paramId]+': ' + paramValue);
-                                            
-                                            if(editMode){
-                                            
-                                                var parameterValueEditor = $('<span>').addClass('glyphicon glyphicon-edit parameterValueEditor');
-                                                $(parameterContainer).append(parameterValueEditor);
-                                                $(parameterValueEditor).click(function(){
-                                                    currentParameter = parameter;
-                                                    goFromTo(currentOperation, 6);
-                                                });
-                                            
-                                                var parameterRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle parameterRemover');
-                                                $(parameterContainer).append(parameterRemover);
-                                                $(parameterRemover).click(function(){
-                                                    parameter.remove();
-                                                    goFromTo(currentOperation, 11);
-                                                });
-                                            
+                                        else if(currentOperation == 3){//event contains the value to compare the indicator with
+                                            if(container=='#newRuleForm'){
+                                                var refVal = $('<referencevalue>').text(value);
+                                                refVal.insertAfter($($(currentCondition).find('operator')[0]))
+                                                
+                                                goFromTo(3,4);
                                             }
-                                            
-                                            $(parametersContainer).append(parameterContainer);
-                                            
-                                        });
                                         
-                                        if(editMode){//enabling to add a parameter
-                                            var parameterAdder = $('<span>').addClass('glyphicon glyphicon-plus parameterAdder');
-                                            parametersContainer.append($('<li>').append(parameterAdder));
-                                            $(parameterAdder).click(function(){
+                                        }
+                                        
+                                        else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts), or user has clicked on the button 'noelse'
+                                            if(container=='#Activities' && value == 'activity'){
+                                                var activity = $('<activity>').append($('<typeofactivity>').append(id)).append($('<parameters>'));
                                                 currentActivity = activity;
-                                                goFromTo(currentOperation, 5);
-                                            });
+                                                
+                                                var consequenceContainer = new Object;
+                                                if($(builtRule).find(operationToConsequence[currentOperation]).length ==0){
+                                                    consequenceContainer = $('<'+operationToConsequence[currentOperation]+'>').append($('<activities>')).append(activity);
+                                                    $(builtRule).append(consequenceContainer);
+                                                }
+                                                else{
+                                                    consequenceContainer = $(builtRule).find(operationToConsequence[currentOperation])[0];
+                                                    $(consequenceContainer).append(activity);
+                                                }
+                                                
+                                                goFromTo(currentOperation, currentOperation+1);
+                                            }
+                                            
                                         }
                                         
-                                        $(activityContainer).append(typeOfActivityContainer);
-                                        $(activityContainer).append(parametersContainer);
-                                        $(activitiesContainer).append(activityContainer);
+                                        else if(currentOperation == 5 ||currentOperation==8){//a parameter has been clicked on
+                                            if(container=='#Activities' && value == 'parameter'){
+                                                //var activity = $($(builtRule).find(operationToConsequence[currentOperation])[0]).find('activity').last();
+                                                
+                                                var parameter = $('<parameter>').append($('<id>').text(id));
+                                                $($(currentActivity).find('parameters')[0]).append(parameter);
+                                                currentParameter = parameter;
+                                                
+                                                goFromTo(currentOperation, currentOperation+1);
+                                            }
+                                        }
                                         
+                                        else if(currentOperation == 6 || currentOperation == 9){//value of the parameter has  been given
+                                            
+                                            if(container == '#newRuleForm'){
+                                                if($(currentParameter).find('value').length==0){
+                                                    $(currentParameter).append($('<value>').append(value));
+                                                }
+                                                else{
+                                                    $($(currentParameter).find('value')[0]);
+                                                }
+                                                goFromTo(currentOperation, currentOperation-1);
+                                            }
+                                        }
                                         
+                                        else if(currentOperation==10){
+                                            if(container == '#newRuleForm'){
+                                                $(builtRule).prepend($('<priority>').append(value));
+                                                goFromTo(10,11);
+                                            }
+                                        }
                                         
-                                    })
+                                        else if(currentOperation == 13){
+                                            $(currentCondition).wrap($('<'+ value +'>'));
+                                            goFromTo(13, 1);
+                                        }
+                                        
+                                    });
                                     
-                                    return $(consequenceContainer.append(activitiesContainer));
                                     
-                                }
+                                    function goFromTo(origin, target){
+                                        currentOperation = target;
+                                        todoAfter[origin]();
+                                        todoBefore[target]();
+                                        
+                                        if(target!=0 && target !=12){displayNewRule()};
+                                        instruct();
+                                    }
+                                    
+                                    var todoBefore = [//contains what has to be done before each operation
+                                        function(){//0
+                                            removeAllButtons()
+                                            $('#newRuleContainer').empty();
+                                        },
+                                        function(){//1
+                                            addEditButtons();
+                                        },
+                                        function(){//2
+                                            var operatorSelect = $('<select>');
+                                            var operators = ['=', '>', '<', '!='];
+                                            $(operators).each(function(id, op){
+                                                $(operatorSelect).append($('<option>').append(op));
+                                            });
+                                            $('#newRuleForm').append(operatorSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
+                                            
+                                            $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
+                                                var op = $('#newRuleForm select').val();
+                                                $(reader).trigger("leafValueReading",  [op, 0, '#newRuleForm']);									
+                                            });
+                                        
+                                        },
+                                        function(){//3
+                                            displayValueInput();
+                                        
+                                        },
+                                        function(){//4
+                                        
+                                        
+                                        },
+                                        function(){//5
+                                        
+                                        
+                                        },
+                                        function(){//6
+                                            displayValueInput();
+                                        
+                                        },
+                                        function(){//7
+                                        
+                                        
+                                        },
+                                        function(){//8
+                                        
+                                        
+                                        },
+                                        function(){//9
+                                            displayValueInput();
+                                        
+                                        },
+                                        function(){//10
+                                            displayValueInput();
+                                        
+                                        },
+                                        function(){//11
+                                            addEditButtons();
+                                        },
+                                        function(){//12
+                                            removeAllButtons();
+                                            $('#newRuleContainer').empty();
+                                        },
+                                        function(){//13
+                                            var conditionSelect = $('<select>');
+                                            var conditions = ['AND', 'OR'];
+                                            $(conditions).each(function(id, op){
+                                                $(conditionSelect).append($('<option>').append(op));
+                                            });
+                                            $('#newRuleForm').append(conditionSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
+                                            
+                                            $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
+                                                var cond = $('#newRuleForm select').val();
+                                                $(reader).trigger("leafValueReading",  [cond, 0, '#newRuleForm']);									
+                                            });
+                                        }
+                                    ];
+                                    
+                                    var todoAfter = [//contains what has to be done after each operation
+                                        function(){//0
+                                        
+                                        
+                                        },
+                                        function(){//1
+                                        
+                                        
+                                        },
+                                        function(){//2
+                                            removeForms();
+                                        
+                                        },
+                                        function(){//3
+                                            removeForms();
+                                        
+                                        },
+                                        function(){//4
+                                        
+                                        
+                                        },
+                                        function(){//5
+                                        
+                                        
+                                        },
+                                        function(){//6
+                                            removeForms();
+                                        
+                                        },
+                                        function(){//7
+                                        
+                                        
+                                        },
+                                        function(){//8
+                                        
+                                        
+                                        },
+                                        function(){//9
+                                            removeForms();
+                                        
+                                        },
+                                        function(){//10
+                                            removeForms();
+                                        },
+                                        function(){//11
+                                            removeForms();
+                                            currentActivity = null;
+                                            currentCondition = null;
+                                            currentParameter = null;
+                                        },
+                                        function(){//12
+                                        
+                                        },
+                                        function(){//13
+                                            removeForms();
+                                        }
+                                    ];
+                                    
+                                    
+                                    
+                                    
+                                    function saveRule(){
+                                        var ruleInXMLFile = $(strategy).find('rule[id="' + $(builtRule).attr('id') + '"]');
+                                        if(ruleInXMLFile.length == 0){//this is a new rule, add it to the end of the file
+                                            $($(strategy).find('strategyRules')[0]).append(builtRule);
+                                           rulesMaxId++;//the rule is now stored, let's go the next id for future rules
+                                           displayRule(builtRule, '#uselessDivToInsertRulesAbove', true, false);
+                                        }
+                                        else{//the rule already exists, replace it in the file
+                                            $(ruleInXMLFile[0]).replaceWith(builtRule);
+                                            updateRule(builtRule, $(builtRule).attr('id'))
+                                        }
+                                       
+                                        goFromTo(11,12);
+                                        
+                                    }
+                                    
+                                    $('#ruleAdder').click(function(){
+                                        if(currentOperation == 0 || currentOperation == 12){
+                                            var nextRuleId = rulesMaxId+1;
+                                            builtRule = $('<rule>').attr('id', 'R'+(nextRuleId));
+                                            goFromTo(0,1);
+                                        }
+                                    });
+                                    
+                                    function addEditButtons(){
+                                        addButton("Edit 'IF'", 'ifEditorButton', 1);
+                                        addButton("Add 'THEN' Activity", 'thenEditorButton', 4);
+                                        addButton("Add 'ELSE' Activity", 'elseEditorButton', 7);
+                                        addButton("Edit Priority", 'priorityEditorButton', 10);
+                                        addButton('Save rule', 'ruleSaver', 11);
+                                    }
+                                    
+                                    $('#strategySaver').click(function(){
+                                        var xmlS = (new XMLSerializer()).serializeToString(strategy[0]);
+                                        $.post('saveXMLDocument.php', { file: 'foveaStrategy.xml' , data: xmlS}, 
+                                            function(data, txt, jqXHR){
+                                                if(txt=="success"){
+                                                    alert('Your data have been successfully saved');
+                                                }
+                                            }
+                                        );
+                                    
+                                    });
+                                    
+                                    function displayNewRule(){//when creating a new rule, displays the rule in the #newRuleContainer and displays instruction
+                                        $('#newRuleContainer').text('');//empty the container
+                                        $('#newRuleContainer').append($('<div>').attr('id', 'emptyDiv'));//adding empty div to pass it as insBeofre argument in displayRule function
+                                        (displayRule(builtRule[0], '#emptyDiv', true, true));//displaying the in-process rule
+                                        
+                                    }
+                                    
+                                    function instruct(){//giving next instruction to the user
+                                        $('#newRuleInstruction').text(instructions[currentOperation]);
+                                        if(currentOperation != 0 && currentOperation != 12){
+                                            $('#newRuleInstruction').append(', or click on a button below');
+                                        }
+                                    }
+                                    
+                                    
+                                    //displays the value input together with a button to click on
+                                    function displayValueInput(){							
+                                        var valueInput = $('<input>').attr('type', 'text');
+                                        
+                                        $('#newRuleForm').append(valueInput);
+                                        $('#newRuleForm').append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
+                                        
+                                        $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
+                                            var val = $('#newRuleForm input').val();
+                                            $(reader).trigger("leafValueReading",  [val, 0, '#newRuleForm']);									
+                                        });
+                                    }
+                                    
+                                    //removes all forms in the rules part.
+                                    function removeForms(){
+                                        $('#newRuleForm').empty();
+                                    }
+                                    
+                                    function addButton(value, id, operationIfClicked){//adding a button to chose next interaction with the rule; and triggering event to the reader
+                                        if($('#newRuleButtons').find('#'+id).length==0){                            
+                                            var button = $('<button>').append(value).addClass('operationButton btn btn-primary').attr('id', id);
+                                            $(button).click(function(){
+                                                goFromTo(currentOperation, operationIfClicked);
+                                                if(id=="ruleSaver"){
+                                                    saveRule();
+                                                }
+                                                else if(id=='ifEditorButton'){
+                                                    currentCondition = null;
+                                                }
+                                                
+                                            });
+                                            $('#newRuleButtons').append(button);
+                                        }
+                                    }
+                                    
+                                    function removeAllButtons(){
+                                        $('#newRuleButtons').empty();
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    function updateRule(ruleXML, id){//updates a rule which is displayed : removes the rule and displays the new one at the same place/
+                                        formerRuleContainer = $('#Rules').find('.ruleContainer[id="' + id + '"]');
+                                        insBefore = $(formerRuleContainer).next();
+                                        $(formerRuleContainer).remove();
+                                        displayRule(ruleXML, insBefore, false, false)                        
+                                    }
+                                    
+                                    function duplicateAndEditRule(rule){
+                                        if($('#newRuleContainer').text().length==0){//no rule is currently being edited
+                                                currentOperation = 11;
+                                                builtRule = $(rule).clone();
+                                                var nextRuleId = rulesMaxId+1;
+                                                $(builtRule).attr('id', 'R'+(nextRuleId));
+                                                addEditButtons();
+                                                displayNewRule();
+                                                $('#newRuleInstruction')[0].scrollIntoView(true);
+                                        }
+                                    }
+                                    
+                                    /*
+                                        Argument is a xml node containing a rule .
+                                        This function displays the rule just before the second argument insBefore
+                                        createdRule is a boolean, true iff the rule is has been built by the user during current use of the page (thus don't go in the part that tries to find the highest id of rules)
+                                        editMode is a boolean, true iff rule is currently being enabled (this allow click on elements to edit them directly)
+                                    */
+                                    function displayRule(rule, insBefore, createdRule, editMode){
+                                        
+                                        //top-right sign to remove the rule
+                                        var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right');
+                                        var ruleEditor = $('<span>').addClass('glyphicon glyphicon-edit ruleEditor pull-right');
+                                        var ruleDuplicator = $('<span>').addClass('glyphicon glyphicon-share ruleDuplicator pull-right');
+                                        
+                                        var priority = $($(rule).find("priority")[0]).text();
+                                        var priorityContainer = $($('<div>').addClass('priority').append('Priority: '+priority));
+                                        
+                                        var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append('Rule' + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(ruleDuplicator).append(priorityContainer);
+                                        
+                                        if(!createdRule){
+                                            var ruleIdNumber = parseInt($(rule).attr('id').split('R')[1]);
+                                        
+                                            if(rulesMaxId <= ruleIdNumber){
+                                                rulesMaxId = ruleIdNumber;
+                                            }
+                                        }
+                                        
+                                        //Action to delete the rule
+                                        $(ruleRemover).click(function(){
+                                            if($('#newRuleContainer #' +$(rule).attr('id') ).length==0){//this is not the currently created rule : delete it in the xml tree
+                                                if(confirm('Are you sure to delete this rule ? It won\'t be possible to retrieve it later.')){
+                                                    $(rule).remove();
+                                                    $(ruleContainer).remove();
+                                                }
+                                            }
+                                            
+                                            else{//this is the currently created rule
+                                                if(confirm('Are you sure to delete this new rule ?')){
+                                                    builtRule = new Object;
+                                                    goFromTo(currentOperation, 0);
+                                                }
+                                                
+                                            }
+                                        });
+                                        
+                                        $(ruleEditor).click(function(){
+                                            if($('#newRuleContainer').text().length==0){//no rule is currently being edited
+                                                builtRule = $(rule);
+                                                goFromTo(currentOperation, 11);
+                                                $('#newRuleInstruction')[0].scrollIntoView(true);
+                                            }
+                                            else{
+                                                alert('Please save or delete your current rule before editing this one.')
+                                            }
+                                        });
+                                        
+                                        $(ruleDuplicator).click(function(){
+                                            duplicateAndEditRule(rule);
+                                        });
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        var ifContainer = $('<div>').addClass('ifContainer').append('IF');
+
+                                        var ifElement = $(rule).find("if")[0];
+                                        $(ifElement).children().each(function(){
+                                            $(ifContainer).append(getConditionElementContainer(this));
+                                        });
+                                        todoWhenConditionReady();
+                                        
+                                        function getConditionElementContainer(element){
+                                            if(element.nodeName == 'constraint' ||element.nodeName == 'CONSTRAINT'){
+                                                return getConstraintContainer(element);
+                                            }
+                                            else{//AND or OR, with 2 conditionElement children
+                                                var c1, c2;
+                                                if($(element).children().length >= 1){
+                                                    c1 = getConditionElementContainer($(element).children()[0]);
+                                                        if($(element).children().length >= 2){
+                                                            c2 = getConditionElementContainer($(element).children()[1]);
+                                                        }                                        
+                                                }
+                                                
+                                                
+                                                var toReturn = $('<span>').addClass('conditionElement');
+                                                var conditionTypeContainer = $('<span>').addClass('conditionType').append(' '+element.nodeName.toUpperCase());
+                                                
+                                                $(toReturn).append(' (').append(c1).append(conditionTypeContainer).append(c2).append(' )');
+                                                if(editMode){
+                                                    $(conditionTypeContainer).addClass('conditionAdder').click(function(){
+                                                       goFromTo(currentOperation, 13);
+                                                       currentCondition = element;
+                                                    });
+                                                }
+                                                
+                                                return toReturn;
+                                            }
+                                        }
+                                        
+                                        function getConstraintContainer(constraint){
+                                            var indicatorId = $($(constraint).find("indicator")[0]).text();
+                                            //finding the corresponding element in the left part of the page, to display the name of the indicator, and indicate it when hovering the indicator in the page.
+                                            var indicatorName='';
+                                            var indicatorSelectionContainer;
+                                            getIndicatorInfos();
+                                            return todoWhenIndicatorReady();
+                                            
+                                            //Next part was used in the past to avoid synchronism problem (in unelegant manner), now unnecessary
+                                             //using a timeout to regularly check if left part of the page is displayed...not very elegant but works. This check doesn't have to be made when this is a newly created rule : everything is already loaded.
+                                            /*if(indicatorName == ''){//didn't manage to get the name, left part of the page is not yet loaded
+                                                var indicatorChecker = setInterval(function(){
+                                                    getIndicatorInfos();
+                                                    if(indicatorName != ''){//if we managed to find the indicator name, then we can go to the next part.
+                                                        clearInterval(indicatorChecker);
+                                                        return todoWhenIndicatorReady();
+                                                    }
+                                                }, 200);
+                                            }
+                                            else{
+                                                return todoWhenIndicatorReady();
+                                            }*/
+                                            
+                                            function todoWhenIndicatorReady(){
+                                                var operator = $($(constraint).find("operator")[0]).text();
+                                                var referenceValue = $($(constraint).find("referencevalue")[0]).text();
+                                                var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
+                                                var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
+                                                var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
+                                                
+                                                var constraintContainer = $('<span>').addClass('constraint');
+                                                $(constraintContainer).append(indicatorContainer)
+                                                $(constraintContainer).append(operatorContainer)
+                                                $(constraintContainer).append(referenceValueContainer)
+                                                
+                                                if(editMode){
+                                                    
+                                                    $(operatorContainer).addClass('conditionAdder').click(function(){
+                                                        goFromTo(currentOperation, 13);
+                                                        currentCondition = constraint;
+                                                    });
+                                                    
+                                                    var constraintRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle constraintRemover');
+                                                    var constraintEditor = $('<span>').addClass('glyphicon glyphicon-edit constraintEditor');
+                                                    
+                                                    $(constraintRemover).click(function(){
+                                                        var parent = $(constraint).parent()[0];//if it is and or or : only keep the other constraint
+                                                        if(['and', 'AND', 'or', 'OR'].indexOf(parent.nodeName) != -1){
+                                                            constraint.remove();
+                                                            var theSecondConstraint = $(parent).children()[0];
+                                                            $(parent).replaceWith(theSecondConstraint);
+                                                        }
+                                                        else{
+                                                            constraint.remove();
+                                                        }
+                                                        
+                                                       
+                                                        goFromTo(currentOperation, 11);
+                                                    });
+                                                    $(constraintEditor).click(function(){
+                                                        currentCondition = constraint;
+                                                        goFromTo(currentOperation, 1);
+                                                    });
+                                                    
+                                                    $(referenceValueContainer).after(constraintEditor).after(constraintRemover);
+                                                }
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                //displaying the indicator in color when hovering
+                                                var indicatorSelectionContainerColor = $(indicatorSelectionContainer).css('background-color');
+                                                $(indicatorContainer).hover(function(event){
+                                                    $(indicatorSelectionContainer).css('background-color', '#FF7F24');
+                                                },
+                                                function(event){
+                                                    $(indicatorSelectionContainer).css('background-color', indicatorSelectionContainerColor);
+                                                
+                                                });
+                                                
+                                                //scrolling to the indicator in left part when clicking on it in rule part (and swithing if necessary to context or profile).
+                                                $(indicatorContainer).click(function(event){
+                                                
+                                                    if($('#Profile' + ' #' +indicatorId).length > 0){
+                                                        if(!$('#Profile').hasClass('active')){
+                                                            switchProfileContext();
+                                                        }
+                                                        indicatorSelectionContainer[0].scrollIntoView(true);
+                                                    }
+                                                    else if($('#Context' + ' #' +indicatorId).length > 0){
+                                                        if(!$('#Context').hasClass('active')){
+                                                            switchProfileContext();
+                                                        }
+                                                        indicatorSelectionContainer[0].scrollIntoView(true);
+                                                    }
+                                                });
+                                                
+                                                
+                                                
+                                                return constraintContainer;
+                                            }
+                                            
+                                            function getIndicatorInfos(){
+                                                indicatorSelectionContainer = $('#ProfileAndContext').find('#'+indicatorId);
+                                                indicatorName = $($(indicatorSelectionContainer).find('.elementName')[0]).text();
+                                            }
+                                        }
+                                       
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        function todoWhenConditionReady(){
+                                            
+                                            var thenContainer = getConsequencesContainer($(rule).find('then')[0], 'then');
+                                            var elseContainer = getConsequencesContainer($(rule).find('else')[0], 'else');
+                                            
+                                            $(ruleContainer).append(ifContainer);
+                                            $(ruleContainer).append(thenContainer);
+                                            $(ruleContainer).append(elseContainer);
+                                            $(ruleContainer).insertBefore($(insBefore));
+                                        
+                                        }
+                                        
+                                        //from one of the 2 tags containing the activities (<then> or <else>), returns the activities contained in it, displayed with their parameters
+                                        function getConsequencesContainer(consequencesElement, containerName){
+                                        
+                                            var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(containerName.toUpperCase()+' the learner will do the following activities: '));
+                                            var activitiesContainer = $('<ul>');
+                                            $(consequencesElement).find('activity').each(function(){
+                                                var activity = this;
+                                                var activityContainer = $('<li>').addClass('activityContainer');
+                                                
+                                                
+                                                
+                                                
+                                                var typeOfActivityId = $($(this).find("typeofactivity")[0]).text();
+                                                var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + ', with parameters: ');
+                                                
+                                                if(editMode){
+                                                    var activityRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle activityRemover');
+                                                    $(typeOfActivityContainer).append(activityRemover);
+                                                    $(activityRemover).click(function(){
+                                                        if(confirm('Are you sure to delete this activity?')){										
+                                                            activity.remove();
+                                                            goFromTo(currentOperation, 11);
+                                                        }
+                                                    });
+                                                }
+                                                
+                                                var parametersContainer =$('<ul>').addClass('parameters');
+                                                $(this).find('parameter').each(function(){
+                                                    var parameter = this;
+                                                    var paramId = $($(this).find('id')[0]).text();
+                                                    var paramValue = $($(this).find('value')[0]).text();
+                                                    var parameterContainer = $('<li>').append(parametersDictionnary[paramId]+': ' + paramValue);
+                                                    
+                                                    if(editMode){
+                                                    
+                                                        var parameterValueEditor = $('<span>').addClass('glyphicon glyphicon-edit parameterValueEditor');
+                                                        $(parameterContainer).append(parameterValueEditor);
+                                                        $(parameterValueEditor).click(function(){
+                                                            currentParameter = parameter;
+                                                            goFromTo(currentOperation, 6);
+                                                        });
+                                                    
+                                                        var parameterRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle parameterRemover');
+                                                        $(parameterContainer).append(parameterRemover);
+                                                        $(parameterRemover).click(function(){
+                                                            parameter.remove();
+                                                            goFromTo(currentOperation, 11);
+                                                        });
+                                                    
+                                                    }
+                                                    
+                                                    $(parametersContainer).append(parameterContainer);
+                                                    
+                                                });
+                                                
+                                                if(editMode){//enabling to add a parameter
+                                                    var parameterAdder = $('<span>').addClass('glyphicon glyphicon-plus parameterAdder');
+                                                    parametersContainer.append($('<li>').append(parameterAdder));
+                                                    $(parameterAdder).click(function(){
+                                                        currentActivity = activity;
+                                                        goFromTo(currentOperation, 5);
+                                                    });
+                                                }
+                                                
+                                                $(activityContainer).append(typeOfActivityContainer);
+                                                $(activityContainer).append(parametersContainer);
+                                                $(activitiesContainer).append(activityContainer);
+                                                
+                                                
+                                                
+                                            })
+                                            
+                                            return $(consequenceContainer.append(activitiesContainer));
+                                            
+                                        }
+                                        
+                                    
+                                    }
+                                    
+                                    
+                                });
                                 
-                            
-                            }
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+                                    
+                                    
+                                  
+                            },
+                            cache: false
                         });
-                        
-                            
-                            
-                          
                     },
                     cache: false
                 });
-            
             });
             
             

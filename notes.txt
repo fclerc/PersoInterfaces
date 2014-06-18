@@ -19,3 +19,5 @@ Useful link for colors : http://web.njit.edu/~kevin/rgb.txt.html#columns
 
 
 http://www.localeplanet.com/support/howto-localize-js.html
+
+python po2json ../fr.po
