@@ -17,7 +17,7 @@ In mode 'select', "leafValueReading" events will be triggered, containing the id
 //reader : "leafValueReading" events will be triggered, and reader will be your own element (on your web page) that will trigger these events, and then treat them (to display the content on which the user clicked).
 function manipulateXML(filename, container, mode, reader){
     
-    $.ajax({
+    return $.ajax({
 		type: "GET",
 		url: filename,
 		success: function(data){//get the xml document
