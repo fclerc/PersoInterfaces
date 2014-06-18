@@ -370,23 +370,74 @@ msgstr ""
 
 
 
+msgid "sequenceContext"
+msgstr ""
 
+msgid "activitiesContext"
+msgstr ""
 
+msgid "numberOfActivities"
+msgstr ""
 
+msgid "min"
+msgstr ""
 
+msgid "max"
+msgstr ""
 
+msgid "activitiesDuration"
+msgstr ""
 
+msgid "quizVariation"
+msgstr ""
 
+msgid "liveContext"
+msgstr ""
 
+msgid "environmentContext"
+msgstr ""
 
+msgid "datetime"
+msgstr ""
 
+msgid "connecteds"
+msgstr ""
 
+msgid "connected"
+msgstr ""
 
+msgid "role"
+msgstr ""
 
+msgid "number"
+msgstr ""
 
+msgid "learnerLiveContext"
+msgstr ""
 
+msgid "IPAddress"
+msgstr ""
 
+msgid "device"
+msgstr ""
 
+msgid "OS"
+msgstr ""
 
+msgid "browser"
+msgstr ""
 
+msgid "bandwidth"
+msgstr ""
 
+msgid "availableTime"
+msgstr ""
+
+msgid "delay"
+msgstr ""
+
+msgid "timeAlreadySpent"
+msgstr ""
+
+msgid "otherLiveInformation"
+msgstr ""

@@ -336,3 +336,75 @@ msgstr "date de fin"
 
 msgid "comment"
 msgstr "commentaire"
+
+msgid "sequenceContext"
+msgstr "contexte de la séquence"
+
+msgid "activitiesContext"
+msgstr "contexte : activités"
+
+msgid "numberOfActivities"
+msgstr "nombre d'activités"
+
+msgid "min"
+msgstr "minimum"
+
+msgid "max"
+msgstr "maximum"
+
+msgid "activitiesDuration"
+msgstr "durée des activités"
+
+msgid "quizVariation"
+msgstr "variation des énoncés"
+
+msgid "liveContext"
+msgstr "contexte 'en direct'"
+
+msgid "environmentContext"
+msgstr "contexte : environnement"
+
+msgid "datetime"
+msgstr "date et heure"
+
+msgid "connecteds"
+msgstr "informations sur les personnes connectées"
+
+msgid "connected"
+msgstr "type de personne"
+
+msgid "role"
+msgstr "role"
+
+msgid "number"
+msgstr "nombre de connectés"
+
+msgid "learnerLiveContext"
+msgstr "contexte 'en direct' de l'apprenant"
+
+msgid "IPAddress"
+msgstr "adresse IP"
+
+msgid "device"
+msgstr "appareil"
+
+msgid "OS"
+msgstr "système d'exploitation"
+
+msgid "browser"
+msgstr "navigateur"
+
+msgid "bandwidth"
+msgstr "bande passante"
+
+msgid "availableTime"
+msgstr "temps disponible"
+
+msgid "delay"
+msgstr "retard dans le MOOC"
+
+msgid "timeAlreadySpent"
+msgstr "temps déjà passé sur le MOOC"
+
+msgid "otherLiveInformation"
+msgstr "autres informations 'en direct'"
