@@ -303,7 +303,7 @@
                                     
                                     var currentParameter;//used in stages when asking parameter value to the user, to add this parameter the <value>
                                     var currentActivity;//used in stages when asking parameter to the user, to add the parameter to this activity
-                                    
+                                    var currentCondition;//used in the case the user wants to define complex conditions, using AND and OR. It stores the constraint which is going to be combined with the next defined constraint. Also used to know which is the target constraint chosing operator and value in stages 2 and 3
                                     
                                     $("#Rules").on("leafValueReading", function(event, value, id, container){
                                         
@@ -312,21 +312,27 @@
                                             
                                             if(container == "#Profile" || container == "#Context"){
                                                 var newConstraint = $('<constraint>').append($('<indicator>').text(id));
-                                                if($(builtRule).find('if').length === 0){                                    
+                                                if($(builtRule).find('if').length === 0){//there's no 'if' defined.                                    
                                                     $(builtRule).append($('<if>').append(newConstraint));
                                                 }
                                                 
-                                                else if(typeof currentCondition != 'undefined' && currentCondition !== null){
+                                                
+                                                else if(typeof currentCondition != 'undefined' && currentCondition !== null){//we are defining a constraint contained in 'and' or 'or'
                                                     
                                                     $(currentCondition).parent().append(newConstraint);
                                                     
                                                     
                                                 }
-                                                else{//else : replace the value of the first indicator
-                                                    $($(builtRule).find('indicator')[0]).replaceWith(newConstraint);
+                                                else{//else : replace the first indicator (or create it, in the case the rule only contains <if></if>
+                                                    if($(builtRule).find('constraint').length==0){//create the first constraint
+                                                        $($(builtRule).find('if')[0]).append(newConstraint);
+                                                    }
+                                                    else{//replace the first constraint
+                                                        $($(builtRule).find('constraint')[0]).replaceWith(newConstraint);
+                                                    }
+                                                    currentCondition = newConstraint;
+                                                    goFromTo(1,2);
                                                 }
-                                                currentCondition = newConstraint;
-                                                goFromTo(1,2);
                                             }
                                         }
                                         
