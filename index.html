@@ -13,6 +13,7 @@
     </head>
     
     <body>
+    <div id="ttt">gsgsg</div>
 	<div id="ProfileAndContext" class="mains">
 		<h2>Selection of indicators</h2>
         <p>For each indicator, an example value is given (italic).</p>
@@ -50,8 +51,23 @@
         
         <script type="text/javascript" src="xmlManipulator.js"></script>
         <script type="text/javascript">
-        
+            
+            function switchProfileContext(){
+                if(){
+                    
+                }
+            }
+            
             $(function(){
+            
+                function switchProfileContext(){
+                    if($('#Profile').hasClass('active')){
+                        alert('hello');
+                    }
+                }
+                
+            
+            
                 $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
 					type: "GET",
 					url: 'foveaStrategy.xml',

@@ -9,3 +9,13 @@ For xml documents where jquery might add elements : there are case problems, thu
 
 
 Useful link for colors : http://web.njit.edu/~kevin/rgb.txt.html#columns
+
+
+
+
+
+
+
+
+
+http://www.localeplanet.com/support/howto-localize-js.html
