@@ -65,7 +65,6 @@
                 
                 $('#ProfileAndContext h2, #ProfileAndContext p, #ProfileAndContext ul li a, #Rules h2, #Rules h3, #Rules button span, #Activities h2').each(function(){
                     $(this).text(_($(this).text()));
-                    //console.log($(this).text());
                 
                 });
                 
@@ -584,11 +583,11 @@
                                     });
                                     
                                     function addEditButtons(){
-                                        addButton("Edit 'IF'", 'ifEditorButton', 1);
-                                        addButton("Add 'THEN' Activity", 'thenEditorButton', 4);
-                                        addButton("Add 'ELSE' Activity", 'elseEditorButton', 7);
-                                        addButton("Edit Priority", 'priorityEditorButton', 10);
-                                        addButton('Save rule', 'ruleSaver', 11);
+                                        addButton(_("Edit 'IF'"), 'ifEditorButton', 1);
+                                        addButton(_("Add 'THEN' Activity"), 'thenEditorButton', 4);
+                                        addButton(_("Add 'ELSE' Activity"), 'elseEditorButton', 7);
+                                        addButton(_("Edit Priority"), 'priorityEditorButton', 10);
+                                        addButton(_('Save rule'), 'ruleSaver', 11);
                                     }
                                     
                                     $('#strategySaver').click(function(){
@@ -596,7 +595,7 @@
                                         $.post('saveXMLDocument.php', { file: 'foveaStrategy.xml' , data: xmlS}, 
                                             function(data, txt, jqXHR){
                                                 if(txt=="success"){
-                                                    alert('Your data have been successfully saved');
+                                                    alert(_('Your data have been successfully saved'));
                                                 }
                                             }
                                         );
@@ -611,9 +610,9 @@
                                     }
                                     
                                     function instruct(){//giving next instruction to the user
-                                        $('#newRuleInstruction').text(instructions[currentOperation]);
+                                        $('#newRuleInstruction').text(_(instructions[currentOperation]));
                                         if(currentOperation !== 0 && currentOperation != 12){
-                                            $('#newRuleInstruction').append(', or click on a button below');
+                                            $('#newRuleInstruction').append(_(', or click on a button below'));
                                         }
                                     }
                                     
@@ -694,9 +693,9 @@
                                         var ruleDuplicator = $('<span>').addClass('glyphicon glyphicon-share ruleDuplicator pull-right');
                                         
                                         var priority = $($(rule).find("priority")[0]).text();
-                                        var priorityContainer = $($('<div>').addClass('priority').append('Priority: '+priority));
+                                        var priorityContainer = $($('<div>').addClass('priority').append(_('Priority: ')+priority));
                                         
-                                        var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append('Rule' + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(ruleDuplicator).append(priorityContainer);
+                                        var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append(_('Rule') + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(ruleDuplicator).append(priorityContainer);
                                         
                                         if(!createdRule){
                                             var ruleIdNumber = parseInt($(rule).attr('id').split('R')[1]);
@@ -709,14 +708,14 @@
                                         //Action to delete the rule
                                         $(ruleRemover).click(function(){
                                             if($('#newRuleContainer #' +$(rule).attr('id') ).length===0){//this is not the currently created rule : delete it in the xml tree
-                                                if(confirm('Are you sure to delete this rule ? It won\'t be possible to retrieve it later.')){
+                                                if(confirm(_('Are you sure to delete this rule ? It will not be possible to retrieve it later.'))){
                                                     $(rule).remove();
                                                     $(ruleContainer).remove();
                                                 }
                                             }
                                             
                                             else{//this is the currently created rule
-                                                if(confirm('Are you sure to delete this new rule ?')){
+                                                if(confirm(_('Are you sure to delete this new rule?'))){
                                                     builtRule = {};
                                                     goFromTo(currentOperation, 0);
                                                 }
@@ -731,7 +730,7 @@
                                                 $('#newRuleInstruction')[0].scrollIntoView(true);
                                             }
                                             else{
-                                                alert('Please save or delete your current rule before editing this one.');
+                                                alert(_('Please save or delete your current rule before editing this one.'));
                                             }
                                         });
                                         
@@ -745,7 +744,7 @@
                                         
                                         
                                         
-                                        var ifContainer = $('<div>').addClass('ifContainer').append('IF');
+                                        var ifContainer = $('<div>').addClass('ifContainer').append(_('IF'));
 
                                         var ifElement = $(rule).find("if")[0];
                                         $(ifElement).children().each(function(){
@@ -768,7 +767,7 @@
                                                 
                                                 
                                                 var toReturn = $('<span>').addClass('conditionElement');
-                                                var conditionTypeContainer = $('<span>').addClass('conditionType').append(' '+element.nodeName.toUpperCase());
+                                                var conditionTypeContainer = $('<span>').addClass('conditionType').append(' '+_(element.nodeName.toUpperCase()));
                                                 
                                                 $(toReturn).append(' (').append(c1).append(conditionTypeContainer).append(c2).append(' )');
                                                 if(editMode){
@@ -914,7 +913,7 @@
                                         //from one of the 2 tags containing the activities (<then> or <else>), returns the activities contained in it, displayed with their parameters
                                         function getConsequencesContainer(consequencesElement, containerName){
                                         
-                                            var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(containerName.toUpperCase()+' the learner will do the following activities: '));
+                                            var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(_(containerName.toUpperCase())+_(' the learner will do the following activities: ')));
                                             var activitiesContainer = $('<ul>');
                                             $(consequencesElement).find('activity').each(function(){
                                                 var activity = this;
@@ -924,13 +923,13 @@
                                                 
                                                 
                                                 var typeOfActivityId = $($(this).find("typeofactivity")[0]).text();
-                                                var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + ', with parameters: ');
+                                                var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + _(', with parameters: '));
                                                 
                                                 if(editMode){
                                                     var activityRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle activityRemover');
                                                     $(typeOfActivityContainer).append(activityRemover);
                                                     $(activityRemover).click(function(){
-                                                        if(confirm('Are you sure to delete this activity?')){										
+                                                        if(confirm(_('Are you sure to delete this activity?'))){										
                                                             activity.remove();
                                                             goFromTo(currentOperation, 11);
                                                         }

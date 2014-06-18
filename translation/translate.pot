@@ -441,3 +441,114 @@ msgstr ""
 
 msgid "otherLiveInformation"
 msgstr ""
+
+
+
+
+
+
+#
+#
+#Display rule
+#
+#
+
+
+
+
+msgid "Edit 'IF'"
+msgstr ""
+
+msgid "Add 'THEN' Activity"
+msgstr ""
+
+msgid "Add 'ELSE' Activity"
+msgstr ""
+
+msgid "Edit Priority"
+msgstr ""
+
+msgid "Save rule"
+msgstr ""
+
+msgid ", or click on a button below"
+msgstr ""
+
+msgid "Priority: "
+msgstr ""
+
+msgid "Rule"
+msgstr ""
+
+msgid "Are you sure to delete this new rule?"
+msgstr ""
+
+msgid "Please save or delete your current rule before editing this one."
+msgstr ""
+
+msgid "IF"
+msgstr ""
+
+msgid "AND"
+msgstr ""
+
+msgid "OR"
+msgstr ""
+
+msgid "THEN"
+msgstr ""
+
+msgid "ELSE"
+msgstr ""
+
+msgid " the learner will do the following activities: "
+msgstr ""
+
+msgid ", with parameters: "
+msgstr ""
+
+msgid "Are you sure to delete this activity?"
+msgstr ""
+
+msgid "Your data have been successfully saved"
+msgstr ""
+
+msgid "Are you sure to delete this rule ? It will not be possible to retrieve it later."
+msgstr ""
+
+msgid "Click on new rule"
+msgstr ""
+
+msgid "Choose the indicator you want to base your rule on from the profile or the context"
+msgstr ""
+
+msgid "Choose the operator you want to use in this rule in the form below"
+msgstr ""
+
+msgid "Give the value used for the comparison"
+msgstr ""
+
+msgid "Select the activity for the then part of the rule"
+msgstr ""
+
+msgid "Select a parameter you want to set for this activity"
+msgstr ""
+
+msgid "Give the value for the parameter"
+msgstr ""
+
+msgid "Give the priority for this rule"
+msgstr ""
+
+msgid "Save your new rule"
+msgstr ""
+
+msgid "Success, your rule has been saved! You can create/edit another one if you want"
+msgstr ""
+
+
+
+
+
+
+
