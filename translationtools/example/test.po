@@ -1,0 +1,374 @@
+# b2evolution - French language file
+	# Copyright (C) 2003 François PLANQUE
+	# This file is distributed under the same license as the b2evolution package.
+	# François PLANQUE <http://fplanque.net>, 2003
+	#
+	msgid ""
+	msgstr ""
+	"Project-Id-Version: b2evolution 0.8.3-alpha1\n"
+	"POT-Creation-Date: 2003-08-08 16:33+0200\n"
+	"PO-Revision-Date: 2003-08-08 17:10+0100\n"
+	"Last-Translator: François PLANQUE <http://fplanque.net/>\n"
+	"Language-Team: François PLANQUE <http://fplanque.net/>\n"
+	"MIME-Version: 1.0\n"
+	"Content-Type: text/plain; charset=iso-8859-1\n"
+	"Content-Transfer-Encoding: 8bit\n"
+	 
+	#: ..\..\..\noskin_a.php:315
+	#: ..\..\..\noskin_all.php:317
+	#: ..\..\..\noskin_b.php:316
+	#: ..\..\..\noskin_roll.php:315
+	#: ..\..\..\skins\babyblues\_main.php:103
+	#: ..\..\..\skins\bluesky\_main.php:222
+	#: ..\..\..\skins\custom\_main.php:260
+	#: ..\..\..\skins\fplanque2002\_main.php:289
+	#: ..\..\..\skins\guadeloupe\_main.php:222
+	#: ..\..\..\skins\originalb2\_main.php:159
+	#, php-format
+	msgid "Totals: %d posts - %d queries - %01.3f seconds"
+	msgstr "Totaux: %d articles - %d requêtes - %01.3f secondes"
+	 
+	#: ..\..\..\admin\b2edit.php:55
+	msgid "New post in blog:"
+	msgstr "Poster dans le blog:"
+	 
+	#: ..\..\..\admin\b2edit.php:100
+	msgid "Editing post"
+	msgstr "Edition d'un article"
+	 
+	#: ..\..\..\admin\b2edit.php:145
+	msgid "Editing comment"
+	msgstr "Edition d'un commentaire"
+	 
+	#: ..\..\..\admin\b2edit.php:175
+	msgid "Browse blog:"
+	msgstr "Parcourir le blog:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:80
+	#: ..\..\..\b2evocore\_class_pop3.php:88
+	#: ..\..\..\b2evocore\_class_pop3.php:100
+	msgid "POP3 connect:"
+	msgstr "POP3 connect:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:80
+	msgid "No server specified"
+	msgstr "Pas de serveur spécifié"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:88
+	#: ..\..\..\b2evocore\_class_pop3.php:100
+	#: ..\..\..\b2evocore\_class_pop3.php:139
+	#: ..\..\..\b2evocore\_class_pop3.php:274
+	#: ..\..\..\b2evocore\_class_pop3.php:328
+	#: ..\..\..\b2evocore\_class_pop3.php:339
+	#: ..\..\..\b2evocore\_class_pop3.php:387
+	#: ..\..\..\b2evocore\_class_pop3.php:420
+	#: ..\..\..\b2evocore\_class_pop3.php:453
+	#: ..\..\..\b2evocore\_class_pop3.php:552
+	#: ..\..\..\b2evocore\_class_pop3.php:575
+	msgid "Error "
+	msgstr "Erreur"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:108
+	#, fuzzy
+	msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
+	msgstr "POP3: premature NOOP OK, le serveur n'est pas conforme à la RFC 1939"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:118
+	msgid "POP3 noop:"
+	msgstr "POP3 noop:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:118
+	#: ..\..\..\b2evocore\_class_pop3.php:184
+	#: ..\..\..\b2evocore\_class_pop3.php:233
+	#: ..\..\..\b2evocore\_class_pop3.php:258
+	#: ..\..\..\b2evocore\_class_pop3.php:300
+	#: ..\..\..\b2evocore\_class_pop3.php:374
+	#: ..\..\..\b2evocore\_class_pop3.php:413
+	#: ..\..\..\b2evocore\_class_pop3.php:443
+	#: ..\..\..\b2evocore\_class_pop3.php:477
+	#: ..\..\..\b2evocore\_class_pop3.php:540
+	#: ..\..\..\b2evocore\_class_pop3.php:608
+	msgid "No connection to server"
+	msgstr "Pas de connexion au serveur"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:131
+	#: ..\..\..\b2evocore\_class_pop3.php:134
+	#: ..\..\..\b2evocore\_class_pop3.php:139
+	msgid "POP3 user:"
+	msgstr "POP3 user:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:131
+	#: ..\..\..\b2evocore\_class_pop3.php:190
+	msgid "No login ID submitted"
+	msgstr "Aucun identifiant n'a été soumis"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:134
+	#: ..\..\..\b2evocore\_class_pop3.php:154
+	msgid "connection not established"
+	msgstr "connexion non établie"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:151
+	#: ..\..\..\b2evocore\_class_pop3.php:154
+	#: ..\..\..\b2evocore\_class_pop3.php:159
+	#: ..\..\..\b2evocore\_class_pop3.php:168
+	msgid "POP3 pass:"
+	msgstr "POP3 pass:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:151
+	#: ..\..\..\b2evocore\_class_pop3.php:193
+	msgid "No password submitted"
+	msgstr "Aucun mot de passe n'a été soumis"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:159
+	msgid "authentication failed "
+	msgstr "l'autentification a échoué"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:168
+	#: ..\..\..\b2evocore\_class_pop3.php:217
+	msgid "NOOP failed. Server not RFC 1939 compliant"
+	msgstr "NOOP à échoué. Le serveur n'est pas conforme à la RFC 1939"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:184
+	#: ..\..\..\b2evocore\_class_pop3.php:190
+	#: ..\..\..\b2evocore\_class_pop3.php:193
+	#: ..\..\..\b2evocore\_class_pop3.php:198
+	#: ..\..\..\b2evocore\_class_pop3.php:208
+	#: ..\..\..\b2evocore\_class_pop3.php:217
+	msgid "POP3 apop:"
+	msgstr "POP3 apop:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:198
+	#, fuzzy
+	msgid "No server banner"
+	msgstr "No server banner"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:198
+	#: ..\..\..\b2evocore\_class_pop3.php:208
+	msgid "abort"
+	msgstr "abandon"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:208
+	msgid "apop authentication failed"
+	msgstr "l'authentification apop a échoué"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:233
+	msgid "POP3 login:"
+	msgstr "POP3 login:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:258
+	#: ..\..\..\b2evocore\_class_pop3.php:274
+	msgid "POP3 top:"
+	msgstr "POP3 top:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:300
+	#: ..\..\..\b2evocore\_class_pop3.php:328
+	#: ..\..\..\b2evocore\_class_pop3.php:339
+	#: ..\..\..\b2evocore\_class_pop3.php:351
+	msgid "POP3 pop_list:"
+	msgstr "POP3 pop_list:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:351
+	msgid "Premature end of list"
+	msgstr "Fin de liste prématurée"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:374
+	#: ..\..\..\b2evocore\_class_pop3.php:387
+	msgid "POP3 get:"
+	msgstr "POP3 get:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:413
+	#: ..\..\..\b2evocore\_class_pop3.php:420
+	msgid "POP3 last:"
+	msgstr "POP3 last:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:443
+	#: ..\..\..\b2evocore\_class_pop3.php:453
+	msgid "POP3 reset:"
+	msgstr "POP3 reset:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:477
+	#: ..\..\..\b2evocore\_class_pop3.php:483
+	msgid "POP3 send_cmd:"
+	msgstr "POP3 send_cmd:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:483
+	msgid "Empty command string"
+	msgstr "Chaîne de commande vide"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:503
+	msgid "POP3 quit:"
+	msgstr "POP3 quit:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:503
+	msgid "connection does not exist"
+	msgstr "la connexion n'existe pas"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:540
+	#: ..\..\..\b2evocore\_class_pop3.php:552
+	#: ..\..\..\b2evocore\_class_pop3.php:575
+	msgid "POP3 uidl:"
+	msgstr "POP3 uidl:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:608
+	#: ..\..\..\b2evocore\_class_pop3.php:613
+	#: ..\..\..\b2evocore\_class_pop3.php:619
+	msgid "POP3 delete:"
+	msgstr "POP3 delete:"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:613
+	msgid "No msg number submitted"
+	msgstr "Aucun numéro de message n'a été soumis"
+	 
+	#: ..\..\..\b2evocore\_class_pop3.php:619
+	msgid "Command failed "
+	msgstr "La commande a échoué"
+	 
+	#. TRANS: Link to comments for current post
+	#: ..\..\..\b2evocore\_edit_showposts.php:113
+	msgid "no comment"
+	msgstr "pas de commentaire"
+	 
+	#: ..\..\..\b2evocore\_edit_showposts.php:113
+	#: ..\..\..\b2evocore\_functions_trackback.php:153
+	msgid "1 comment"
+	msgstr "1 commentaire"
+	 
+	#: ..\..\..\b2evocore\_edit_showposts.php:113
+	#: ..\..\..\b2evocore\_functions_trackback.php:154
+	#, php-format
+	msgid "% comments"
+	msgstr "% commentaires"
+	 
+	#: ..\..\..\b2evocore\_edit_showposts.php:114
+	msgid ", 1 TrackBack"
+	msgstr ", 1 TrackBack"
+	 
+	#: ..\..\..\b2evocore\_edit_showposts.php:114
+	msgid ", % TrackBacks"
+	msgstr ", % TrackBacks"
+	 
+	#. TRANS: When the categories for a specific post are displayed, the user can click
+	#. on these cats to browse them, this is the default href title displayed there
+	#: ..\..\..\b2evocore\_functions_cats.php:611
+	msgid "Browse category"
+	msgstr "Afficher cette catégorie"
+	 
+	#: ..\..\..\b2evocore\_functions_comments.php:149
+	msgid "TrackBack (0)"
+	msgstr "TrackBack (0)"
+	 
+	#: ..\..\..\b2evocore\_functions_comments.php:150
+	msgid "TrackBack (1)"
+	msgstr "TrackBack (1)"
+	 
+	#: ..\..\..\b2evocore\_functions_comments.php:151
+	msgid "TrackBacks (%)"
+	msgstr "TrackBacks (%)"
+	 
+	#: ..\..\..\b2evocore\_functions_trackback.php:152
+	msgid "Leave a comment..."
+	msgstr "Laisser un commentaire..."
+	 
+	#: ..\..\..\b2evocore\_menutop.php:103
+	msgid "New Post"
+	msgstr "Poster"
+	 
+	#: ..\..\..\b2evocore\_menutop.php:105
+	msgid "Browse/Edit"
+	msgstr "Parcourir"
+	 
+	#: ..\..\..\b2evocore\_menutop.php:125
+	msgid "Users"
+	msgstr "Utilisateurs"
+	 
+	#: ..\..\..\b2evocore\_menutop.php:127
+	msgid "My Profile"
+	msgstr "Mon Profil"
+	 
+	#: ..\..\..\b2evocore\_menutop.php:132
+	msgid "Exit to blogs"
+	msgstr "Retour aux blogs"
+	 
+	#: ..\..\..\b2evocore\_menutop.php:134
+	msgid "Logout"
+	msgstr "Déconnexion"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:53
+	msgid "Sunday"
+	msgstr "Dimanche"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:54
+	msgid "Monday"
+	msgstr "Lundi"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:55
+	msgid "Tuesday"
+	msgstr "Mardi"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:56
+	msgid "Wednesday"
+	msgstr "Mercredi"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:57
+	msgid "Thursday"
+	msgstr "Jeudi"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:58
+	msgid "Friday"
+	msgstr "Vendredi"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:59
+	msgid "Saturday"
+	msgstr "Samedi"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:62
+	msgid "January"
+	msgstr "Janvier"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:63
+	msgid "February"
+	msgstr "Février"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:64
+	msgid "March"
+	msgstr "Mars"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:65
+	msgid "April"
+	msgstr "Avril"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:66
+	msgid "May"
+	msgstr "Mai"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:67
+	msgid "June"
+	msgstr "Juin"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:68
+	msgid "July"
+	msgstr "Juillet"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:69
+	msgid "August"
+	msgstr "Août"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:70
+	msgid "September"
+	msgstr "Septembre"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:71
+	msgid "October"
+	msgstr "Octobre"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:72
+	msgid "November"
+	msgstr "Novembre"
+	 
+	#: ..\..\..\conf\b2evo_locale.php:73
+	msgid "December"
+	msgstr "Décembre"
+	 
+	#: ..\..\..\skins\fplanque2002\_main.php:105
+	msgid ", Categories: "
+	msgstr ", Catégories: "
