@@ -546,7 +546,26 @@ msgstr ""
 msgid "Success, your rule has been saved! You can create/edit another one if you want"
 msgstr ""
 
+msgid "true of false"
+msgstr ""
 
+msgid "You can chose between: "
+msgstr ""
+
+msgid "The value must be a"
+msgstr ""
+
+msgid " number"
+msgstr ""
+
+msgid "n integer"
+msgstr ""
+
+msgid " number, with step "
+msgstr ""
+
+msgid "There is no particular constraint on this parameter"
+msgstr ""
 
 
 

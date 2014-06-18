@@ -516,3 +516,24 @@ msgid ""
 msgstr ""
 "Votre règle a bien été sauvegardée! Vous pouvez en créer ou éditer autant "
 "que vous le souhaitez"
+
+msgid "true of false"
+msgstr "true (vrai) ou false (faux)"
+
+msgid "You can chose between: "
+msgstr "Vous pouvez choisir entre : "
+
+msgid "The value must be a"
+msgstr "La valeur doit être un"
+
+msgid " number"
+msgstr " nombre"
+
+msgid "n integer"
+msgstr " entier"
+
+msgid " number, with step "
+msgstr " nombre, de pas "
+
+msgid "There is no particular constraint on this parameter"
+msgstr "Il n'y a pas de contrainte particulière sur cet élément"
