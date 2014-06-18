@@ -233,11 +233,11 @@
                                         var parameterName = _($($(parameter).children('Name')[0]).text());
                                         var parameterId = $(parameter).attr('ID');
                                         var parameterComment = $($(parameter).children('Comment')[0]).text();//TODO : use it and use scales
+                                        var parameterScale = $(parameter).children().last();//the scale is always the last element in the parameter element
                                         var parameterContainer = $('<li>').append(parameterName).attr('id', parameterId);
                                         $(container).append(parameterContainer);
-                                        
                                         if(!parametersDictionnary.hasOwnProperty(parameterId)){
-                                            parametersDictionnary[parameterId] = parameterName;
+                                            parametersDictionnary[parameterId] = {name: parameterName, comment: parameterComment, scale: parameterScale};
                                         }
                                     }
                                     
@@ -245,7 +245,7 @@
                                     
                                     function getParameterId(parameterName){
                                         $.each(parametersDictionnary, function(id, value){
-                                            if(value==parameterName){
+                                            if(value.name==parameterName){
                                                 return id;
                                             }
                                         });
@@ -463,7 +463,10 @@
                                         },
                                         function(){//6
                                             displayValueInput();
-                                        
+                                            //displaying information about the scale just after the form
+                                            var currentParameterId = $($(currentParameter).find('id')[0]).text();
+                                            
+                                            displayScale((parametersDictionnary[currentParameterId]).scale);
                                         },
                                         function(){//7
                                         
@@ -502,6 +505,49 @@
                                             });
                                         }
                                     ];
+                                    
+                                    /*
+                                    Takes a scale element, and displays an information about allowed values next to the value form
+                                    */
+                                    function displayScale(scaleElement){//TODO : add elements
+                                        var informationToDisplay = '';
+                                        var scaleType = scaleElement[0].nodeName;
+                                        
+                                        if(scaleType == 'ScaleBoolean'){
+                                            informationToDisplay = _('true of false');
+                                        }
+                                        else if(scaleType == 'ScaleList'){//display the  possibilities
+                                            informationToDisplay = _('You can chose between: ');
+                                            $(scaleElement).find('Name').each(function(){
+                                                informationToDisplay += ($(this).text()+', ');
+                                            });
+                                            informationToDisplay = informationToDisplay.slice(0, -2);
+                                        
+                                        }
+                                        
+                                        else if(scaleType == 'ScaleNumerical'){//display the type of value, integer or number, and the step.
+                                            informationToDisplay = _('The value must be a');
+                                            if($(scaleElement).find('Step').length === 0){
+                                                informationToDisplay += _(' number');
+                                            }
+                                            else{
+                                                var step = $($(scaleElement).find('Step')[0]).text();
+                                                if(step=='1'){
+                                                    informationToDisplay += _('n integer');
+                                                }
+                                                else{
+                                                    informationToDisplay += (_(' number, with step ')+step);
+                                                }
+                                            
+                                            }
+                                        }
+                                        
+                                        else{
+                                            informationToDisplay = _('There is no particular constraint on this parameter');
+                                        }
+                                        
+                                        $('#newRuleForm').append($('<span>').addClass('scaleInformation').append(informationToDisplay));
+                                    }
                                     
                                     var todoAfter = [//contains what has to be done after each operation
                                         function(){//0
@@ -947,7 +993,7 @@
                                                     var parameter = this;
                                                     var paramId = $($(this).find('id')[0]).text();
                                                     var paramValue = $($(this).find('value')[0]).text();
-                                                    var parameterContainer = $('<li>').append(parametersDictionnary[paramId]+': ' + paramValue);
+                                                    var parameterContainer = $('<li>').append((parametersDictionnary[paramId]).name+': ' + paramValue);
                                                     
                                                     if(editMode){
                                                     
