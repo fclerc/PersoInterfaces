@@ -13,13 +13,12 @@
     </head>
     
     <body>
-    <div id="ttt">gsgsg</div>
 	<div id="ProfileAndContext" class="mains">
 		<h2>Selection of indicators</h2>
         <p>For each indicator, an example value is given (italic).</p>
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#Profile" data-toggle="tab">Profile</a></li>
-			<li><a href="#Context" data-toggle="tab">Context</a></li>
+			<li class="active" id="profileTabLi"><a href="#Profile" data-toggle="tab">Profile</a></li>
+			<li id="contextTabLi"><a href="#Context" data-toggle="tab">Context</a></li>
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="Profile"></div>
@@ -52,20 +51,24 @@
         <script type="text/javascript" src="xmlManipulator.js"></script>
         <script type="text/javascript">
             
-            function switchProfileContext(){
-                if(){
-                    
-                }
-            }
+            
             
             $(function(){
             
-                function switchProfileContext(){
+                function switchProfileContext(){//switches from profile to context and vice-versa in left part.
                     if($('#Profile').hasClass('active')){
-                        alert('hello');
+                        $('#Context').addClass('active');
+                        $('#contextTabLi').addClass('active');
+                        $('#Profile').removeClass('active');
+                        $('#profileTabLi').removeClass('active');
+                    }
+                    else{
+                        $('#Context').removeClass('active');
+                        $('#contextTabLi').removeClass('active');
+                        $('#Profile').addClass('active');
+                        $('#profileTabLi').addClass('active');
                     }
                 }
-                
             
             
                 $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
@@ -838,11 +841,22 @@
                                     
                                     });
                                     
-                                    //scrolling to the indicator in left part when clicking on it in rule part.
-                                     $(indicatorContainer).click(function(event){
-                                        indicatorSelectionContainer[0].scrollIntoView(true);
-                                        
-                                     });
+                                    //scrolling to the indicator in left part when clicking on it in rule part (and swithing if necessary to context or profile).
+                                    $(indicatorContainer).click(function(event){
+                                    
+                                        if($('#Profile' + ' #' +indicatorId).length > 0){
+                                            if(!$('#Profile').hasClass('active')){
+                                                switchProfileContext();
+                                            }
+                                            indicatorSelectionContainer[0].scrollIntoView(true);
+                                        }
+                                        else if($('#Context' + ' #' +indicatorId).length > 0){
+                                            if(!$('#Context').hasClass('active')){
+                                                switchProfileContext();
+                                            }
+                                            indicatorSelectionContainer[0].scrollIntoView(true);
+                                        }
+                                    });
                                     
                                     
                                     
