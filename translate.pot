@@ -1,0 +1,29 @@
+# Mooc personalization
+    #
+	msgid ""
+	msgstr ""
+	"MIME-Version: 1.0\n"
+	"Content-Type: text/plain; charset=iso-8859-1\n"
+	"Content-Transfer-Encoding: 8bit\n"
+    
+    msgid "Selection of indicators"
+    msgstr ""
+    
+    msgid "For each indicator, an example value is given (italic)."
+    msgstr ""
+    
+    msgid "Definition of pedagogical strategy"
+    msgstr ""
+    
+    msgid "Add new Rule"
+    msgstr ""
+    
+    msgid "Save my strategy"
+    msgstr ""
+    
+    msgid "Rules you already defined:"
+    msgstr ""
+    
+    msgid "Selection of the activities"
+    msgstr ""
+    

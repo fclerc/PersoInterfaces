@@ -1,0 +1,36 @@
+# Mooc personalization
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.6.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en\n"
+
+msgid "Selection of indicators"
+msgstr "Selection of indicators"
+
+msgid "For each indicator, an example value is given (italic)."
+msgstr "For each indicator, an example value is given (italic)."
+
+msgid "Definition of pedagogical strategy"
+msgstr "Definition of pedagogical strategy"
+
+msgid "Add new Rule"
+msgstr "Add new Rule"
+
+msgid "Save my strategy"
+msgstr "Save my strategy"
+
+msgid "Rules you already defined:"
+msgstr "Rules you already defined:"
+
+msgid "Selection of the activities"
+msgstr "Selection of the activities"
