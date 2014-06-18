@@ -112,9 +112,9 @@
                                     
                                     
                                     //this object will be used as a dictionnary to make a list of parameters corresponding to their IDs, like 'P012' : 'Length' .
-                                    var parametersDictionnary= new Array();
+                                    var parametersDictionnary= [];
                                     //this object will be used as a dictionnary to make a list of activities corresponding to their IDs, like 'A001' : 'Learning' .
-                                    var activitiesDictionnary= new Array();
+                                    var activitiesDictionnary= [];
                                     //when creating new rule, we need to give it an id, like R12. This variable contains the highest id a rule currently has.
                                     var rulesMaxId = 0;
                                     
@@ -138,7 +138,7 @@
                                                 var activitiesContainer = $('<ul>').addClass('activities');
                                                 
                                                 //going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters. At the same time, we fill the activitiesDictionnary.
-                                                var allActivityParameters = new Array();
+                                                var allActivityParameters = [];
                                                 $(xml['#Activities']).find('TypeOfActivity').each(function(){
                                                     var activity = this;
                                                     var activityName = _($($(activity).children('Name')[0]).text());

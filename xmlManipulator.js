@@ -21,7 +21,7 @@ function manipulateXML(filename, container, mode, reader){
 		type: "GET",
 		url: filename,
 		success: function(data){//get the xml document
-			var xml = new Array;
+			var xml = [];
 			xml[container]=$(data);//load xml tree
 			
 			
@@ -57,7 +57,7 @@ function manipulateXML(filename, container, mode, reader){
 				
 				if(mode == 'modify'){
 				//the target can be 2 things : the span (thus check if it doesn't already contain an input), or the input (thus don't try to add a new input into this)
-					if($(elem).children('input').length == 0 && $(elem).prop('tagName')!='INPUT'){//we have to add an input
+					if($(elem).children('input').length === 0 && $(elem).prop('tagName')!='INPUT'){//we have to add an input
 						input=$('<input>').attr("type", "text").attr('value', value);
 						
 						$(elem).html(input);
@@ -68,18 +68,18 @@ function manipulateXML(filename, container, mode, reader){
 								//replacing input by plain text
 								var input = event.target;
 								var value = $(input).prop('value');
-								
+								var id;
 								if($(input).parent().hasClass('attribute')){
 									//finding the right element having this attribute
 									var data = $(input).parent().parent().attr('id').split('--');
-									var id  = data[0];
+									id = data[0];
 									var attribute = data[1];
 									$(input).parent().html(value);
 									$(xml[container]).find('[id="' + id + '"]').attr(attribute, value);
 								}
 								
 								else{//replace the value of an element
-									var id = $(input).parent().parent().attr("id");//corresponding id in the xml tree
+									id = $(input).parent().parent().attr("id");//corresponding id in the xml tree
 									$(input).parent().html(value);
 									
 									//modifying value in XML tree
@@ -151,12 +151,12 @@ function displayAndChildren(xmlNode, mode){
         var chs = $('<ul>');
         
         $.each(xmlNode.attributes, function(i, attrib){//going through the attibutes
-            var attributesToIgnore = ["id", "xmlns:xsi", "xsi:noNamespaceSchemaLocation"]
+            var attributesToIgnore = ["id", "xmlns:xsi", "xsi:noNamespaceSchemaLocation"];
             if(attributesToIgnore.indexOf(attrib.name) == -1){
                 
                 var idText='';//uncomment next line to display the id
                 //var idText=' (' + $(xmlNode).attr('id') +'--'+ attrib.name + '): ';
-                var attribName = attrib.name
+                var attribName = attrib.name;
                 if(typeof window._ != "undefined"){//if translation object is set, translate the nodeName
                     attribName = _(attribName);
                 }
