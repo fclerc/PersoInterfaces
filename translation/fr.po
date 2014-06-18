@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Mooc Personalization\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Florian Clerc <fc@florianclerc.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -34,3 +34,305 @@ msgstr "Règles déjà définies :"
 
 msgid "Selection of the activities"
 msgstr "Sélection des activités"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Context"
+msgstr "Contexte"
+
+msgid "context"
+msgstr "contexte"
+
+msgid "Learning"
+msgstr "Apprentissage"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Sequence"
+msgstr "Séquence"
+
+msgid "Length"
+msgstr "Durée"
+
+msgid "Categories"
+msgstr "Catégories"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Difficulty"
+msgstr "Difficulté"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Social"
+msgstr "Social"
+
+msgid "Tool"
+msgstr "Outil"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Exercise"
+msgstr "Exercice"
+
+msgid "Grade"
+msgstr "Note"
+
+msgid "Attempts"
+msgstr "Nombre d'essais"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Goal"
+msgstr "Objectif"
+
+#
+#
+# LearnerProfile
+#
+#
+msgid "learnerMoocProfile"
+msgstr "Profil d'apprenant du MOOC"
+
+msgid "learnerInformation"
+msgstr "informations sur l'apprenant"
+
+msgid "id"
+msgstr "id"
+
+msgid "email"
+msgstr "email"
+
+msgid "birthDate"
+msgstr "date de naissance"
+
+msgid "sex"
+msgstr "sexe"
+
+msgid "professionalSituation"
+msgstr "situation professionnelle"
+
+msgid "educationLevel"
+msgstr "niveau d'éducation"
+
+msgid "educationDomain"
+msgstr "domaine de formation"
+
+msgid "country"
+msgstr "pays"
+
+msgid "languages"
+msgstr "langues"
+
+msgid "language"
+msgstr "langue"
+
+msgid "name"
+msgstr "nom"
+
+msgid "skill"
+msgstr "compétence"
+
+msgid "registrationDate"
+msgstr "date d'inscription"
+
+msgid "colourBlind"
+msgstr "daltonien"
+
+msgid "externalToolsKnowledge"
+msgstr "connaissance des outils extérieurs"
+
+msgid "externalTool"
+msgstr "outil extérieur"
+
+msgid "toolName"
+msgstr "nom de l'outil"
+
+msgid "grade"
+msgstr "note"
+
+msgid "otherInformation"
+msgstr "autre information"
+
+msgid "knowledge"
+msgstr "connaissances"
+
+msgid "courseKnowledge"
+msgstr "connaissances sur le cours"
+
+msgid "knowledgeGroup"
+msgstr "groupe de connaissances"
+
+msgid "value"
+msgstr "valeur"
+
+msgid "knowledgeUnit"
+msgstr "unité de savoir"
+
+msgid "toolsKnowledge"
+msgstr "connaissances sur les outils"
+
+msgid "knowledgeTool"
+msgstr "connaissance sur un outil"
+
+msgid "behaviour"
+msgstr "comportement"
+
+msgid "studentPattern"
+msgstr "type d'apprenant"
+
+msgid "dropoutFlag"
+msgstr "avertissement d'abandon"
+
+msgid "IRLInteraction"
+msgstr "interactions hors MOOC"
+
+msgid "socialInteractions"
+msgstr "interactions sociales"
+
+msgid "socialInteraction"
+msgstr "interaction sociale"
+
+msgid "socialTool"
+msgstr "réseau social"
+
+msgid "forumBehaviour"
+msgstr "comportement sur le forum"
+
+msgid "otherBehaviour"
+msgstr "autre élément de comportement"
+
+msgid "moocInteractions"
+msgstr "interactions avec le MOOC"
+
+msgid "activityDistributions"
+msgstr "distribution des activités"
+
+msgid "activityPerHour"
+msgstr "activité par heure"
+
+msgid "hour"
+msgstr "heure"
+
+msgid "num"
+msgstr "numéro"
+
+msgid "timePercentage"
+msgstr "pourcentage (en temps)"
+
+msgid "actionsPercentage"
+msgstr "pourcentage (en nombre d'actions)"
+
+msgid "activityPerDay"
+msgstr "activité par journée"
+
+msgid "day"
+msgstr "jour"
+
+msgid "activityPerSequence"
+msgstr "activité par séquence"
+
+msgid "sequence"
+msgstr "séquence"
+
+msgid "lastVisits"
+msgstr "dernières visites"
+
+msgid "visit"
+msgstr "visite"
+
+msgid "otherDynamics"
+msgstr "autres indicateurs de dynamique"
+
+msgid "resourcesInteractions"
+msgstr "interactions avec les ressources"
+
+msgid "resourcesConsultation"
+msgstr "consultation de ressources"
+
+msgid "resourceConsultation"
+msgstr "consultation d'une ressource"
+
+msgid "resourceId"
+msgstr "identifiant de la ressource"
+
+msgid "nbConsultations"
+msgstr "nombre de consultations"
+
+msgid "childrenConsultationsDistribution"
+msgstr "distribution de consultation des enfants (en nombre de consultations)"
+
+msgid "childPercentage"
+msgstr "pourcentage"
+
+msgid "resource"
+msgstr "ressource"
+
+msgid "percentage"
+msgstr "pourcentage"
+
+msgid "duration"
+msgstr "durée"
+
+msgid "childrenDurationDistribution"
+msgstr "distribution de consultation des enfants (en temps)"
+
+msgid "completion"
+msgstr "taux de réalisation"
+
+msgid "comparedPercentage"
+msgstr "pourcentage comparé"
+
+msgid "scale"
+msgstr "échelle"
+
+msgid "consultationDuringHomework"
+msgstr "consultations durant les devoirs"
+
+msgid "totalTimeOnHomework"
+msgstr "temps total passé sur les devours"
+
+msgid "timeOtherResourcesDuringHw"
+msgstr "temps total passé sur les autres ressources"
+
+msgid "distribution"
+msgstr "distribution"
+
+msgid "courseware"
+msgstr "matériel de cours"
+
+msgid "forum"
+msgstr "forum"
+
+msgid "wiki"
+msgstr "wiki"
+
+msgid "exercises"
+msgstr "exercices"
+
+msgid "customInteractionIndicator"
+msgstr "indicateur d'interaction personnalisé"
+
+msgid "actionId"
+msgstr "action"
+
+msgid "period"
+msgstr "période"
+
+msgid "interval"
+msgstr "intervalle"
+
+msgid "beginDateTime"
+msgstr "date de début"
+
+msgid "endDateTime"
+msgstr "date de fin"
+
+msgid "comment"
+msgstr "commentaire"

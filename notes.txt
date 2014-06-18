@@ -21,3 +21,12 @@ Useful link for colors : http://web.njit.edu/~kevin/rgb.txt.html#columns
 http://www.localeplanet.com/support/howto-localize-js.html
 
 python po2json ../fr.po
+
+
+Faire facilement le pot : rechercher-remplacer:
+(.+)\r
+msgid "$1"\rmsgstr ""\r\r
+
+Supprimer valeur de l'attribut:
+:.+\r
+\r

@@ -56,14 +56,14 @@
             
             
             $(function(){
-                var translationFile = 'translation/en.json'
+                var translationFile = 'translation/fr.json';
                 $.ajax({//loading translation
                     type: "GET",
                     url: translationFile,
                     success: function(data){
-                        _.setTranslation(data)
+                        _.setTranslation(data);
                 
-                $('#ProfileAndContext h2, #ProfileAndContext p, #Rules h2, #Rules h3, #Rules button span, #Activities h2').each(function(){
+                $('#ProfileAndContext h2, #ProfileAndContext p, #ProfileAndContext ul li a, #Rules h2, #Rules h3, #Rules button span, #Activities h2').each(function(){
                     $(this).text(_($(this).text()));
                     //console.log($(this).text());
                 
@@ -112,9 +112,9 @@
                                     
                                     
                                     //this object will be used as a dictionnary to make a list of parameters corresponding to their IDs, like 'P012' : 'Length' .
-                                    var parametersDictionnary= new Object;
+                                    var parametersDictionnary= new Array();
                                     //this object will be used as a dictionnary to make a list of activities corresponding to their IDs, like 'A001' : 'Learning' .
-                                    var activitiesDictionnary= new Object;
+                                    var activitiesDictionnary= new Array();
                                     //when creating new rule, we need to give it an id, like R12. This variable contains the highest id a rule currently has.
                                     var rulesMaxId = 0;
                                     
@@ -129,7 +129,7 @@
                                             type: "GET",
                                             url: pedagogicalPropertiesFilename,
                                             success: function(data){
-                                                var xml = new Array;
+                                                var xml = {};
                                                 xml['#Activities']=$(data);//load xml tree
                                                 
                                                 
@@ -138,11 +138,10 @@
                                                 var activitiesContainer = $('<ul>').addClass('activities');
                                                 
                                                 //going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters. At the same time, we fill the activitiesDictionnary.
-                                                var allActivityParameters = new Array;
+                                                var allActivityParameters = new Array();
                                                 $(xml['#Activities']).find('TypeOfActivity').each(function(){
                                                     var activity = this;
-                                                    var activityName = $($(activity).children('Name')[0]).text();
-                                                    
+                                                    var activityName = _($($(activity).children('Name')[0]).text());
                                                     //filling the activitiesDictionnary                                    
                                                     var activityId = $(activity).attr('ID');
                                                     if(!activitiesDictionnary.hasOwnProperty(activityId)){
@@ -202,7 +201,7 @@
                                     
                                     */
                                     function displayActivity(activity, allActivityParameters){
-                                        var activityName = $($(activity).children('Name')[0]).text();
+                                        var activityName = _($($(activity).children('Name')[0]).text());
                                         var activityId = $(activity).attr('ID');
                                         if(activityName != 'All'){//the 'All' activity is only used to factorize parameters that apply to all activities, and is therefore not displayed
                                             //displaying the parameters of the activity, including the parameters contained in the 'All' activity
@@ -232,7 +231,7 @@
                                     
                                     */
                                     function addParameterToList(parameter, container){
-                                        var parameterName = $($(parameter).children('Name')[0]).text();
+                                        var parameterName = _($($(parameter).children('Name')[0]).text());
                                         var parameterId = $(parameter).attr('ID');
                                         var parameterComment = $($(parameter).children('Comment')[0]).text();//TODO : use it and use scales
                                         var parameterContainer = $('<li>').append(parameterName).attr('id', parameterId);
@@ -296,17 +295,16 @@
                                     
                                     */
                                     var currentOperation = 0;
-                                    var instructions = ['Click on new rule', 'Choose the indicator you want to base your rule on from the profile or the context', 'Choose the operator you want to use in this rule in the form below', 'Give the value used for the comparison', 'Select the activity for the then part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Select the activity for the else part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Give the priority for this rule', 'Save your new rule', 'Success, your rule has been saved! You can create/edit another one if you want']
+                                    var instructions = ['Click on new rule', 'Choose the indicator you want to base your rule on from the profile or the context', 'Choose the operator you want to use in this rule in the form below', 'Give the value used for the comparison', 'Select the activity for the then part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Select the activity for the else part of the rule', 'Select a parameter you want to set for this activity', 'Give the value for the parameter', 'Give the priority for this rule', 'Save your new rule', 'Success, your rule has been saved! You can create/edit another one if you want'];
                                     
                                     //used in last operations, to know whether we are in the definition of <then> or <else>
                                     var operationToConsequence = ['new','if', 'if', 'if', 'then','then','then','else','else','else', 'priority', 'save', 'save'];
                                     
-                                    var builtRule = new Object;
+                                    var builtRule = {};
                                     
                                     var currentParameter;//used in stages when asking parameter value to the user, to add this parameter the <value>
                                     var currentActivity;//used in stages when asking parameter to the user, to add the parameter to this activity
-                                    var currentCondition;//used in the case the user wants to define complex conditions, using AND and OR. It stores the constraint which is going to be combined with the next defined constraint.
-                                    var conditionOperator;//used when new constraint is defined to sotre 'AND' or 'OR'
+                                    
                                     
                                     $("#Rules").on("leafValueReading", function(event, value, id, container){
                                         
@@ -315,11 +313,11 @@
                                             
                                             if(container == "#Profile" || container == "#Context"){
                                                 var newConstraint = $('<constraint>').append($('<indicator>').text(id));
-                                                if($(builtRule).find('if').length == 0){                                    
+                                                if($(builtRule).find('if').length === 0){                                    
                                                     $(builtRule).append($('<if>').append(newConstraint));
                                                 }
                                                 
-                                                else if(typeof currentCondition != 'undefined' && currentCondition != null){
+                                                else if(typeof currentCondition != 'undefined' && currentCondition !== null){
                                                     
                                                     $(currentCondition).parent().append(newConstraint);
                                                     
@@ -336,7 +334,7 @@
                                         else if(currentOperation ==2){//received event contains the operator
                                             if(container=='#newRuleForm'){
                                                 var op = $('<operator>').text(value);
-                                                op.insertAfter($($(currentCondition).find('indicator')[0]))
+                                                op.insertAfter($($(currentCondition).find('indicator')[0]));
                                                 
                                                 goFromTo(2,3);
                                                 
@@ -346,7 +344,7 @@
                                         else if(currentOperation == 3){//event contains the value to compare the indicator with
                                             if(container=='#newRuleForm'){
                                                 var refVal = $('<referencevalue>').text(value);
-                                                refVal.insertAfter($($(currentCondition).find('operator')[0]))
+                                                refVal.insertAfter($($(currentCondition).find('operator')[0]));
                                                 
                                                 goFromTo(3,4);
                                             }
@@ -358,8 +356,8 @@
                                                 var activity = $('<activity>').append($('<typeofactivity>').append(id)).append($('<parameters>'));
                                                 currentActivity = activity;
                                                 
-                                                var consequenceContainer = new Object;
-                                                if($(builtRule).find(operationToConsequence[currentOperation]).length ==0){
+                                                var consequenceContainer = {};
+                                                if($(builtRule).find(operationToConsequence[currentOperation]).length === 0){
                                                     consequenceContainer = $('<'+operationToConsequence[currentOperation]+'>').append($('<activities>')).append(activity);
                                                     $(builtRule).append(consequenceContainer);
                                                 }
@@ -388,7 +386,7 @@
                                         else if(currentOperation == 6 || currentOperation == 9){//value of the parameter has  been given
                                             
                                             if(container == '#newRuleForm'){
-                                                if($(currentParameter).find('value').length==0){
+                                                if($(currentParameter).find('value').length===0){
                                                     $(currentParameter).append($('<value>').append(value));
                                                 }
                                                 else{
@@ -418,13 +416,15 @@
                                         todoAfter[origin]();
                                         todoBefore[target]();
                                         
-                                        if(target!=0 && target !=12){displayNewRule()};
+                                        if(target!==0 && target !=12){
+                                            displayNewRule();
+                                        }
                                         instruct();
                                     }
                                     
                                     var todoBefore = [//contains what has to be done before each operation
                                         function(){//0
-                                            removeAllButtons()
+                                            removeAllButtons();
                                             $('#newRuleContainer').empty();
                                         },
                                         function(){//1
@@ -561,14 +561,14 @@
                                     
                                     function saveRule(){
                                         var ruleInXMLFile = $(strategy).find('rule[id="' + $(builtRule).attr('id') + '"]');
-                                        if(ruleInXMLFile.length == 0){//this is a new rule, add it to the end of the file
+                                        if(ruleInXMLFile.length === 0){//this is a new rule, add it to the end of the file
                                             $($(strategy).find('strategyRules')[0]).append(builtRule);
                                            rulesMaxId++;//the rule is now stored, let's go the next id for future rules
                                            displayRule(builtRule, '#uselessDivToInsertRulesAbove', true, false);
                                         }
                                         else{//the rule already exists, replace it in the file
                                             $(ruleInXMLFile[0]).replaceWith(builtRule);
-                                            updateRule(builtRule, $(builtRule).attr('id'))
+                                            updateRule(builtRule, $(builtRule).attr('id'));
                                         }
                                        
                                         goFromTo(11,12);
@@ -576,7 +576,7 @@
                                     }
                                     
                                     $('#ruleAdder').click(function(){
-                                        if(currentOperation == 0 || currentOperation == 12){
+                                        if(currentOperation === 0 || currentOperation == 12){
                                             var nextRuleId = rulesMaxId+1;
                                             builtRule = $('<rule>').attr('id', 'R'+(nextRuleId));
                                             goFromTo(0,1);
@@ -612,7 +612,7 @@
                                     
                                     function instruct(){//giving next instruction to the user
                                         $('#newRuleInstruction').text(instructions[currentOperation]);
-                                        if(currentOperation != 0 && currentOperation != 12){
+                                        if(currentOperation !== 0 && currentOperation != 12){
                                             $('#newRuleInstruction').append(', or click on a button below');
                                         }
                                     }
@@ -637,7 +637,7 @@
                                     }
                                     
                                     function addButton(value, id, operationIfClicked){//adding a button to chose next interaction with the rule; and triggering event to the reader
-                                        if($('#newRuleButtons').find('#'+id).length==0){                            
+                                        if($('#newRuleButtons').find('#'+id).length===0){                            
                                             var button = $('<button>').append(value).addClass('operationButton btn btn-primary').attr('id', id);
                                             $(button).click(function(){
                                                 goFromTo(currentOperation, operationIfClicked);
@@ -665,11 +665,11 @@
                                         formerRuleContainer = $('#Rules').find('.ruleContainer[id="' + id + '"]');
                                         insBefore = $(formerRuleContainer).next();
                                         $(formerRuleContainer).remove();
-                                        displayRule(ruleXML, insBefore, false, false)                        
+                                        displayRule(ruleXML, insBefore, false, false);                        
                                     }
                                     
                                     function duplicateAndEditRule(rule){
-                                        if($('#newRuleContainer').text().length==0){//no rule is currently being edited
+                                        if($('#newRuleContainer').text().length===0){//no rule is currently being edited
                                                 currentOperation = 11;
                                                 builtRule = $(rule).clone();
                                                 var nextRuleId = rulesMaxId+1;
@@ -708,7 +708,7 @@
                                         
                                         //Action to delete the rule
                                         $(ruleRemover).click(function(){
-                                            if($('#newRuleContainer #' +$(rule).attr('id') ).length==0){//this is not the currently created rule : delete it in the xml tree
+                                            if($('#newRuleContainer #' +$(rule).attr('id') ).length===0){//this is not the currently created rule : delete it in the xml tree
                                                 if(confirm('Are you sure to delete this rule ? It won\'t be possible to retrieve it later.')){
                                                     $(rule).remove();
                                                     $(ruleContainer).remove();
@@ -717,7 +717,7 @@
                                             
                                             else{//this is the currently created rule
                                                 if(confirm('Are you sure to delete this new rule ?')){
-                                                    builtRule = new Object;
+                                                    builtRule = {};
                                                     goFromTo(currentOperation, 0);
                                                 }
                                                 
@@ -725,13 +725,13 @@
                                         });
                                         
                                         $(ruleEditor).click(function(){
-                                            if($('#newRuleContainer').text().length==0){//no rule is currently being edited
+                                            if($('#newRuleContainer').text().length===0){//no rule is currently being edited
                                                 builtRule = $(rule);
                                                 goFromTo(currentOperation, 11);
                                                 $('#newRuleInstruction')[0].scrollIntoView(true);
                                             }
                                             else{
-                                                alert('Please save or delete your current rule before editing this one.')
+                                                alert('Please save or delete your current rule before editing this one.');
                                             }
                                         });
                                         
@@ -813,9 +813,9 @@
                                                 var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
                                                 
                                                 var constraintContainer = $('<span>').addClass('constraint');
-                                                $(constraintContainer).append(indicatorContainer)
-                                                $(constraintContainer).append(operatorContainer)
-                                                $(constraintContainer).append(referenceValueContainer)
+                                                $(constraintContainer).append(indicatorContainer);
+                                                $(constraintContainer).append(operatorContainer);
+                                                $(constraintContainer).append(referenceValueContainer);
                                                 
                                                 if(editMode){
                                                     
@@ -981,7 +981,7 @@
                                                 
                                                 
                                                 
-                                            })
+                                            });
                                             
                                             return $(consequenceContainer.append(activitiesContainer));
                                             

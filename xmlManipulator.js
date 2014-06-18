@@ -134,7 +134,11 @@ function displayAndChildren(xmlNode, mode){
     //for each node : add it as an item to the list of its parent's elements (except for first element)
     var idText='';//uncomment next line to display the id
     //var idText=' (' + $(xmlNode).attr('id') + ') ';
-    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append($('<span>').append(xmlNode.nodeName + idText).addClass('elementName'));
+    var nodeName = xmlNode.nodeName;
+    if(typeof window._ != "undefined"){//if translation object is set, translate the nodeName
+        nodeName = _(nodeName);
+    }
+    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append($('<span>').append(nodeName + idText).addClass('elementName'));
     
     if($(xmlNode).children().length>0 || xmlNode.attributes.length > 1){
     //if the node has children : display the list of these children.
@@ -152,7 +156,11 @@ function displayAndChildren(xmlNode, mode){
                 
                 var idText='';//uncomment next line to display the id
                 //var idText=' (' + $(xmlNode).attr('id') +'--'+ attrib.name + '): ';
-                var txt = $('<li>').attr('id', $(xmlNode).attr('id') +'--'+ attrib.name ).append($('<span>').addClass('elementName').text(attrib.name + idText)).append(': ');
+                var attribName = attrib.name
+                if(typeof window._ != "undefined"){//if translation object is set, translate the nodeName
+                    attribName = _(attribName);
+                }
+                var txt = $('<li>').attr('id', $(xmlNode).attr('id') +'--'+ attrib.name ).append($('<span>').addClass('elementName').text(attribName + idText)).append(': ');
                 $(txt).append($('<span>').append(attrib.value).addClass('attribute value'));
                 $(chs).append(txt);
             }

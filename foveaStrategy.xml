@@ -94,7 +94,6 @@
 	</rule>
     <rule id="R3">
 		<priority>3</priority>
-		
 		<then>
 			<activities>
 				<activity>
