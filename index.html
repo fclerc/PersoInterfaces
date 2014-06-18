@@ -49,14 +49,14 @@
         <script type="text/javascript" src="js/bootstrap.js"></script>
         
         <script type="text/javascript" src="xmlManipulator.js"></script>
-        <script type="text/javascript" src="translate.js"></script>
-        <script type="text/javascript" src="icu.js"></script>
+        <script type="text/javascript" src="translation/translate.js"></script>
+        <script type="text/javascript" src="translation/icu.js"></script>
         <script type="text/javascript">
             
             
             
             $(function(){
-                var translationFile = 'en.json'
+                var translationFile = 'translation/en.json'
                 $.ajax({//loading translation
                     type: "GET",
                     url: translationFile,
