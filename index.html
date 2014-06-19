@@ -234,9 +234,24 @@
                                         var parameterId = $(parameter).attr('ID');
                                         var parameterComment = $($(parameter).children('Comment')[0]).text();//TODO : use it and use scales
                                         var parameterScale = $(parameter).children().last();//the scale is always the last element in the parameter element
-                                        var parameterContainer = $('<li>').append(parameterName).attr('id', parameterId);
-                                        $(container).append(parameterContainer);
-                                        if(!parametersDictionnary.hasOwnProperty(parameterId)){
+                                        var parameterContainer = $('<span>').append(parameterName).attr('id', parameterId);
+                                        $(container).append($('<li>').append(parameterContainer));
+                                        
+                                        
+                                        //displaying an information popover with the comment : doesn't work because of size of the containing window
+                                        //var commentPopover = $('<a>').attr('id', 'popParameterComment').attr('href', '#').attr('data-toggle', 'popover').attr('data-content', parameterComment).append($('<span>').addClass('glyphicon glyphicon-info-sign commentPopover'));
+                                        
+                                        //displaying comment in alert
+                                        if(parameterComment != ''){
+                                            var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover');
+                                            $(commentPopover).click(function(){
+                                                alert(parameterComment);
+                                            });
+                                            
+                                            $($(container).find('li').last()).append(commentPopover);
+                                        }
+                                        
+                                        if(!parametersDictionnary.hasOwnProperty(parameterId)){//if this parameter is not yet in the Dictionnary, add it.
                                             parametersDictionnary[parameterId] = {name: parameterName, comment: parameterComment, scale: parameterScale};
                                         }
                                     }
