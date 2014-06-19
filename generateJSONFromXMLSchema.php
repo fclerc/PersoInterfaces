@@ -20,7 +20,7 @@ foreach ($elements as $element) {
             $complexTypeIsDefined = $xpath->evaluate($searchString);
             
             
-            if($complexTypeIsDefined){//this is a complex type, defined somewhere in the document
+            if($complexTypeIsDefined){//this is a complex type, defined somewhere in the document, do nothing yet
             
             
             }
@@ -28,11 +28,13 @@ foreach ($elements as $element) {
                 $searchString = "count(//xs:simpleType[@name='".$type."'])";
                 $simpleTypeIsDefined = $xpath->evaluate($searchString);
                 if($simpleTypeIsDefined){//this is a simple type, defined somewhere in the document
-            
+                    $searchString = "//xs:simpleType[@name='".$type."']";
+                    $simpleTypeContainer = $xpath->query($searchString);
+                    foreach($simpleTypeContainer as $simpleType){
+                        treatSimpleType($name, $simpleType);
+                    }
                 }
                 else{//this is a predefined type
-                
-                
                     $dictionnary[$name] = array('nature' => 'predefined', 'typeName' => $type);
                 }
             
@@ -47,16 +49,52 @@ foreach ($elements as $element) {
         }
         
         else{//the type is inside this element
-            if(count($element->getElementsByTagName('complexType'))){//the type is complex, do nothing yet
+            
+            if($element->getElementsByTagName('complexType')->length){//the type is complex, do nothing yet
                 
             }
             else{//this is a simple type TODO
-            
+                treatSimpleType($name, $element->getElementsByTagName('simpleType')->item(0));
             }
         
         }
     }
     
+}
+
+function treatSimpleType($name, $simpleTypeElement){
+    global $dictionnary;
+    //case the simple type is based on restrictions
+   $restrictions = $simpleTypeElement->getElementsByTagName('restriction');
+   foreach($restrictions as $restriction){
+        $dictionnary[$name] = array('nature' => 'restriction', 'baseTypeName' => $restriction->getAttribute('base'));
+        
+        //getting the min and max in case it contains such an element
+        $mins = $restriction->getElementsByTagName('minInclusive');
+        $maxs = $restriction->getElementsByTagName('maxInclusive');
+        foreach($mins as $min){
+            $dictionnary[$name]['min'] = $min->getAttribute('value');
+        }
+        foreach($maxs as $max){
+            $dictionnary[$name]['max'] = $max->getAttribute('value');
+        }
+        
+        //if enumeration : get the items
+        $enumeration = array();
+        $enums = $restriction->getElementsByTagName('enumeration');
+        foreach($enums as $enum){
+            $enumeration[]= $enum->getAttribute('value');
+        }
+        if(sizeOf($enumeration)){
+            $dictionnary[$name]['enumeration'] = $enumeration;
+        }
+    }
+    
+    
+    
+    
+    
+    //TODO if necessary : treat other simple types
 }
 
 //TODO : also treat the attributes
