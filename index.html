@@ -239,7 +239,7 @@
                                             function addParameterToList(parameter, container){
                                                 var parameterName = _($($(parameter).children('Name')[0]).text());
                                                 var parameterId = $(parameter).attr('ID');
-                                                var parameterComment = $($(parameter).children('Comment')[0]).text();//TODO : use it and use scales
+                                                var parameterComment = $($(parameter).children('Comment')[0]).text();
                                                 var parameterScale = $(parameter).children().last();//the scale is always the last element in the parameter element
                                                 var parameterContainer = $('<span>').append(parameterName).addClass('activityParameter').attr('id', parameterId);
                                                 $(container).append($('<li>').append(parameterContainer));
@@ -329,6 +329,8 @@
                                             var currentActivity;//used in stages when asking parameter to the user, to add the parameter to this activity
                                             var currentCondition;//used in the case the user wants to define complex conditions, using AND and OR. It stores the constraint which is going to be combined with the next defined constraint. Also used to know which is the target constraint chosing operator and value in stages 2 and 3
                                             
+                                            var resetAllCurrent = false; //in case the rule has just been saved, reset all the 'current' variables to avoid any problem if user clicks on buttons without paying attention
+                                            
                                             $("#Rules").on("leafValueReading", function(event, value, id, container){
                                                 
                                                 
@@ -408,7 +410,6 @@
                                                         var parameter = $('<parameter>').append($('<id>').text(id));
                                                         $($(currentActivity).find('parameters')[0]).append(parameter);
                                                         currentParameter = parameter;
-                                                        
                                                         goFromTo(currentOperation, currentOperation+1);
                                                     }
                                                 }
@@ -476,7 +477,13 @@
                                                 },
                                                 function(){//3
                                                     displayValueInput();
-                                                    var indicatorName = $(profile).find('#'+currentIndicatorId)[0].nodeName;
+                                                    var indicatorName;
+                                                    if($(profile).find('#'+currentIndicatorId)[0]){
+                                                        indicatorName = $(profile).find('#'+currentIndicatorId)[0].nodeName;
+                                                    }
+                                                    else{
+                                                        indicatorName = $(context).find('#'+currentIndicatorId)[0].nodeName;
+                                                    }
                                                     displayIndicatorScale(indicatorName);
                                                 },
                                                 function(){//4
@@ -585,19 +592,29 @@
                                             */
                                             function displayIndicatorScale(indicatorName){//TODO : merge with precedent one, with argument profile or activity
                                                 var informationToDisplay = '';
-                                                if(profileScales[indicatorName]){//if a constraint concerning this indicator is present
-                                                    var scaleElement = profileScales[indicatorName];
+                                                var scales;//2 possible values, profileScales and contextScales, depending on where the indicator comes from.
+                                                //TODO : I already have this information in todoBefore[3]
+                                                if($('#Profile' + ' #' +currentIndicatorId).length > 0){//the indicator is in the profile
+                                                     scales = profileScales;
+                                                }
+                                                else{
+                                                    scales = contextScales;
+                                                }
+                                                            
+                                                
+                                                if(scales[indicatorName]){//if a constraint concerning this indicator is present
+                                                    var scaleElement = scales[indicatorName];
                                                 
                                                     if(scaleElement.nature == 'predefined'){
                                                         informationToDisplay +=  _('The value must be a');
-                                                        informationToDisplay += scaleElement.typeName;
+                                                        informationToDisplay += _(scaleElement.typeName);
                                                     
                                                     }
                                                     else if(scaleElement.nature == 'restriction'){//restriction
                                                         if(scaleElement.baseTypeName == 'xs:float' || scaleElement.baseTypeName == 'xs:integer'){//if number
                                                             informationToDisplay += (_('The value must be a') + _(scaleElement.baseTypeName));
                                                             if(scaleElement.min && scaleElement.max){//if min and max are set
-                                                                informationToDisplay += (_(' between ') + scaleElement.min + ' and ' + scaleElement.max);
+                                                                informationToDisplay += (_(' between ') + scaleElement.min + _(' and ') + scaleElement.max);
                                                             }
                                                         }
                                                         else if(scaleElement.baseTypeName == 'xs:string' && scaleElement.enumeration){
@@ -673,9 +690,12 @@
                                                 },
                                                 function(){//11
                                                     removeForms();
-                                                    currentActivity = null;
-                                                    currentCondition = null;
-                                                    currentParameter = null;
+                                                    if(resetAllCurrent){//in case the rule has just been saved, reset all the 'current' variables to avoid any problem if user clicks on buttons without paying attention
+                                                        currentActivity = null;
+                                                        currentCondition = null;
+                                                        currentParameter = null;
+                                                    }
+                                                    resetAllCurrent = false;
                                                 },
                                                 function(){//12
                                                 
@@ -772,11 +792,11 @@
                                                         goFromTo(currentOperation, operationIfClicked);
                                                         if(id=="ruleSaver"){
                                                             saveRule();
+                                                            resetAllCurrent = true;
                                                         }
                                                         else if(id=='ifEditorButton'){
                                                             currentCondition = null;
                                                         }
-                                                        
                                                     });
                                                     $('#newRuleButtons').append(button);
                                                 }

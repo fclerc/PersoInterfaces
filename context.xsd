@@ -45,9 +45,10 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+				<!--TODO : define type of values and uncomment (metadata from quiz generation is required)
 			<xs:element name="quizVariation" minOccurs="0">
-				<!--TODO : define type of values -->
 			</xs:element>
+            -->
 		</xs:sequence>
 	</xs:complexType>
 

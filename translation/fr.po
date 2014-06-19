@@ -573,3 +573,174 @@ msgstr "Temps"
 
 msgid "Results"
 msgstr "Résultats"
+
+msgid "xs:duration"
+msgstr "e durée"
+
+msgid "xs:float"
+msgstr " nombre"
+
+msgid "xs:NCName"
+msgstr "e chaîne sans espace, virgule ou ':'"
+
+msgid "xs:integer"
+msgstr " entier"
+
+msgid "xs:NMTOKENS"
+msgstr "e liste d'éléments sans espace ni virgule"
+
+msgid "xs:NMTOKEN"
+msgstr " élément sans espace ni virgule"
+
+msgid "xs:date"
+msgstr "e date"
+
+msgid "xs:string"
+msgstr "e chaîne de caractères"
+
+msgid "xs:boolean"
+msgstr " booléen : true (vrai) ou false (faux)"
+
+msgid "xs:anyType"
+msgstr " élément quelconque"
+
+msgid "xs:dateTime"
+msgstr "e date et heure"
+
+msgid "xs:positiveInteger"
+msgstr " entier positif"
+
+msgid "phone"
+msgstr "smartphone"
+
+msgid "tablet"
+msgstr "tablette"
+
+msgid "computer"
+msgstr "ordinateur"
+
+msgid "google_search_engine"
+msgstr "moteur de recherche Google"
+
+msgid "consultation"
+msgstr "consultation"
+
+msgid "play"
+msgstr "lecture"
+
+msgid "pause"
+msgstr "pause"
+
+msgid "seek_fwd"
+msgstr "recherche avant"
+
+msgid "seek_bck"
+msgstr "recherche arrière"
+
+msgid "change_speed"
+msgstr "changement de vitesse"
+
+msgid "answer_forum"
+msgstr "répondre sur le forum"
+
+msgid "new_thread_forum"
+msgstr "créer un nouveau sujet"
+
+msgid "vote_forum"
+msgstr "vote sur forum"
+
+msgid "save_quiz"
+msgstr "sauvegarder le questionnaire"
+
+msgid "reset_quiz"
+msgstr "remettre le questionnaire à 0"
+
+msgid "submit_quiz"
+msgstr "soumettre le questionnaire"
+
+msgid "show_answer"
+msgstr "afficher les  réponses"
+
+msgid "submit_assignment"
+msgstr "soumettre le devoir"
+
+msgid "save_assignment"
+msgstr "sauvegarder le devoir"
+
+msgid "noshow"
+msgstr "jamais venu"
+
+msgid "active_completing"
+msgstr "participant actif"
+
+msgid "passive_completing"
+msgstr "participant passif"
+
+msgid "auditing"
+msgstr "auditeur"
+
+msgid "disengaging"
+msgstr "qui se désengage"
+
+msgid "disengaging_dropout"
+msgstr "qui se désengage et quitte le MOOC"
+
+msgid "sampling"
+msgstr "échantillonneur"
+
+msgid "absent"
+msgstr "absent"
+
+msgid "reader"
+msgstr "lecteur"
+
+msgid "actor"
+msgstr "acteur"
+
+msgid "native"
+msgstr "natal"
+
+msgid "bilingual"
+msgstr "bilingue"
+
+msgid "fluent"
+msgstr "courant"
+
+msgid "moderate"
+msgstr "modéré"
+
+msgid "unskilled"
+msgstr "sans compétence"
+
+msgid "active"
+msgstr "actif"
+
+msgid "unemployed"
+msgstr "sans emploi"
+
+msgid "student"
+msgstr "étudiant"
+
+msgid "retiree"
+msgstr "à la retraite"
+
+msgid "primary"
+msgstr "primaire"
+
+msgid "secondary"
+msgstr "secondaire"
+
+msgid "bachelor"
+msgstr "licence"
+
+msgid "master"
+msgstr "master"
+
+msgid "doctoral"
+msgstr "doctorat"
+
+msgid " between "
+msgstr " entre "
+
+msgid " and "
+msgstr " et "

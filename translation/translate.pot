@@ -607,3 +607,208 @@ msgstr ""
 
 
 
+
+#
+#
+#Profle Scales
+#
+#
+
+
+msgid "xs:duration"
+msgstr ""
+
+msgid "xs:float"
+msgstr ""
+
+msgid "xs:NCName"
+msgstr ""
+
+msgid "xs:integer"
+msgstr ""
+
+msgid "xs:NMTOKENS"
+msgstr ""
+
+msgid "xs:NMTOKEN"
+msgstr ""
+
+msgid "xs:date"
+msgstr ""
+
+msgid "xs:string"
+msgstr ""
+
+msgid "xs:boolean"
+msgstr ""
+
+msgid "xs:anyType"
+msgstr ""
+
+msgid "xs:dateTime"
+msgstr ""
+
+msgid "xs:positiveInteger"
+msgstr ""
+
+msgid "phone"
+msgstr ""
+
+msgid "tablet"
+msgstr ""
+
+msgid "computer"
+msgstr ""
+
+msgid "google_search_engine"
+msgstr ""
+
+msgid "consultation"
+msgstr ""
+
+msgid "play"
+msgstr ""
+
+msgid "pause"
+msgstr ""
+
+msgid "seek_fwd"
+msgstr ""
+
+msgid "seek_bck"
+msgstr ""
+
+msgid "change_speed"
+msgstr ""
+
+msgid "answer_forum"
+msgstr ""
+
+msgid "new_thread_forum"
+msgstr ""
+
+msgid "vote_forum"
+msgstr ""
+
+msgid "save_quiz"
+msgstr ""
+
+msgid "reset_quiz"
+msgstr ""
+
+msgid "submit_quiz"
+msgstr ""
+
+msgid "show_answer"
+msgstr ""
+
+msgid "submit_assignment"
+msgstr ""
+
+msgid "save_assignment"
+msgstr ""
+
+msgid "noshow"
+msgstr ""
+
+msgid "active_completing"
+msgstr ""
+
+msgid "passive_completing"
+msgstr ""
+
+msgid "auditing"
+msgstr ""
+
+msgid "disengaging"
+msgstr ""
+
+msgid "disengaging_dropout"
+msgstr ""
+
+msgid "sampling"
+msgstr ""
+
+msgid "absent"
+msgstr ""
+
+msgid "reader"
+msgstr ""
+
+msgid "actor"
+msgstr ""
+
+msgid "native"
+msgstr ""
+
+msgid "bilingual"
+msgstr ""
+
+msgid "fluent"
+msgstr ""
+
+msgid "moderate"
+msgstr ""
+
+msgid "unskilled"
+msgstr ""
+
+msgid "active"
+msgstr ""
+
+msgid "unemployed"
+msgstr ""
+
+msgid "student"
+msgstr ""
+
+msgid "retiree"
+msgstr ""
+
+msgid "primary"
+msgstr ""
+
+msgid "secondary"
+msgstr ""
+
+msgid "bachelor"
+msgstr ""
+
+msgid "master"
+msgstr ""
+
+msgid "doctoral"
+msgstr ""
+
+msgid " between "
+msgstr ""
+
+msgid " and "
+msgstr ""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
