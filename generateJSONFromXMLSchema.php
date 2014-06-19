@@ -33,7 +33,7 @@ foreach ($elements as $element) {
                 else{//this is a predefined type
                 
                 
-                    $dictionnary[$name] = $type;
+                    $dictionnary[$name] = array('nature' => 'predefined', 'typeName' => $type);
                 }
             
             
