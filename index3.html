@@ -25,8 +25,9 @@ You can change the call to manipulateXML to make some tests. See xmlManipulator.
     </head>
     
     <body>
-    <h1>Context Modification Page</h1>
-    <p>You can change the value by clicking on them, giving the wished value in the input and then validating by pressing "enter"</p>
+    <h1>Profile Modification Page</h1>
+    <h2>Modify profile as you wish for your experiments!</h2>
+    <p>You can change the value by clicking on them, giving the wished value in the input and then validating by pressing "enter".</p>
         <div id="container"></div>
         <div id="receiver"></div>
         
@@ -35,7 +36,7 @@ You can change the call to manipulateXML to make some tests. See xmlManipulator.
         
         <script type="text/javascript" src="xmlManipulator.js"></script>
         <script type="text/javascript">
-            manipulateXML('foveaContext.xml','#container', 'modify', "#receiver");
+            manipulateXML('foveaProfile.xml','#container', 'modify', "#receiver");
             
             $('#receiver').on('leafValueReading', function(event, value, id, container){
                 //alert('Value: '+value+ ', id: '+id +', container: ' +container);
