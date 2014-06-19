@@ -147,6 +147,10 @@ function displayAndChildren(xmlNode, mode){
         $(result).addClass('hasChild');
         $(result).prepend($('<span>').addClass('glyphicon glyphicon-minus').addClass('reducer'));
         
+        if($(xmlNode).children().length == 0){//if it has attributes, but no child : its text value has to be displayed
+            result.append(': ').append($('<span>').append($(xmlNode).html()).addClass("value"));
+        }
+        
         //variable containing the texts returned by the call of the function on the children (in a html list)
         var chs = $('<ul>');
         
@@ -169,6 +173,7 @@ function displayAndChildren(xmlNode, mode){
         $(xmlNode).children().each(function(){
             $(chs).append(displayAndChildren(this));
         });
+        
         result.append(chs);
     
     }
