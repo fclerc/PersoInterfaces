@@ -63,16 +63,22 @@
                     success: function(data){
                         _.setTranslation(data);
                 
-                $('#ProfileAndContext h2, #ProfileAndContext p, #ProfileAndContext ul li a, #Rules h2, #Rules h3, #Rules button span, #Activities h2').each(function(){
-                    $(this).text(_($(this).text()));
-                
-                });
+                    $('#ProfileAndContext h2, #ProfileAndContext p, #ProfileAndContext ul li a, #Rules h2, #Rules h3, #Rules button span, #Activities h2').each(function(){
+                        $(this).text(_($(this).text()));
+                    
+                    });
                 
                 
                     $.getJSON('profileScales.json', function(profileScales){
                         $.getJSON('contextScales.json', function(contextScales){
-                
-                
+                        $.ajax({
+                            type: "GET",
+                            url: 'foveaProfile.xml',
+                            success: function(profile){
+                        $.ajax({
+                            type: "GET",
+                            url: 'foveaContext.xml',
+                            success: function(context){
                 
                 
                         
@@ -470,13 +476,8 @@
                                                 },
                                                 function(){//3
                                                     displayValueInput();
-                                                    
-                                                    //displayScale2(elementName);
-                                                    //TODO : I do the same thing somewhere else (getIndicatorInfos())
-                                                    var indicatorSelectionContainer = $('#ProfileAndContext').find('#'+currentIndicatorId);
-                                                    var indicatorName = $($(indicatorSelectionContainer).find('.elementName')[0]).text();
-                                                    
-                                                    displayScale2(indicatorName);
+                                                    var indicatorName = $(profile).find('#'+currentIndicatorId)[0].nodeName;
+                                                    displayIndicatorScale(indicatorName);
                                                 },
                                                 function(){//4
                                                 
@@ -491,7 +492,7 @@
                                                     //displaying information about the scale just after the form
                                                     var currentParameterId = $($(currentParameter).find('id')[0]).text();
                                                     
-                                                    displayScale((parametersDictionnary[currentParameterId]).scale);
+                                                    displayParameterScale((parametersDictionnary[currentParameterId]).scale);
                                                 },
                                                 function(){//7
                                                 
@@ -534,7 +535,7 @@
                                             /*
                                             Takes a scale element, and displays an information about allowed values next to the value form
                                             */
-                                            function displayScale(scaleElement){//TODO : add elements
+                                            function displayParameterScale(scaleElement){//TODO : add elements
                                                 var informationToDisplay = '';
                                                 var scaleType = scaleElement[0].nodeName;
                                                 
@@ -545,7 +546,7 @@
                                                     informationToDisplay = _('You can chose between: ');
                                                     $(scaleElement).find('Name').each(function(){
                                                         var value = $(this).text();
-                                                        if(!(value == _(value))){//translate between brackets
+                                                        if(!(value == _(value))){//translate between brackets if necessary
                                                             value += (' ('+_(value)+')');
                                                         }
                                                         informationToDisplay += (value+', ');
@@ -579,8 +580,10 @@
                                             }
                                             
                                             
-                                            
-                                            function displayScale2(indicatorName){//TODO : merge with precedent one, with argument profile or activity
+                                            /*
+                                            Takes the name of an indicator, and displays the corresponding scale.
+                                            */
+                                            function displayIndicatorScale(indicatorName){//TODO : merge with precedent one, with argument profile or activity
                                                 var informationToDisplay = '';
                                                 if(profileScales[indicatorName]){//if a constraint concerning this indicator is present
                                                     var scaleElement = profileScales[indicatorName];
@@ -590,13 +593,35 @@
                                                         informationToDisplay += scaleElement.typeName;
                                                     
                                                     }
+                                                    else if(scaleElement.nature == 'restriction'){//restriction
+                                                        if(scaleElement.baseTypeName == 'xs:float' || scaleElement.baseTypeName == 'xs:integer'){//if number
+                                                            informationToDisplay += (_('The value must be a') + _(scaleElement.baseTypeName));
+                                                            if(scaleElement.min && scaleElement.max){//if min and max are set
+                                                                informationToDisplay += (_(' between ') + scaleElement.min + ' and ' + scaleElement.max);
+                                                            }
+                                                        }
+                                                        else if(scaleElement.baseTypeName == 'xs:string' && scaleElement.enumeration){
+                                                            informationToDisplay += _('You can chose between: ');
+                                                            $(scaleElement.enumeration).each(function(){
+                                                                var value = this;
+                                                                if(!(value == _(value))){//translate between brackets if necessary
+                                                                    value += (' ('+_(value)+')');
+                                                                }
+                                                                informationToDisplay += (value+', ');
+                                                            });
+                                                            informationToDisplay = informationToDisplay.slice(0, -2);
+                                                        }
+                                                        
+                                                    
+                                                    }
+                                                    
+                                                                                                        
                                                 }
                                                 else{
                                                     informationToDisplay = _('There is no particular constraint on this parameter');
                                                 }
                                                 
                                                 $('#newRuleForm').append($('<span>').addClass('scaleInformation').append(informationToDisplay));
-                                            
                                             
                                             }
                                             
@@ -1103,12 +1128,15 @@
                                     },
                                     cache: false
                                 });
-                            });// get json context
-                        });//get json profile
-                    
+                            
+                            
+                            }, cache: false});// get json context
+                        }, cache: false});
+                        });
+                    });//get json profile
                     },
                     cache: false
-                });//get translation
+                });
             });//jquery entry
             
             
