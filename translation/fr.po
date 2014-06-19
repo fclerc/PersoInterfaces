@@ -537,3 +537,39 @@ msgstr " nombre, de pas "
 
 msgid "There is no particular constraint on this parameter"
 msgstr "Il n'y a pas de contrainte particulière sur cet élément"
+
+msgid "Mandatory"
+msgstr "Obligatoire"
+
+msgid "Optional"
+msgstr "Facultatif"
+
+msgid "Bonus"
+msgstr "Bonus"
+
+msgid "Video"
+msgstr "Vidéo"
+
+msgid "Text"
+msgstr "Texte"
+
+msgid "Read"
+msgstr "Lire"
+
+msgid "Create"
+msgstr "Créer"
+
+msgid "Answer"
+msgstr "Répondre"
+
+msgid "Greeting"
+msgstr "Saluer"
+
+msgid "Encouraging"
+msgstr "Encourager"
+
+msgid "Time"
+msgstr "Temps"
+
+msgid "Results"
+msgstr "Résultats"

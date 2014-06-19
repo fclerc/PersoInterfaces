@@ -519,7 +519,11 @@
                                         else if(scaleType == 'ScaleList'){//display the  possibilities
                                             informationToDisplay = _('You can chose between: ');
                                             $(scaleElement).find('Name').each(function(){
-                                                informationToDisplay += ($(this).text()+', ');
+                                                var value = $(this).text();
+                                                if(!(value == _(value))){//translate between brackets
+                                                    value += (' ('+_(value)+')');
+                                                }
+                                                informationToDisplay += (value+', ');
                                             });
                                             informationToDisplay = informationToDisplay.slice(0, -2);
                                         

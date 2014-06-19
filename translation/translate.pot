@@ -567,6 +567,42 @@ msgstr ""
 msgid "There is no particular constraint on this parameter"
 msgstr ""
 
+msgid "Mandatory"
+msgstr ""
+
+msgid "Optional"
+msgstr ""
+
+msgid "Bonus"
+msgstr ""
+
+msgid "Video"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Read"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Answer"
+msgstr ""
+
+msgid "Greeting"
+msgstr ""
+
+msgid "Encouraging"
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+msgid "Results"
+msgstr ""
+
 
 
 
