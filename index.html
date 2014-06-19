@@ -56,6 +56,7 @@
             
             
             $(function(){
+                $.ajaxSetup({ cache: false });
                 var translationFile = 'translation/fr.json';
                 $.ajax({//loading translation
                     type: "GET",
@@ -629,16 +630,21 @@
                                                             informationToDisplay = informationToDisplay.slice(0, -2);
                                                         }
                                                         
-                                                    
                                                     }
-                                                    
-                                                                                                        
+                                                                                                     
                                                 }
                                                 else{
                                                     informationToDisplay = _('There is no particular constraint on this parameter');
                                                 }
+                                                var commentPopover;
+                                                if(scaleElement.documentation){
+                                                    var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover');
+                                                    $(commentPopover).click(function(){
+                                                        alert(scaleElement.documentation);
+                                                    });
+                                                }
                                                 
-                                                $('#newRuleForm').append($('<span>').addClass('scaleInformation').append(informationToDisplay));
+                                                $('#newRuleForm').append($('<span>').addClass('scaleInformation').append(informationToDisplay)).append(commentPopover);
                                             
                                             }
                                             

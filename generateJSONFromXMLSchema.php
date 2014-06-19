@@ -1,7 +1,7 @@
 <?php
 
-$schemaFileName = 'learnerMoocProfile.xsd';
-$outputFile = 'profileScales.json';
+$schemaFileName = 'context.xsd';
+$outputFile = 'contextScales.json';
 
 $xml = new DOMDocument();
 $xml->load($schemaFileName);
@@ -12,7 +12,7 @@ $dictionnary = array();
 foreach ($elements as $element) {
     $name = $element->getAttribute('name');
     if(!array_key_exists($name, $dictionnary)){//element not yet added
-        $dictionnary[$name] = array("rien" => "rien");
+        $dictionnary[$name] = array();
         $documentations = $element->getElementsByTagName('documentation');
         if($documentations->length > 0){
             $dictionnary[$name]["documentation"] = $documentations->item(0)->textContent;;
