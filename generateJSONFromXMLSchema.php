@@ -1,7 +1,7 @@
 <?php
 
-$schemaFileName = 'context.xsd';
-$outputFile = 'contextScales.json';
+$schemaFileName = 'learnerMoocProfile.xsd';
+$outputFile = 'profileScales.json';
 
 $xml = new DOMDocument();
 $xml->load($schemaFileName);
@@ -12,6 +12,12 @@ $dictionnary = array();
 foreach ($elements as $element) {
     $name = $element->getAttribute('name');
     if(!array_key_exists($name, $dictionnary)){//element not yet added
+        $dictionnary[$name] = array("rien" => "rien");
+        $documentations = $element->getElementsByTagName('documentation');
+        if($documentations->length > 0){
+            $dictionnary[$name]["documentation"] = $documentations->item(0)->textContent;;
+        }
+        
         if($element->hasAttribute('type')){//we have to find the type definition somewhere else, or it is a pre-defined type
             $type = $element->getAttribute('type');
             //xpath expression to see if the type is complex and defined somewhere else
@@ -34,16 +40,12 @@ foreach ($elements as $element) {
                     }
                 }
                 else{//this is a predefined type
-                    $dictionnary[$name] = array('nature' => 'predefined', 'typeName' => $type);
+                    $dictionnary[$name]['nature'] = 'predefined';
+                    $dictionnary[$name]['typeName'] = $type;
                 }
             
             
             }
-            
-            
-            
-            
-            
             
         }
         
@@ -66,7 +68,10 @@ function treatSimpleType($name, $simpleTypeElement){
     //case the simple type is based on restrictions
    $restrictions = $simpleTypeElement->getElementsByTagName('restriction');
    foreach($restrictions as $restriction){
-        $dictionnary[$name] = array('nature' => 'restriction', 'baseTypeName' => $restriction->getAttribute('base'));
+        //$dictionnary[$name] = array('nature' => 'restriction', 'baseTypeName' => $restriction->getAttribute('base'));
+        $dictionnary[$name]['nature'] = 'restriction';
+        $dictionnary[$name]['baseTypeName'] = $restriction->getAttribute('base');
+        
         
         //getting the min and max in case it contains such an element
         $mins = $restriction->getElementsByTagName('minInclusive');
@@ -88,8 +93,17 @@ function treatSimpleType($name, $simpleTypeElement){
             $dictionnary[$name]['enumeration'] = $enumeration;
         }
     }
-    
-    
+    //for documentation, we also look in the type definition itself.
+    $documentations = $simpleTypeElement->getElementsByTagName('documentation');
+    foreach($documentations as $documentation){
+        if(isset($dictionnary[$name]['documentation'])){//if something is already contained, put a new line
+            $dictionnary[$name]['documentation'] += '<br/>';
+            $dictionnary[$name]['documentation'] += $documentation->textContent;
+        }
+        else{
+            $dictionnary[$name]['documentation'] = $documentation->textContent;
+        }
+    }
     
     
     
