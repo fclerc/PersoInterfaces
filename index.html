@@ -502,6 +502,7 @@
                                                     displayValueInput();
                                                     //displaying information about the scale just after the form
                                                     var currentParameterId = $($(currentParameter).find('id')[0]).text();
+                                                    console.log('ob');
                                                     if(parametersDictionnary[currentParameterId]){
                                                         displayParameterScale((parametersDictionnary[currentParameterId]).scale);
                                                     }
@@ -514,8 +515,13 @@
                                                 
                                                 
                                                 },
-                                                function(){//9
+                                                function(){//9 TODO : eliminate it, same as 6
                                                     displayValueInput();
+                                                    //displaying information about the scale just after the form
+                                                    var currentParameterId = $($(currentParameter).find('id')[0]).text();
+                                                    if(parametersDictionnary[currentParameterId]){
+                                                        displayParameterScale((parametersDictionnary[currentParameterId]).scale);
+                                                    }
                                                 
                                                 },
                                                 function(){//10
