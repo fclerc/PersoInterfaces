@@ -310,7 +310,7 @@
                                             10: Priority for the rule is given
                                             11: Rule is ready to be edited
                                             12: Rule is saved
-                                            13: chosing 'AND' or 'OR'
+                                            13: chosing 'AND' or 'OR' (should be another number, but I only added it in the end)
                                             
                                             
                                             At each time : change the xml tree, and make a new call on the displayer.
@@ -418,11 +418,11 @@
                                                 else if(currentOperation == 6 || currentOperation == 9){//value of the parameter has  been given
                                                     
                                                     if(container == '#newRuleForm'){
-                                                        if($(currentParameter).find('value').length===0){
+                                                        if($(currentParameter).find('value').length === 0){
                                                             $(currentParameter).append($('<value>').append(value));
                                                         }
                                                         else{
-                                                            $($(currentParameter).find('value')[0]);
+                                                            $($(currentParameter).find('value')[0]).text(value);
                                                         }
                                                         goFromTo(currentOperation, currentOperation-1);
                                                     }
@@ -442,7 +442,10 @@
                                                 
                                             });
                                             
+                                            /*
+                                            Function used to change the interface and text dispalyed when going from any 'currentOperation' origin to any other 'currentOperation' target.
                                             
+                                            */
                                             function goFromTo(origin, target){
                                                 currentOperation = target;
                                                 todoAfter[origin]();
@@ -499,8 +502,9 @@
                                                     displayValueInput();
                                                     //displaying information about the scale just after the form
                                                     var currentParameterId = $($(currentParameter).find('id')[0]).text();
-                                                    
-                                                    displayParameterScale((parametersDictionnary[currentParameterId]).scale);
+                                                    if(parametersDictionnary[currentParameterId]){
+                                                        displayParameterScale((parametersDictionnary[currentParameterId]).scale);
+                                                    }
                                                 },
                                                 function(){//7
                                                 
@@ -797,8 +801,8 @@
                                                     $(button).click(function(){
                                                         goFromTo(currentOperation, operationIfClicked);
                                                         if(id=="ruleSaver"){
-                                                            saveRule();
                                                             resetAllCurrent = true;
+                                                            saveRule();
                                                         }
                                                         else if(id=='ifEditorButton'){
                                                             currentCondition = null;
