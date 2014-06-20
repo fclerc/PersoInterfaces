@@ -1,15 +1,21 @@
 body{
 	
 	
+	
     overflow: hidden;
+	
 	
 	
     background-color: #FFAA2F;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -17,21 +23,29 @@ body{
 .mains{
 	
 	
+	
     border : 2px solid black;
+	
 	
 	
     border-radius: 20px;
 	
 	
+	
     top:3px;
+	
 	
 	
     bottom:3px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -40,21 +54,29 @@ body{
 #ProfileAndContext{
 	
 	
+	
     width : 39%;
+	
 	
 	
     position:absolute;
 	
 	
+	
     left: 0.5%;
+	
 	
 	
     overflow-y: scroll;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -63,12 +85,17 @@ body{
 #ProfileAndContext>div{
 	
 	
+	
     width:97%;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -77,15 +104,21 @@ body{
 #ProfileAndContext div > li>ul>li{
 	
 	
+	
     border-radius: 10px;
+	
 	
 	
     margin-bottom:3px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -94,21 +127,29 @@ body{
 #Rules{
 	
 	
+	
     width : 39%;
+	
 	
 	
     position: absolute;
 	
 	
+	
     left: 40.5%;
+	
 	
 	
     overflow-y: scroll;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -117,21 +158,29 @@ body{
 #Activities{
 	
 	
+	
     width : 18%;
+	
 	
 	
     position: absolute;
 	
 	
+	
     left:80.5%;
+	
 	
 	
     overflow-y: scroll;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -141,30 +190,41 @@ body{
 #Activities .activity{
 	
 	
+	
 	background-color: #EF9999;
+	
 	
 	
     list-style-type: none;
 	
 	
+	
     border : 1px solid black;
+	
 	
 	
     border-radius: 10px;
 	
 	
+	
     padding: 2px;
+	
 	
 	
     margin-bottom: 5px;
 	
 	
+	
     width:97%;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -173,12 +233,17 @@ body{
 #Activities .activity >span{
 	
 	
+	
     font-weight: bold;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -188,15 +253,21 @@ body{
 #Activities .activity > span:hover, #Activities .activity  li> span:first-child:hover{
 	
 	
+	
     background-color: green;
+	
 	
 	
     cursor: pointer;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -205,12 +276,17 @@ body{
 #Activities >ul{
 	
 	
+	
     padding-left:5px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -219,12 +295,17 @@ body{
 #ProfileAndContext{
 	
 	
+	
     width : 39%;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -233,12 +314,17 @@ body{
 #Rules{
 	
 	
+	
     width : 39%;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -249,51 +335,75 @@ body{
 #Activities{
 	
 	
+	
     width : 16%;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
 #Activities .commentPopover{
 	
+	
     margin-left: 3px;
+	
 	
     color:#5555FF;
 	
+	
     opacity:0.6;
 	
+	
+
 
 }
+
+
 
 
 
 #Activities .commentPopover:hover{
 	
+	
     opacity: 1;
+	
 	
     cursor: pointer;
 	
+	
+
 
 }
+
+
 
 
 
 .mains{
 	
 	
+	
     padding:0.1%;
+	
 	
 	
     margin:0.1%;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -302,12 +412,17 @@ body{
 #Rules .parameterAdder,#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .activityRemover, #Rules .constraintEditor, #Rules .constraintRemover{
 	
 	
+	
     opacity:0.6;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -316,15 +431,21 @@ body{
 #Rules .parameterAdder:hover,#Rules .parameterRemover:hover,#Rules .parameterValueEditor:hover, #Rules .activityRemover:hover, #Rules .constraintEditor:hover, #Rules .constraintRemover:hover{
 	
 	
+	
     cursor:pointer;
+	
 	
 	
     opacity:1;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -333,12 +454,17 @@ body{
 #Rules .parameterAdder{
 	
 	
+	
     color:green;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -347,12 +473,17 @@ body{
 #Rules .parameterRemover, #Rules .activityRemover{
 	
 	
+	
     color:red;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -360,12 +491,17 @@ body{
 #Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .constraintEditor, #Rules .constraintRemover{
 	
 	
+	
     margin-left:3px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -374,12 +510,17 @@ body{
 #Rules .then >span, #Rules .else >span, #Rules .ifContainer{
 	
 	
+	
     font-weight : bold;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -390,21 +531,29 @@ body{
 #Rules .ruleEditor, #Rules .ruleRemover, #Rules .ruleDuplicator{
 	
 	
+	
     top: 5px;
+	
 	
 	
     font-size: 20px;
 	
 	
+	
     opacity: 0.6;
+	
 	
 	
     position:absolute;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -413,15 +562,21 @@ body{
 #Rules .ruleRemover:hover, #Rules .ruleEditor:hover, #Rules .ruleDuplicator:hover{
 	
 	
+	
     cursor:pointer;
+	
 	
 	
     opacity: 1;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -431,18 +586,25 @@ body{
 #Rules .ruleRemover{
 	
 	
+	
     color: red;
+	
 	
 	
     right:5px;
 	
 	
+	
     margin-left: 10px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -451,15 +613,21 @@ body{
 #Rules .ruleEditor{
 	
 	
+	
     color: #FD4590;
+	
 	
 	
     right: 30px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -468,12 +636,17 @@ body{
 #Rules .ruleDuplicator{
 	
 	
+	
     right: 55px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -482,12 +655,17 @@ body{
 #Rules .ruleContainer h4{
 	
 	
+	
     padding-top:3px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -496,15 +674,21 @@ body{
 #Rules .constraint{
 	
 	
+	
     background-color: #999999;
+	
 	
 	
     border-radius: 3px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -513,15 +697,21 @@ body{
 #Rules .conditionAdder:hover{
 	
 	
+	
     cursor: pointer;
+	
 	
 	
     color:red;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -530,15 +720,21 @@ body{
 #Rules #newRuleButtons button{
 	
 	
+	
     margin-left: 4px;
+	
 	
 	
     margin-bottom:2px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -547,21 +743,29 @@ body{
 #Rules .priority{
 	
 	
+	
     position:absolute;
+	
 	
 	
     right:5px;
 	
 	
+	
     bottom:5px;
+	
 	
 	
     font-weight:bold;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -570,18 +774,25 @@ body{
 #Rules .indicator:hover{
 	
 	
+	
 	background-color : #FF7F24;
+	
 	
 	
     cursor: pointer;
 	
 	
+	
     border-radius:5px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -590,30 +801,41 @@ body{
 #Rules .ruleContainer{
 	
 	
+	
     background-color: #9999FF;
+	
 	
 	
     border-radius: 10px;
 	
 	
+	
     padding-right: 4px;
+	
 	
 	
     padding-left: 4px;
 	
 	
+	
     width:97%;
+	
 	
 	
     margin-left:1.5%;
 	
 	
+	
     position: relative;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -622,12 +844,17 @@ body{
 #Rules #ruleAdder{
 	
 	
+	
     margin-left:1%;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -636,27 +863,37 @@ body{
 #Rules #newRuleInstruction{
 	
 	
+	
     background-color: #9ACD32;
+	
 	
 	
     padding:4px;
 	
 	
+	
     border-radius: 10px;
+	
 	
 	
     margin-bottom: 5px;
 	
 	
+	
     margin-left: 5px;
+	
 	
 	
     margin-right:5px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -665,15 +902,21 @@ body{
 #Rules #newRuleForm .glyphicon{
 	
 	
+	
     color:#698B22;
+	
 	
 	
     margin-left:5px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -683,15 +926,21 @@ body{
 #Rules #newRuleForm .glyphicon:hover{
 	
 	
+	
     cursor: pointer;
+	
 	
 	
     font-size:20px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -700,18 +949,25 @@ body{
 #Rules #newRuleForm {
 	
 	
+	
     margin-bottom: 5px;
+	
 	
 	
     margin-left:5px;
 	
 	
+	
     vertical-align: middle;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -720,71 +976,99 @@ body{
 #Rules #newRuleForm select, #Rules #newRuleForm input{
 	
 	
+	
       height: 30px;
+	
 	
 	
       padding: 5px 7px;
 	
 	
+	
       font-size: 16px;
+	
 	
 	
       line-height: 1.42857143;
 	
 	
+	
       color: #555;
+	
 	
 	
       background-color: #fff;
 	
 	
+	
       background-image: none;
+	
 	
 	
       border: 1px solid #ccc;
 	
 	
+	
       border-radius: 4px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
 #Rules #newRuleForm .scaleInformation{
 	
+	
     font-style:italic;
+	
 	
     margin-left:3px;
 	
+	
+
 
 }
+
+
 
 
 
 #Rules #newRuleInstruction{
 	
 	
+	
     font-style: italic;
+	
 	
 	
     margin-bottom:5px;
 	
 	
+	
     background-color: #77FF77;
+	
 	
 	
     padding:3px;
 	
 	
+	
     border-radius: 5px;
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -793,13 +1077,18 @@ body{
 #Rules #newRuleForm .glyphicon{
 	
 	
+	
     margin-left:5px;
+	
 	
 	
     color:#116611
 
 
+
 }
+
+
 
 
 
@@ -808,19 +1097,26 @@ body{
 #Rules #newRuleForm .glyphicon:hover{
 	
 	
+	
     margin-left:5px;
 	
 	
+	
     color:#116611;
+	
 	
 	
 	cursor: pointer;
 	
 	
 	
+	
+
 
 
 }
+
+
 
 
 
@@ -829,9 +1125,12 @@ body{
 #Rules #newRuleForm{
 	
 	
+	
     margin-bottom:5px;
 	
+	
 	   
+
 
 
 }
@@ -839,15 +1138,26 @@ body{
 
 
 
+
+
 #Rules #newRuleForm select:hover, #Rules #newRuleForm input:hover{
+	
 	
 	
       border-color: #66afe9;
 	
 	
+	
       outline: 0;
+	
 	
 	 
 
 
+
+}
+
+#Rules #newRuleForm .inputFiller:hover{
+    cursor: pointer;
+    color: green;
 }

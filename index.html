@@ -548,55 +548,66 @@
                                             Takes a scale element, and displays an information about allowed values next to the value form
                                             */
                                             function displayParameterScale(scaleElement){//TODO : add elements
-                                                var informationToDisplay = '';
+                                                var informationToDisplay = $('<span>').addClass('scaleInformation');
                                                 var scaleType = scaleElement[0].nodeName;
                                                 
                                                 if(scaleType == 'ScaleBoolean'){
-                                                    informationToDisplay = _('true of false');
+                                                    $(informationToDisplay).append(_('true of false'));
                                                 }
                                                 else if(scaleType == 'ScaleList'){//display the  possibilities
-                                                    informationToDisplay = _('You can chose between: ');
+                                                    $(informationToDisplay).append(_('You can chose between: '));
+                                                    //this variable will contain the list of possibilities, the values are clickable to fill the input, and display the translation if available
+                                                    var enumeration = $('<span>').addClass('enumeration');
                                                     $(scaleElement).find('Name').each(function(){
                                                         var value = $(this).text();
+                                                        var valueContainer = $('<span>').addClass('inputFiller').text(value);
+                                                        $(enumeration).append(valueContainer);
                                                         if(!(value == _(value))){//translate between brackets if necessary
-                                                            value += (' ('+_(value)+')');
+                                                            $(enumeration).append(' ('+_(value)+')');
                                                         }
-                                                        informationToDisplay += (value+', ');
+                                                        $(enumeration).append(', ');
+                                                        
+                                                        $(valueContainer).click(function(){//enable user to click on the container, and fill the input with the value
+                                                            $($(this).parent().parent().parent().find('input')[0]).attr('value', value);
+                                                        });
+                                                        
                                                     });
-                                                    informationToDisplay = informationToDisplay.slice(0, -2);
+                                                    $(enumeration).append(_('click on the value you want'))
+                                                    $(informationToDisplay).append(enumeration);
                                                 
                                                 }
                                                 
                                                 else if(scaleType == 'ScaleNumerical'){//display the type of value, integer or number, and the step.
-                                                    informationToDisplay = _('The value must be a');
+                                                    $(informationToDisplay).append(_('The value must be a'));
                                                     if($(scaleElement).find('Step').length === 0){
-                                                        informationToDisplay += _(' number');
+                                                        $(informationToDisplay).append(_(' number'));
                                                     }
                                                     else{
                                                         var step = $($(scaleElement).find('Step')[0]).text();
                                                         if(step=='1'){
-                                                            informationToDisplay += _('n integer');
+                                                            $(informationToDisplay).append(_('n integer'));
                                                         }
                                                         else{
-                                                            informationToDisplay += (_(' number, with step ')+step);
+                                                            $(informationToDisplay).append( (_(' number, with step ')+step));
                                                         }
                                                     
                                                     }
                                                 }
                                                 
-                                                else{
-                                                    informationToDisplay = _('There is no particular constraint on this parameter');
+                                                else{//the parameter is not in the dictionnary
+                                                    $(informationToDisplay).append(_('There is no particular constraint on this parameter'));
                                                 }
                                                 
-                                                $('#newRuleForm').append($('<span>').addClass('scaleInformation').append(informationToDisplay));
+                                                $('#newRuleForm').append(informationToDisplay);
                                             }
                                             
                                             
                                             /*
                                             Takes the name of an indicator, and displays the corresponding scale.
+                                            function displayIndicatorScale(indicatorName){//TODO : merge with precedent one, with argument profile or activity
                                             */
                                             function displayIndicatorScale(indicatorName){//TODO : merge with precedent one, with argument profile or activity
-                                                var informationToDisplay = '';
+                                                var informationToDisplay = $('<span>').addClass('scaleInformation');
                                                 var scales;//2 possible values, profileScales and contextScales, depending on where the indicator comes from.
                                                 //TODO : I already have this information in todoBefore[3]
                                                 if($('#Profile' + ' #' +currentIndicatorId).length > 0){//the indicator is in the profile
@@ -611,34 +622,42 @@
                                                     var scaleElement = scales[indicatorName];
                                                 
                                                     if(scaleElement.nature == 'predefined'){
-                                                        informationToDisplay +=  _('The value must be a');
-                                                        informationToDisplay += _(scaleElement.typeName);
+                                                        $(informationToDisplay).append(_('The value must be a'));
+                                                        $(informationToDisplay).append(_(scaleElement.typeName));
                                                     
                                                     }
                                                     else if(scaleElement.nature == 'restriction'){//restriction
                                                         if(scaleElement.baseTypeName == 'xs:float' || scaleElement.baseTypeName == 'xs:integer'){//if number
-                                                            informationToDisplay += (_('The value must be a') + _(scaleElement.baseTypeName));
+                                                            $(informationToDisplay).append((_('The value must be a') + _(scaleElement.baseTypeName)));
                                                             if(scaleElement.min && scaleElement.max){//if min and max are set
-                                                                informationToDisplay += (_(' between ') + scaleElement.min + _(' and ') + scaleElement.max);
+                                                                $(informationToDisplay).append((_(' between ') + scaleElement.min + _(' and ') + scaleElement.max));
                                                             }
                                                         }
-                                                        else if(scaleElement.baseTypeName == 'xs:string' && scaleElement.enumeration){
-                                                            informationToDisplay += _('You can chose between: ');
+                                                        else if(scaleElement.baseTypeName == 'xs:string' && scaleElement.enumeration){//there's an enumeration
+                                                            $(informationToDisplay).append(_('You can chose between: '));
+                                                            var enumeration = $('<span>').addClass('enumeration');
                                                             $(scaleElement.enumeration).each(function(){
                                                                 var value = this;
+                                                                var valueContainer = $('<span>').addClass('inputFiller').text(value);
+                                                                $(enumeration).append(valueContainer);
                                                                 if(!(value == _(value))){//translate between brackets if necessary
-                                                                    value += (' ('+_(value)+')');
+                                                                     $(enumeration).append(' ('+_(value)+')');
                                                                 }
-                                                                informationToDisplay += (value+', ');
+                                                                $(enumeration).append(', ');
+                                                                console.log(enumeration);
+                                                                $(valueContainer).click(function(){//enable user to click on the container, and fill the input with the value
+                                                                    $($(this).parent().parent().parent().find('input')[0]).attr('value', value);
+                                                                });
                                                             });
-                                                            informationToDisplay = informationToDisplay.slice(0, -2);
+                                                            //informationToDisplay = informationToDisplay.slice(0, -2);
+                                                            $(informationToDisplay).append(enumeration);
                                                         }
                                                         
                                                     }
                                                                                                      
                                                 }
                                                 else{
-                                                    informationToDisplay = _('There is no particular constraint on this parameter');
+                                                    $(informationToDisplay).append(_('There is no particular constraint on this parameter'));
                                                 }
                                                 var commentPopover;
                                                 if(scaleElement.documentation){
@@ -648,7 +667,7 @@
                                                     });
                                                 }
                                                 
-                                                $('#newRuleForm').append($('<span>').addClass('scaleInformation').append(informationToDisplay)).append(commentPopover);
+                                                $('#newRuleForm').append(informationToDisplay).append(commentPopover);
                                             
                                             }
                                             
@@ -1101,7 +1120,7 @@
                                                             var parameter = this;
                                                             var paramId = $($(this).find('id')[0]).text();
                                                             var paramValue = $($(this).find('value')[0]).text();
-                                                            var parameterContainer = $('<li>').append((parametersDictionnary[paramId]).name+': ' + paramValue);
+                                                            var parameterContainer = $('<li>').append((parametersDictionnary[paramId]).name+_(': ') + paramValue);
                                                             
                                                             if(editMode){
                                                             

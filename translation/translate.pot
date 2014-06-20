@@ -786,7 +786,11 @@ msgstr ""
 msgid " and "
 msgstr ""
 
+msgid ": "
+msgstr ""
 
+msgid "click on the value you want"
+msgstr ""
 
 
 

@@ -744,3 +744,9 @@ msgstr " entre "
 
 msgid " and "
 msgstr " et "
+
+msgid ": "
+msgstr " : "
+
+msgid "click on the value you want"
+msgstr "cliquez sur la valeur que vous souhaitez"
