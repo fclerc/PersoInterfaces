@@ -750,3 +750,39 @@ msgstr " : "
 
 msgid "click on the value you want"
 msgstr "cliquez sur la valeur que vous souhaitez"
+
+msgid "Edit rule"
+msgstr "Editer la règle"
+
+msgid "Delete rule"
+msgstr "Supprimer la règle"
+
+msgid "Duplicate rule"
+msgstr "Dupliquer la règle"
+
+msgid "Remove constraint"
+msgstr "Supprimer la contrainte"
+
+msgid "Edit constraint"
+msgstr "Editer la contrainte"
+
+msgid "Edit value"
+msgstr "Editer la valeur"
+
+msgid "Remove activity"
+msgstr "Supprimer l'activité"
+
+msgid "Remove parameter"
+msgstr "Supprimer le paramètre"
+
+msgid "Add parameter"
+msgstr "Ajouter un paramètre"
+
+msgid "More information"
+msgstr "En savoir plus"
+
+msgid "Validate"
+msgstr "Valider"
+
+msgid "Combine with another constraint"
+msgstr "Combiner avec une autre contrainte"

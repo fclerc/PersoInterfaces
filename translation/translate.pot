@@ -792,6 +792,44 @@ msgstr ""
 msgid "click on the value you want"
 msgstr ""
 
+msgid "Edit rule"
+msgstr ""
+
+msgid "Delete rule"
+msgstr ""
+
+msgid "Duplicate rule"
+msgstr ""
+
+msgid "Remove constraint"
+msgstr ""
+
+msgid "Edit constraint"
+msgstr ""
+
+msgid "Edit value"
+msgstr ""
+
+msgid "Remove activity"
+msgstr ""
+
+msgid "Remove parameter"
+msgstr ""
+
+msgid "Add parameter"
+msgstr ""
+
+msgid "More information"
+msgstr ""
+
+msgid "Validate"
+msgstr ""
+
+msgid "Combine with another constraint"
+msgstr ""
+
+
+
 
 
 

@@ -251,7 +251,7 @@
                                                 
                                                 //displaying comment in alert
                                                 if(parameterComment != ''){
-                                                    var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover');
+                                                    var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', _('More information'));
                                                     $(commentPopover).click(function(){
                                                         alert(parameterComment);
                                                     });
@@ -471,7 +471,7 @@
                                                     $(operators).each(function(id, op){
                                                         $(operatorSelect).append($('<option>').append(op));
                                                     });
-                                                    $('#newRuleForm').append(operatorSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
+                                                    $('#newRuleForm').append(operatorSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
                                                     
                                                     $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
                                                         var op = $('#newRuleForm select').val();
@@ -502,7 +502,6 @@
                                                     displayValueInput();
                                                     //displaying information about the scale just after the form
                                                     var currentParameterId = $($(currentParameter).find('id')[0]).text();
-                                                    console.log('ob');
                                                     if(parametersDictionnary[currentParameterId]){
                                                         displayParameterScale((parametersDictionnary[currentParameterId]).scale);
                                                     }
@@ -541,7 +540,7 @@
                                                     $(conditions).each(function(id, op){
                                                         $(conditionSelect).append($('<option>').append(op));
                                                     });
-                                                    $('#newRuleForm').append(conditionSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
+                                                    $('#newRuleForm').append(conditionSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
                                                     
                                                     $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
                                                         var cond = $('#newRuleForm select').val();
@@ -650,7 +649,6 @@
                                                                      $(enumeration).append(' ('+_(value)+')');
                                                                 }
                                                                 $(enumeration).append(', ');
-                                                                console.log(enumeration);
                                                                 $(valueContainer).click(function(){//enable user to click on the container, and fill the input with the value
                                                                     $($(this).parent().parent().parent().find('input')[0]).attr('value', value);
                                                                 });
@@ -667,7 +665,7 @@
                                                 }
                                                 var commentPopover;
                                                 if(scaleElement.documentation){
-                                                    var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover');
+                                                    var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', _('More information'));
                                                     $(commentPopover).click(function(){
                                                         alert(scaleElement.documentation);
                                                     });
@@ -807,7 +805,7 @@
                                                 var valueInput = $('<input>').attr('type', 'text');
                                                 
                                                 $('#newRuleForm').append(valueInput);
-                                                $('#newRuleForm').append($('<span>').addClass('glyphicon glyphicon-ok-sign'));
+                                                $('#newRuleForm').append($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
                                                 
                                                 $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
                                                     var val = $('#newRuleForm input').val();
@@ -873,9 +871,9 @@
                                             function displayRule(rule, insBefore, createdRule, editMode){
                                                 
                                                 //top-right sign to remove the rule
-                                                var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right');
-                                                var ruleEditor = $('<span>').addClass('glyphicon glyphicon-edit ruleEditor pull-right');
-                                                var ruleDuplicator = $('<span>').addClass('glyphicon glyphicon-share ruleDuplicator pull-right');
+                                                var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right').attr('title', _('Delete rule'));
+                                                var ruleEditor = $('<span>').addClass('glyphicon glyphicon-edit ruleEditor pull-right').attr('title', _('Edit rule'));
+                                                var ruleDuplicator = $('<span>').addClass('glyphicon glyphicon-share ruleDuplicator pull-right').attr('title', _('Duplicate rule'));
                                                 
                                                 var priority = $($(rule).find("priority")[0]).text();
                                                 var priorityContainer = $($('<div>').addClass('priority').append(_('Priority: ')+priority));
@@ -956,7 +954,7 @@
                                                         
                                                         $(toReturn).append(' (').append(c1).append(conditionTypeContainer).append(c2).append(' )');
                                                         if(editMode){
-                                                            $(conditionTypeContainer).addClass('conditionAdder').click(function(){
+                                                            $(conditionTypeContainer).addClass('conditionAdder').attr('title', 'Combine with another constraint').click(function(){
                                                                goFromTo(currentOperation, 13);
                                                                currentCondition = element;
                                                             });
@@ -1003,13 +1001,13 @@
                                                         
                                                         if(editMode){
                                                             
-                                                            $(operatorContainer).addClass('conditionAdder').click(function(){
+                                                            $(operatorContainer).addClass('conditionAdder').attr('title', 'Combine with another constraint').click(function(){
                                                                 goFromTo(currentOperation, 13);
                                                                 currentCondition = constraint;
                                                             });
                                                             
-                                                            var constraintRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle constraintRemover');
-                                                            var constraintEditor = $('<span>').addClass('glyphicon glyphicon-edit constraintEditor');
+                                                            var constraintRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle constraintRemover').attr('title', _('Remove constraint'));
+                                                            var constraintEditor = $('<span>').addClass('glyphicon glyphicon-edit constraintEditor').attr('title', _('Edit constraint'));
                                                             
                                                             $(constraintRemover).click(function(){
                                                                 var parent = $(constraint).parent()[0];//if it is and or or : only keep the other constraint
@@ -1111,7 +1109,7 @@
                                                         var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + _(', with parameters: '));
                                                         
                                                         if(editMode){
-                                                            var activityRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle activityRemover');
+                                                            var activityRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle activityRemover').attr('title', _('Remove activity'));
                                                             $(typeOfActivityContainer).append(activityRemover);
                                                             $(activityRemover).click(function(){
                                                                 if(confirm(_('Are you sure to delete this activity?'))){										
@@ -1130,14 +1128,14 @@
                                                             
                                                             if(editMode){
                                                             
-                                                                var parameterValueEditor = $('<span>').addClass('glyphicon glyphicon-edit parameterValueEditor');
+                                                                var parameterValueEditor = $('<span>').addClass('glyphicon glyphicon-edit parameterValueEditor').attr('title', _('Edit value'));
                                                                 $(parameterContainer).append(parameterValueEditor);
                                                                 $(parameterValueEditor).click(function(){
                                                                     currentParameter = parameter;
                                                                     goFromTo(currentOperation, 6);
                                                                 });
                                                             
-                                                                var parameterRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle parameterRemover');
+                                                                var parameterRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle parameterRemover').attr('title', _('Remove parameter'));
                                                                 $(parameterContainer).append(parameterRemover);
                                                                 $(parameterRemover).click(function(){
                                                                     parameter.remove();
@@ -1151,7 +1149,7 @@
                                                         });
                                                         
                                                         if(editMode){//enabling to add a parameter
-                                                            var parameterAdder = $('<span>').addClass('glyphicon glyphicon-plus parameterAdder');
+                                                            var parameterAdder = $('<span>').addClass('glyphicon glyphicon-plus parameterAdder').attr('title', _('Add parameter'));
                                                             parametersContainer.append($('<li>').append(parameterAdder));
                                                             $(parameterAdder).click(function(){
                                                                 currentActivity = activity;
