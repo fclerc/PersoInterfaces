@@ -332,6 +332,10 @@
                                             
                                             var resetAllCurrent = false; //in case the rule has just been saved, reset all the 'current' variables to avoid any problem if user clicks on buttons without paying attention
                                             
+                                            
+                                            var formToDisplay = '' //used when displaying a new rule, to know whether a form has to be displayed in it.
+                                            //formToDisplay  = string. 'comparisonOperator' = form to select an operator for currentParameter; 'refValueConstraint' = form for the value of currentParameter; 'refValueParameter' = form for the value of currentParameter.
+                                            
                                             $("#Rules").on("leafValueReading", function(event, value, id, container){
                                                 
                                                 
@@ -375,7 +379,7 @@
                                                 }
                                                 
                                                 else if(currentOperation == 3){//event contains the value to compare the indicator with
-                                                    if(container=='#newRuleForm'){
+                                                    if(container=='#newRuleContainer'){
                                                         var refVal = $('<referencevalue>').text(value);
                                                         refVal.insertAfter($($(currentCondition).find('operator')[0]));
                                                         
@@ -417,7 +421,7 @@
                                                 
                                                 else if(currentOperation == 6 || currentOperation == 9){//value of the parameter has  been given
                                                     
-                                                    if(container == '#newRuleForm'){
+                                                    if(container == '#newRuleContainer'){
                                                         if($(currentParameter).find('value').length === 0){
                                                             $(currentParameter).append($('<value>').append(value));
                                                         }
@@ -429,7 +433,7 @@
                                                 }
                                                 
                                                 else if(currentOperation==10){
-                                                    if(container == '#newRuleForm'){
+                                                    if(container == '#newRuleContainer'){
                                                         $(builtRule).prepend($('<priority>').append(value));
                                                         goFromTo(10,11);
                                                     }
@@ -704,7 +708,7 @@
                                                 },
                                                 function(){//6
                                                     removeForms();
-                                                
+                                                    formToDisplay = '';
                                                 },
                                                 function(){//7
                                                 
@@ -867,6 +871,7 @@
                                                 This function displays the rule just before the second argument insBefore
                                                 createdRule is a boolean, true iff the rule is has been built by the user during current use of the page (thus don't go in the part that tries to find the highest id of rules)
                                                 editMode is a boolean, true iff rule is currently being enabled (this allow click on elements to edit them directly)
+                                                
                                             */
                                             function displayRule(rule, insBefore, createdRule, editMode){
                                                 
@@ -1124,7 +1129,21 @@
                                                             var parameter = this;
                                                             var paramId = $($(this).find('id')[0]).text();
                                                             var paramValue = $($(this).find('value')[0]).text();
-                                                            var parameterContainer = $('<li>').append((parametersDictionnary[paramId]).name+_(': ') + paramValue);
+                                                            var paramValueContainer = $('<span>');
+                                                            if(editMode && formToDisplay == 'refValueParameter' && parameter == currentParameter){//currently edited parameter, and we want to change its value
+                                                                var valueInput = $('<input>').attr('type', 'text');
+                                                                $(paramValueContainer).append(valueInput);
+                                                                $(paramValueContainer).append($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
+                                                                $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
+                                                                    var val = $('#newRuleForm input').val();
+                                                                    $(reader).trigger("leafValueReading",  [val, 0, '#newRuleForm']);									
+                                                                });
+                                                            }
+                                                            else{
+                                                                paramValueContainer = paramValue;
+                                                            }
+                                                            
+                                                            var parameterContainer = $('<li>').append((parametersDictionnary[paramId]).name+_(': ')).append(paramValueContainer);
                                                             
                                                             if(editMode){
                                                             
@@ -1132,6 +1151,7 @@
                                                                 $(parameterContainer).append(parameterValueEditor);
                                                                 $(parameterValueEditor).click(function(){
                                                                     currentParameter = parameter;
+                                                                    formToDisplay = 'refValueParameter';
                                                                     goFromTo(currentOperation, 6);
                                                                 });
                                                             
