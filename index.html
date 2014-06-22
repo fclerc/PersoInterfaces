@@ -30,8 +30,8 @@
 		<div id="Rules" class="mains">
 			<h2>Definition of pedagogical strategy</h2>
 			<div id="newRuleInstruction"></div>
-			<div id="newRuleForm"></div>
             <div id="newRuleButtons"></div>
+			<div id="newRuleForm"></div>
 			<div id="newRuleContainer"></div>
             <hr/>
 			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>Add new Rule</span></button>
@@ -336,7 +336,7 @@
                                             
                                             
                                             var formToDisplay = '' //used when displaying a new rule, to know whether a form has to be displayed in it.
-                                            //formToDisplay  = string. 'comparisonOperator' = form to select an operator for currentParameter; 'refValueConstraint' = form for the value of currentParameter; 'refValueParameter' = form for the value of currentParameter.
+                                            //formToDisplay  = string. 'comparisonOperator' = form to select an operator for currentCondition; 'refValueConstraint' = form for the value of currentParameter; 'refValueParameter' = form for the value of currentParameter; 'priority' = you know what.
                                             
                                             $("#Rules").on("leafValueReading", function(event, value, id, container){
                                                 
@@ -347,7 +347,7 @@
                                                         currentIndicatorId = id;
                                                         if($(builtRule).find('if').length === 0){//there's no 'if' defined.                                    
                                                             $(builtRule).append($('<if>').append(newConstraint));
-                                                            currentCondition = newConstraint;
+                                                            currentCondition = newConstraint[0];
                                                         }
                                                         
                                                         
@@ -358,10 +358,11 @@
                                                             }
                                                             else{
                                                                 $(currentCondition).parent().append(newConstraint);
+                                                                currentCondition = newConstraint[0];
                                                             }
-                                                            
-                                                            
                                                         }
+                                                        
+                                                        
                                                         else{//else : replace the first indicator (or create it, in the case the rule only contains <if></if> TODO : maybe forget it, and don't display 'edit if' button once <if> is not void.
                                                             if($(builtRule).find('constraint').length==0){//create the first constraint
                                                                 $($(builtRule).find('if')[0]).append(newConstraint);
@@ -369,15 +370,14 @@
                                                             else{//replace the first constraint
                                                                 $($(builtRule).find('constraint')[0]).replaceWith(newConstraint);
                                                             }
-                                                            currentCondition = newConstraint;
+                                                            currentCondition = newConstraint[0];
                                                         }
-                                                        
                                                         goFromTo(1,2);
                                                     }
                                                 }
                                                 
                                                 else if(currentOperation ==2){//received event contains the operator
-                                                    if(container=='#newRuleForm'){
+                                                    if(container=='#newRuleContainer'){
                                                         var op = $('<operator>').text(value);
                                                         if($(currentCondition).find('operator').length == 1){//constraint already has an operator
                                                             $($(currentCondition).find('operator')[0]).text(value);
@@ -430,7 +430,7 @@
                                                         
                                                         var parameter = $('<parameter>').append($('<id>').text(id));
                                                         $($(currentActivity).find('parameters')[0]).append(parameter);
-                                                        currentParameter = parameter;
+                                                        currentParameter = parameter[0];
                                                         goFromTo(currentOperation, currentOperation+1);
                                                     }
                                                 }
@@ -486,17 +486,7 @@
                                                     addEditButtons();
                                                 },
                                                 function(){//2
-                                                    var operatorSelect = $('<select>');
-                                                    var operators = ['=', '>', '<', '!='];
-                                                    $(operators).each(function(id, op){
-                                                        $(operatorSelect).append($('<option>').append(op));
-                                                    });
-                                                    $('#newRuleForm').append(operatorSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
-                                                    
-                                                    $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
-                                                        var op = $('#newRuleForm select').val();
-                                                        $(reader).trigger("leafValueReading",  [op, 0, '#newRuleForm']);									
-                                                    });
+                                                    formToDisplay = 'comparisonOperator';
                                                 
                                                 },
                                                 function(){//3
@@ -515,12 +505,12 @@
                                                 
                                                 },
                                                 function(){//5
-                                                
+                                                    
                                                 
                                                 },
                                                 function(){//6
-                                                    displayValueInput();
-                                                    //displaying information about the scale just after the form
+                                                    formToDisplay = 'refValueParameter';
+                                                    //displaying information about the scale just above the rule
                                                     var currentParameterId = $($(currentParameter).find('id')[0]).text();
                                                     if(parametersDictionnary[currentParameterId]){
                                                         displayParameterScale((parametersDictionnary[currentParameterId]).scale);
@@ -535,7 +525,7 @@
                                                 
                                                 },
                                                 function(){//9 TODO : eliminate it, same as 6
-                                                    displayValueInput();
+                                                    formToDisplay = 'refValueParameter';
                                                     //displaying information about the scale just after the form
                                                     var currentParameterId = $($(currentParameter).find('id')[0]).text();
                                                     if(parametersDictionnary[currentParameterId]){
@@ -544,7 +534,8 @@
                                                 
                                                 },
                                                 function(){//10
-                                                    displayValueInput();
+                                                    formToDisplay = 'priority'
+                                                    //displayValueInput();
                                                 
                                                 },
                                                 function(){//11
@@ -708,7 +699,7 @@
                                                 },
                                                 function(){//2
                                                     removeForms();
-                                                
+                                                    formToDisplay = '';
                                                 },
                                                 function(){//3
                                                     removeForms();
@@ -740,6 +731,7 @@
                                                 },
                                                 function(){//10
                                                     removeForms();
+                                                    formToDisplay = '';
                                                 },
                                                 function(){//11
                                                     removeForms();
@@ -842,6 +834,8 @@
                                                 if($('#newRuleButtons').find('#'+id).length===0){                            
                                                     var button = $('<button>').append(value).addClass('operationButton btn btn-primary').attr('id', id);
                                                     $(button).click(function(){
+                                                        
+                                                        
                                                         goFromTo(currentOperation, operationIfClicked);
                                                         if(id=="ruleSaver"){
                                                             resetAllCurrent = true;
@@ -898,7 +892,29 @@
                                                 var ruleDuplicator = $('<span>').addClass('glyphicon glyphicon-share ruleDuplicator pull-right').attr('title', _('Duplicate rule'));
                                                 
                                                 var priority = $($(rule).find("priority")[0]).text();
-                                                var priorityContainer = $($('<div>').addClass('priority').append(_('Priority: ')+priority));
+                                                var priorityContainer = $('<div>').addClass('priority').append(_('Priority: '));
+                                                if(editMode && formToDisplay == 'priority'){
+                                                    var valueInput = $('<input>').attr('type', 'text').attr('value', priority);
+                                                    $(priorityContainer).append(valueInput);
+                                                    var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
+                                                    $(priorityContainer).append(formValidator);
+                                                    
+                                                    $(formValidator).unbind('click').click(function(){
+                                                        var val = $(valueInput).val();
+                                                        $(reader).trigger("leafValueReading",  [val, 0, '#newRuleContainer']);									
+                                                    });
+                                                   
+                                                }
+                                                else{
+                                                    priorityContainer.append(priority);
+                                                }
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
                                                 
                                                 var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append(_('Rule') + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(ruleDuplicator).append(priorityContainer);
                                                 
@@ -1014,8 +1030,36 @@
                                                         var operator = $($(constraint).find("operator")[0]).text();
                                                         var referenceValue = $($(constraint).find("referencevalue")[0]).text();
                                                         var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
-                                                        var operatorContainer = $('<span>').addClass('operator').append(' '+operator);
+                                                        
+                                                        var operatorContainer = $('<span>').addClass('operator').append(' ');
                                                         var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
+                                                        
+                                                        var allowComplex = true;
+                                                        console.log(currentCondition);
+                                                        console.log(constraint);
+                                                        if(editMode && formToDisplay == 'comparisonOperator' && constraint == currentCondition){
+                                                            allowComplex = false;
+                                                            //displaying the form to select operator
+                                                            var operatorSelect = $('<select>');
+                                                            var operators = ['=', '>', '<', '!='];
+                                                            $(operators).each(function(id, op){
+                                                                $(operatorSelect).append($('<option>').append(op));
+                                                            });
+                                                            
+                                                            var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
+                                                            $(operatorContainer).append(operatorSelect).append(formValidator);
+                                                            
+                                                            $(formValidator).unbind('click').click(function(){
+                                                                var val = $(operatorSelect).val();
+                                                                $(reader).trigger("leafValueReading",  [val, 0, '#newRuleContainer']);			
+                                                            });
+                                                            
+                                                            
+                                                            
+                                                        }
+                                                        else{
+                                                            $(operatorContainer).append(operator);
+                                                        }
                                                         
                                                         var constraintContainer = $('<span>').addClass('constraint');
                                                         $(constraintContainer).append(indicatorContainer);
@@ -1023,12 +1067,14 @@
                                                         $(constraintContainer).append(referenceValueContainer);
                                                         
                                                         if(editMode){
+                                                            if(allowComplex){//enable conditions combination only if you aren't currently selecting the operator
                                                             
-                                                            $(operatorContainer).addClass('conditionAdder').attr('title', 'Combine with another constraint').click(function(){
-                                                                goFromTo(currentOperation, 13);
-                                                                editingCondition = false;
-                                                                currentCondition = constraint;
-                                                            });
+                                                                $(operatorContainer).addClass('conditionAdder').attr('title', 'Combine with another constraint').click(function(){
+                                                                    goFromTo(currentOperation, 13);
+                                                                    editingCondition = false;
+                                                                    currentCondition = constraint;
+                                                                });
+                                                            }
                                                             
                                                             var constraintRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle constraintRemover').attr('title', _('Remove constraint'));
                                                             var constraintEditor = $('<span>').addClass('glyphicon glyphicon-edit constraintEditor').attr('title', _('Edit constraint'));
@@ -1150,13 +1196,15 @@
                                                             var paramId = $($(this).find('id')[0]).text();
                                                             var paramValue = $($(this).find('value')[0]).text();
                                                             var paramValueContainer = $('<span>');
-                                                            if(editMode && formToDisplay == 'refValueParameter' && parameter == currentParameter){//currently edited parameter, and we want to change its value
-                                                                var valueInput = $('<input>').attr('type', 'text');
+                                                            if(editMode && formToDisplay == 'refValueParameter' && parameter == currentParameter){//currently edited parameter, and we want to change its value.
+                                                                var valueInput = $('<input>').attr('type', 'text').attr('value', paramValue);
                                                                 $(paramValueContainer).append(valueInput);
-                                                                $(paramValueContainer).append($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
-                                                                $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
-                                                                    var val = $('#newRuleForm input').val();
-                                                                    $(reader).trigger("leafValueReading",  [val, 0, '#newRuleForm']);									
+                                                                var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
+                                                                $(paramValueContainer).append(formValidator);
+                                                                
+                                                                $(formValidator).unbind('click').click(function(){
+                                                                    var val = $(valueInput).val();
+                                                                    $(reader).trigger("leafValueReading",  [val, 0, '#newRuleContainer']);			
                                                                 });
                                                             }
                                                             else{
@@ -1166,13 +1214,13 @@
                                                             var parameterContainer = $('<li>').append((parametersDictionnary[paramId]).name+_(': ')).append(paramValueContainer);
                                                             
                                                             if(editMode){
-                                                            
                                                                 var parameterValueEditor = $('<span>').addClass('glyphicon glyphicon-edit parameterValueEditor').attr('title', _('Edit value'));
                                                                 $(parameterContainer).append(parameterValueEditor);
                                                                 $(parameterValueEditor).click(function(){
-                                                                    currentParameter = parameter;
-                                                                    formToDisplay = 'refValueParameter';
-                                                                    goFromTo(currentOperation, 6);
+                                                                    if($('#newRuleContainer').find('input').length === 0){//no other form is displayed currently (you can't edit more than one parameter at once)
+                                                                        currentParameter = parameter;
+                                                                        goFromTo(currentOperation, 6);
+                                                                    }
                                                                 });
                                                             
                                                                 var parameterRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle parameterRemover').attr('title', _('Remove parameter'));
