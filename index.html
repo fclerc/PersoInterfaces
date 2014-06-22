@@ -490,7 +490,7 @@
                                                 
                                                 },
                                                 function(){//3
-                                                    displayValueInput();
+                                                    formToDisplay = 'refValueConstraint';
                                                     var indicatorName;
                                                     if($(profile).find('#'+currentIndicatorId)[0]){
                                                         indicatorName = $(profile).find('#'+currentIndicatorId)[0].nodeName;
@@ -702,6 +702,7 @@
                                                     formToDisplay = '';
                                                 },
                                                 function(){//3
+                                                    formToDisplay = '';
                                                     removeForms();
                                                 
                                                 },
@@ -1032,11 +1033,9 @@
                                                         var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
                                                         
                                                         var operatorContainer = $('<span>').addClass('operator').append(' ');
-                                                        var referenceValueContainer = $('<span>').addClass('referenceValue').append(' '+referenceValue);
+                                                        var referenceValueContainer = $('<span>').addClass('referenceValue').append(' ');
                                                         
                                                         var allowComplex = true;
-                                                        console.log(currentCondition);
-                                                        console.log(constraint);
                                                         if(editMode && formToDisplay == 'comparisonOperator' && constraint == currentCondition){
                                                             allowComplex = false;
                                                             //displaying the form to select operator
@@ -1053,13 +1052,32 @@
                                                                 var val = $(operatorSelect).val();
                                                                 $(reader).trigger("leafValueReading",  [val, 0, '#newRuleContainer']);			
                                                             });
-                                                            
-                                                            
-                                                            
                                                         }
                                                         else{
                                                             $(operatorContainer).append(operator);
                                                         }
+                                                        
+                                                        if(editMode && formToDisplay == 'refValueConstraint' && constraint == currentCondition){
+                                                            var valueInput = $('<input>').attr('type', 'text').attr('value', referenceValue);
+                                                            $(referenceValueContainer).append(valueInput);
+                                                            var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
+                                                            $(referenceValueContainer).append(formValidator);
+                                                            
+                                                            $(formValidator).unbind('click').click(function(){
+                                                                var val = $(valueInput).val();
+                                                                $(reader).trigger("leafValueReading",  [val, 0, '#newRuleContainer']);			
+                                                            });
+                                                        }
+                                                        
+                                                        
+                                                        else{
+                                                            $(referenceValueContainer).append(referenceValue);
+                                                        }
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
                                                         
                                                         var constraintContainer = $('<span>').addClass('constraint');
                                                         $(constraintContainer).append(indicatorContainer);
