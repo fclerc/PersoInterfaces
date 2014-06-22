@@ -328,7 +328,9 @@
                                             
                                             var currentParameter;//used in stages when asking parameter value to the user, to add this parameter the <value>
                                             var currentActivity;//used in stages when asking parameter to the user, to add the parameter to this activity
-                                            var currentCondition;//used in the case the user wants to define complex conditions, using AND and OR. It stores the constraint which is going to be combined with the next defined constraint. Also used to know which is the target constraint chosing operator and value in stages 2 and 3
+                                            var currentCondition;//used in the case the user wants to define complex conditions, using AND and OR. It stores the constraint which is going to be combined with the next defined constraint. Also used to know which is the target constraint chosing operator and value in stages 2 and 3, or when a constraint is edited
+                                            var editingCondition = false;//true iff we are editing a constraint (to make the difference with the case when adding a new constraint)
+                                            
                                             
                                             var resetAllCurrent = false; //in case the rule has just been saved, reset all the 'current' variables to avoid any problem if user clicks on buttons without paying attention
                                             
@@ -340,30 +342,36 @@
                                                 
                                                 
                                                 if(currentOperation ==1){//user gives an indicator, other things are just ignored
-                                                    
                                                     if(container == "#Profile" || container == "#Context"){
                                                         var newConstraint = $('<constraint>').append($('<indicator>').text(id));
                                                         currentIndicatorId = id;
                                                         if($(builtRule).find('if').length === 0){//there's no 'if' defined.                                    
                                                             $(builtRule).append($('<if>').append(newConstraint));
+                                                            currentCondition = newConstraint;
                                                         }
                                                         
                                                         
-                                                        else if(typeof currentCondition != 'undefined' && currentCondition !== null){//we are defining a constraint contained in 'and' or 'or'
-                                                            
-                                                            $(currentCondition).parent().append(newConstraint);
+                                                        else if(typeof currentCondition != 'undefined' && currentCondition !== null){//we are defining a constraint contained in 'and' or 'or'; or editing a constraint
+                                                            if(editingCondition){
+                                                                $($(currentCondition).find('indicator')[0]).text(id);
+                                                                editingCondition = false;
+                                                            }
+                                                            else{
+                                                                $(currentCondition).parent().append(newConstraint);
+                                                            }
                                                             
                                                             
                                                         }
-                                                        else{//else : replace the first indicator (or create it, in the case the rule only contains <if></if>
+                                                        else{//else : replace the first indicator (or create it, in the case the rule only contains <if></if> TODO : maybe forget it, and don't display 'edit if' button once <if> is not void.
                                                             if($(builtRule).find('constraint').length==0){//create the first constraint
                                                                 $($(builtRule).find('if')[0]).append(newConstraint);
                                                             }
                                                             else{//replace the first constraint
                                                                 $($(builtRule).find('constraint')[0]).replaceWith(newConstraint);
                                                             }
+                                                            currentCondition = newConstraint;
                                                         }
-                                                        currentCondition = newConstraint;
+                                                        
                                                         goFromTo(1,2);
                                                     }
                                                 }
@@ -371,8 +379,12 @@
                                                 else if(currentOperation ==2){//received event contains the operator
                                                     if(container=='#newRuleForm'){
                                                         var op = $('<operator>').text(value);
-                                                        op.insertAfter($($(currentCondition).find('indicator')[0]));
-                                                        
+                                                        if($(currentCondition).find('operator').length == 1){//constraint already has an operator
+                                                            $($(currentCondition).find('operator')[0]).text(value);
+                                                        }
+                                                        else{//constraint doesn't have any operator, create it
+                                                            op.insertAfter($($(currentCondition).find('indicator')[0]));
+                                                        }
                                                         goFromTo(2,3);
                                                         
                                                     }
@@ -381,8 +393,12 @@
                                                 else if(currentOperation == 3){//event contains the value to compare the indicator with
                                                     if(container=='#newRuleContainer'){
                                                         var refVal = $('<referencevalue>').text(value);
-                                                        refVal.insertAfter($($(currentCondition).find('operator')[0]));
-                                                        
+                                                        if($(currentCondition).find('referencevalue').length == 1){//constraint already has an operator
+                                                            $($(currentCondition).find('referencevalue')[0]).text(value);
+                                                        }
+                                                        else{//constraint doesn't have any operator, create it
+                                                            refVal.insertAfter($($(currentCondition).find('operator')[0]));  
+                                                        }
                                                         goFromTo(3,4);
                                                     }
                                                 
@@ -832,6 +848,7 @@
                                                             saveRule();
                                                         }
                                                         else if(id=='ifEditorButton'){
+                                                            
                                                             currentCondition = null;
                                                         }
                                                     });
@@ -961,6 +978,7 @@
                                                         if(editMode){
                                                             $(conditionTypeContainer).addClass('conditionAdder').attr('title', 'Combine with another constraint').click(function(){
                                                                goFromTo(currentOperation, 13);
+                                                               editingCondition = false;
                                                                currentCondition = element;
                                                             });
                                                         }
@@ -1008,6 +1026,7 @@
                                                             
                                                             $(operatorContainer).addClass('conditionAdder').attr('title', 'Combine with another constraint').click(function(){
                                                                 goFromTo(currentOperation, 13);
+                                                                editingCondition = false;
                                                                 currentCondition = constraint;
                                                             });
                                                             
@@ -1030,6 +1049,7 @@
                                                             });
                                                             $(constraintEditor).click(function(){
                                                                 currentCondition = constraint;
+                                                                editingCondition = true;
                                                                 goFromTo(currentOperation, 1);
                                                             });
                                                             
