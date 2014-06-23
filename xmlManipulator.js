@@ -58,7 +58,9 @@ function manipulateXML(filename, container, mode, reader){
 				//the target can be 2 things : the span (thus check if it doesn't already contain an input), or the input (thus don't try to add a new input into this)
 					if($(elem).children('input').length === 0 && $(elem).prop('tagName')!='INPUT'){//we have to add an input
 						input=$('<input>').attr("type", "text").attr('value', value);
-						
+						if(value == '&nbsp;'){//if the value is just the space we use to always hae span with a min-width : don't display the entity of the space
+							$(input).attr('value', '');
+						}
 						$(elem).html(input);
 						$(input).select();
 						
@@ -73,13 +75,25 @@ function manipulateXML(filename, container, mode, reader){
 									var data = $(input).parent().parent().attr('id').split('--');
 									id = data[0];
 									var attribute = data[1];
-									$(input).parent().html(value);
+									var valueToDisplay;
+									if(value == ''){//never let a span empty, otherwise it won't be possible to click on it
+										valueToDisplay = '&nbsp';
+									}
+									else valueToDisplay = value;
+									$(input).parent().html(valueToDisplay);
 									$(xml[container]).find('[id="' + id + '"]').attr(attribute, value);
 								}
 								
 								else{//replace the value of an element
 									id = $(input).parent().parent().attr("id");//corresponding id in the xml tree
-									$(input).parent().html(value);
+									
+									var valueToDisplay;
+									if(value == ''){//never let a span empty, otherwise it won't be possible to click on it
+										valueToDisplay = '&nbsp';
+									}
+									else valueToDisplay = value;
+									
+									$(input).parent().html(valueToDisplay);
 									
 									//modifying value in XML tree
 									$(xml[container]).find('[id="' + id + '"]').text(value);
@@ -163,6 +177,11 @@ function displayAndChildren(xmlNode, mode){
                 if(typeof window._ != "undefined"){//if translation object is set, translate the nodeName
                     attribName = _(attribName);
                 }
+				var attributeValue = attrib.value;
+				if(attributeValue == ''){
+					attributeValue = '&nbsp;';
+				}
+				
                 var txt = $('<li>').attr('id', $(xmlNode).attr('id') +'--'+ attrib.name ).append($('<span>').addClass('elementName').text(attribName + idText)).append(': ');
                 $(txt).append($('<span>').append(attrib.value).addClass('attribute value'));
                 $(chs).append(txt);
@@ -179,7 +198,15 @@ function displayAndChildren(xmlNode, mode){
     
     else{
     //if no child: display the node value, with class indicating you can modify it (if mode = modify)
-		var valueContainer = $('<span>').append($(xmlNode).html());
+		
+		var valueContainer = $('<span>');
+		if($(xmlNode).html() == ''){
+			$(valueContainer).append('&nbsp;');
+		}
+		else{
+			$(valueContainer).append($(xmlNode).html());
+		}
+		
 		if(mode == 'modify'){
 			$(valueContainer).addClass("value");
 		}

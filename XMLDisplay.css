@@ -1,5 +1,7 @@
 .XMLContainer .value{
     font-style: italic;   
+	display: inline-block;
+	min-width: 50px;
 }
 
 .XMLContainer span.value:hover{
