@@ -1,9 +1,7 @@
--mode select--> ne pas surligner valeurs
--priority
--highlight currentelements
 -highlight where to chose ?
--improve add constraint
 -xml modify : treat if span void (min width ?)
+clic sur 'et' le retire, ainsi que la partie droite
+-enum remplit input du newrulecontainer
 
 Pour activités : nécessité de réécrire un code spécifique pour l'afficher, dans la mesure où on ne veut pas aficher la même chose, et la fonction manipulateXML que j'ai écrite doit rester générique.
 
