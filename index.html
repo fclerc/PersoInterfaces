@@ -981,7 +981,7 @@
 													});
 												}
 												else if(editMode && formToDisplay == 'indicator'){//no constraint and we are in edit mode, wanting to modify indicator : tell the user he has to select an indicator
-													$(ifContainer).append($('<span>').append(_(' Select indicator')));
+													$(ifContainer).append($('<span>').addClass('instruction').append(_(' Select indicator')));
 												
 												}
 												
@@ -1010,7 +1010,7 @@
 																	c2 =$('<span>').append(constraintRemover);
 																	
 																	if(formToDisplay == 'indicator'){//tell the user he has to select an indicator
-																		$(c2).append($('<span>').append(_(' Select indicator')));
+																		$(c2).append($('<span>').addClass('instruction').append(_(' Select indicator')));
 																	}
 																}
 																
@@ -1290,7 +1290,7 @@
                                                         
                                                         if(editMode){//enabling to add a parameter
                                                             if(formToDisplay == 'parameter' && currentActivity == activity){//highlight this zone where the user is chosing a new parameter
-																$(parametersContainer).append($('<li>').addClass('newParameterToAdd').append(_('Chose parameter on the right')));
+																$(parametersContainer).append($('<li>').addClass('newParameterToAdd').addClass('instruction').append(_('Chose parameter on the right')));
 															}
 															else{//display add parameter button
 															
@@ -1312,10 +1312,10 @@
                                                     });
 													if(editMode){
 														if(formToDisplay == 'thenActivity' && containerName == 'then'){
-															$(activitiesContainer).append($('<div>').text('biubkub'));
+															$(activitiesContainer).append($('<div>').addClass('instruction').text('Select activity on the right'));
 														}
 														else if(formToDisplay == 'elseActivity' && containerName == 'else'){
-															$(activitiesContainer).append($('<div>').text('biubkub'));
+															$(activitiesContainer).append($('<div>').addClass('instruction').text('Select activity on the right'));
 														}
 													
 													}
