@@ -26,8 +26,7 @@ function manipulateXML(filename, container, mode, reader){
 			
 			
 			//going recursively through the xml, and displaying its content
-			$(container).append($('<div>').addClass('XMLContainer').addClass(filename.split('.').join("")).append(displayAndChildren($(xml[container]).children().first()[0])));
-		
+			$(container).append($('<div>').addClass('XMLContainer').addClass(filename.split('.').join("")).append(displayAndChildren($(xml[container]).children().first()[0], mode) ));
 			
 			//for elements having list below them : toggle visibility of this list when clicking on the element
 			$(container +' .reducer').click(function(event){
@@ -171,7 +170,7 @@ function displayAndChildren(xmlNode, mode){
         });
         
         $(xmlNode).children().each(function(){
-            $(chs).append(displayAndChildren(this));
+            $(chs).append(displayAndChildren(this, mode));
         });
         
         result.append(chs);
@@ -179,8 +178,12 @@ function displayAndChildren(xmlNode, mode){
     }
     
     else{
-    //if no child: display the node value, with class indicating you can modify it
-        result.append(': ').append($('<span>').append($(xmlNode).html()).addClass("value"));
+    //if no child: display the node value, with class indicating you can modify it (if mode = modify)
+		var valueContainer = $('<span>').append($(xmlNode).html());
+		if(mode == 'modify'){
+			$(valueContainer).addClass("value");
+		}
+        result.append(': ').append(valueContainer);
         
     }
     return result;

@@ -29,8 +29,8 @@
 	
 		<div id="Rules" class="mains">
 			<h2>Definition of pedagogical strategy</h2>
-			<div id="newRuleInstruction"></div>
             <div id="newRuleButtons"></div>
+			<div id="newRuleInstruction"></div>
 			<div id="newRuleForm"></div>
 			<div id="newRuleContainer"></div>
             <hr/>
@@ -337,6 +337,10 @@
                                             
                                             var formToDisplay = '' //used when displaying a new rule, to know whether a form has to be displayed in it.
                                             //formToDisplay  = string. 'comparisonOperator' = form to select an operator for currentCondition; 'refValueConstraint' = form for the value of currentParameter; 'refValueParameter' = form for the value of currentParameter; 'priority' = you know what.
+											//'indicator' if the user has to chose an indicator in the list
+											//'parameter' if the user has to chose a parameter in the list
+											//'ifActivity' if the user has to chose an activity in the list for the if part
+											//'thenActivity' if the user has to chose an activity in the list for the then part
                                             
                                             $("#Rules").on("leafValueReading", function(event, value, id, container){
                                                 
@@ -484,6 +488,7 @@
                                                 },
                                                 function(){//1
                                                     addEditButtons();
+													formToDisplay = 'indicator';
                                                 },
                                                 function(){//2
                                                     formToDisplay = 'comparisonOperator';
@@ -807,7 +812,7 @@
                                             function instruct(){//giving next instruction to the user
                                                 $('#newRuleInstruction').text(_(instructions[currentOperation]));
                                                 if(currentOperation !== 0 && currentOperation != 12){
-                                                    $('#newRuleInstruction').append(_(', or click on a button below'));
+                                                    //$('#newRuleInstruction').append(_(', or click on a button below'));
                                                 }
                                             }
                                             
@@ -842,7 +847,6 @@
                                                             saveRule();
                                                         }
                                                         else if(id=='ifEditorButton'){
-                                                            
                                                             currentCondition = null;
                                                         }
                                                     });
@@ -905,15 +909,18 @@
                                                     });
                                                    
                                                 }
-                                                else{
+                                                else if(editMode){//just display the value, and an icon to modify it
                                                     priorityContainer.append(priority);
+													
+													var priorityEditor = $('<span>').addClass('glyphicon glyphicon-edit priorityEditor pull-right').attr('title', _('Edit priority'));
+													
+													$(priorityEditor).click(function(){
+														goFromTo(currentOperation, 10);													
+													});
+													
+													$(priorityContainer).append(priorityEditor);
+													
                                                 }
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
                                                 
                                                 
                                                 var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append(_('Rule') + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(ruleDuplicator).append(priorityContainer);
@@ -1030,7 +1037,12 @@
                                                         var operator = $($(constraint).find("operator")[0]).text();
                                                         var referenceValue = $($(constraint).find("referencevalue")[0]).text();
                                                         var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
-                                                        
+                                                        console.log(formToDisplay);
+														
+														if(editMode && formToDisplay == 'indicator' && currentCondition == constraint){//if we are currently editing this indicator, show it clearly
+															$(indicatorContainer).addClass('editedIndicator');
+														}
+														
                                                         var operatorContainer = $('<span>').addClass('operator').append(' ');
                                                         var referenceValueContainer = $('<span>').addClass('referenceValue').append(' ');
                                                         
