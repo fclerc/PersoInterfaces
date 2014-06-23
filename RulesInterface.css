@@ -1445,6 +1445,11 @@ body{
     padding-right: 4px;
 }
 
+#Rules #newRuleContainer select, #Rules #newRuleContainer input{
+    background-color: #00FF00;
+}
+
+
 #Rules #newRuleContainer .priority input{
 	
     width: 50px;

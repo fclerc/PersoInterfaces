@@ -29,10 +29,10 @@
 	
 		<div id="Rules" class="mains">
 			<h2>Definition of pedagogical strategy</h2>
-            <div id="newRuleButtons"></div>
-			<div id="newRuleInstruction"></div>
-			<div id="newRuleForm"></div>
+			<div id="newRuleInstruction">When editing or creating a rule, you can click on any part of this rule to change its values and structure. You can also use the buttons below the rule to edit it.</div>
 			<div id="newRuleContainer"></div>
+			<div id="newRuleForm"></div>
+            <div id="newRuleButtons"></div>
             <hr/>
 			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>Add new Rule</span></button>
 			<button id="strategySaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Save my strategy</span></button>
@@ -341,7 +341,7 @@
 											//'parameter' if the user has to chose a new parameter in the list
 											//'thenActivity' if the user has to chose an activity in the list for the then part
 											//'elseActivity' if the user has to chose an activity in the list for the else part
-                                            
+                                            //'conditionType' if the user has to chose between 'and' and 'or'
                                             $("#Rules").on("leafValueReading", function(event, value, id, container){
                                                 
                                                 
@@ -478,7 +478,7 @@
                                                 if(target!==0 && target !=12){
                                                     displayNewRule();
                                                 }
-                                                instruct();
+                                                //instruct();
                                             }
                                             
                                             var todoBefore = [//contains what has to be done before each operation
@@ -551,17 +551,7 @@
                                                     $('#newRuleContainer').empty();
                                                 },
                                                 function(){//13
-                                                    var conditionSelect = $('<select>');
-                                                    var conditions = ['AND', 'OR'];
-                                                    $(conditions).each(function(id, op){
-                                                        $(conditionSelect).append($('<option>').append(op));
-                                                    });
-                                                    $('#newRuleForm').append(conditionSelect).append($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
-                                                    
-                                                    $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
-                                                        var cond = $('#newRuleForm select').val();
-                                                        $(reader).trigger("leafValueReading",  [cond, 0, '#newRuleForm']);									
-                                                    });
+													formToDisplay = 'conditionType';
                                                 }
                                             ];
                                             
@@ -589,7 +579,7 @@
                                                         $(enumeration).append(', ');
                                                         
                                                         $(valueContainer).click(function(){//enable user to click on the container, and fill the input with the value
-                                                            $($(this).parent().parent().parent().find('input')[0]).attr('value', value);
+                                                            $($('#newRuleContainer').find('input')[0]).attr('value', value);
                                                         });
                                                         
                                                     });
@@ -666,7 +656,7 @@
                                                                 }
                                                                 $(enumeration).append(', ');
                                                                 $(valueContainer).click(function(){//enable user to click on the container, and fill the input with the value
-                                                                    $($(this).parent().parent().parent().find('input')[0]).attr('value', value);
+                                                                    $($('#newRuleContainer').find('input')[0]).attr('value', value);
                                                                 });
                                                             });
                                                             //informationToDisplay = informationToDisplay.slice(0, -2);
@@ -753,6 +743,7 @@
                                                 },
                                                 function(){//13
                                                     removeForms();
+													formToDisplay = '';
                                                 }
                                             ];
                                             
@@ -990,8 +981,9 @@
                                                 todoWhenConditionReady();
                                                 
                                                 function getConditionElementContainer(element){
+													var toReturn;
                                                     if(element.nodeName == 'constraint' ||element.nodeName == 'CONSTRAINT'){
-                                                        return getConstraintContainer(element);
+                                                        toReturn = getConstraintContainer(element);
                                                     }
                                                     else{//AND or OR, with 2 conditionElement children
                                                         var c1, c2;
@@ -1017,7 +1009,7 @@
                                                         }
                                                         
                                                         
-                                                        var toReturn = $('<span>').addClass('conditionElement');
+                                                        toReturn = $('<span>').addClass('conditionElement');
                                                         var conditionTypeContainer = $('<span>').addClass('conditionType').append(' '+_(element.nodeName.toUpperCase()));
                                                         
                                                         $(toReturn).append(' (').append(c1).append(conditionTypeContainer).append(c2).append(' )');
@@ -1029,8 +1021,25 @@
                                                             });
                                                         }
                                                         
-                                                        return toReturn;
                                                     }
+													
+													
+													if(editMode && currentCondition == element && formToDisplay == 'conditionType'){//display the form to chose 'and' or 'or' (which will be then combined with the currentCondition)
+														var conditionSelect = $('<select>');
+														var conditions = ['AND', 'OR'];
+														$(conditions).each(function(id, op){
+															$(conditionSelect).append($('<option>').append(op));
+														});
+														var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
+														$(toReturn).append(conditionSelect).append(formValidator);
+														
+														$(formValidator).click(function(){
+															var cond = $(conditionSelect).val();
+															$(reader).trigger("leafValueReading",  [cond, 0, '#newRuleForm']);	
+														});
+													}
+													
+                                                    return toReturn;
                                                 }
                                                 
                                                 function getConstraintContainer(constraint){
@@ -1121,9 +1130,10 @@
                                                             if(allowComplex){//enable conditions combination only if you aren't currently selecting the operator
                                                             
                                                                 $(operatorContainer).addClass('conditionAdder').attr('title', 'Combine with another constraint').click(function(){
-                                                                    goFromTo(currentOperation, 13);
-                                                                    editingCondition = false;
                                                                     currentCondition = constraint;
+																	goFromTo(currentOperation, 13);
+                                                                    editingCondition = false;
+                                                                    currentCondition = constraint;//doing it once again if changed by goFromTo...
                                                                 });
                                                             }
                                                             
