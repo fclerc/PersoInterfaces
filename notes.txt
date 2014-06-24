@@ -1,10 +1,7 @@
 Afficher échelles sur XMLDisplay
 Afficher échelles sur paramètres
 Possibilité afficher uniquement échelles, et pas valeurs
-focus sur activités et paramètres
-Suppr tous boutons
 Fichier config
-déplacer priorité
 
 Vérifier stabilité zone de règle
 

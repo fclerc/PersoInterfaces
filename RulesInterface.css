@@ -179,6 +179,13 @@ body{
     margin-left: 5px;
     margin-right:5px;
 }
+
+#Rules #newRuleForm{
+    background-color: #00FF00;
+    padding:3px;
+    border-radius: 10px;
+}
+
 #Rules #newRuleForm .glyphicon{
     color:#698B22;
     margin-left:5px;
@@ -262,3 +269,13 @@ body{
     /*background-color: #7777DD*/
 }
 
+#scaleDisplayer{
+    position: absolute;
+    width: 30%;
+    left: 35%;
+    top: 30%;
+    background-color: #AAAAAA;
+    padding: 5px;
+    border-radius: 30px;
+    display:none;
+}
