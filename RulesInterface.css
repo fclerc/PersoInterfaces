@@ -73,14 +73,14 @@ body{
     padding:0.1%;
     margin:0.1%;
 }
-#Rules .parameterAdder,#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .activityRemover, #Rules .constraintEditor, #Rules .constraintRemover{
+#Rules .parameterAdder,#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .activityRemover, #Rules .constraintEditor, #Rules .constraintRemover, #Rules .activityAdder, #Rules .constraintAdder{
     opacity:0.6;
 }
-#Rules .parameterAdder:hover,#Rules .parameterRemover:hover,#Rules .parameterValueEditor:hover, #Rules .activityRemover:hover, #Rules .constraintEditor:hover, #Rules .constraintRemover:hover{
+#Rules .parameterAdder:hover,#Rules .parameterRemover:hover,#Rules .parameterValueEditor:hover, #Rules .activityRemover:hover, #Rules .constraintEditor:hover, #Rules .constraintRemover:hover, #Rules .activityAdder:hover, #Rules .constraintAdder:hover{
     cursor:pointer;
     opacity:1;
 }
-#Rules .parameterAdder{
+#Rules .parameterAdder, #Rules .activityAdder, #Rules .constraintAdder{
     color:green;
 }
 #Rules .parameterRemover, #Rules .activityRemover{
@@ -89,16 +89,21 @@ body{
 #Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .constraintEditor, #Rules .constraintRemover{
     margin-left:3px;
 }
+
+#Rules .constraintAdder{
+    margin-left: 5px;
+}
+
 #Rules .then >span, #Rules .else >span, #Rules .ifContainer{
     font-weight : bold;
 }
-#Rules .ruleEditor, #Rules .ruleRemover, #Rules .ruleDuplicator{
+#Rules .ruleEditor, #Rules .ruleRemover, #Rules .ruleDuplicator, #Rules .ruleSaver{
     top: 5px;
     font-size: 20px;
     opacity: 0.6;
     position:absolute;
 }
-#Rules .ruleRemover:hover, #Rules .ruleEditor:hover, #Rules .ruleDuplicator:hover{
+#Rules .ruleRemover:hover, #Rules .ruleEditor:hover, #Rules .ruleDuplicator:hover, #Rules .ruleSaver:hover{
     cursor:pointer;
     opacity: 1;
 }
@@ -114,6 +119,13 @@ body{
 #Rules .ruleDuplicator{
     right: 55px;
 }
+
+#Rules .ruleSaver{
+    right: 80px;
+    top: 6.5px;
+}
+
+
 #Rules .ruleContainer h4{
     padding-top:3px;
 }
@@ -131,8 +143,8 @@ body{
 }
 #Rules .priority{
     position:absolute;
-    right:5px;
-    bottom:5px;
+    right:115px;
+    top:5px;
     font-weight:bold;
 }
 #Rules .indicator:hover{background-color : #FF7F24;
@@ -239,6 +251,6 @@ body{
 }
 
 #Rules #newRuleContainer .ruleContainer{
-    background-color: #7777DD
+    /*background-color: #7777DD*/
 }
 

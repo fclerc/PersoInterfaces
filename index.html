@@ -892,7 +892,7 @@
                                                 
                                                 var priority = $($(rule).find("priority")[0]).text();
                                                 var priorityContainer = $('<div>').addClass('priority').append(_('Priority: '));
-                                                if(editMode && formToDisplay == 'priority'){
+                                                if(editMode && formToDisplay == 'priority'){//we are editing the priority
                                                     var valueInput = $('<input>').attr('type', 'text').attr('value', priority);
                                                     $(priorityContainer).append(valueInput);
                                                     var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
@@ -905,16 +905,18 @@
                                                    
                                                 }
                                                 else if(editMode){//just display the value, and an icon to modify it
-                                                    priorityContainer.append(priority);
+                                                    $(priorityContainer).append(priority);
 													
 													var priorityEditor = $('<span>').addClass('glyphicon glyphicon-edit priorityEditor').attr('title', _('Edit priority'));
 													
 													$(priorityEditor).click(function(){
-														goFromTo(currentOperation, 10);													
+														goFromTo(currentOperation, 10);				
 													});
 													
 													$(priorityContainer).append(priorityEditor);
-													
+                                                }
+                                                else{
+                                                    $(priorityContainer).append(priority);
                                                 }
                                                 
                                                 
