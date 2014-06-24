@@ -28,7 +28,7 @@ function displayParameterScale(scaleElement, container, clickable){//TODO : add 
             
         });
         if(clickable){
-            $(enumeration).append(_('click on the value you want'))
+            $(enumeration).append(_('click on the value you want'));
         }
         $(informationToDisplay).append(enumeration);
     
@@ -63,21 +63,11 @@ function displayParameterScale(scaleElement, container, clickable){//TODO : add 
 Takes the name of an indicator, and displays the corresponding scale.
 function displayIndicatorScale(indicatorName){//TODO : merge with precedent one, with argument profile or activity
 */
-function displayIndicatorScale(indicatorName, container, currentIndicatorId, profileScales, contextScales, clickable){//TODO : merge with precedent one, with argument profile or activity
-    var informationToDisplay = $('<span>').addClass('scaleInformation');
-    var scales;//2 possible values, profileScales and contextScales, depending on where the indicator comes from.
-    //TODO : I already have this information in todoBefore[3]
-    if($('#Profile' + ' #' +currentIndicatorId).length > 0){//the indicator is in the profile
-         scales = profileScales;
-    }
-    else{
-        scales = contextScales;
-    }
-                
+function displayIndicatorScale(indicatorName, container, currentIndicatorId, scales, clickable){//TODO : merge with precedent one, with argument profile or activity
     
+    var informationToDisplay = $('<span>').addClass('scaleInformation');
     if(scales[indicatorName]){//if a constraint concerning this indicator is present
         var scaleElement = scales[indicatorName];
-    
         if(scaleElement.nature == 'predefined'){
             $(informationToDisplay).append(_('The value must be a'));
             $(informationToDisplay).append(_(scaleElement.typeName));
@@ -108,24 +98,26 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, pro
                 //informationToDisplay = informationToDisplay.slice(0, -2);
                 $(informationToDisplay).append(enumeration);
                 if(clickable){
-                    $(enumeration).append(_('click on the value you want'))
+                    $(enumeration).append(_('click on the value you want'));
                 }
             }
             
         }
-                                                         
-    }
-    else{
-        $(informationToDisplay).append(_('There is no particular constraint on this parameter'));
-    }
-    var commentPopover;
-    if(scaleElement.documentation){
-        var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', _('More information'));
-        $(commentPopover).click(function(){
-            alert(scaleElement.documentation);
-        });
+        else{
+            $(informationToDisplay).append(_('There is no particular constraint on this parameter'));
+        }
+        
+        var commentPopover;
+        if(scaleElement.documentation && clickable){
+            commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', _('More information'));
+            $(commentPopover).click(function(){
+                alert(scaleElement.documentation);
+            });
+        }
+        
+        $(container).append(informationToDisplay).append(commentPopover);
+                                                     
     }
     
-    $(container).append(informationToDisplay).append(commentPopover);
-
+    
 }

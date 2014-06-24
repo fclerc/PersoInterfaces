@@ -49,10 +49,10 @@
         <script type="text/javascript" src="jquery-2.1.1.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         
+        <script type="text/javascript" src="scaleDisplayers.js"></script>
         <script type="text/javascript" src="xmlManipulator.js"></script>
         <script type="text/javascript" src="translation/translate.js"></script>
         <script type="text/javascript" src="translation/icu.js"></script>
-        <script type="text/javascript" src="scaleDisplayers.js"></script>
         <script type="text/javascript">
             
         
@@ -111,8 +111,8 @@
                 var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
                 var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
                 var pedagogicalPropertiesFilename = $($(strategy).find('pedagogicalProperties')[0]).text();
-                var t1 = manipulateXML(profileFilename,'#Profile', 'select', "#Rules");
-                var t2 = manipulateXML(contextFilename,'#Context', 'select', '#Rules');
+                var t1 = manipulateXML(profileFilename,'#Profile', 'select', "#Rules", profileScales, '#scaleDisplayer');
+                var t2 = manipulateXML(contextFilename,'#Context', 'select', '#Rules', contextScales, '#scaleDisplayer');
                 
                 $.when(t1, t2).done(function() {//when profile and context are displayed
                     
@@ -521,11 +521,12 @@
                             var indicatorName;
                             if($(profile).find('#'+currentIndicatorId)[0]){
                                 indicatorName = $(profile).find('#'+currentIndicatorId)[0].nodeName;
+                                displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, profileScales, true);
                             }
                             else{
                                 indicatorName = $(context).find('#'+currentIndicatorId)[0].nodeName;
+                                displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, contextScales, true);
                             }
-                            displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, profileScales, contextScales, true);
                         },
                         function(){//4
                             formToDisplay = 'thenActivity';

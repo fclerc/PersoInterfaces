@@ -1,9 +1,6 @@
-Afficher échelles sur XMLDisplay
-Afficher échelles sur paramètres
 Possibilité afficher uniquement échelles, et pas valeurs
 Fichier config
-
-Vérifier stabilité zone de règle
+!script  insertion dans xmldisplay
 
 
 Aller un cran plus haut dans navigation :

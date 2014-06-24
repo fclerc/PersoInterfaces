@@ -15,7 +15,7 @@ In mode 'select', "leafValueReading" events will be triggered, containing the id
 //mode : 'modify', 'select'
 //container : the id of the container of the displayed XML, for example : '#MyXMLContainer'. Used as a sort of namespace for data manipulation in case of using several times this function in the same page (see xml[container] or selectors to define events).
 //reader : "leafValueReading" events will be triggered, and reader will be your own element (on your web page) that will trigger these events, and then treat them (to display the content on which the user clicked).
-function manipulateXML(filename, container, mode, reader){
+function manipulateXML(filename, container, mode, reader, scales = '', scaleContainer = ''){
     
     return $.ajax({
 		type: "GET",
@@ -26,7 +26,7 @@ function manipulateXML(filename, container, mode, reader){
 			
 			
 			//going recursively through the xml, and displaying its content
-			$(container).append($('<div>').addClass('XMLContainer').addClass(filename.split('.').join("")).append(displayAndChildren($(xml[container]).children().first()[0], mode) ));
+			$(container).append($('<div>').addClass('XMLContainer').addClass(filename.split('.').join("")).append(displayAndChildren($(xml[container]).children().first()[0], mode, scales, scaleContainer) ));
 			
 			//for elements having list below them : toggle visibility of this list when clicking on the element
 			$(container +' .reducer').click(function(event){
@@ -76,7 +76,7 @@ function manipulateXML(filename, container, mode, reader){
 									id = data[0];
 									var attribute = data[1];
 									var valueToDisplay;
-									if(value == ''){//never let a span empty, otherwise it won't be possible to click on it
+									if(value === ''){//never let a span empty, otherwise it won't be possible to click on it
 										valueToDisplay = '&nbsp';
 									}
 									else valueToDisplay = value;
@@ -88,7 +88,7 @@ function manipulateXML(filename, container, mode, reader){
 									id = $(input).parent().parent().attr("id");//corresponding id in the xml tree
 									
 									var valueToDisplay;
-									if(value == ''){//never let a span empty, otherwise it won't be possible to click on it
+									if(value === ''){//never let a span empty, otherwise it won't be possible to click on it
 										valueToDisplay = '&nbsp';
 									}
 									else valueToDisplay = value;
@@ -143,15 +143,37 @@ function manipulateXML(filename, container, mode, reader){
     //this function takes a XML node as argument, and returns an element <li> containing his Name, and:
     //-if it has children: the list of its children
     //-if it has no child: display  its value
-function displayAndChildren(xmlNode, mode){
+function displayAndChildren(xmlNode, mode, scales, scaleContainer){
     //for each node : add it as an item to the list of its parent's elements (except for first element)
     var idText='';//uncomment next line to display the id
     //var idText=' (' + $(xmlNode).attr('id') + ') ';
     var nodeName = xmlNode.nodeName;
+    var untranslatedNodeName = nodeName;
     if(typeof window._ != "undefined"){//if translation object is set, translate the nodeName
         nodeName = _(nodeName);
     }
     var result = $('<li>').attr('id', $(xmlNode).attr('id')).append($('<span>').append(nodeName + idText).addClass('elementName'));
+    
+    if(scales !== ''){//if we want to display the scales TODO : use mode (also for attributes display)
+        var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', _('Click for more information'));
+        $(commentPopover).hover(function(){
+            $(scaleContainer).empty();
+            displayIndicatorScale(untranslatedNodeName, scaleContainer, $(xmlNode).attr('id'), scales, false);
+            $(scaleContainer).show();
+        },
+        function(){
+            $('#scaleDisplayer').hide();
+        });
+        if(scales[untranslatedNodeName]){
+            if(scales[untranslatedNodeName].documentation){
+                $(commentPopover).click(function(){
+                    alert(scales[untranslatedNodeName].documentation);
+                });
+            }
+            $(result).append(commentPopover);
+        }
+    }
+    
     
     if($(xmlNode).children().length>0 || xmlNode.attributes.length > 1){
     //if the node has children : display the list of these children.
@@ -160,7 +182,7 @@ function displayAndChildren(xmlNode, mode){
         $(result).addClass('hasChild');
         $(result).prepend($('<span>').addClass('glyphicon glyphicon-minus').addClass('reducer'));
         
-        if($(xmlNode).children().length == 0){//if it has attributes, but no child : its text value has to be displayed
+        if($(xmlNode).children().length === 0){//if it has attributes, but no child : its text value has to be displayed
             result.append(': ').append($('<span>').append($(xmlNode).html()).addClass("value"));
         }
         
@@ -178,7 +200,7 @@ function displayAndChildren(xmlNode, mode){
                     attribName = _(attribName);
                 }
 				var attributeValue = attrib.value;
-				if(attributeValue == ''){
+				if(attributeValue === ''){
 					attributeValue = '&nbsp;';
 				}
 				
@@ -189,7 +211,7 @@ function displayAndChildren(xmlNode, mode){
         });
         
         $(xmlNode).children().each(function(){
-            $(chs).append(displayAndChildren(this, mode));
+            $(chs).append(displayAndChildren(this, mode, scales, scaleContainer));
         });
         
         result.append(chs);
@@ -200,7 +222,7 @@ function displayAndChildren(xmlNode, mode){
     //if no child: display the node value, with class indicating you can modify it (if mode = modify)
 		
 		var valueContainer = $('<span>');
-		if($(xmlNode).html() == ''){
+		if($(xmlNode).html() === ''){
 			$(valueContainer).append('&nbsp;');
 		}
 		else{

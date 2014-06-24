@@ -60,12 +60,12 @@ body{
 #Activities{
     width : 16%;
 }
-#Activities .commentPopover{
+#Activities .commentPopover, #ProfileAndContext .commentPopover{
     margin-left: 3px;
     color:#5555FF;
     opacity:0.6;
 }
-#Activities .commentPopover:hover{
+#Activities .commentPopover:hover, #ProfileAndContext .commentPopover:hover{
     opacity: 1;
     cursor: pointer;
 }
@@ -274,8 +274,9 @@ body{
     width: 30%;
     left: 35%;
     top: 30%;
-    background-color: #AAAAAA;
-    padding: 5px;
+    background-color: #FFFFFF;
+	border: 5px solid black;
+    padding: 10px;
     border-radius: 30px;
     display:none;
 }
