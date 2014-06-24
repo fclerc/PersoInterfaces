@@ -237,3 +237,8 @@ body{
     cursor: pointer;
     color: green;
 }
+
+#Rules #newRuleContainer .ruleContainer{
+    background-color: #7777DD
+}
+

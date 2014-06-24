@@ -1,4 +1,21 @@
--enum remplit input du newrulecontainer
+Afficher échelles sur XMLDisplay
+Afficher échelles sur paramètres
+Possibilité afficher uniquement échelles, et pas valeurs
+onfocus : déplier
+focus sur activités et paramètres
+Suppr tous boutons
+Fichier config
+
+Vérifier stabilité zone de règle
+
+
+Aller un cran plus haut dans navigation :
+-page centrale
+-gestion profils pour jouer
+-gestion stratégies
+
+-refactoring
+
 
 Pour activités : nécessité de réécrire un code spécifique pour l'afficher, dans la mesure où on ne veut pas aficher la même chose, et la fonction manipulateXML que j'ai écrite doit rester générique.
 

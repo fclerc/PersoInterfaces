@@ -117,7 +117,7 @@ function manipulateXML(filename, container, mode, reader){
             
             
 			if(mode=='modify'){
-				$(container).append($('<button>').addClass('btn btn-info').attr('id', "XMLSaveButton").append($('<span>').addClass('glyphicon glyphicon-floppy-disk')).append("Save modifications"));
+				$(container).prepend($('<button>').addClass('btn btn-info').attr('id', "XMLSaveButton").append($('<span>').addClass('glyphicon glyphicon-floppy-disk')).append("Save modifications"));
 			
 			
 			
