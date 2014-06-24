@@ -164,6 +164,13 @@ body{
 #Rules #ruleAdder{
     margin-left:1%;
 }
+
+#Rules .typeOfActivity:hover, #Rules .parameters > li:hover{
+    background-color: #FF7F24;
+    cursor: pointer;
+}
+
+
 #Rules #newRuleInstruction{
     background-color: #9ACD32;
     padding:4px;
