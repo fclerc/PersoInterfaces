@@ -1,3 +1,5 @@
+!!!!!!!!!!!!!!!!!!FIX xml reducer issue + XMLDISPLAY BUG WHEN MODIFY
+
 -inputContainer comme argument dans les scales
 
 Fichier config
@@ -11,6 +13,9 @@ Aller un cran plus haut dans navigation :
 
 -refactoring
 
+idAdderRunner : à utiliser quand on vient de créer un nouveau xml, avec des tags sans id
+
+!sur serveur : toutes url en absolu
 
 Pour activités : nécessité de réécrire un code spécifique pour l'afficher, dans la mesure où on ne veut pas aficher la même chose, et la fonction manipulateXML que j'ai écrite doit rester générique.
 

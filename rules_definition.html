@@ -4,8 +4,8 @@
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
-        <link href="XMLDisplay.css" type="text/css" rel="stylesheet"/>
-        <link href="RulesInterface.css" type="text/css" rel="stylesheet"/>
+        <link href="css/XMLDisplay.css" type="text/css" rel="stylesheet"/>
+        <link href="css/RulesInterface.css" type="text/css" rel="stylesheet"/>
         
         <style>
         
@@ -46,11 +46,11 @@
 		</div>
         <div id="scaleDisplayer"></div>
 		
-        <script type="text/javascript" src="jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         
-        <script type="text/javascript" src="scaleDisplayers.js"></script>
-        <script type="text/javascript" src="xmlManipulator.js"></script>
+        <script type="text/javascript" src="js/scaleDisplayers.js"></script>
+        <script type="text/javascript" src="js/xmlManipulator.js"></script>
         <script type="text/javascript" src="translation/translate.js"></script>
         <script type="text/javascript" src="translation/icu.js"></script>
         <script type="text/javascript">
@@ -68,19 +68,18 @@
         
             $('#ProfileAndContext h2, #ProfileAndContext p, #ProfileAndContext ul li a, #Rules h2, #Rules h3, #Rules button span, #Activities h2').each(function(){
                 $(this).text(_($(this).text()));
-            
             });
         
         
-        $.getJSON('profileScales.json', function(profileScales){
-        $.getJSON('contextScales.json', function(contextScales){
+        $.getJSON('resources/schemas/profileScales.json', function(profileScales){
+        $.getJSON('resources/schemas/contextScales.json', function(contextScales){
         $.ajax({
             type: "GET",
-            url: 'foveaProfile.xml',
+            url: 'resources/teacher/profiles/profile1.xml',
             success: function(profile){
         $.ajax({
             type: "GET",
-            url: 'foveaContext.xml',
+            url: 'resources/teacher/liveContexts/liveContext1.xml',
             success: function(context){
 
 
@@ -103,7 +102,7 @@
             
         $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
             type: "GET",
-            url: 'foveaStrategy.xml',
+            url: 'resources/teacher/strategies/foveaStrategy1.xml',
             success: function(data){//get the xml document
                 var strategy = $(data);//load xml tree
                 

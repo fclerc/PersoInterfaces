@@ -5,7 +5,7 @@ You can change the call to manipulateXML to make some tests. See xmlManipulator.
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
-        <link href="XMLDisplay.css" type="text/css" rel="stylesheet"/>
+        <link href="css/XMLDisplay.css" type="text/css" rel="stylesheet"/>
         
         <style>
             #container{
@@ -30,12 +30,12 @@ You can change the call to manipulateXML to make some tests. See xmlManipulator.
         <div id="container"></div>
         <div id="receiver"></div>
         
-        <script type="text/javascript" src="jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         
-        <script type="text/javascript" src="xmlManipulator.js"></script>
+        <script type="text/javascript" src="js/xmlManipulator.js"></script>
         <script type="text/javascript">
-            manipulateXML('foveaContext.xml','#container', 'modify', "#receiver");
+            manipulateXML('resources/teacher/sequenceContexts/sequenceContext1.xml','#container', 'modify', "#receiver");
             
             $('#receiver').on('leafValueReading', function(event, value, id, container){
                 //alert('Value: '+value+ ', id: '+id +', container: ' +container);
