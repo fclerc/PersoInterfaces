@@ -487,7 +487,7 @@
                                                     $('#newRuleContainer').empty();
                                                 },
                                                 function(){//1
-                                                    addEditButtons();
+                                                    //addEditButtons();
 													formToDisplay = 'indicator';
                                                 },
                                                 function(){//2
@@ -544,7 +544,7 @@
                                                 
                                                 },
                                                 function(){//11
-                                                    addEditButtons();
+                                                    //addEditButtons();
                                                 },
                                                 function(){//12
                                                     removeAllButtons();
@@ -773,7 +773,7 @@
                                                     goFromTo(0,1);
                                                 }
                                             });
-                                            
+                                            //obsolete
                                             function addEditButtons(){
                                                 addButton(_("Edit 'IF'"), 'ifEditorButton', 1);
                                                 addButton(_("Add 'THEN' Activity"), 'thenEditorButton', 4);
@@ -825,7 +825,7 @@
                                             function removeForms(){
                                                 $('#newRuleForm').empty();
                                             }
-                                            
+                                            //obsolete
                                             function addButton(value, id, operationIfClicked){//adding a button to chose next interaction with the rule; and triggering event to the reader
                                                 if($('#newRuleButtons').find('#'+id).length===0){                            
                                                     var button = $('<button>').append(value).addClass('operationButton btn btn-primary').attr('id', id);
@@ -866,7 +866,7 @@
                                                         builtRule = $(rule).clone();
                                                         var nextRuleId = rulesMaxId+1;
                                                         $(builtRule).attr('id', 'R'+(nextRuleId));
-                                                        addEditButtons();
+                                                        //addEditButtons();
                                                         displayNewRule();
                                                         $('#newRuleInstruction')[0].scrollIntoView(true);
                                                 }
@@ -885,6 +885,10 @@
                                                 var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right').attr('title', _('Delete rule'));
                                                 var ruleEditor = $('<span>').addClass('glyphicon glyphicon-edit ruleEditor pull-right').attr('title', _('Edit rule'));
                                                 var ruleDuplicator = $('<span>').addClass('glyphicon glyphicon-share ruleDuplicator pull-right').attr('title', _('Duplicate rule'));
+                                                
+                                                
+                                                
+                                                
                                                 
                                                 var priority = $($(rule).find("priority")[0]).text();
                                                 var priorityContainer = $('<div>').addClass('priority').append(_('Priority: '));
@@ -915,6 +919,18 @@
                                                 
                                                 
                                                 var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append(_('Rule') + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(ruleDuplicator).append(priorityContainer);
+                                                
+                                                if(editMode){
+                                                    var ruleSaver = $('<span>').addClass('glyphicon glyphicon-floppy-disk ruleSaver pull-right').attr('title', _('Save rule'));
+                                                    $(ruleSaver).click(function(){
+                                                        goFromTo(currentOperation, 11);
+                                                        resetAllCurrent = true;
+                                                        saveRule();
+                                                    });
+                                                    
+                                                    $(ruleContainer).append(ruleSaver);
+                                                }
+                                                
                                                 
                                                 if(!createdRule){
                                                     var ruleIdNumber = parseInt($(rule).attr('id').split('R')[1]);
@@ -973,8 +989,15 @@
 												}
 												else if(editMode && formToDisplay == 'indicator'){//no constraint and we are in edit mode, wanting to modify indicator : tell the user he has to select an indicator
 													$(ifContainer).append($('<span>').addClass('instruction').append(_(' Select indicator')));
-												
 												}
+                                                else if(editMode && formToDisplay !='indicator'){//editmode, with 'if' void and which is not currently edited : display a '+' icon to enable to add a constraint
+                                                    var constraintAdder = $('<span>').addClass('glyphicon glyphicon-plus constraintAdder').attr('title', _('Add constraint'));
+                                                    $(constraintAdder).click(function(){
+                                                        goFromTo(currentOperation, 1);
+                                                        currentCondition = null;
+                                                    });
+                                                    $(ifContainer).append(constraintAdder);
+                                                }
 												
 												
 												
@@ -1245,6 +1268,23 @@
                                                 function getConsequencesContainer(consequencesElement, containerName){
                                                 
                                                     var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(_(containerName.toUpperCase())+_(' the learner will do the following activities: ')));
+                                                    
+                                                    if(editMode){//displaying '+' icon to add a new activity
+                                                        var activityAdder = $('<span>').addClass('glyphicon glyphicon-plus activityAdder').attr('title', _('Add activity'));
+                                                        $(activityAdder).click(function(){
+                                                            var operationIfClicked;
+                                                            if(containerName == 'then'){
+                                                                operationIfClicked = 4;
+                                                            }
+                                                            else{
+                                                                operationIfClicked = 7;
+                                                            }
+                                                            goFromTo(currentOperation, operationIfClicked);
+                                                        });
+                                                        $(consequenceContainer).append(activityAdder);
+                                                    }
+                                                    
+                                                    
                                                     var activitiesContainer = $('<ul>');
                                                     $(consequencesElement).find('activity').each(function(){
                                                         var activity = this;
