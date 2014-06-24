@@ -44,7 +44,7 @@
 		<div id="Activities" class="mains">
 			<h2>Selection of the activities</h2>
 		</div>
-        <div id="scaleDisplayer">blop</div>
+        <div id="scaleDisplayer"></div>
 		
         <script type="text/javascript" src="jquery-2.1.1.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -111,8 +111,8 @@
                 var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
                 var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
                 var pedagogicalPropertiesFilename = $($(strategy).find('pedagogicalProperties')[0]).text();
-                var t1 = manipulateXML(profileFilename,'#Profile', 'select', "#Rules", profileScales, '#scaleDisplayer');
-                var t2 = manipulateXML(contextFilename,'#Context', 'select', '#Rules', contextScales, '#scaleDisplayer');
+                var t1 = manipulateXML(profileFilename,'#Profile', 'selectWithValues', "#Rules", profileScales, '#scaleDisplayer');
+                var t2 = manipulateXML(contextFilename,'#Context', 'selectWithValues', '#Rules', contextScales, '#scaleDisplayer');
                 
                 $.when(t1, t2).done(function() {//when profile and context are displayed
                     

@@ -12,9 +12,11 @@ In mode 'select', "leafValueReading" events will be triggered, containing the id
 
 
 
-//mode : 'modify', 'select'
+//mode : 'modify', 'selectWithValues', 'selectWithoutValues' (values aren't displayed)
 //container : the id of the container of the displayed XML, for example : '#MyXMLContainer'. Used as a sort of namespace for data manipulation in case of using several times this function in the same page (see xml[container] or selectors to define events).
 //reader : "leafValueReading" events will be triggered, and reader will be your own element (on your web page) that will trigger these events, and then treat them (to display the content on which the user clicked).
+//scales : json with information about the indicators. WARNING : scalesDisplayers have to be loaded before.
+//scaleContainer : the html element you want the scale to be displayed
 function manipulateXML(filename, container, mode, reader, scales = '', scaleContainer = ''){
     
     return $.ajax({
@@ -218,7 +220,7 @@ function displayAndChildren(xmlNode, mode, scales, scaleContainer){
     
     }
     
-    else{
+    else if(mode == 'selectWithValues'){
     //if no child: display the node value, with class indicating you can modify it (if mode = modify)
 		
 		var valueContainer = $('<span>');
