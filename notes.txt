@@ -1,4 +1,5 @@
-Possibilité afficher uniquement échelles, et pas valeurs
+-inputContainer comme argument dans les scales
+
 Fichier config
 !script  insertion dans xmldisplay
 
