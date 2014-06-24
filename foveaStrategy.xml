@@ -7,7 +7,7 @@
 	<rule id="R1">
 		<priority>3</priority>
 		<if><!--  You can use <and> <or> to combine conditions  -->
-			<and>
+			<or xmlns="http://www.w3.org/1999/xhtml">
                 <constraint>            
                     <indicator>LP25</indicator>
                     <operator>=</operator> <!--  Also >   <    !=   -->
@@ -25,7 +25,7 @@
                         <referencevalue>absent</referencevalue>
                     </constraint>
                 </or>
-            </and>
+            </or>
 		</if>
 		<then>
 			<activities>

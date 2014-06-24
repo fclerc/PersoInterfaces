@@ -73,20 +73,20 @@ body{
     padding:0.1%;
     margin:0.1%;
 }
-#Rules .parameterAdder,#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .activityRemover, #Rules .constraintEditor, #Rules .constraintRemover, #Rules .activityAdder, #Rules .constraintAdder{
+#Rules .parameterAdder,#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .activityRemover, #Rules .constraintEditor, #Rules .constraintRemover, #Rules .activityAdder, #Rules .constraintAdder, #Rules .conditionTypeEditor, #Rules .otherConstraintAdder{
     opacity:0.6;
 }
-#Rules .parameterAdder:hover,#Rules .parameterRemover:hover,#Rules .parameterValueEditor:hover, #Rules .activityRemover:hover, #Rules .constraintEditor:hover, #Rules .constraintRemover:hover, #Rules .activityAdder:hover, #Rules .constraintAdder:hover{
+#Rules .parameterAdder:hover,#Rules .parameterRemover:hover,#Rules .parameterValueEditor:hover, #Rules .activityRemover:hover, #Rules .constraintEditor:hover, #Rules .constraintRemover:hover, #Rules .activityAdder:hover, #Rules .constraintAdder:hover, #Rules .conditionTypeEditor:hover, #Rules .otherConstraintAdder:hover{
     cursor:pointer;
     opacity:1;
 }
-#Rules .parameterAdder, #Rules .activityAdder, #Rules .constraintAdder{
+#Rules .parameterAdder, #Rules .activityAdder, #Rules .constraintAdder, #Rules .otherConstraintAdder{
     color:green;
 }
 #Rules .parameterRemover, #Rules .activityRemover{
     color:red;
 }
-#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .constraintEditor, #Rules .constraintRemover{
+#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .constraintEditor, #Rules .constraintRemover, #Rules .conditionTypeEditor, #Rules .otherConstraintAdder{
     margin-left:3px;
 }
 
@@ -147,7 +147,8 @@ body{
     top:5px;
     font-weight:bold;
 }
-#Rules .indicator:hover{background-color : #FF7F24;
+#Rules .indicator:hover{
+    background-color : #FF7F24;
     cursor: pointer;
     border-radius:5px;
 }
@@ -242,8 +243,8 @@ body{
     margin-bottom:5px;   
 }
 #Rules #newRuleForm select:hover, #Rules #newRuleForm input:hover{
-      border-color: #66afe9;
-      outline: 0; 
+    border-color: #66afe9;
+    outline: 0; 
 }
 #Rules #newRuleForm .inputFiller:hover{
     cursor: pointer;

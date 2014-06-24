@@ -342,6 +342,9 @@
 											//'thenActivity' if the user has to chose an activity in the list for the then part
 											//'elseActivity' if the user has to chose an activity in the list for the else part
                                             //'conditionType' if the user has to chose between 'and' and 'or'
+                                            //'conditionTypeEdition' if the user has to chose between 'and' and 'or' to MODIFY a condition operator
+                                            
+                                            
                                             $("#Rules").on("leafValueReading", function(event, value, id, container){
                                                 
                                                 
@@ -460,7 +463,14 @@
                                                 }
                                                 
                                                 else if(currentOperation == 13){
-                                                    $(currentCondition).wrap($('<'+ value +'>'));
+                                                    if(currentCondition.nodeName == 'constraint' || currentCondition.nodeName == 'CONSTRAINT' || formToDisplay == 'conditionType'){//we are adding a new constraint
+                                                        $(currentCondition).wrap($('<'+ value +'>'));
+                                                    }
+                                                    else{//we are changing the 'and' or 'or' of the current condition
+                                                        
+                                                        var content = $(currentCondition).html();
+                                                        $(currentCondition).replaceWith($('<'+ value +'>').html(content));
+                                                    }
                                                     goFromTo(13, 1);
                                                 }
                                                 
@@ -551,7 +561,9 @@
                                                     $('#newRuleContainer').empty();
                                                 },
                                                 function(){//13
-													formToDisplay = 'conditionType';
+													if(formToDisplay != 'conditionTypeEdition'){
+                                                        formToDisplay = 'conditionType';
+                                                    }
                                                 }
                                             ];
                                             
@@ -1035,17 +1047,58 @@
                                                         
                                                         
                                                         toReturn = $('<span>').addClass('conditionElement');
-                                                        var conditionTypeContainer = $('<span>').addClass('conditionType').append(' '+_(element.nodeName.toUpperCase()));
                                                         
-                                                        $(toReturn).append(' (').append(c1).append(conditionTypeContainer).append(c2).append(' )');
+                                                        var conditionTypeContainer = $('<span>').addClass('conditionType');
+                                                        
                                                         if(editMode){
-                                                            $(conditionTypeContainer).addClass('conditionAdder').attr('title', 'Combine with another constraint').click(function(){
-                                                               goFromTo(currentOperation, 13);
-                                                               editingCondition = false;
-                                                               currentCondition = element;
-                                                            });
+                                                            if(formToDisplay == 'conditionTypeEdition' && currentCondition == element){
+                                                                var conditionSelect = $('<select>');
+                                                                var conditions = ['AND', 'OR'];
+                                                                $(conditions).each(function(id, op){
+                                                                    $(conditionSelect).append($('<option>').append(op));
+                                                                });
+                                                                var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
+                                                                $(conditionTypeContainer).append(conditionSelect).append(formValidator);
+                                                                
+                                                                $(formValidator).click(function(){
+                                                                    var cond = $(conditionSelect).val();
+                                                                    $(reader).trigger("leafValueReading",  [cond, 0, '#newRuleForm']);	
+                                                                });
+                                                            
+                                                            
+                                                            }
+                                                            
+                                                            else{//displaying the operator name, and buttons next to the operator name, to edit and add new constraint
+                                                                $(conditionTypeContainer).append(' '+_(element.nodeName.toUpperCase()));
+                                                            
+                                                                var conditionTypeEditor = ($('<span>').addClass('glyphicon glyphicon-edit conditionTypeEditor').attr('title', _('Edit operator')));
+                                                                
+                                                                var otherConstraintAdder = $('<span>').addClass('glyphicon glyphicon-plus otherConstraintAdder').attr('title', _('Combine with another constraint'));
+                                                                    
+                                                                $(otherConstraintAdder).click(function(){
+                                                                    currentCondition = element;
+                                                                    goFromTo(currentOperation, 13);
+                                                                    editingCondition = false;
+                                                                    currentCondition = element;//doing it once again if changed by goFromTo...
+                                                                });
+                                                                
+                                                                $(conditionTypeEditor).click(function(){
+                                                                    currentCondition = element;
+                                                                    formToDisplay = 'conditionTypeEdition';
+                                                                    goFromTo(currentOperation, 13);
+                                                                    editingCondition = false;
+                                                                    currentCondition = element;//doing it once again if changed by goFromTo...
+                                                                });
+                                                                
+                                                                $(conditionTypeContainer).append(conditionTypeEditor).append(otherConstraintAdder);
+                                                            }
                                                         }
                                                         
+                                                        else{
+                                                            $(conditionTypeContainer).append(' '+_(element.nodeName.toUpperCase()));
+                                                        }
+                                                        
+                                                        $(toReturn).append(' (').append(c1).append(conditionTypeContainer).append(c2).append(' )');
                                                     }
 													
 													
@@ -1120,6 +1173,9 @@
                                                                 $(reader).trigger("leafValueReading",  [val, 0, '#newRuleContainer']);			
                                                             });
                                                         }
+                                                        
+                                                        
+                                                        
                                                         else{
                                                             $(operatorContainer).append(operator);
                                                         }
@@ -1152,14 +1208,18 @@
                                                         $(constraintContainer).append(referenceValueContainer);
                                                         
                                                         if(editMode){
+                                                            var otherConstraintAdder;
                                                             if(allowComplex){//enable conditions combination only if you aren't currently selecting the operator
-                                                            
-                                                                $(operatorContainer).addClass('conditionAdder').attr('title', 'Combine with another constraint').click(function(){
+                                                                var otherConstraintAdder = $('<span>').addClass('glyphicon glyphicon-plus otherConstraintAdder').attr('title', _('Combine with another constraint'));
+                                                                
+                                                                $(otherConstraintAdder).click(function(){
                                                                     currentCondition = constraint;
 																	goFromTo(currentOperation, 13);
                                                                     editingCondition = false;
                                                                     currentCondition = constraint;//doing it once again if changed by goFromTo...
                                                                 });
+                                                                
+                                                                $(operatorContainer).append(otherConstraintAdder);
                                                             }
                                                             
                                                             var constraintRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle constraintRemover').attr('title', _('Remove constraint'));
