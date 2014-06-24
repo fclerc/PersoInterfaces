@@ -33,6 +33,9 @@ function manipulateXML(filename, container, mode, reader, scales = '', scaleCont
 			//for elements having list below them : toggle visibility of this list when clicking on the element
 			$(container +' .reducer').click(function(event){
 				var toToggle = $(event.target).next().next();
+                if(toToggle[0].nodeName != 'ul' && toToggle[0].nodeName != 'UL'){//in case there is the information icon, go one step further to find the list to hide.
+                    toToggle = $(toToggle).next()
+                }
 					$(toToggle).toggle(300);
 					
 					//just changing the glyphicon
@@ -126,7 +129,7 @@ function manipulateXML(filename, container, mode, reader, scales = '', scaleCont
 			
                 $(container +' #XMLSaveButton').click(function(){//using ajax to store the xml on the server.
                     var xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
-                    $.post('phphelpers/saveXMLDocument.php', { file: filename , data: xmlS}, 
+                    $.post('phphelpers/saveXMLDocument.php', { file: '../'+filename , data: xmlS}, 
                         function(data, txt, jqXHR){
                             if(txt=="success"){
                                 alert('Your data have been successfully saved');
@@ -220,7 +223,7 @@ function displayAndChildren(xmlNode, mode, scales, scaleContainer){
     
     }
     
-    else if(mode == 'selectWithValues'){
+    else if(mode != 'selectWithoutValues'){
     //if no child: display the node value, with class indicating you can modify it (if mode = modify)
 		
 		var valueContainer = $('<span>');
