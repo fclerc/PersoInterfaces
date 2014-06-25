@@ -1,0 +1,34 @@
+{	
+	"sections":[
+		"strategy",
+		"sequenceContext",
+		"profile",
+		"liveContext"
+	],
+
+    "h2":{
+        "profile":"Profile Edition",
+        "liveContext":"Live Context Edition",
+        "sequenceContext":"Sequence Context Edition",
+        "strategy":"Strategy Edition"
+    },
+    "instruction":{
+        "profile":"In this section you can select a profile, to edit its values and realize tests with you strategies.",
+        "liveContext":"In this section you can select a live context, to edit its values and realize tests with you strategies.",
+        "sequenceContext":"Select the sequence context for a week, and you will be able to edit its content.",
+        "strategy":"Select a strategy and edit it to define what you think is best for the learners."
+    },
+    "path":{
+        "profile":"data\/teacher\/profiles",
+        "liveContext":"data\/teacher\/liveContexts",
+        "sequenceContext":"data\/teacher\/sequenceContexts",
+        "strategy":"data\/teacher\/strategies"
+    },
+    "interface":{
+        "profile":"fileValuesModification.php",
+        "liveContext":"fileValuesModification.php",
+        "sequenceContext":"fileValuesModification.php",
+        "strategy":"rules_definition.php"
+    }
+
+}

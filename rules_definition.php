@@ -13,6 +13,9 @@
     </head>
     
     <body>
+		<h1>Strategy definition page:&nbsp;<?php echo $_POST['section']; ?> <small>Currently defining&nbsp;<?php echo $_POST['file']; ?></small></h1>
+		<p id="mainLink"><a href="index.php">Back to main menu</a></p>
+			
         <div id="ProfileAndContext" class="mains">
             <h2>Selection of indicators</h2>
             <p>For each indicator, an example value is given (italic).</p>
@@ -58,6 +61,8 @@
         
         
         $(function(){
+			var strategyPath = <?php echo "'".$_POST['path']."/".$_POST['file']."'"; ?>
+		
         $.ajaxSetup({ cache: false });
             var translationFile = 'translation/fr.json';
         $.ajax({//loading translation
@@ -65,50 +70,37 @@
             url: translationFile,
             success: function(data){
                 _.setTranslation(data);
-        
+			//translating the already displayed content
             $('#ProfileAndContext h2, #ProfileAndContext p, #ProfileAndContext ul li a, #Rules h2, #Rules h3, #Rules button span, #Activities h2').each(function(){
                 $(this).text(_($(this).text()));
             });
         
-        
-        $.getJSON('resources/schemas/profileScales.json', function(profileScales){
-        $.getJSON('resources/schemas/contextScales.json', function(contextScales){
-        $.ajax({
+        $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
             type: "GET",
-            url: 'resources/teacher/profiles/profile1.xml',
+            url: strategyPath,
+            success: function(data){//get the xml document
+				var strategy = $(data);//load xml tree
+                var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
+                var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
+        
+        $.getJSON('data/schemas/profileScales.json', function(profileScales){
+        $.getJSON('data/schemas/contextScales.json', function(contextScales){
+        
+		
+		
+		$.ajax({
+            type: "GET",
+            url: profileFilename,
             success: function(profile){
         $.ajax({
             type: "GET",
-            url: 'resources/teacher/liveContexts/liveContext1.xml',
+            url: contextFilename,
             success: function(context){
 
 
-        
-                function switchProfileContext(){//switches from profile to context and vice-versa in left part.
-                    if($('#Profile').hasClass('active')){
-                        $('#Context').addClass('active');
-                        $('#contextTabLi').addClass('active');
-                        $('#Profile').removeClass('active');
-                        $('#profileTabLi').removeClass('active');
-                    }
-                    else{
-                        $('#Context').removeClass('active');
-                        $('#contextTabLi').removeClass('active');
-                        $('#Profile').addClass('active');
-                        $('#profileTabLi').addClass('active');
-                    }
-                }
-            
-            
-        $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
-            type: "GET",
-            url: 'resources/teacher/strategies/foveaStrategy1.xml',
-            success: function(data){//get the xml document
-                var strategy = $(data);//load xml tree
                 
+				
                 //loading the content of the other xml docs
-                var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
-                var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
                 var pedagogicalPropertiesFilename = $($(strategy).find('pedagogicalProperties')[0]).text();
                 var t1 = manipulateXML(profileFilename,'#Profile', 'selectWithValues', "#Rules", profileScales, '#scaleDisplayer');
                 var t2 = manipulateXML(contextFilename,'#Context', 'selectWithValues', '#Rules', contextScales, '#scaleDisplayer');
@@ -286,7 +278,20 @@
                     }
                     
                     
-                    
+                    function switchProfileContext(){//switches from profile to context and vice-versa in left part.
+						if($('#Profile').hasClass('active')){
+							$('#Context').addClass('active');
+							$('#contextTabLi').addClass('active');
+							$('#Profile').removeClass('active');
+							$('#profileTabLi').removeClass('active');
+						}
+						else{
+							$('#Context').removeClass('active');
+							$('#contextTabLi').removeClass('active');
+							$('#Profile').addClass('active');
+							$('#profileTabLi').addClass('active');
+						}
+					}
                     
                     /*
                     
@@ -683,7 +688,7 @@
                     
                     $('#strategySaver').click(function(){
                         var xmlS = (new XMLSerializer()).serializeToString(strategy[0]);
-                        $.post('saveXMLDocument.php', { file: 'foveaStrategy.xml' , data: xmlS}, 
+                        $.post('phphelpers/saveXMLDocument.php', { file: '../'+strategyPath , data: xmlS}, 
                             function(data, txt, jqXHR){
                                 if(txt=="success"){
                                     alert(_('Your data have been successfully saved'));
@@ -1389,16 +1394,14 @@
                   
             },
             cache: false
-        });//strategy file
+        });//get live context
     
     
-        }, cache: false});// get json context
-        }, cache: false});//get foveaProfile
-        });
+        }});// get profile
+        });//get json context
         });//get json profile
-        },
-            cache: false
-        });//translation file
+        }});//strategy file
+        }});//translation file
         });//jquery entry
         
             

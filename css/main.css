@@ -1,0 +1,13 @@
+.section{
+    width: 48%;
+    margin-right: 2%;
+    margin-bottom: 10px;
+    float:left;
+    padding:5px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+            
+body{
+	overflow-y: scroll;
+}
