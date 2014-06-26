@@ -21,7 +21,7 @@
 
     class XMLIdAdder{
     
-        private $id = 60; //the id will be iterated over all tags
+        private $id = 0; //the id will be iterated over all tags TODO : if ids already exist, search for the highest in the file
         private $prefix='id';
         private $suffix='';
         private $mode='all';

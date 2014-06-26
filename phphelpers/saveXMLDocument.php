@@ -5,7 +5,7 @@ if($_POST['file'] == $_POST['formerFile'] || !(file_exists($_POST['file']))){//n
     $doc = new DOMDocument('1.0');
     $doc->loadXML($_POST['data']);
     $doc->save($_POST['file']);
-    if($_POST['file'] != $_POST['formerFile']){//if the user has renamed the file, delete the former File
+    if($_POST['file'] != $_POST['formerFile'] && $_POST['formerFile']!=''){//if the user has renamed the file, delete the former File
         unlink($_POST['formerFile']);
     }
 }

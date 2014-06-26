@@ -139,9 +139,6 @@ function manipulateXML(filepath, container, mode, reader, scales = '', scaleCont
                     var xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
                     $.post('phphelpers/saveXMLDocument.php', { file: '../'+repo+$(filenameInput).val() , data: xmlS, formerFile: '../'+repo+filename}, 
                         function(data, txt, jqXHR){
-                            console.log(data);
-                            console.log(txt);
-                            console.log(jqXHR);
                             if(txt=="success"){
                                 if(data.message == 'RENAMEERROR'){
                                     alert('File not saved: a file with this name already exists');
