@@ -11,3 +11,15 @@
 body{
 	overflow-y: scroll;
 }
+
+#scalesContainer{
+    position: fixed;
+    width: 30%;
+    left: 35%;
+    top: 30%;
+    background-color: #FFFFFF;
+	border: 5px solid black;
+    padding: 10px;
+    border-radius: 30px;
+    display:none;
+}

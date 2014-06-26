@@ -4,7 +4,7 @@
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
-        <link href="css/XMLDisplay.css" type="text/css" rel="stylesheet"/>
+        <link href="css/XMLManipulator.css" type="text/css" rel="stylesheet"/>
         <link href="css/RulesInterface.css" type="text/css" rel="stylesheet"/>
         
         <style>
@@ -53,7 +53,7 @@
         <script type="text/javascript" src="js/bootstrap.js"></script>
         
         <script type="text/javascript" src="js/scaleDisplayers.js"></script>
-        <script type="text/javascript" src="js/xmlManipulator.js"></script>
+        <script type="text/javascript" src="js/XMLManipulator.js"></script>
         <script type="text/javascript" src="translation/translate.js"></script>
         <script type="text/javascript" src="translation/icu.js"></script>
         <script type="text/javascript">
@@ -63,7 +63,7 @@
         $(function(){
 			var strategyPath = <?php echo "'".$_POST['path']."/".$_POST['file']."'"; ?>
 		
-        $.ajaxSetup({ cache: false });
+        $.ajaxSetup({ cache: false });//TODO : remove it and only cache: false for wise files; not always necessary for translations, documentations,...
             var translationFile = 'translation/fr.json';
         $.ajax({//loading translation
             type: "GET",

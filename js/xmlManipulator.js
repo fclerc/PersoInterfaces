@@ -18,7 +18,6 @@ In mode 'select', "leafValueReading" events will be triggered, containing the id
 //scales : json with information about the indicators. WARNING : scalesDisplayers have to be loaded before.
 //scaleContainer : the html element you want the scale to be displayed
 function manipulateXML(filename, container, mode, reader, scales = '', scaleContainer = ''){
-    
     return $.ajax({
 		type: "GET",
 		url: filename,
@@ -157,17 +156,27 @@ function displayAndChildren(xmlNode, mode, scales, scaleContainer){
     if(typeof window._ != "undefined"){//if translation object is set, translate the nodeName
         nodeName = _(nodeName);
     }
-    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append($('<span>').append(nodeName + idText).addClass('elementName'));
+    
+    var elementNameContainer = $('<span>').append(nodeName + idText).addClass('elementName');
+    if(mode != 'modify'){
+        $(elementNameContainer).addClass('elementNameClickable');
+    }
+    
+    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append(elementNameContainer);
     
     if(scales !== ''){//if we want to display the scales TODO : use mode (also for attributes display)
-        var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', _('Click for more information'));
+        var popoverTitleInfo = 'Click for more information'
+        if(typeof window._ != "undefined"){//if translation object is set, translate the nodeName
+            popoverTitleInfo = _(popoverTitleInfo);
+        }
+        var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', popoverTitleInfo);
         $(commentPopover).hover(function(){
             $(scaleContainer).empty();
             displayIndicatorScale(untranslatedNodeName, scaleContainer, $(xmlNode).attr('id'), scales, false);
             $(scaleContainer).show();
         },
         function(){
-            $('#scaleDisplayer').hide();
+            $(scaleContainer).hide();
         });
         if(scales[untranslatedNodeName]){
             if(scales[untranslatedNodeName].documentation){

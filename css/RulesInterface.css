@@ -39,10 +39,7 @@ h1 small{
 #ProfileAndContext>div{
     width:97%;
 }
-#ProfileAndContext div > li>ul>li{
-    border-radius: 10px;
-    margin-bottom:3px;
-}
+
 #Rules{
     width : 39%;
     position: absolute;
@@ -82,12 +79,12 @@ h1 small{
 #Activities{
     width : 16%;
 }
-#Activities .commentPopover, #ProfileAndContext .commentPopover{
+#Activities .commentPopover{
     margin-left: 3px;
     color:#5555FF;
     opacity:0.6;
 }
-#Activities .commentPopover:hover, #ProfileAndContext .commentPopover:hover{
+#Activities .commentPopover:hover{
     opacity: 1;
     cursor: pointer;
 }

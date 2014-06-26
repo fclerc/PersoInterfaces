@@ -10,10 +10,30 @@
     border-radius:5px;
 }
 
-.XMLContainer .elementName:hover{
+.XMLContainer .elementNameClickable:hover{
     cursor:pointer;
     background-color: #1E90FF;
     border-radius:5px;
+}
+
+.XMLContainer div > li>ul>li{
+    border-radius: 10px;
+    margin-bottom:3px;
+}
+
+.XMLContainer .commentPopover{
+    margin-left: 3px;
+    color:#5555FF;
+    opacity:0.6;
+}
+.XMLContainer .commentPopover{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.XMLContainer > li>ul>li{
+    border-radius: 10px;
+    margin-bottom:3px;
 }
 
 .XMLContainer ul{

@@ -1,16 +1,8 @@
--xmldisplay : remove hover tag pour modify
--xmldisplay: afficher doc en mode modify
-
--inputContainer comme argument dans les scales
 
 Fichier config
 !script  insertion dans xmldisplay
 
-
-Aller un cran plus haut dans navigation :
--page centrale
--gestion profils pour jouer
--gestion stratégies
+-inputContainer comme argument dans les fonctions scale
 
 -refactoring
 

@@ -31,8 +31,6 @@
 	<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	
-	<script type="text/javascript" src="js/xmlManipulator.js"></script>
-	
 	
 	<script type="text/javascript">
 		$(function(){
@@ -52,8 +50,10 @@
 				});
 				var pathForm = $('<input>').attr('type', 'hidden').attr('name', 'path').attr('value', data['path'][section]);
 				var sectionForm = $('<input>').attr('type', 'hidden').attr('name', 'section').attr('value', section);
+				var scalesForm = $('<input>').attr('type', 'hidden').attr('name', 'scales').attr('value', data['scales'][section]);
+				var schemaForm = $('<input>').attr('type', 'hidden').attr('name', 'schema').attr('value', data['schema'][section]);
 				var fileOpener = $('<input>').attr('type', 'submit').attr('Value', 'Open').addClass('btn btn-primary').attr('name', 'fileOpener');
-				$(form).append(fileSelect).append(pathForm).append(sectionForm);
+				$(form).append(fileSelect).append(pathForm).append(sectionForm).append(schemaForm).append(scalesForm);
 				$(form).append(fileOpener);
 				
 				$(sectionContainer).append(form);
@@ -69,23 +69,6 @@
 			});
 		
 		$('#sectionsContainer').append(sectionsContainer);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		});
 		
 		
