@@ -17,17 +17,18 @@ In mode 'select', "leafValueReading" events will be triggered, containing the id
 //reader : "leafValueReading" events will be triggered, and reader will be your own element (on your web page) that will trigger these events, and then treat them (to display the content on which the user clicked).
 //scales : json with information about the indicators. WARNING : scalesDisplayers have to be loaded before.
 //scaleContainer : the html element you want the scale to be displayed
-function manipulateXML(filename, container, mode, reader, scales = '', scaleContainer = ''){
+//filenameContainer : if elements in your page display the name of the file, give their selector in order to have name changed if the user renames his file.
+function manipulateXML(filepath, container, mode, reader, scales = '', scaleContainer = '', filenameContainer = ''){
     return $.ajax({
 		type: "GET",
-		url: filename,
+		url: filepath,
 		success: function(data){//get the xml document
 			var xml = [];
 			xml[container]=$(data);//load xml tree
 			
 			
 			//going recursively through the xml, and displaying its content
-			$(container).append($('<div>').addClass('XMLContainer').addClass(filename.split('.').join("")).append(displayAndChildren($(xml[container]).children().first()[0], mode, scales, scaleContainer) ));
+			$(container).append($('<div>').addClass('XMLContainer').addClass(filepath.split('.').join("")).append(displayAndChildren($(xml[container]).children().first()[0], mode, scales, scaleContainer) ));
 			
 			//for elements having list below them : toggle visibility of this list when clicking on the element
 			$(container +' .reducer').click(function(event){
@@ -121,17 +122,35 @@ function manipulateXML(filename, container, mode, reader, scales = '', scaleCont
             
             
 			if(mode=='modify'){
-				$(container).prepend($('<button>').addClass('btn btn-info').attr('id', "XMLSaveButton").append($('<span>').addClass('glyphicon glyphicon-floppy-disk')).append("Save modifications"));
+				//var filenameInput = $('<input>').attr('type', 'text').attr('value', filename);
+                var filename = filepath.replace(/^.*(\\|\/|\:)/, '');//just the name of the file
+                var repo = filepath.replace('/'+filename, '');//the name of the dossier where the file is situated
+                
+                var filenameInputContainer = $('<span>').append(_('Name: ')).addClass('filenameInput');
+				var filenameInput = $('<input>').attr('type', 'text').attr('value', filename);//input to enable user to change the name of file
+                $(filenameInputContainer).append(filenameInput);
+                $(container).prepend(filenameInputContainer);
+                $(container).prepend($('<button>').addClass('btn btn-info').attr('id', "XMLSaveButton").append($('<span>').addClass('glyphicon glyphicon-floppy-disk')).append("Save modifications"));
 			
 			
 			
 			
                 $(container +' #XMLSaveButton').click(function(){//using ajax to store the xml on the server.
                     var xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
-                    $.post('phphelpers/saveXMLDocument.php', { file: '../'+filename , data: xmlS}, 
+                    $.post('phphelpers/saveXMLDocument.php', { file: '../'+repo+$(filenameInput).val() , data: xmlS, formerFile: '../'+repo+filename}, 
                         function(data, txt, jqXHR){
+                            console.log(data);
+                            console.log(txt);
+                            console.log(jqXHR);
                             if(txt=="success"){
-                                alert('Your data have been successfully saved');
+                                if(data.message == 'RENAMEERROR'){
+                                    alert('File not saved: a file with this name already exists');
+                                }
+                               else{                            
+                                    alert('Your data have been successfully saved');
+                                    filename = $(filenameInput).val();//updating the filename, in case the user renames it one more time
+                                    $(filenameContainer).text(filename);
+                                }
                             }
                         }
                     );

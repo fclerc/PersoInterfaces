@@ -21,6 +21,10 @@
     margin-bottom:3px;
 }
 
+.filenameInput{
+    margin-left: 20px;
+}
+
 .XMLContainer .commentPopover{
     margin-left: 3px;
     color:#5555FF;

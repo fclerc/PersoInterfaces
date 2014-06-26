@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequenceContext id="CTX1">
+    <activitiesContext id="SC1"></activitiesContext>
+    <numberOfActivities id="CTX2">
+        <min id="SC2"></min>
+        <max id="SC3"></max>
+    </numberOfActivities>
+    <activitiesDuration id="CTX3">
+        <min id="SC4"></min>
+        <max id="SC5"></max>
+    </activitiesDuration>
+    <quizVariation id="SC6"></quizVariation>
+</sequenceContext>

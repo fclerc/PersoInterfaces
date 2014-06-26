@@ -2,7 +2,7 @@
 <strategyRules>
 	<exploitedProfile>data/teacher/profiles/profile1.xml</exploitedProfile>
 	<exploitedContext>data/teacher/liveContexts/liveContext1.xml</exploitedContext>
-	<OKEP></OKEP>
+	<OKEP/>
 	<pedagogicalProperties>data/schemas/foveaPedagogicalProperties.xml</pedagogicalProperties>
 	<rule id="R1">
 		<priority>3</priority>

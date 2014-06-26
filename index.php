@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE HTML>
 <html>
 	<?php
@@ -25,6 +26,15 @@
 		<h1>Main Menu</h1>
 		<p>Quick explanations</p>
 		<p>Other links, for example to a deeper explanation about the models</p>
+        <?php
+            if(isset($_SESSION['fileRemoved'])){//if a file has bee removed, display a message
+                if($_SESSION['fileRemoved']){
+                    echo '<p>File successfully removed</p>';
+                    $_SESSION['fileRemoved'] = false;
+                }
+            }
+        ?>
+        
 		<div id="sectionsContainer"></div>
     </div>
 	</body>
@@ -44,7 +54,7 @@
 				var form = $('<form>').attr('action', data['interface'][section]).attr('method', 'POST');
 				var fileSelect = $('<select>').addClass('form-control').attr('name', 'file');
 				$(data['files'][section]).each(function(id, file){
-					if(file != '.' && file !='..'){
+					if(file != '.' && file !='..' && file!='empty.xml'){
 						$(fileSelect).append($('<option>').append(file));
 					}
 				});
@@ -52,9 +62,26 @@
 				var sectionForm = $('<input>').attr('type', 'hidden').attr('name', 'section').attr('value', section);
 				var scalesForm = $('<input>').attr('type', 'hidden').attr('name', 'scales').attr('value', data['scales'][section]);
 				var schemaForm = $('<input>').attr('type', 'hidden').attr('name', 'schema').attr('value', data['schema'][section]);
-				var fileOpener = $('<input>').attr('type', 'submit').attr('Value', 'Open').addClass('btn btn-primary').attr('name', 'fileOpener');
-				$(form).append(fileSelect).append(pathForm).append(sectionForm).append(schemaForm).append(scalesForm);
-				$(form).append(fileOpener);
+				var actionForm = $('<input>').attr('type', 'hidden').attr('name', 'action').attr('value', data['interface'][section]);
+				var fileOpener = $('<input>').attr('type', 'submit').attr('Value', 'Open file').addClass('btn btn-success').attr('name', 'fileOpener');
+				var fileCreator = $('<input>').attr('type', 'submit').attr('Value', 'Create new file').addClass('btn btn-info').attr('name', 'fileCreator');
+				var fileDuplicator = $('<input>').attr('type', 'submit').attr('Value', 'Duplicate file').addClass('btn btn-primary').attr('name', 'fileDuplicator');
+				var fileDeleter = $('<input>').attr('type', 'submit').attr('Value', 'Delete file').addClass('btn btn-danger').attr('name', 'fileDeleter');
+                //changing the action page if need to create / delete files (and not only open it)
+                $(fileCreator).add(fileDuplicator).click(function(){
+                    $(this).closest('form').attr('action', 'phphelpers/fileHandler.php');
+                });
+                $(fileDeleter).click(function(event){
+                    if(confirm('Are you sure you want to delete this file ? This deletion can\'t be reversed.')){
+                        $(this).closest('form').attr('action', 'phphelpers/fileHandler.php');
+                    }
+                    else{
+                        event.preventDefault();
+                    }
+                });
+                
+				$(form).append(fileSelect).append(pathForm).append(sectionForm).append(schemaForm).append(scalesForm).append(actionForm);
+				$(form).append(fileOpener).append(fileCreator).append(fileDuplicator).append(fileDeleter);
 				
 				$(sectionContainer).append(form);
 				

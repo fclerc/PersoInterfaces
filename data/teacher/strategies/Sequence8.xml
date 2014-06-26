@@ -9,7 +9,7 @@
 		<if><!--  You can use <and> <or> to combine conditions  -->
 			<or xmlns="http://www.w3.org/1999/xhtml">
                 <constraint>            
-                    <indicator>LP25</indicator>
+                    <indicator>a</indicator>
                     <operator>=</operator> <!--  Also >   <    !=   -->
                     <referencevalue>absent</referencevalue>
                 </constraint>

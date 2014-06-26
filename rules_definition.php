@@ -1,3 +1,17 @@
+<?php session_start(); 
+    if(!isset($_POST['path'])){//values are in the session variable
+        $path = $_SESSION['path'];
+        $file = $_SESSION['file'];
+        $scales = $_SESSION['scales'];
+        $section = $_SESSION['section'];
+    }
+    else{
+        $path = $_POST['path'];
+        $file = $_POST['file'];
+        $scales = $_POST['scales'];
+        $section = $_POST['section'];
+    }
+?>
 <!DOCTYPE HTML>
 
 <html>
@@ -13,7 +27,7 @@
     </head>
     
     <body>
-		<h1>Strategy definition page:&nbsp;<?php echo $_POST['section']; ?> <small>Currently defining&nbsp;<?php echo $_POST['file']; ?></small></h1>
+		<h1>Strategy definition page:&nbsp;<?php echo $section; ?> <small>Currently defining&nbsp;<span class="currentFileName"><?php echo $file; ?></span></small></h1>
 		<p id="mainLink"><a href="index.php">Back to main menu</a></p>
 			
         <div id="ProfileAndContext" class="mains">
@@ -32,6 +46,7 @@
 	
 		<div id="Rules" class="mains">
 			<h2>Definition of pedagogical strategy</h2>
+            <label for="filenameInput">Name: </label><input type="text" name="filenameInput" id="strategyFilenameInput" value="<?php echo $file; ?>" />
 			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>Add new Rule</span></button>
 			<button id="strategySaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Save my strategy</span></button>
             <hr/>
@@ -61,8 +76,8 @@
         
         
         $(function(){
-			var strategyPath = <?php echo "'".$_POST['path']."/".$_POST['file']."'"; ?>
-		
+			var strategyPath = <?php echo "'".$path."'"; ?>;
+            var strategyFilename = <?php echo "'".$file."'"; ?>;
         $.ajaxSetup({ cache: false });//TODO : remove it and only cache: false for wise files; not always necessary for translations, documentations,...
             var translationFile = 'translation/fr.json';
         $.ajax({//loading translation
@@ -77,7 +92,7 @@
         
         $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
             type: "GET",
-            url: strategyPath,
+            url: strategyPath + strategyFilename,
             success: function(data){//get the xml document
 				var strategy = $(data);//load xml tree
                 var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
@@ -688,10 +703,20 @@
                     
                     $('#strategySaver').click(function(){
                         var xmlS = (new XMLSerializer()).serializeToString(strategy[0]);
-                        $.post('phphelpers/saveXMLDocument.php', { file: '../'+strategyPath , data: xmlS}, 
+                        $.post('phphelpers/saveXMLDocument.php', { 
+                            file: '../'+strategyPath + $('#strategyFilenameInput').val(),
+                            data: xmlS,
+                            formerFile: '../'+strategyPath + strategyFilename}, 
                             function(data, txt, jqXHR){
                                 if(txt=="success"){
-                                    alert(_('Your data have been successfully saved'));
+                                    if(data.message == 'RENAMEERROR'){
+                                        alert('File not saved: a file with this name already exists');
+                                    }
+                                    else{
+                                        alert(_('Your data have been successfully saved'));
+                                        strategyFilename = $('#strategyFilenameInput').val();
+                                        $('.currentFileName').text(strategyFilename);
+                                    }
                                 }
                             }
                         );

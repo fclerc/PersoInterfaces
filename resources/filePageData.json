@@ -19,10 +19,10 @@
         "strategy":"Select a strategy and edit it to define what you think is best for the learners."
     },
     "path":{
-        "profile":"data\/teacher\/profiles",
-        "liveContext":"data\/teacher\/liveContexts",
-        "sequenceContext":"data\/teacher\/sequenceContexts",
-        "strategy":"data\/teacher\/strategies"
+        "profile":"data\/teacher\/profiles\/",
+        "liveContext":"data\/teacher\/liveContexts\/",
+        "sequenceContext":"data\/teacher\/sequenceContexts\/",
+        "strategy":"data\/teacher\/strategies\/"
     },
     "interface":{
         "profile":"fileValuesModification.php",
