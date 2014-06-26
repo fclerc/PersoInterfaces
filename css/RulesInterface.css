@@ -92,6 +92,11 @@ h1 small{
     padding:0.1%;
     margin:0.1%;
 }
+
+#Rules .filenameForm{
+    margin-left: 1%;
+}
+
 #Rules .parameterAdder,#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .activityRemover, #Rules .constraintEditor, #Rules .constraintRemover, #Rules .activityAdder, #Rules .constraintAdder, #Rules .conditionTypeEditor, #Rules .otherConstraintAdder{
     opacity:0.6;
 }

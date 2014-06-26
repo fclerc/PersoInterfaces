@@ -46,7 +46,7 @@
 	
 		<div id="Rules" class="mains">
 			<h2>Definition of pedagogical strategy</h2>
-            <label for="filenameInput">Name: </label><input type="text" name="filenameInput" id="strategyFilenameInput" value="<?php echo $file; ?>" />
+            <div class="filenameForm"><label for="filenameInput">Name: </label><input type="text" name="filenameInput" id="strategyFilenameInput" value="<?php echo $file; ?>" /></div>
 			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>Add new Rule</span></button>
 			<button id="strategySaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Save my strategy</span></button>
             <hr/>

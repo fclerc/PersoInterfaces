@@ -5,17 +5,24 @@
 		<name id="R2">MOOC FOVEA</name>
 		<type id="R3">group</type>
 		
+        <resource URI="http://claco.univ-lyon1.fr/resource/open/claroline_forum/4256" id="R4">
+			<name id="R5">Forum</name>
+			<type id="R6">forum</type>
+			<length id="R7">125</length>
+			<description id="R8"></description>
+        </resource>
+        
+        
 		<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1" id="R4">
-			<name id="R5">Session1</name>
+			<name id="R5">Session1 : PRESENTATION GENERALE DU FONCTIONNEMENT DE LA COLONNE VERTEBRALE</name>
 			<type id="R6">group</type>
 			<length id="R7">125</length>
 			<description id="R8">Première session du MOOC FOVEA, présentation du fonctionnement de la colonne vertébrale.</description>
-			
+            
 			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A" id="R9">
 				<name id="R10">A) Étude de la colonne vertébrale simplifiée et la vertèbre type </name>
 				<type id="R11">group</type>
 				<status id="R12">Optional</status>
-			
 				<resource URI="http://youtu.be/LCUZF4THcrQ" id="R13">
 					<name id="R14">La colonne vertébrale simplifiée et la vertèbre type</name>
 					<type id="R15">video</type>
@@ -70,10 +77,19 @@
 						<difficulty id="R57">1</difficulty>
 						<sequence id="R58">1</sequence>
 						<length id="R59">15</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/8177" id="R53">
+						<name id="R54">Colonne vertébrale : cours écrit pdf</name>
+						<type id="R55">text</type>
+						<status id="R56">Optional</status>
+						<difficulty id="R57">1</difficulty>
+						<sequence id="R58">1</sequence>
+						<length id="R59">15</length>
+                        <categories>pdf</categories>
 					</resource>
 				</resource>
 			</resource>
-	
 	
 			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-B" id="R60">
 				<name id="R61">Étude des courbures vertébrales</name>
@@ -107,7 +123,7 @@
 					<grade maxPoints="20" id="R86">true</grade>
 					<length id="R87">15</length>
 				</resource>	
-				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#1-B-1" id="R88">
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-B-1" id="R88">
 					<name id="R89">Courbures  vertébrales : video non sonorisée + document</name>
 					<type id="R90">group</type>
 					<status id="R91">Optional</status>
@@ -134,12 +150,444 @@
 						<difficulty id="R109">2</difficulty>
 						<sequence id="R110">1</sequence>
 						<length id="R111">18</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/8450" id="R105">
+						<name id="R106">Courbures  vertébrales : cours écrit pdf</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">1</sequence>
+						<length id="R111">18</length>
+                        <categories>pdf</categories>
 					</resource>
 				</resource>
-				
 			</resource>	
-				
 		</resource>
+        
+        
+        
+        <resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1" id="R4">
+			<name id="R5">Session2 : PRESENTATION GENERALE DU FONCTIONNEMENT DE LA COLONNE VERTEBRALE (suite)</name>
+			<type id="R6">group</type>
+			<length id="R7">125</length>
+			<description id="R8"></description>
+            
+			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-C" id="R9">
+				<name id="R10">A/  Etude du Disque intervertébral (DIV)</name>
+				<type id="R11">group</type>
+				<status id="R12">Optional</status>
+				<resource URI="http://youtu.be/JkVPtlP6Ibg" id="R13">
+					<name id="R14">Le disque intervertébral</name>
+					<type id="R15">video</type>
+					<status id="R16">Optional</status>
+					<order id="R17">
+						<context id="R18">beginner</context>
+						<position id="R19">1</position>
+					</order>
+					<difficulty id="R20">1</difficulty>
+					<sequence id="R21">2</sequence>
+					<length id="R22">20</length>
+					<categories id="R23">NMTOKEN</categories>
+					<description id="R24">Votre objectif est de "voir" mentalement, d'imaginer les notions décrites, n'hésitez pas à faire des arrêts sur image.</description>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/8842" id="R25">
+					<name id="R26">Quiz1</name>
+					<type id="R27">quiz</type>
+					<status id="R28">Mandatory</status>
+					<order id="R29">
+						<context id="R30">beginner</context>
+						<position id="R31">2</position>
+					</order>
+					<difficulty id="R32">1</difficulty>
+					<sequence id="R33">2</sequence>
+					<grade maxPoints="20" id="R34">true</grade>
+					<length id="R35">15</length>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-C-1" id="R36">
+					<name id="R37">Le disque intervertébral : video non sonorisée + document</name>
+					<type id="R38">group</type>
+					<status id="R39">Optional</status>
+					<order id="R40">
+						<context id="R41">beginner</context>
+						<position id="R42">3</position>
+					</order>
+					<difficulty id="R43">1</difficulty>
+					<sequence id="R44">2</sequence>
+					<length id="R45">15</length>
+					
+					<resource URI="http://youtu.be/oGqFvvMcNeM" id="R46">
+						<name id="R47">DIV : video non sonorisée</name>
+						<type id="R48">video</type>
+						<status id="R49">Optional</status>
+						<difficulty id="R50">1</difficulty>
+						<sequence id="R51">2</sequence>
+						<length id="R52">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/8898" id="R53">
+						<name id="R54">DIV : cours écrit</name>
+						<type id="R55">text</type>
+						<status id="R56">Optional</status>
+						<difficulty id="R57">1</difficulty>
+						<sequence id="R58">2</sequence>
+						<length id="R59">15</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/8899" id="R53">
+						<name id="R54">DIV : cours écrit pdf</name>
+						<type id="R55">text</type>
+						<status id="R56">Optional</status>
+						<difficulty id="R57">1</difficulty>
+						<sequence id="R58">2</sequence>
+						<length id="R59">15</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>
+	
+			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-D" id="R60">
+				<name id="R61">B/  Le placement du bassin - la charnière lombo-sacrée</name>
+				<type id="R62">group</type>
+				<status id="R63">Mandatory</status>
+				
+				<resource URI="http://youtu.be/cxeYUGyjz4A" id="R71">
+					<name id="R72">Placement du bassin - La charnière lombo-sacrée</name>
+					<type id="R73">video</type>
+					<status id="R74">Mandatory</status>
+					<difficulty id="R75">2</difficulty>
+					<sequence id="R76">2</sequence>
+					<length id="R77">20</length>
+					<categories id="R78">NMTOKEN</categories>
+					<description id="R79"></description>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/8938" id="R80">
+					<name id="R81">Quiz2</name>
+					<type id="R82">quiz</type>
+					<status id="R83">Mandatory</status>
+					<difficulty id="R84">2</difficulty>
+					<sequence id="R85">2</sequence>
+					<grade maxPoints="20" id="R86">true</grade>
+					<length id="R87">15</length>
+				</resource>	
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-D-1" id="R88">
+					<name id="R89">Courbures  vertébrales : video non sonorisée + document</name>
+					<type id="R90">group</type>
+					<status id="R91">Optional</status>
+					<order id="R92">
+						<context id="R93">beginner</context>
+						<position id="R94">3</position>
+					</order>
+					<difficulty id="R95">1</difficulty>
+					<sequence id="R96">2</sequence>
+					<length id="R97">15</length>
+					<resource URI="http://youtu.be/cxeYUGyjz4A" id="R98">
+						<name id="R99">Placement du bassin - La charnière lombo-sacrée : video non sonorisée</name>
+						<type id="R100">video</type>
+						<status id="R101">Mandatory</status>
+						<difficulty id="R102">2</difficulty>
+						<sequence id="R103">2</sequence>
+						<length id="R104">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/8909" id="R105">
+						<name id="R106">Placement du bassin - La charnière lombo-sacrée : cours écrit</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">2</sequence>
+						<length id="R111">18</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/8910" id="R105">
+						<name id="R106">Placement du bassin - La charnière lombo-sacrée : cours écrit pdf</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">2</sequence>
+						<length id="R111">18</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>	
+		</resource>
+        
+        
+        
+        
+        <resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2" id="R4">
+			<name id="R5"Session 3 : Assurer stabilité et mobilité : OSTEOLOGIE </name>
+			<type id="R6">group</type>
+			<length id="R7">125</length>
+			<description id="R8"></description>
+            
+			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2-A" id="R9">
+				<name id="R10">A/  La vertèbre lombaire</name>
+				<type id="R11">group</type>
+				<status id="R12">Optional</status>
+				<resource URI="http://youtu.be/54Bs7sI3HNM" id="R13">
+					<name id="R14">La vertèbre lombaire</name>
+					<type id="R15">video</type>
+					<status id="R16">Optional</status>
+					<order id="R17">
+						<context id="R18">beginner</context>
+						<position id="R19">1</position>
+					</order>
+					<difficulty id="R20">1</difficulty>
+					<sequence id="R21">3</sequence>
+					<length id="R22">20</length>
+					<categories id="R23">NMTOKEN</categories>
+					<description id="R24">Votre objectif est de "voir" mentalement, d'imaginer les notions décrites, n'hésitez pas à faire des arrêts sur image.</description>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/6490" id="R25">
+					<name id="R26">Quiz1</name>
+					<type id="R27">quiz</type>
+					<status id="R28">Mandatory</status>
+					<order id="R29">
+						<context id="R30">beginner</context>
+						<position id="R31">2</position>
+					</order>
+					<difficulty id="R32">1</difficulty>
+					<sequence id="R33">3</sequence>
+					<grade maxPoints="20" id="R34">true</grade>
+					<length id="R35">15</length>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2-A-1" id="R36">
+					<name id="R37">La vertèbre lombaire : video non sonorisée + document</name>
+					<type id="R38">group</type>
+					<status id="R39">Optional</status>
+					<order id="R40">
+						<context id="R41">beginner</context>
+						<position id="R42">3</position>
+					</order>
+					<difficulty id="R43">1</difficulty>
+					<sequence id="R44">3</sequence>
+					<length id="R45">15</length>
+					
+					<resource URI="http://www.youtube.com/watch?v=7VkM9Ulpbbg" id="R46">
+						<name id="R47">La vertèbre lombaire : video non sonorisée</name>
+						<type id="R48">video</type>
+						<status id="R49">Optional</status>
+						<difficulty id="R50">1</difficulty>
+						<sequence id="R51">3</sequence>
+						<length id="R52">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/5707" id="R53">
+						<name id="R54">La vertèbre lombaire : cours écrit</name>
+						<type id="R55">text</type>
+						<status id="R56">Optional</status>
+						<difficulty id="R57">1</difficulty>
+						<sequence id="R58">3</sequence>
+						<length id="R59">15</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/5705" id="R53">
+						<name id="R54">La vertèbre lombaire : cours écrit</name>
+						<type id="R55">text</type>
+						<status id="R56">Optional</status>
+						<difficulty id="R57">1</difficulty>
+						<sequence id="R58">3</sequence>
+						<length id="R59">15</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>
+	
+			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2-B" id="R60">
+				<name id="R61">B/  La vertèbre thoracique</name>
+				<type id="R62">group</type>
+				<status id="R63">Mandatory</status>
+				
+				<resource URI="http://youtu.be/eLTyKisx2dY" id="R71">
+					<name id="R72">La vertèbre thoracique</name>
+					<type id="R73">video</type>
+					<status id="R74">Mandatory</status>
+					<difficulty id="R75">2</difficulty>
+					<sequence id="R76">3</sequence>
+					<length id="R77">20</length>
+					<categories id="R78">NMTOKEN</categories>
+					<description id="R79"></description>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/6499" id="R80">
+					<name id="R81">Quiz2</name>
+					<type id="R82">quiz</type>
+					<status id="R83">Mandatory</status>
+					<difficulty id="R84">2</difficulty>
+					<sequence id="R85">3</sequence>
+					<grade maxPoints="20" id="R86">true</grade>
+					<length id="R87">15</length>
+				</resource>	
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2-B-1" id="R88">
+					<name id="R89">La vertèbre thoracique : video non sonorisée + document</name>
+					<type id="R90">group</type>
+					<status id="R91">Optional</status>
+					<order id="R92">
+						<context id="R93">beginner</context>
+						<position id="R94">3</position>
+					</order>
+					<difficulty id="R95">1</difficulty>
+					<sequence id="R96">3</sequence>
+					<length id="R97">15</length>
+					<resource URI="http://www.youtube.com/watch?v=VPueCj8euTo&list=PLFDD4FAE6A81136F9&index=24" id="R98">
+						<name id="R99">La vertèbre thoracique : video non sonorisée</name>
+						<type id="R100">video</type>
+						<status id="R101">Mandatory</status>
+						<difficulty id="R102">2</difficulty>
+						<sequence id="R103">3</sequence>
+						<length id="R104">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/5708" id="R105">
+						<name id="R106">La vertèbre thoracique : cours écrit</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">3</sequence>
+						<length id="R111">18</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/5112" id="R105">
+						<name id="R106">La vertèbre thoracique : cours écrit pdf</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">3</sequence>
+						<length id="R111">18</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>	
+            
+            
+            <resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2-C" id="R60">
+				<name id="R61">C/ La vertèbre cervicale</name>
+				<type id="R62">group</type>
+				<status id="R63">Mandatory</status>
+				
+				<resource URI="http://youtu.be/cPvHgKST7A8" id="R71">
+					<name id="R72">La vertèbre cervicale</name>
+					<type id="R73">video</type>
+					<status id="R74">Mandatory</status>
+					<difficulty id="R75">2</difficulty>
+					<sequence id="R76">3</sequence>
+					<length id="R77">20</length>
+					<categories id="R78">NMTOKEN</categories>
+					<description id="R79"></description>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/5552" id="R80">
+					<name id="R81">Quiz3</name>
+					<type id="R82">quiz</type>
+					<status id="R83">Mandatory</status>
+					<difficulty id="R84">2</difficulty>
+					<sequence id="R85">3</sequence>
+					<grade maxPoints="20" id="R86">true</grade>
+					<length id="R87">15</length>
+				</resource>	
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2-C-1" id="R88">
+					<name id="R89">La vertèbre cervicale : video non sonorisée + document</name>
+					<type id="R90">group</type>
+					<status id="R91">Optional</status>
+					<order id="R92">
+						<context id="R93">beginner</context>
+						<position id="R94">3</position>
+					</order>
+					<difficulty id="R95">1</difficulty>
+					<sequence id="R96">3</sequence>
+					<length id="R97">15</length>
+					<resource URI="http://www.youtube.com/watch?v=f8JLoGnIxoI&list=PLFDD4FAE6A81136F9&index=10" id="R98">
+						<name id="R99">La vertèbre cervicale : video non sonorisée</name>
+						<type id="R100">video</type>
+						<status id="R101">Mandatory</status>
+						<difficulty id="R102">2</difficulty>
+						<sequence id="R103">3</sequence>
+						<length id="R104">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/9039" id="R105">
+						<name id="R106">La vertèbre cervicale : cours écrit</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">3</sequence>
+						<length id="R111">18</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/9038" id="R105">
+						<name id="R106">La vertèbre cervicale : cours écrit pdf</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">3</sequence>
+						<length id="R111">18</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>	
+            
+            
+            
+            <resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2-C" id="R60">
+				<name id="R61">C/ La vertèbre cervicale</name>
+				<type id="R62">group</type>
+				<status id="R63">Mandatory</status>
+				
+				
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2-E-1" id="R88">
+					<name id="R89">E/ Pour les spécialistes : la colonne cervicale haute</name>
+					<type id="R90">group</type>
+					<status id="R91">Bonus</status>
+					<order id="R92">
+						<context id="R93">expert</context>
+						<position id="R94">3</position>
+					</order>
+					<difficulty id="R95">1</difficulty>
+					<sequence id="R96">3</sequence>
+					<length id="R97">15</length>
+					<resource URI="http://youtu.be/OP924h2bc-w" id="R98">
+						<name id="R99">la colonne cervicale haute : video </name>
+						<type id="R100">video</type>
+						<status id="R101">Mandatory</status>
+						<difficulty id="R102">2</difficulty>
+						<sequence id="R103">3</sequence>
+						<length id="R104">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/9057" id="R105">
+						<name id="R106">la colonne cervicale haute : cours écrit</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">3</sequence>
+						<length id="R111">18</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/9056" id="R105">
+						<name id="R106">la colonne cervicale haute : cours écrit pdf</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">3</sequence>
+						<length id="R111">18</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>	
+            
+		</resource>
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
 	</resource>
 
 </resourcesStructure>

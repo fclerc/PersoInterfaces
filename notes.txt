@@ -1,3 +1,4 @@
+RESOURCES / REMOVE TOUS LES ID ET AJOUTE DE NOUVEAU
 modélisation complète
 
 Fichier config
