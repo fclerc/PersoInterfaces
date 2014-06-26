@@ -314,7 +314,7 @@
         
         
         <resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2" id="R4">
-			<name id="R5"Session 3 : Assurer stabilité et mobilité : OSTEOLOGIE </name>
+			<name id="R5">Session 3 : Assurer stabilité et mobilité : OSTEOLOGIE </name>
 			<type id="R6">group</type>
 			<length id="R7">125</length>
 			<description id="R8"></description>
@@ -380,7 +380,7 @@
                         <categories>doc</categories>
 					</resource>
                     <resource URI="http://claco.univ-lyon1.fr/resource/open/file/5705" id="R53">
-						<name id="R54">La vertèbre lombaire : cours écrit</name>
+						<name id="R54">La vertèbre lombaire : cours écrit pdf</name>
 						<type id="R55">text</type>
 						<status id="R56">Optional</status>
 						<difficulty id="R57">1</difficulty>
@@ -576,9 +576,385 @@
         
         
         
+        
+        <resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_3" id="R4">
+			<name id="R5">Session 4 : Assurer stabilité et mobilité : ARTHROLOGIE  </name>
+			<type id="R6">group</type>
+			<length id="R7">125</length>
+			<description id="R8"></description>
+            
+			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_3-A" id="R9">
+				<name id="R10">A/ Le sacrum</name>
+				<type id="R11">group</type>
+				<status id="R12">Optional</status>
+				<resource URI="http://youtu.be/vCh1PgGsGog" id="R13">
+					<name id="R14">Le sacrum</name>
+					<type id="R15">video</type>
+					<status id="R16">Optional</status>
+					<order id="R17">
+						<context id="R18">beginner</context>
+						<position id="R19">1</position>
+					</order>
+					<difficulty id="R20">1</difficulty>
+					<sequence id="R21">4</sequence>
+					<length id="R22">20</length>
+					<categories id="R23">NMTOKEN</categories>
+					<description id="R24">Votre objectif est de "voir" mentalement, d'imaginer les notions décrites, n'hésitez pas à faire des arrêts sur image.</description>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/9215" id="R25">
+					<name id="R26">Quiz1</name>
+					<type id="R27">quiz</type>
+					<status id="R28">Mandatory</status>
+					<order id="R29">
+						<context id="R30">beginner</context>
+						<position id="R31">2</position>
+					</order>
+					<difficulty id="R32">1</difficulty>
+					<sequence id="R33">4</sequence>
+					<grade maxPoints="20" id="R34">true</grade>
+					<length id="R35">15</length>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_3-A-1" id="R36">
+					<name id="R37">Le sacrum : video non sonorisée + document</name>
+					<type id="R38">group</type>
+					<status id="R39">Optional</status>
+					<order id="R40">
+						<context id="R41">beginner</context>
+						<position id="R42">3</position>
+					</order>
+					<difficulty id="R43">1</difficulty>
+					<sequence id="R44">4</sequence>
+					<length id="R45">15</length>
+					
+					<resource URI="http://youtu.be/nK-oHoMd-bY" id="R46">
+						<name id="R47">Le sacrum : video non sonorisée</name>
+						<type id="R48">video</type>
+						<status id="R49">Optional</status>
+						<difficulty id="R50">1</difficulty>
+						<sequence id="R51">4</sequence>
+						<length id="R52">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/9114" id="R53">
+						<name id="R54">Le sacrum : cours écrit</name>
+						<type id="R55">text</type>
+						<status id="R56">Optional</status>
+						<difficulty id="R57">1</difficulty>
+						<sequence id="R58">4</sequence>
+						<length id="R59">15</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/9113" id="R53">
+						<name id="R54">Le sacrum : cours écrit pdf</name>
+						<type id="R55">text</type>
+						<status id="R56">Optional</status>
+						<difficulty id="R57">1</difficulty>
+						<sequence id="R58">4</sequence>
+						<length id="R59">15</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>
+	
+    
+    
+			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_2-B" id="R60">
+				<name id="R61">B/ Arthrologie de la colonne vertébrale</name>
+				<type id="R62">group</type>
+				<status id="R63">Mandatory</status>
+				
+				<resource URI="http://youtu.be/1GlTlU1mmqI" id="R71">
+					<name id="R72">Arthrologie de la colonne vertébrale</name>
+					<type id="R73">video</type>
+					<status id="R74">Mandatory</status>
+					<difficulty id="R75">2</difficulty>
+					<sequence id="R76">4</sequence>
+					<length id="R77">20</length>
+					<categories id="R78">NMTOKEN</categories>
+					<description id="R79"></description>
+				</resource>
+                <resource URI="http://youtu.be/1GlTlU1mmqI" id="R71">
+					<name id="R72">Proprioception</name>
+					<type id="R73">video</type>
+					<status id="R74">Optional</status>
+					<difficulty id="R75">2</difficulty>
+					<sequence id="R76">4</sequence>
+					<length id="R77">20</length>
+					<categories id="R78">NMTOKEN</categories>
+					<description id="R79"></description>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/9213" id="R80">
+					<name id="R81">Quiz2</name>
+					<type id="R82">quiz</type>
+					<status id="R83">Mandatory</status>
+					<difficulty id="R84">2</difficulty>
+					<sequence id="R85">4</sequence>
+					<grade maxPoints="20" id="R86">true</grade>
+					<length id="R87">15</length>
+				</resource>	
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_3-B-1" id="R88">
+					<name id="R89">Arthrologie de la colonne vertébrale : video non sonorisée + document</name>
+					<type id="R90">group</type>
+					<status id="R91">Optional</status>
+					<order id="R92">
+						<context id="R93">beginner</context>
+						<position id="R94">3</position>
+					</order>
+					<difficulty id="R95">1</difficulty>
+					<sequence id="R96">4</sequence>
+					<length id="R97">15</length>
+					<resource URI="http://youtu.be/3nNA4MYE2WA" id="R98">
+						<name id="R99">Arthrologie de la colonne vertébrale : video non sonorisée</name>
+						<type id="R100">video</type>
+						<status id="R101">Mandatory</status>
+						<difficulty id="R102">2</difficulty>
+						<sequence id="R103">4</sequence>
+						<length id="R104">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/9075" id="R105">
+						<name id="R106">Arthrologie de la colonne vertébrale : cours écrit</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">4</sequence>
+						<length id="R111">18</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/9076" id="R105">
+						<name id="R106">Arthrologie de la colonne vertébrale : cours écrit pdf</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">4</sequence>
+						<length id="R111">18</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>	
+            
+            
+            <resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_3-C" id="R60">
+				<name id="R61">C/ Les tensions des fibres de l'anneau lors des différents mouvements</name>
+				<type id="R62">group</type>
+				<status id="R63">Mandatory</status>
+				
+				<resource URI="http://youtu.be/ru8-vmEZfhU" id="R71">
+					<name id="R72">Les tensions des fibres de l'anneau lors des différents mouvements</name>
+					<type id="R73">video</type>
+					<status id="R74">Mandatory</status>
+					<difficulty id="R75">2</difficulty>
+					<sequence id="R76">4</sequence>
+					<length id="R77">20</length>
+					<categories id="R78">NMTOKEN</categories>
+					<description id="R79"></description>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/9204" id="R80">
+					<name id="R81">Quiz3</name>
+					<type id="R82">quiz</type>
+					<status id="R83">Mandatory</status>
+					<difficulty id="R84">2</difficulty>
+					<sequence id="R85">4</sequence>
+					<grade maxPoints="20" id="R86">true</grade>
+					<length id="R87">15</length>
+				</resource>	
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_3-C-1" id="R88">
+					<name id="R89">Les tensions des fibres de l'anneau lors des différents mouvements : video non sonorisée + document</name>
+					<type id="R90">group</type>
+					<status id="R91">Optional</status>
+					<order id="R92">
+						<context id="R93">beginner</context>
+						<position id="R94">3</position>
+					</order>
+					<difficulty id="R95">1</difficulty>
+					<sequence id="R96">4</sequence>
+					<length id="R97">15</length>
+					<resource URI="http://youtu.be/ZXdgqkEjh6A" id="R98">
+						<name id="R99">Les tensions des fibres de l'anneau lors des différents mouvements : video non sonorisée</name>
+						<type id="R100">video</type>
+						<status id="R101">Mandatory</status>
+						<difficulty id="R102">2</difficulty>
+						<sequence id="R103">4</sequence>
+						<length id="R104">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/9194" id="R105">
+						<name id="R106">Les tensions des fibres de l'anneau lors des différents mouvements : cours écrit</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">4</sequence>
+						<length id="R111">18</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/9195" id="R105">
+						<name id="R106">Les tensions des fibres de l'anneau lors des différents mouvements : cours écrit pdf</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">4</sequence>
+						<length id="R111">18</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>	
+            	
+            
+		</resource>
+        
 
         
         
+        
+        
+        
+        
+        
+        
+        
+        <resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_4" id="R4">
+			<name id="R5">Session 5 : Assurer stabilité et mobilité : MYOLOGIE, les abdominaux</name>
+			<type id="R6">group</type>
+			<length id="R7">125</length>
+			<description id="R8"></description>
+            
+			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_4-A" id="R9">
+				<name id="R10">A/ Etude des muscles postérieurs du tronc</name>
+				<type id="R11">group</type>
+				<status id="R12">Optional</status>
+				<resource URI="http://youtu.be/dSO8z4NGLtM" id="R13">
+					<name id="R14">Les muscles postérieurs du tronc</name>
+					<type id="R15">video</type>
+					<status id="R16">Optional</status>
+					<order id="R17">
+						<context id="R18">beginner</context>
+						<position id="R19">1</position>
+					</order>
+					<difficulty id="R20">1</difficulty>
+					<sequence id="R21">4</sequence>
+					<length id="R22">20</length>
+					<categories id="R23">NMTOKEN</categories>
+					<description id="R24">Votre objectif est de "voir" mentalement, d'imaginer les notions décrites, n'hésitez pas à faire des arrêts sur image.</description>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/9446" id="R25">
+					<name id="R26">Quiz1</name>
+					<type id="R27">quiz</type>
+					<status id="R28">Mandatory</status>
+					<order id="R29">
+						<context id="R30">beginner</context>
+						<position id="R31">2</position>
+					</order>
+					<difficulty id="R32">1</difficulty>
+					<sequence id="R33">4</sequence>
+					<grade maxPoints="20" id="R34">true</grade>
+					<length id="R35">15</length>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_4-A-1" id="R36">
+					<name id="R37">Les muscles postérieurs du tronc : video non sonorisée + document</name>
+					<type id="R38">group</type>
+					<status id="R39">Optional</status>
+					<order id="R40">
+						<context id="R41">beginner</context>
+						<position id="R42">3</position>
+					</order>
+					<difficulty id="R43">1</difficulty>
+					<sequence id="R44">4</sequence>
+					<length id="R45">15</length>
+					
+					<resource URI="http://youtu.be/_zze6qgwZ1s" id="R46">
+						<name id="R47">Les muscles postérieurs du tronc : video non sonorisée</name>
+						<type id="R48">video</type>
+						<status id="R49">Optional</status>
+						<difficulty id="R50">1</difficulty>
+						<sequence id="R51">4</sequence>
+						<length id="R52">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/9442" id="R53">
+						<name id="R54">Les muscles postérieurs du tronc : cours écrit</name>
+						<type id="R55">text</type>
+						<status id="R56">Optional</status>
+						<difficulty id="R57">1</difficulty>
+						<sequence id="R58">4</sequence>
+						<length id="R59">15</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/9441" id="R53">
+						<name id="R54">Les muscles postérieurs du tronc : cours écrit pdf</name>
+						<type id="R55">text</type>
+						<status id="R56">Optional</status>
+						<difficulty id="R57">1</difficulty>
+						<sequence id="R58">4</sequence>
+						<length id="R59">15</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>
+	
+    
+    
+			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_4-B" id="R60">
+				<name id="R61">B/ Etude des muscles abdominaux</name>
+				<type id="R62">group</type>
+				<status id="R63">Mandatory</status>
+				
+				<resource URI="http://youtu.be/3wBdFW6ZHck" id="R71">
+					<name id="R72">Etude des muscles abdominaux</name>
+					<type id="R73">video</type>
+					<status id="R74">Mandatory</status>
+					<difficulty id="R75">2</difficulty>
+					<sequence id="R76">4</sequence>
+					<length id="R77">20</length>
+					<categories id="R78">NMTOKEN</categories>
+					<description id="R79"></description>
+				</resource>
+				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/9456" id="R80">
+					<name id="R81">Quiz2</name>
+					<type id="R82">quiz</type>
+					<status id="R83">Mandatory</status>
+					<difficulty id="R84">2</difficulty>
+					<sequence id="R85">4</sequence>
+					<grade maxPoints="20" id="R86">true</grade>
+					<length id="R87">15</length>
+				</resource>	
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_4-B-1" id="R88">
+					<name id="R89">Etude des muscles abdominaux : video non sonorisée + document</name>
+					<type id="R90">group</type>
+					<status id="R91">Optional</status>
+					<order id="R92">
+						<context id="R93">beginner</context>
+						<position id="R94">3</position>
+					</order>
+					<difficulty id="R95">1</difficulty>
+					<sequence id="R96">4</sequence>
+					<length id="R97">15</length>
+					<resource URI="http://youtu.be/hoc6J20GSkU" id="R98">
+						<name id="R99">Etude des muscles abdominaux : video non sonorisée</name>
+						<type id="R100">video</type>
+						<status id="R101">Mandatory</status>
+						<difficulty id="R102">2</difficulty>
+						<sequence id="R103">4</sequence>
+						<length id="R104">15</length>
+					</resource>
+					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/9440" id="R105">
+						<name id="R106">Etude des muscles abdominaux : cours écrit</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">4</sequence>
+						<length id="R111">18</length>
+                        <categories>doc</categories>
+					</resource>
+                    <resource URI="http://claco.univ-lyon1.fr/resource/open/file/9439" id="R105">
+						<name id="R106">Etude des muscles abdominaux : cours écrit pdf</name>
+						<type id="R107">text</type>
+						<status id="R108">Mandatory</status>
+						<difficulty id="R109">2</difficulty>
+						<sequence id="R110">4</sequence>
+						<length id="R111">18</length>
+                        <categories>pdf</categories>
+					</resource>
+				</resource>
+			</resource>	
+            
+            
+		</resource>
 
         
         
