@@ -29,7 +29,7 @@
         <?php
             if(isset($_SESSION['fileRemoved'])){//if a file has bee removed, display a message
                 if($_SESSION['fileRemoved']){
-                    echo '<p>File successfully removed</p>';
+                    echo '<p class="alert alert-info">File successfully removed</p>';
                     $_SESSION['fileRemoved'] = false;
                 }
             }

@@ -5,13 +5,13 @@
 		<name id="R2">MOOC FOVEA</name>
 		<type id="R3">group</type>
 		
-		<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#1" id="R4">
+		<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1" id="R4">
 			<name id="R5">Session1</name>
 			<type id="R6">group</type>
 			<length id="R7">125</length>
 			<description id="R8">Première session du MOOC FOVEA, présentation du fonctionnement de la colonne vertébrale.</description>
 			
-			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#1-A" id="R9">
+			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A" id="R9">
 				<name id="R10">A) Étude de la colonne vertébrale simplifiée et la vertèbre type </name>
 				<type id="R11">group</type>
 				<status id="R12">Optional</status>
@@ -43,7 +43,7 @@
 					<grade maxPoints="20" id="R34">true</grade>
 					<length id="R35">15</length>
 				</resource>
-				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#1-A-1" id="R36">
+				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A-1" id="R36">
 					<name id="R37">Colonne vertébrale : video non sonorisée + document</name>
 					<type id="R38">group</type>
 					<status id="R39">Optional</status>
@@ -75,7 +75,7 @@
 			</resource>
 	
 	
-			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#1-B" id="R60">
+			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-B" id="R60">
 				<name id="R61">Étude des courbures vertébrales</name>
 				<type id="R62">group</type>
 				<status id="R63">Mandatory</status>
@@ -88,7 +88,6 @@
 					<sequence id="R69">1</sequence>
 					<length id="R70">15</length>
 				</resource>
-				
 				<resource URI="http://youtu.be/LCUZF4THcrQ" id="R71">
 					<name id="R72">Régions vertébrales et courbures vertébrales</name>
 					<type id="R73">video</type>
@@ -99,7 +98,6 @@
 					<categories id="R78">NMTOKEN</categories>
 					<description id="R79">L'objectif de cette vidéo est important : vous devez être capable de "voir" mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description>
 				</resource>
-				
 				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426" id="R80">
 					<name id="R81">Quiz2</name>
 					<type id="R82">quiz</type>
@@ -108,9 +106,7 @@
 					<sequence id="R85">1</sequence>
 					<grade maxPoints="20" id="R86">true</grade>
 					<length id="R87">15</length>
-				</resource>
-				
-				
+				</resource>	
 				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#1-B-1" id="R88">
 					<name id="R89">Courbures  vertébrales : video non sonorisée + document</name>
 					<type id="R90">group</type>
