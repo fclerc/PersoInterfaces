@@ -31,7 +31,7 @@
 					<Parameter ID="P003">
 						<Name>Sequence</Name>
 						<AssociatedCompetence></AssociatedCompetence>
-						<Comment>Sequence (identified by its number) in which the resource has to be used</Comment>
+						<Comment>Sequence (identified by its number) from which the resources have to be selected</Comment>
 						<ScaleNumerical>
 							<Step>1</Step>
 						</ScaleNumerical>
@@ -44,7 +44,8 @@
 					</Parameter>
 					<Parameter ID="P005">
 						<Name>Categories</Name>
-						<Comment>Categories are defined in the resources. Choice is given among all the already defined categories in the resource description.</Comment>
+						<Comment>Categories from which the resources have to be selected.
+                        Note: Categories are defined in the resources. Choice is given among all the already defined categories in the resource description.</Comment>
 						<ScaleList>
 							<Variable>true</Variable>
 							<Ordered>false</Ordered>
@@ -57,11 +58,12 @@
 					</Parameter>
 					<Parameter ID="P006"><!--Used to indicate directly some resources -->
 						<Name>Name</Name>
+                        <Comment>The name of a resource (or its URI)</Comment>
 						<ScaleList>
 							<Variable>true</Variable>
 							<Ordered>false</Ordered>
 							<MultipleSelection>true</MultipleSelection>
-							<Value>
+							<Value><!--To be filled with resources -->
 								<Name></Name>
 							</Value>
 						</ScaleList>
@@ -74,7 +76,7 @@
 				<Parameters>
 					<Parameter ID="P001">
 						<Name>Difficulty</Name>
-						<Comment>Difficulty to understand the resource. As profiles are filled  with values from 0 to 100, this parameter belongs to one of the 4 quarters of this interval, 0-25 or 25-50 or 50-75 or 75-100</Comment>
+						<Comment>Difficulty to understand the resource. 0 means it is very easy, 5 that it is very difficult.</Comment>
 						<ScaleList>
 							<Variable>true</Variable>
 							<Ordered>true</Ordered>
@@ -117,6 +119,28 @@
 							<Value>
 								<Name>Text</Name>
 							</Value>
+                            <Value>
+								<Name>Quiz</Name>
+							</Value>
+                            <Value>
+								<Name>Assignment</Name>
+							</Value>
+                            <Value>
+								<Name>trainingExercise</Name>
+							</Value>
+                            <Value>
+								<Name>forum</Name>
+							</Value>
+                            <Value>
+								<Name>wiki</Name>
+							</Value>
+                            <Value>
+								<Name>group</Name>
+							</Value>
+                            <Value>
+								<Name>other</Name>
+							</Value>
+                            
 						</ScaleList>
 					</Parameter>
 				</Parameters>
@@ -190,7 +214,7 @@
 					</Parameter>
 					<Parameter ID="P011">
 						<Name>Difficulty</Name>
-						<Comment>Difficulty to understand the resource. As profiles are filled  with values from 0 to 100, this parameter belongs to one of the 4 quarters of this interval, 0-25 or 25-50 or 50-75 or 75-100</Comment>
+						<Comment>Difficulty to understand the resource. 0 means it is very easy, 5 that it is very difficult.</Comment>
 						<ScaleList>
 							<Variable>true</Variable>
 							<Ordered>true</Ordered>
@@ -227,7 +251,7 @@
 				<Parameters>
 					<Parameter ID="P012">
 						<Name>Goal</Name>
-						<Comment>The general goal of the message. First we can imagine we have 2 possible messages : if 'Greeting' then 'Hello, nice to see you', elseif 'Encouraging' then "You're doing pretty well, keep going that way!"'</Comment>
+						<Comment>The general goal of the message. First we can imagine we have 2 possible messages : if 'Greeting' then say  the student 'Hello, nice to see you', else if 'Encouraging' then "You're doing pretty well, keep going that way!"'</Comment>
 						<ScaleList>
 							<Variable>true</Variable>
 							<Ordered>false</Ordered>

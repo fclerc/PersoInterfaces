@@ -1,3 +1,6 @@
+extraire tout ce que je peux des ressources, EXPLOITER DANS L'INTERFACE
+voir comment traiter la notion de order et permettre une définition facile (basée sur une liste de contextes disponibles,...)
+
 RESOURCES / REMOVE TOUS LES ID ET AJOUTE DE NOUVEAU
 modélisation complète
 

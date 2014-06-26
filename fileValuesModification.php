@@ -50,11 +50,10 @@
                 success: function(data){
                     _.setTranslation(data);
                     var file = <?php echo "'".$path."/".$file."'"; ?>;
-                    var scales = <?php echo file_get_contents($scales); ?>;
+                    var scales = <?php if($scales!=''){echo file_get_contents($scales);}else{echo '""';} ?>;
                     manipulateXML(file,'#XMLcontainer', 'modify','', scales , '#scalesContainer', "#currentFileName");   
                 }
             });
-            
         });
         </script>
     </body>

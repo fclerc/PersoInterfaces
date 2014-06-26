@@ -13,6 +13,7 @@ function displayParameterScale(scaleElement, container, clickable){//TODO : add 
         $(informationToDisplay).append(_('You can chose between: '));
         //this variable will contain the list of possibilities, the values are clickable to fill the input, and display the translation if available
         var enumeration = $('<span>').addClass('enumeration');
+        //TODO : if enumeration is void, then go in the json file
         $(scaleElement).find('Name').each(function(){
             var value = $(this).text();
             var valueContainer = $('<span>').addClass('inputFiller').text(value);

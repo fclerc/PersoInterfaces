@@ -131,23 +131,3 @@ class JSONFromXMLSchemaGenerator{
 }
 ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

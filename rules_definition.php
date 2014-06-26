@@ -50,7 +50,7 @@
 			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>Add new Rule</span></button>
 			<button id="strategySaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Save my strategy</span></button>
             <hr/>
-			<div id="newRuleInstruction">When editing or creating a rule, you can click on any part of this rule to change its values and structure. You can also use the buttons below the rule to edit it.</div>
+			<div id="newRuleInstruction">When editing or creating a rule, you can click on any part of this rule to change its values and structure.</div>
 			<div id="newRuleContainer"></div>
 			<div id="newRuleForm"></div>
             <div id="newRuleButtons"></div>
