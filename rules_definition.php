@@ -100,6 +100,7 @@
         
         $.getJSON('data/schemas/profileScales.json', function(profileScales){
         $.getJSON('data/schemas/contextScales.json', function(contextScales){
+        $.getJSON('data/schemas/resourcesData.json', function(resourcesData){
         
 		
 		
@@ -246,7 +247,8 @@
                     
                     */
                     function addParameterToList(parameter, container){
-                        var parameterName = _($($(parameter).children('Name')[0]).text());
+                        var untranslatedParameterName = $($(parameter).children('Name')[0]).text();
+                        var parameterName = _(untranslatedParameterName);
                         var parameterId = $(parameter).attr('ID');
                         var parameterComment = $($(parameter).children('Comment')[0]).text();
                         var parameterScale = $(parameter).children().last();//the scale is always the last element in the parameter element
@@ -266,7 +268,7 @@
                             
                             $(commentPopover).hover(function(){
                                 $('#scaleDisplayer').empty();
-                                displayParameterScale((parametersDictionnary[parameterId]).scale, '#scaleDisplayer', false);
+                                displayParameterScale((parametersDictionnary[parameterId]).scale, resourcesData[untranslatedParameterName.toLowerCase()], '#scaleDisplayer', false);
                                 $('#scaleDisplayer').show();
                             },
                             function(){
@@ -278,7 +280,7 @@
                         }
                         
                         if(!parametersDictionnary.hasOwnProperty(parameterId)){//if this parameter is not yet in the Dictionnary, add it.
-                            parametersDictionnary[parameterId] = {name: parameterName, comment: parameterComment, scale: parameterScale};
+                            parametersDictionnary[parameterId] = {name: untranslatedParameterName, comment: parameterComment, scale: parameterScale};
                         }
                     }
                     
@@ -559,8 +561,9 @@
                             formToDisplay = 'refValueParameter';
                             //displaying information about the scale just above the rule
                             var currentParameterId = $($(currentParameter).find('id')[0]).text();
+                            var currentParameterName = (parametersDictionnary[currentParameterId]).name.toLowerCase();
                             if(parametersDictionnary[currentParameterId]){
-                                displayParameterScale((parametersDictionnary[currentParameterId]).scale, '#newRuleForm', true);
+                                displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true);
                             }
                         },
                         function(){//7
@@ -575,8 +578,9 @@
                             formToDisplay = 'refValueParameter';
                             //displaying information about the scale just after the form
                             var currentParameterId = $($(currentParameter).find('id')[0]).text();
+                            var currentParameterName = (parametersDictionnary[currentParameterId]).name.toLowerCase();
                             if(parametersDictionnary[currentParameterId]){
-                                displayParameterScale((parametersDictionnary[currentParameterId]).scale, '#newRuleForm', true);
+                                displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true);
                             }
                         
                         },
@@ -1423,6 +1427,7 @@
     
     
         }});// get profile
+        });//get json resourcesData
         });//get json context
         });//get json profile
         }});//strategy file

@@ -52,7 +52,7 @@
 							<MultipleSelection>true</MultipleSelection>
 							<Value>
 							<!-- To be filled each time a new tag is created  -->
-								<Name></Name>
+								
 							</Value>
 						</ScaleList>
 					</Parameter>
@@ -63,9 +63,6 @@
 							<Variable>true</Variable>
 							<Ordered>false</Ordered>
 							<MultipleSelection>true</MultipleSelection>
-							<Value><!--To be filled with resources -->
-								<Name></Name>
-							</Value>
 						</ScaleList>
 					</Parameter>
 				</Parameters>
