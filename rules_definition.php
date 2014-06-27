@@ -1315,7 +1315,7 @@
                                     var parameter = this;
                                     var paramId = $($(this).find('id')[0]).text();
                                     var paramValue = $($(this).find('value')[0]).text();
-                                    var paramValueContainer = $('<span>');
+                                    var paramValueContainer = $('<span>').append(paramValue);
                                     var parameterContainer = $('<li>').append((parametersDictionnary[paramId]).name+_(': ')).append(paramValueContainer);
                                     
                                     if(editMode && formToDisplay == 'refValueParameter' && parameter == currentParameter){//currently edited parameter, and we want to change its value.
