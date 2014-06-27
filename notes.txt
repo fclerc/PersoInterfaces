@@ -1,4 +1,4 @@
-mettre du lowercase pour toutes les comparaisons de nodename
+
 permettre réorganisation des activités
 
 chercher les TODO

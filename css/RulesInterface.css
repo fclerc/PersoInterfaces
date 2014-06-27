@@ -97,13 +97,14 @@ h1 small{
     margin-left: 1%;
 }
 
-#Rules .parameterAdder,#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .activityRemover, #Rules .constraintEditor, #Rules .constraintRemover, #Rules .activityAdder, #Rules .constraintAdder, #Rules .conditionTypeEditor, #Rules .otherConstraintAdder{
+#Rules .parameterAdder,#Rules .parameterRemover,#Rules .parameterValueEditor, #Rules .activityRemover, #Rules .activityUpper, #Rules .constraintEditor, #Rules .constraintRemover, #Rules .activityAdder, #Rules .constraintAdder, #Rules .conditionTypeEditor, #Rules .otherConstraintAdder{
     opacity:0.6;
 }
-#Rules .parameterAdder:hover,#Rules .parameterRemover:hover,#Rules .parameterValueEditor:hover, #Rules .activityRemover:hover, #Rules .constraintEditor:hover, #Rules .constraintRemover:hover, #Rules .activityAdder:hover, #Rules .constraintAdder:hover, #Rules .conditionTypeEditor:hover, #Rules .otherConstraintAdder:hover{
+#Rules .parameterAdder:hover,#Rules .parameterRemover:hover,#Rules .parameterValueEditor:hover, #Rules .activityRemover:hover, #Rules .activityRemover:hover, #Rules .constraintEditor:hover, #Rules .constraintRemover:hover, #Rules .activityAdder:hover, #Rules .constraintUpper:hover, #Rules .conditionTypeEditor:hover, #Rules .otherConstraintAdder:hover{
     cursor:pointer;
     opacity:1;
 }
+
 #Rules .parameterAdder, #Rules .activityAdder, #Rules .constraintAdder, #Rules .otherConstraintAdder{
     color:green;
 }

@@ -1308,6 +1308,13 @@
                                             goFromTo(currentOperation, 11);
                                         }
                                     });
+                                    
+                                    var activityUpper = $('<span>').addClass('glyphicon glyphicon glyphicon-arrow-up activityUpper').attr('title', _('Place above'));
+                                    $(typeOfActivityContainer).append(activityUpper);
+                                    $(activityUpper).click(function(){							
+                                        $(activity).insertBefore($(activity).prev());
+                                        goFromTo(currentOperation, 11);
+                                    });
                                 }
                                 
                                 var parametersContainer =$('<ul>').addClass('parameters');
