@@ -496,7 +496,7 @@
                         }
                         
                         else if(currentOperation == 13){
-                            if(currentCondition.nodeName == 'constraint' || currentCondition.nodeName == 'CONSTRAINT' || formToDisplay == 'conditionType'){//we are adding a new constraint
+                            if((currentCondition.nodeName).toLowerCase() == 'constraint' || formToDisplay == 'conditionType'){//we are adding a new constraint
                                 $(currentCondition).wrap($('<'+ value +'>'));
                             }
                             else{//we are changing the 'and' or 'or' of the current condition
@@ -941,7 +941,7 @@
                         
                         function getConditionElementContainer(element){
                             var toReturn;
-                            if(element.nodeName == 'constraint' ||element.nodeName == 'CONSTRAINT'){
+                            if((element.nodeName).toLowerCase() == 'constraint'){
                                 toReturn = getConstraintContainer(element);
                             }
                             else{//AND or OR, with 2 conditionElement children
@@ -1149,7 +1149,7 @@
                                     
                                     $(constraintRemover).click(function(){
                                         var parent = $(constraint).parent()[0];//if it is and or or : only keep the other constraint
-                                        if(['and', 'AND', 'or', 'OR'].indexOf(parent.nodeName) != -1){
+                                        if(['and', 'or'].indexOf((parent.nodeName).toLowerCase()) != -1){
                                             constraint.remove();
                                             var theSecondConstraint = $(parent).children()[0];
                                             $(parent).replaceWith(theSecondConstraint);

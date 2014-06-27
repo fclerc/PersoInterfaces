@@ -29,7 +29,7 @@ idAdderRunner : à utiliser quand on vient de créer un nouveau xml, avec des ta
 Pour activités : nécessité de réécrire un code spécifique pour l'afficher, dans la mesure où on ne veut pas aficher la même chose, et la fonction manipulateXML que j'ai écrite doit rester générique.
 
 
-For xml documents where jquery might add elements : there are case problems, thus I write everything in lower case.
+For xml documents where jquery might add elements : there are case problems, thus I write everything in lower case. Other solution : use toLowerCase everytime needed (for comparisons)
 
 
 Useful link for colors : http://web.njit.edu/~kevin/rgb.txt.html#columns
