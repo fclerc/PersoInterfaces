@@ -1070,7 +1070,7 @@
                                 var referenceValue = $($(constraint).find("referencevalue")[0]).text();
                                 var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
                                 
-                                if(editMode && formToDisplay == 'indicator' && currentCondition == constraint){//if we are currently editing this indicator, show it clearly
+                                if(editMode && formToDisplay == 'indicator' && currentCondition == constraint && editingCondition){//if we are currently editing this indicator, show it clearly
                                     $(indicatorContainer).addClass('editedIndicator');
                                 }
                                 
@@ -1284,13 +1284,13 @@
                                 
                                 //link between activity in the rule and activity in the right part when hovering and clicking
                                 var typeOfActivitySelectionContainer = $('#Activities #'+typeOfActivityId);
-                                var typeOfActivitySelectionContainerColor = $(typeOfActivitySelectionContainer).css('background-color');
+                                //var typeOfActivitySelectionContainerColor = $(typeOfActivitySelectionContainer).css('background-color');
                                 
                                 $(typeOfActivityContainer).hover(function(){
                                     $(typeOfActivitySelectionContainer).css('background-color', '#FF7F24');
                                 },
                                 function(){
-                                    $(typeOfActivitySelectionContainer).css('background-color', typeOfActivitySelectionContainerColor);
+                                    $(typeOfActivitySelectionContainer).css('background-color', 'transparent');
                                 });
                                 
                                 $(typeOfActivityContainer).click(function(){
@@ -1335,13 +1335,13 @@
                                     }
                                         //link between parameter in the rule and parameter in the right part when hovering and clicking
                                         var parameterSelectionContainer = $('#Activities #'+typeOfActivityId +' +ul li #'+paramId);
-                                        var parameterSelectionContainerColor = $(parameterSelectionContainer).css('background-color');
+                                        //var parameterSelectionContainerColor = $(parameterSelectionContainer).css('background-color');
                                         
                                         $(parameterContainer).hover(function(){
                                             $(parameterSelectionContainer).css('background-color', '#FF7F24');
                                         },
                                         function(){
-                                            $(parameterSelectionContainer).css('background-color', parameterSelectionContainerColor);
+                                            $(parameterSelectionContainer).css('background-color', 'transparent');
                                         });
                                         
                                         $(parameterContainer).click(function(){

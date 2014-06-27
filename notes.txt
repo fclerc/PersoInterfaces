@@ -1,5 +1,16 @@
-extraire tout ce que je peux des ressources, EXPLOITER DANS L'INTERFACE
+mettre du lowercase pour toutes les comparaisons de nodename
+permettre réorganisation des activités
+
+chercher les TODO
+mettre la doc où il faut dans les schémas
+
+bugs :
+-create complex, and edit AND before defining indicator (mais pas si grave, puisqu'on peut supprimer la contrainte complexe après...)
+
+
+
 voir comment traiter la notion de order et permettre une définition facile (basée sur une liste de contextes disponibles,...)
+édition des ressources, en utilisant l'attribut group pour les 'dossiers'
 
 RESOURCES / REMOVE TOUS LES ID ET AJOUTE DE NOUVEAU
 modélisation complète

@@ -149,6 +149,10 @@ h1 small{
     top: 6.5px;
 }
 
+#Rules .inputFiller:hover{
+    cursor: pointer;
+    background-color: blue;
+}
 
 #Rules .ruleContainer h4{
     padding-top:3px;
