@@ -28,11 +28,11 @@
     
     <body>
 		<h1>Strategy definition page:&nbsp;<?php echo $section; ?> <small>Currently defining&nbsp;<span class="currentFileName"><?php echo $file; ?></span></small></h1>
-		<p id="mainLink"><a href="index.php">Back to main menu</a></p>
+		<p id="mainLink"><a href="index.php">common.back</a></p>
 			
         <div id="ProfileAndContext" class="mains">
-            <h2>Selection of indicators</h2>
-            <p>For each indicator, an example value is given (italic).</p>
+            <h2>strategy.profiles.h2</h2>
+            <p>strategy.profiles.explanation</p>
             <ul class="nav nav-tabs">
                 <li class="active" id="profileTabLi"><a href="#Profile" data-toggle="tab">Profile</a></li>
                 <li id="contextTabLi"><a href="#Context" data-toggle="tab">Context</a></li>
@@ -45,22 +45,22 @@
         </div>
 	
 		<div id="Rules" class="mains">
-			<h2>Definition of pedagogical strategy</h2>
+			<h2>strategy.rules.h2</h2>
             <div class="filenameForm"><label for="filenameInput">Name: </label><input type="text" name="filenameInput" id="strategyFilenameInput" value="<?php echo $file; ?>" /></div>
-			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>Add new Rule</span></button>
-			<button id="strategySaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Save my strategy</span></button>
+			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>strategy.rules.add</span></button>
+			<button id="strategySaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>strategy.rules.save</span></button>
             <hr/>
-			<div id="newRuleInstruction">When editing or creating a rule, you can click on any part of this rule to change its values and structure.</div>
+			<div id="newRuleInstruction">strategy.rules.instructions</div>
 			<div id="newRuleContainer"></div>
 			<div id="newRuleForm"></div>
             <div id="newRuleButtons"></div>
             <hr/>
-            <h3>Rules you already defined:</h3>
+            <h3>strategy.rules.defined.h3</h3>
             
             <div id="uselessDivToInsertRulesAbove"></div>
 		</div>
 		<div id="Activities" class="mains">
-			<h2>Selection of the activities</h2>
+			<h2>strategy.activities.h2</h2>
 		</div>
         <div id="scaleDisplayer"></div>
 		
@@ -717,7 +717,7 @@
                                         alert('File not saved: a file with this name already exists');
                                     }
                                     else{
-                                        alert(_('Your data have been successfully saved'));
+                                        alert(_('strategy.save.success'));
                                         strategyFilename = $('#strategyFilenameInput').val();
                                         $('.currentFileName').text(strategyFilename);
                                     }
@@ -879,14 +879,14 @@
                         //Action to delete the rule
                         $(ruleRemover).click(function(){
                             if($('#newRuleContainer #' +$(rule).attr('id') ).length===0){//this is not the currently created rule : delete it in the xml tree
-                                if(confirm(_('Are you sure to delete this rule ? It will not be possible to retrieve it later.'))){
+                                if(confirm(_('strategy.rules.delete'))){
                                     $(rule).remove();
                                     $(ruleContainer).remove();
                                 }
                             }
                             
                             else{//this is the currently created rule
-                                if(confirm(_('Are you sure to delete this new rule?'))){
+                                if(confirm(_('strategy.rules.newrule.delete'))){
                                     builtRule = {};
                                     goFromTo(currentOperation, 0);
                                 }
@@ -901,7 +901,7 @@
                                 $('#newRuleInstruction')[0].scrollIntoView(true);
                             }
                             else{
-                                alert(_('Please save or delete your current rule before editing this one.'));
+                                alert(_('strategy.rules.cantedit'));
                             }
                         });
                         
@@ -1251,7 +1251,7 @@
                         //containerName = 'then' or 'else'
                         function getConsequencesContainer(consequencesElement, containerName){
                         
-                            var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(_(containerName.toUpperCase())+_(' the learner will do the following activities: ')));
+                            var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(_(containerName.toUpperCase())+_('strategy.rules.learnerActivity')));
                             
                             if(editMode){//displaying '+' icon to add a new activity
                                 var activityAdder = $('<span>').addClass('glyphicon glyphicon-plus activityAdder').attr('title', _('Add activity'));
@@ -1278,7 +1278,7 @@
                                 
                                 
                                 var typeOfActivityId = $($(this).find("typeofactivity")[0]).text();
-                                var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + _(', with parameters: '));
+                                var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + _('strategy.rules.parametersListIntro'));
                                 
                                 
                                 
@@ -1303,7 +1303,7 @@
                                     var activityRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle activityRemover').attr('title', _('Remove activity'));
                                     $(typeOfActivityContainer).append(activityRemover);
                                     $(activityRemover).click(function(){
-                                        if(confirm(_('Are you sure to delete this activity?'))){										
+                                        if(confirm(_('strategy.rules.newrule.deleteActivity'))){										
                                             activity.remove();
                                             goFromTo(currentOperation, 11);
                                         }

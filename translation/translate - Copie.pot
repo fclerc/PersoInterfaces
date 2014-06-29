@@ -11,31 +11,25 @@ msgstr ""
 #
 #
 
-msgid "strategy.profiles.h2"
+msgid "Selection of indicators"
 msgstr ""
 
-msgid "strategy.profiles.explanation"
+msgid "For each indicator, an example value is given (italic)."
 msgstr ""
 
-msgid "common.back"
+msgid "Definition of pedagogical strategy"
 msgstr ""
 
-msgid "strategy.rules.h2"
+msgid "Add new Rule"
 msgstr ""
 
-msgid "strategy.rules.add"
+msgid "Save my strategy"
 msgstr ""
 
-msgid "strategy.rules.save"
+msgid "Rules you already defined:"
 msgstr ""
 
-msgid "strategy.rules.instructions"
-msgstr ""
-
-msgid "strategy.rules.defined.h3"
-msgstr ""
-
-msgid "strategy.activities.h2"
+msgid "Selection of the activities"
 msgstr ""
 
 msgid "Profile"
@@ -370,7 +364,7 @@ msgstr ""
 
 #
 #
-#Context display
+#Rules display
 #
 #
 
@@ -462,9 +456,23 @@ msgstr ""
 
 
 
+msgid "Edit 'IF'"
+msgstr ""
+
+msgid "Add 'THEN' Activity"
+msgstr ""
+
+msgid "Add 'ELSE' Activity"
+msgstr ""
+
+msgid "Edit Priority"
+msgstr ""
+
 msgid "Save rule"
 msgstr ""
 
+msgid ", or click on a button below"
+msgstr ""
 
 msgid "Priority: "
 msgstr ""
@@ -472,10 +480,10 @@ msgstr ""
 msgid "Rule"
 msgstr ""
 
-msgid "strategy.rules.newrule.delete"
+msgid "Are you sure to delete this new rule?"
 msgstr ""
 
-msgid "strategy.rules.cantedit"
+msgid "Please save or delete your current rule before editing this one."
 msgstr ""
 
 msgid "IF"
@@ -493,28 +501,58 @@ msgstr ""
 msgid "ELSE"
 msgstr ""
 
-msgid "strategy.rules.learnerActivity"
+msgid " the learner will do the following activities: "
 msgstr ""
 
-msgid "strategy.rules.parametersListIntro"
+msgid ", with parameters: "
 msgstr ""
 
-msgid "strategy.rules.newrule.deleteActivity"
+msgid "Are you sure to delete this activity?"
 msgstr ""
 
-msgid "strategy.save.success"
+msgid "Your data have been successfully saved"
 msgstr ""
 
-msgid "strategy.rules.delete"
+msgid "Are you sure to delete this rule ? It will not be possible to retrieve it later."
 msgstr ""
 
-msgid "true or false"
+msgid "Click on new rule"
 msgstr ""
 
-msgid "scales.enumeration.intro"
+msgid "Choose the indicator you want to base your rule on from the profile or the context"
 msgstr ""
 
-msgid "scales.value.intro"
+msgid "Choose the operator you want to use in this rule in the form below"
+msgstr ""
+
+msgid "Give the value used for the comparison"
+msgstr ""
+
+msgid "Select the activity for the then part of the rule"
+msgstr ""
+
+msgid "Select a parameter you want to set for this activity"
+msgstr ""
+
+msgid "Give the value for the parameter"
+msgstr ""
+
+msgid "Give the priority for this rule"
+msgstr ""
+
+msgid "Save your new rule"
+msgstr ""
+
+msgid "Success, your rule has been saved! You can create/edit another one if you want"
+msgstr ""
+
+msgid "true of false"
+msgstr ""
+
+msgid "You can chose between: "
+msgstr ""
+
+msgid "The value must be a"
 msgstr ""
 
 msgid " number"
@@ -526,7 +564,7 @@ msgstr ""
 msgid " number, with step "
 msgstr ""
 
-msgid "scales.noscale"
+msgid "There is no particular constraint on this parameter"
 msgstr ""
 
 msgid "Mandatory"
@@ -751,7 +789,7 @@ msgstr ""
 msgid ": "
 msgstr ""
 
-msgid "scales.enumeration.conclu"
+msgid "click on the value you want"
 msgstr ""
 
 msgid "Edit rule"

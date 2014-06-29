@@ -1,6 +1,3 @@
-
-permettre réorganisation des activités
-
 chercher les TODO
 mettre la doc où il faut dans les schémas
 

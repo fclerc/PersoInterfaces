@@ -17,7 +17,7 @@ msgstr ""
 msgid "Selection of indicators"
 msgstr "Sélection des indicateurs"
 
-msgid "strategy.profiles.explanation"
+msgid "For each indicator, an example value is given (italic)."
 msgstr "Pour chaque indicateur, une valeur exemple est donnée (en italique)."
 
 msgid "Definition of pedagogical strategy"
@@ -786,7 +786,3 @@ msgstr "Valider"
 
 msgid "Combine with another constraint"
 msgstr "Combiner avec une autre contrainte"
-
-#~ msgid "For each indicator, an example value is given (italic)."
-#~ msgstr ""
-#~ "Pour chaque indicateur, une valeur exemple est donnée (en italique)."
