@@ -1,5 +1,6 @@
 chercher les TODO
 mettre la doc où il faut dans les schémas
+session pour gestion du langage
 
 bugs :
 -create complex, and edit AND before defining indicator (mais pas si grave, puisqu'on peut supprimer la contrainte complexe après...)
