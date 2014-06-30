@@ -1,0 +1,788 @@
+# Mooc personalization
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mooc Personalization\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Florian Clerc <fc@florianclerc.com>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Selection of indicators"
+msgstr "Sélection des indicateurs"
+
+msgid "For each indicator, an example value is given (italic)."
+msgstr "Pour chaque indicateur, une valeur exemple est donnée (en italique)."
+
+msgid "Definition of pedagogical strategy"
+msgstr "Définition de la stratégie pédagogique"
+
+msgid "Add new Rule"
+msgstr "Ajouter une nouvelle règle"
+
+msgid "Save my strategy"
+msgstr "Sauvegarder ma stratégie"
+
+msgid "Rules you already defined:"
+msgstr "Règles déjà définies :"
+
+msgid "Selection of the activities"
+msgstr "Sélection des activités"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Context"
+msgstr "Contexte"
+
+msgid "context"
+msgstr "contexte"
+
+msgid "Learning"
+msgstr "Apprentissage"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Sequence"
+msgstr "Séquence"
+
+msgid "Length"
+msgstr "Durée"
+
+msgid "Categories"
+msgstr "Catégories"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Difficulty"
+msgstr "Difficulté"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Social"
+msgstr "Social"
+
+msgid "Tool"
+msgstr "Outil"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Exercise"
+msgstr "Exercice"
+
+msgid "Grade"
+msgstr "Note"
+
+msgid "Attempts"
+msgstr "Nombre d'essais"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Goal"
+msgstr "Objectif"
+
+#
+#
+# LearnerProfile
+#
+#
+msgid "learnerMoocProfile"
+msgstr "Profil d'apprenant du MOOC"
+
+msgid "learnerInformation"
+msgstr "informations sur l'apprenant"
+
+msgid "id"
+msgstr "id"
+
+msgid "email"
+msgstr "email"
+
+msgid "birthDate"
+msgstr "date de naissance"
+
+msgid "sex"
+msgstr "sexe"
+
+msgid "professionalSituation"
+msgstr "situation professionnelle"
+
+msgid "educationLevel"
+msgstr "niveau d'éducation"
+
+msgid "educationDomain"
+msgstr "domaine de formation"
+
+msgid "country"
+msgstr "pays"
+
+msgid "languages"
+msgstr "langues"
+
+msgid "language"
+msgstr "langue"
+
+msgid "name"
+msgstr "nom"
+
+msgid "skill"
+msgstr "compétence"
+
+msgid "registrationDate"
+msgstr "date d'inscription"
+
+msgid "colourBlind"
+msgstr "daltonien"
+
+msgid "externalToolsKnowledge"
+msgstr "connaissance des outils extérieurs"
+
+msgid "externalTool"
+msgstr "outil extérieur"
+
+msgid "toolName"
+msgstr "nom de l'outil"
+
+msgid "grade"
+msgstr "note"
+
+msgid "otherInformation"
+msgstr "autre information"
+
+msgid "knowledge"
+msgstr "connaissances"
+
+msgid "courseKnowledge"
+msgstr "connaissances sur le cours"
+
+msgid "knowledgeGroup"
+msgstr "groupe de connaissances"
+
+msgid "value"
+msgstr "valeur"
+
+msgid "knowledgeUnit"
+msgstr "unité de savoir"
+
+msgid "toolsKnowledge"
+msgstr "connaissances sur les outils"
+
+msgid "knowledgeTool"
+msgstr "connaissance sur un outil"
+
+msgid "behaviour"
+msgstr "comportement"
+
+msgid "studentPattern"
+msgstr "type d'apprenant"
+
+msgid "dropoutFlag"
+msgstr "avertissement d'abandon"
+
+msgid "IRLInteraction"
+msgstr "interactions hors MOOC"
+
+msgid "socialInteractions"
+msgstr "interactions sociales"
+
+msgid "socialInteraction"
+msgstr "interaction sociale"
+
+msgid "socialTool"
+msgstr "réseau social"
+
+msgid "forumBehaviour"
+msgstr "comportement sur le forum"
+
+msgid "otherBehaviour"
+msgstr "autre élément de comportement"
+
+msgid "moocInteractions"
+msgstr "interactions avec le MOOC"
+
+msgid "activityDistributions"
+msgstr "distribution des activités"
+
+msgid "activityPerHour"
+msgstr "activité par heure"
+
+msgid "hour"
+msgstr "heure"
+
+msgid "num"
+msgstr "numéro"
+
+msgid "timePercentage"
+msgstr "pourcentage (en temps)"
+
+msgid "actionsPercentage"
+msgstr "pourcentage (en nombre d'actions)"
+
+msgid "activityPerDay"
+msgstr "activité par journée"
+
+msgid "day"
+msgstr "jour"
+
+msgid "activityPerSequence"
+msgstr "activité par séquence"
+
+msgid "sequence"
+msgstr "séquence"
+
+msgid "lastVisits"
+msgstr "dernières visites"
+
+msgid "visit"
+msgstr "visite"
+
+msgid "otherDynamics"
+msgstr "autres indicateurs de dynamique"
+
+msgid "resourcesInteractions"
+msgstr "interactions avec les ressources"
+
+msgid "resourcesConsultation"
+msgstr "consultation de ressources"
+
+msgid "resourceConsultation"
+msgstr "consultation d'une ressource"
+
+msgid "resourceId"
+msgstr "identifiant de la ressource"
+
+msgid "nbConsultations"
+msgstr "nombre de consultations"
+
+msgid "childrenConsultationsDistribution"
+msgstr "distribution de consultation des enfants (en nombre de consultations)"
+
+msgid "childPercentage"
+msgstr "pourcentage"
+
+msgid "resource"
+msgstr "ressource"
+
+msgid "percentage"
+msgstr "pourcentage"
+
+msgid "duration"
+msgstr "durée"
+
+msgid "childrenDurationDistribution"
+msgstr "distribution de consultation des enfants (en temps)"
+
+msgid "completion"
+msgstr "taux de réalisation"
+
+msgid "comparedPercentage"
+msgstr "pourcentage comparé"
+
+msgid "scale"
+msgstr "échelle"
+
+msgid "consultationDuringHomework"
+msgstr "consultations durant les devoirs"
+
+msgid "totalTimeOnHomework"
+msgstr "temps total passé sur les devours"
+
+msgid "timeOtherResourcesDuringHw"
+msgstr "temps total passé sur les autres ressources"
+
+msgid "distribution"
+msgstr "distribution"
+
+msgid "courseware"
+msgstr "matériel de cours"
+
+msgid "forum"
+msgstr "forum"
+
+msgid "wiki"
+msgstr "wiki"
+
+msgid "exercises"
+msgstr "exercices"
+
+msgid "customInteractionIndicator"
+msgstr "indicateur d'interaction personnalisé"
+
+msgid "actionId"
+msgstr "action"
+
+msgid "period"
+msgstr "période"
+
+msgid "interval"
+msgstr "intervalle"
+
+msgid "beginDateTime"
+msgstr "date de début"
+
+msgid "endDateTime"
+msgstr "date de fin"
+
+msgid "comment"
+msgstr "commentaire"
+
+msgid "sequenceContext"
+msgstr "contexte de la séquence"
+
+msgid "activitiesContext"
+msgstr "contexte : activités"
+
+msgid "numberOfActivities"
+msgstr "nombre d'activités"
+
+msgid "min"
+msgstr "minimum"
+
+msgid "max"
+msgstr "maximum"
+
+msgid "activitiesDuration"
+msgstr "durée des activités"
+
+msgid "quizVariation"
+msgstr "variation des énoncés"
+
+msgid "liveContext"
+msgstr "contexte 'en direct'"
+
+msgid "environmentContext"
+msgstr "contexte : environnement"
+
+msgid "datetime"
+msgstr "date et heure"
+
+msgid "connecteds"
+msgstr "informations sur les personnes connectées"
+
+msgid "connected"
+msgstr "type de personne"
+
+msgid "role"
+msgstr "role"
+
+msgid "number"
+msgstr "nombre de connectés"
+
+msgid "learnerLiveContext"
+msgstr "contexte 'en direct' de l'apprenant"
+
+msgid "IPAddress"
+msgstr "adresse IP"
+
+msgid "device"
+msgstr "appareil"
+
+msgid "OS"
+msgstr "système d'exploitation"
+
+msgid "browser"
+msgstr "navigateur"
+
+msgid "bandwidth"
+msgstr "bande passante"
+
+msgid "availableTime"
+msgstr "temps disponible"
+
+msgid "delay"
+msgstr "retard dans le MOOC"
+
+msgid "timeAlreadySpent"
+msgstr "temps déjà passé sur le MOOC"
+
+msgid "otherLiveInformation"
+msgstr "autres informations 'en direct'"
+
+#
+#
+# Display rule
+#
+#
+msgid "Edit 'IF'"
+msgstr "Editer le 'SI'"
+
+msgid "Add 'THEN' Activity"
+msgstr "Ajouter activité 'ALORS'"
+
+msgid "Add 'ELSE' Activity"
+msgstr "Ajouter activité 'SINON'"
+
+msgid "Edit Priority"
+msgstr "Modifier la priorité"
+
+msgid "Save rule"
+msgstr "Enregistrer la règle"
+
+msgid ", or click on a button below"
+msgstr ", ou cliquez sur un bouton ci-dessous"
+
+msgid "Priority: "
+msgstr "Priorité : "
+
+msgid "Rule"
+msgstr "Règle"
+
+msgid "Are you sure to delete this new rule?"
+msgstr "Êtes-vous sûr de vouloir supprimer cette nouvelle règle ?"
+
+msgid "Please save or delete your current rule before editing this one."
+msgstr ""
+"Merci de supprimer ou sauvegarder la règle en cours avant d'éditer celle-ci."
+
+msgid "IF"
+msgstr "SI"
+
+msgid "AND"
+msgstr "ET"
+
+msgid "OR"
+msgstr "OU"
+
+msgid "THEN"
+msgstr "ALORS "
+
+msgid "ELSE"
+msgstr "SINON "
+
+msgid " the learner will do the following activities: "
+msgstr "l'apprenant réalisera les activités suivantes : "
+
+msgid ", with parameters: "
+msgstr ", avec comme paramètres: "
+
+msgid "Are you sure to delete this activity?"
+msgstr "Êtes-vous sûr de vouloir supprimer cette activité ?"
+
+msgid "Your data have been successfully saved"
+msgstr "Vos données ont bien été sauvegardées"
+
+msgid ""
+"Are you sure to delete this rule ? It will not be possible to retrieve it "
+"later."
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer cette règle ? Il ne sera plus possible de "
+"la retrouver ensuite."
+
+msgid "Click on new rule"
+msgstr "Ajoutez une nouvelle règle"
+
+msgid ""
+"Choose the indicator you want to base your rule on from the profile or the "
+"context"
+msgstr ""
+"Choisissez l'indicateur sur lequel vous souhaitez baser votre règle dans le "
+"profil d'apprenant ou le contexte"
+
+msgid "Choose the operator you want to use in this rule in the form below"
+msgstr "Choisissez l'opérateur dans le formulaire ci-dessous"
+
+msgid "Give the value used for the comparison"
+msgstr "Donnez la valeur utilisée pour la comparaison"
+
+msgid "Select the activity for the then part of the rule"
+msgstr "Sélectionnez une activité pour la partie 'alors' de la règle"
+
+msgid "Select a parameter you want to set for this activity"
+msgstr "Sélectionnez un paramètre pour cette activité"
+
+msgid "Give the value for the parameter"
+msgstr "Donnez la valeur du paramètre"
+
+msgid "Give the priority for this rule"
+msgstr "Donnez la priorité de cette règle"
+
+msgid "Save your new rule"
+msgstr "Sauvegardez votre règle"
+
+msgid ""
+"Success, your rule has been saved! You can create/edit another one if you "
+"want"
+msgstr ""
+"Votre règle a bien été sauvegardée! Vous pouvez en créer ou éditer autant "
+"que vous le souhaitez"
+
+msgid "true of false"
+msgstr "true (vrai) ou false (faux)"
+
+msgid "You can chose between: "
+msgstr "Vous pouvez choisir entre : "
+
+msgid "The value must be a"
+msgstr "La valeur doit être un"
+
+msgid " number"
+msgstr " nombre"
+
+msgid "n integer"
+msgstr " entier"
+
+msgid " number, with step "
+msgstr " nombre, de pas "
+
+msgid "There is no particular constraint on this parameter"
+msgstr "Il n'y a pas de contrainte particulière sur cet élément"
+
+msgid "Mandatory"
+msgstr "Obligatoire"
+
+msgid "Optional"
+msgstr "Facultatif"
+
+msgid "Bonus"
+msgstr "Bonus"
+
+msgid "Video"
+msgstr "Vidéo"
+
+msgid "Text"
+msgstr "Texte"
+
+msgid "Read"
+msgstr "Lire"
+
+msgid "Create"
+msgstr "Créer"
+
+msgid "Answer"
+msgstr "Répondre"
+
+msgid "Greeting"
+msgstr "Saluer"
+
+msgid "Encouraging"
+msgstr "Encourager"
+
+msgid "Time"
+msgstr "Temps"
+
+msgid "Results"
+msgstr "Résultats"
+
+msgid "xs:duration"
+msgstr "e durée"
+
+msgid "xs:float"
+msgstr " nombre"
+
+msgid "xs:NCName"
+msgstr "e chaîne sans espace, virgule ou ':'"
+
+msgid "xs:integer"
+msgstr " entier"
+
+msgid "xs:NMTOKENS"
+msgstr "e liste d'éléments sans espace ni virgule"
+
+msgid "xs:NMTOKEN"
+msgstr " élément sans espace ni virgule"
+
+msgid "xs:date"
+msgstr "e date"
+
+msgid "xs:string"
+msgstr "e chaîne de caractères"
+
+msgid "xs:boolean"
+msgstr " booléen : true (vrai) ou false (faux)"
+
+msgid "xs:anyType"
+msgstr " élément quelconque"
+
+msgid "xs:dateTime"
+msgstr "e date et heure"
+
+msgid "xs:positiveInteger"
+msgstr " entier positif"
+
+msgid "phone"
+msgstr "smartphone"
+
+msgid "tablet"
+msgstr "tablette"
+
+msgid "computer"
+msgstr "ordinateur"
+
+msgid "google_search_engine"
+msgstr "moteur de recherche Google"
+
+msgid "consultation"
+msgstr "consultation"
+
+msgid "play"
+msgstr "lecture"
+
+msgid "pause"
+msgstr "pause"
+
+msgid "seek_fwd"
+msgstr "recherche avant"
+
+msgid "seek_bck"
+msgstr "recherche arrière"
+
+msgid "change_speed"
+msgstr "changement de vitesse"
+
+msgid "answer_forum"
+msgstr "répondre sur le forum"
+
+msgid "new_thread_forum"
+msgstr "créer un nouveau sujet"
+
+msgid "vote_forum"
+msgstr "vote sur forum"
+
+msgid "save_quiz"
+msgstr "sauvegarder le questionnaire"
+
+msgid "reset_quiz"
+msgstr "remettre le questionnaire à 0"
+
+msgid "submit_quiz"
+msgstr "soumettre le questionnaire"
+
+msgid "show_answer"
+msgstr "afficher les  réponses"
+
+msgid "submit_assignment"
+msgstr "soumettre le devoir"
+
+msgid "save_assignment"
+msgstr "sauvegarder le devoir"
+
+msgid "noshow"
+msgstr "jamais venu"
+
+msgid "active_completing"
+msgstr "participant actif"
+
+msgid "passive_completing"
+msgstr "participant passif"
+
+msgid "auditing"
+msgstr "auditeur"
+
+msgid "disengaging"
+msgstr "qui se désengage"
+
+msgid "disengaging_dropout"
+msgstr "qui se désengage et quitte le MOOC"
+
+msgid "sampling"
+msgstr "échantillonneur"
+
+msgid "absent"
+msgstr "absent"
+
+msgid "reader"
+msgstr "lecteur"
+
+msgid "actor"
+msgstr "acteur"
+
+msgid "native"
+msgstr "natal"
+
+msgid "bilingual"
+msgstr "bilingue"
+
+msgid "fluent"
+msgstr "courant"
+
+msgid "moderate"
+msgstr "modéré"
+
+msgid "unskilled"
+msgstr "sans compétence"
+
+msgid "active"
+msgstr "actif"
+
+msgid "unemployed"
+msgstr "sans emploi"
+
+msgid "student"
+msgstr "étudiant"
+
+msgid "retiree"
+msgstr "à la retraite"
+
+msgid "primary"
+msgstr "primaire"
+
+msgid "secondary"
+msgstr "secondaire"
+
+msgid "bachelor"
+msgstr "licence"
+
+msgid "master"
+msgstr "master"
+
+msgid "doctoral"
+msgstr "doctorat"
+
+msgid " between "
+msgstr " entre "
+
+msgid " and "
+msgstr " et "
+
+msgid ": "
+msgstr " : "
+
+msgid "click on the value you want"
+msgstr "cliquez sur la valeur que vous souhaitez"
+
+msgid "Edit rule"
+msgstr "Editer la règle"
+
+msgid "Delete rule"
+msgstr "Supprimer la règle"
+
+msgid "Duplicate rule"
+msgstr "Dupliquer la règle"
+
+msgid "Remove constraint"
+msgstr "Supprimer la contrainte"
+
+msgid "Edit constraint"
+msgstr "Editer la contrainte"
+
+msgid "Edit value"
+msgstr "Editer la valeur"
+
+msgid "Remove activity"
+msgstr "Supprimer l'activité"
+
+msgid "Remove parameter"
+msgstr "Supprimer le paramètre"
+
+msgid "Add parameter"
+msgstr "Ajouter un paramètre"
+
+msgid "More information"
+msgstr "En savoir plus"
+
+msgid "Validate"
+msgstr "Valider"
+
+msgid "Combine with another constraint"
+msgstr "Combiner avec une autre contrainte"
