@@ -11,6 +11,9 @@ msgstr ""
 #
 #
 
+msgid "strategy.h1"
+msgstr ""
+
 msgid "strategy.profiles.h2"
 msgstr ""
 
@@ -517,6 +520,9 @@ msgstr ""
 msgid "scales.value.intro"
 msgstr ""
 
+msgid "scales.usedValuesIntro"
+msgstr ""
+
 msgid " number"
 msgstr ""
 
@@ -793,16 +799,105 @@ msgstr ""
 
 
 
+#
+#
+#File choice page
+#
+#
+
+
+msgid "fileChoice.delete.confirm"
+msgstr ""
+
+msgid "File successfully removed"
+msgstr ""
+
+msgid "fileChoice.profile.instr"
+msgstr ""
+
+msgid "fileChoice.liveContext.instr"
+msgstr ""
+
+msgid "fileChoice.sequenceContext.instr"
+msgstr ""
+
+msgid "fileChoice.strategy.instr"
+msgstr ""
+
+msgid "fileChoice.resources.instr"
+msgstr ""
+
+
+msgid "Name"
+msgstr ""
+
+msgid "Main Menu"
+msgstr ""
+
+msgid "Sequence Context Edition"
+msgstr ""
+
+msgid "Strategy Edition"
+msgstr ""
+
+msgid "Profile Edition"
+msgstr ""
+
+msgid "Live Context Edition"
+msgstr ""
+
+msgid "Resources Edition"
+msgstr ""
+
+msgid "Open file"
+msgstr ""
+
+msgid "Create new file"
+msgstr ""
+
+msgid "Duplicate file"
+msgstr ""
+
+msgid "Delete file"
+msgstr ""
 
 
 
 
 
+#
+#
+#Values modification page
+#
+#
 
 
+msgid "valuesModification.h1"
+msgstr ""
 
+msgid "valuesModification.instructions"
+msgstr ""
 
+msgid ""
+msgstr ""
 
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
 
 
 

@@ -62,7 +62,7 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
     
     if(resourcesData){//if not undefined
         if(resourcesData.length > 0){//if the json file contains the list  of values used in the resources file for this parameter : display the values
-            $(informationToDisplay).append('<br>').append('In resources file you used the values: ');
+            $(informationToDisplay).append('<br>').append(_('scales.usedValuesIntro'));
             getEnumerationStringFromArray(informationToDisplay, resourcesData, clickable);
         }
     }

@@ -34,6 +34,8 @@ msgstr "Sauvegarder ma stratégie"
 
 msgid "strategy.rules.instructions"
 msgstr ""
+"Lorsque vous créez ou éditez une règle, vous pouvez à tout moment changer "
+"ses valeurs et sa structure en cliquant sur les éléments qui la constituent ."
 
 msgid "strategy.rules.defined.h3"
 msgstr "Règles déjà définies :"

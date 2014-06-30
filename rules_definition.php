@@ -27,7 +27,7 @@
     </head>
     
     <body>
-		<h1>Strategy definition page:&nbsp;<?php echo $section; ?> <small>Currently defining&nbsp;<span class="currentFileName"><?php echo $file; ?></span></small></h1>
+		<h1><span id="strategyPageTitle">strategy.h1</span><span id="sectionName"><?php echo $section; ?> </span><small><span id="currentFile">Currently defining&nbsp;</span><span class="currentFileName"><?php echo $file; ?></span></small></h1>
 		<p id="mainLink"><a href="index.php">common.back</a></p>
 			
         <div id="ProfileAndContext" class="mains">
@@ -86,7 +86,7 @@
             success: function(data){
                 _.setTranslation(data);
 			//translating the already displayed content
-            $('#ProfileAndContext h2, #ProfileAndContext p, #ProfileAndContext ul li a, #Rules h2, #Rules h3, #Rules button span, #Activities h2').each(function(){
+            $('#ProfileAndContext h2, #ProfileAndContext p, #ProfileAndContext ul li a, #Rules h2, #Rules h3, #Rules button span, #Activities h2, #mainLink, #newRuleInstruction, #strategyPageTitle, #currentFile, #sectionName').each(function(){
                 $(this).text(_($(this).text()));
             });
         
