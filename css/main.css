@@ -30,3 +30,13 @@ body{
     border-radius: 30px;
     display:none;
 }
+
+#languageChoice{
+    position: absolute;
+    top: 10px;
+    right:20%;
+}
+
+#languageChoice a{
+    margin-right: 5px;
+}

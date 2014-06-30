@@ -851,6 +851,9 @@ msgstr ""
 msgid "Delete file"
 msgstr ""
 
+msgid "languageChoice"
+msgstr "Choose language: "
+
 #
 #
 # Values modification page

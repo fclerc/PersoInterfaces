@@ -804,7 +804,7 @@ msgid "fileChoice.resources.instr"
 msgstr "Dans cette section, changez les propriétés des resssources du MOOC"
 
 msgid "Main Menu"
-msgstr "Meun principal"
+msgstr "Menu principal"
 
 msgid "Sequence Context Edition"
 msgstr "Modification du contexte de séquence"
@@ -832,6 +832,9 @@ msgstr "Dupliquer le fichier"
 
 msgid "Delete file"
 msgstr "Supprimer le fichier"
+
+msgid "languageChoice"
+msgstr "Choisissez votre langue: "
 
 #
 #

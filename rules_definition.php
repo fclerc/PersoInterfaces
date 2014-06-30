@@ -1,4 +1,5 @@
-<?php session_start(); 
+<?php session_start();
+    require_once 'phphelpers/langFinder.php';
     if(!isset($_POST['path'])){//values are in the session variable
         $path = $_SESSION['path'];
         $file = $_SESSION['file'];
@@ -79,7 +80,7 @@
 			var strategyPath = <?php echo "'".$path."'"; ?>;
             var strategyFilename = <?php echo "'".$file."'"; ?>;
         $.ajaxSetup({ cache: false });//TODO : remove it and only cache: false for wise files; not always necessary for translations, documentations,...
-            var translationFile = 'translation/fr.json';
+            var translationFile = 'translation/'+<?php echo "'".$lang."'"; ?>+'.json';
         $.ajax({//loading translation
             type: "GET",
             url: translationFile,

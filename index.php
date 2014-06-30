@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php session_start();
+    require_once 'phphelpers/langFinder.php';
+    
+?>
 <!DOCTYPE HTML>
 <html>
 	<?php
@@ -26,7 +29,8 @@
 		<h1>Main Menu</h1>
 		<p>Quick explanations</p>
 		<p>Other links, for example to a deeper explanation about the models</p>
-        <?php
+        <div id="languageChoice"><span>languageChoice</span><a href="index.php?lang=fr"><img src="img/fr.png"/></a><a href="index.php?lang=en"><img src="img/gb.png"/></a></div>
+        <?php 
             if(isset($_SESSION['fileRemoved'])){//if a file has bee removed, display a message
                 if($_SESSION['fileRemoved']){
                     echo '<p class="alert alert-info" id="fileRemovedSuccess">File successfully removed</p>';
@@ -46,14 +50,14 @@
 	
 	<script type="text/javascript">
 		$(function(){
-        var translationFile = 'translation/fr.json';
+        var translationFile = 'translation/'+<?php echo "'".$lang."'"; ?>+'.json';
         $.ajax({//loading translation
             type: "GET",
             url: translationFile,
             success: function(data){
                 _.setTranslation(data);
 			//translating the already displayed content
-            $('#fileRemovedSuccess, .container h1').each(function(){
+            $('#fileRemovedSuccess, .container h1, #languageChoice span').each(function(){
                 $(this).text(_($(this).text()));
             });
         

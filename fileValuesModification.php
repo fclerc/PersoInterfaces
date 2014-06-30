@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+    require_once 'phphelpers/langFinder.php';
+?>
 <!DOCTYPE HTML>
 <!-- This file uses XMLManipulator in order to enable the user to change the values of the XML file he is using. Name and path of the file are sent by a POST form  -->
 <html>
@@ -43,7 +45,7 @@
         <script type="text/javascript">
         $(function(){    
             
-            var translationFile = 'translation/fr.json';
+            var translationFile = 'translation/'+<?php echo "'".$lang."'"; ?>+'.json';
             $.ajax({//loading translation
                 type: "GET",
                 url: translationFile,
