@@ -27,7 +27,7 @@
     }
     ?>
 		<div class="container">
-			<h1><span id="valuesPageTitle">valuesModification.h1</span><span id="sectionName"><?php echo $section ?> </span><small><span id="currentFile">Currently editing&nbsp;</span><span id="currentFileName"><?php echo $file; ?></span></small></h1>
+			<h1><span id="valuesPageTitle">valuesModification.h1</span><span id="sectionName"><?php echo $section; ?></span><small><span id="currentFile">valuesModification.currentFileIntro</span><span id="currentFileName"><?php echo $file; ?></span></small></h1>
 			<p id="generalInstructions">valuesModification.instructions</p>
 			<p><a href="index.php" id="mainLink">common.back</a></p>
 			<div id="XMLcontainer"></div>
@@ -50,7 +50,7 @@
                 success: function(data){
                     _.setTranslation(data);
                     
-                    $('#valuesPageTitle, #currentFile, #generalInstructions, #mainLink').each(function(){
+                    $('#valuesPageTitle, #currentFile, #generalInstructions, #mainLink, #sectionName').each(function(){
                         $(this).text(_($(this).text()));
                     });
                     

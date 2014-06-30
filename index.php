@@ -40,11 +40,13 @@
 	</body>
 	<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="translation/translate.js"></script>
+    <script type="text/javascript" src="translation/icu.js"></script>
 	
 	
 	<script type="text/javascript">
 		$(function(){
-        
+        var translationFile = 'translation/fr.json';
         $.ajax({//loading translation
             type: "GET",
             url: translationFile,
@@ -107,8 +109,8 @@
 				}
 			});
 		
-		$('#sectionsContainer').append(sectionsContainer);
-        });//translation file
+            $('#sectionsContainer').append(sectionsContainer);
+        }});//translation file
 		});//jQuery
 		
 		

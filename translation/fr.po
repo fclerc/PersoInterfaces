@@ -14,6 +14,12 @@ msgstr ""
 "X-Generator: Poedit 1.6.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "strategy.h1"
+msgstr "Stratégie pédagogique "
+
+msgid "strategy.currentFileIntro"
+msgstr "Modification de "
+
 msgid "strategy.profiles.h2"
 msgstr "Sélection des indicateurs"
 
@@ -51,6 +57,14 @@ msgstr "Contexte"
 
 msgid "context"
 msgstr "contexte"
+
+#
+#
+# Values modification page
+#
+#
+msgid "Save modifications"
+msgstr "Sauvegarder les modifications"
 
 msgid "Learning"
 msgstr "Apprentissage"
@@ -474,6 +488,10 @@ msgstr "Vous pouvez choisir entre : "
 msgid "scales.value.intro"
 msgstr "La valeur doit être un"
 
+msgid "scales.usedValuesIntro"
+msgstr ""
+"En définissant les ressources, vous avez utilisé les valeurs suivantes : "
+
 msgid " number"
 msgstr " nombre"
 
@@ -521,6 +539,21 @@ msgstr "Temps"
 
 msgid "Results"
 msgstr "Résultats"
+
+msgid "strategy.rules.newrule.chose.indicator"
+msgstr " Sélectionnez un indicateur"
+
+msgid "strategy.rules.newrule.chose.activity"
+msgstr "Sélectionnez une activité sur la droite"
+
+msgid "strategy.rules.newrule.chose.parameter"
+msgstr "Sélectionnez un paramètre sur la droite"
+
+msgid "Add activity"
+msgstr "Ajouter une activité"
+
+msgid "Place above"
+msgstr "Déplacer au-dessus"
 
 msgid "xs:duration"
 msgstr "e durée"
@@ -734,6 +767,93 @@ msgstr "Valider"
 
 msgid "Combine with another constraint"
 msgstr "Combiner avec une autre contrainte"
+
+#
+#
+# File choice page
+#
+#
+msgid "fileChoice.delete.confirm"
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer ce fichier ? Toute suppression est "
+"définitive."
+
+msgid "File successfully removed"
+msgstr "Le fichier a bien été supprimé"
+
+msgid "fileChoice.profile.instr"
+msgstr ""
+"Dans cette section vous pouvez choisir un profil afin de modifier ses "
+"valeurs, et réaliser des tests avec vos stratégies pédagogiques."
+
+msgid "fileChoice.liveContext.instr"
+msgstr ""
+"Dans cette section vous pouvez choisir un contexte 'live' afin de modifier "
+"ses valeurs, et réaliser des tests avec vos stratégies pédagogiques."
+
+msgid "fileChoice.sequenceContext.instr"
+msgstr ""
+"Choisissez un contexte de séquence, et vous pourrez éditer ses valeurs."
+
+msgid "fileChoice.strategy.instr"
+msgstr ""
+"Sélectionnez une stratégie (ou créez une nouvelle stratégie), et définissez "
+"ce que vous pensez être le mieux pour les apprenants"
+
+msgid "fileChoice.resources.instr"
+msgstr "Dans cette section, changez les propriétés des resssources du MOOC"
+
+msgid "Main Menu"
+msgstr "Meun principal"
+
+msgid "Sequence Context Edition"
+msgstr "Modification du contexte de séquence"
+
+msgid "Strategy Edition"
+msgstr "Modification de la stratégie"
+
+msgid "Profile Edition"
+msgstr "Modification du profil"
+
+msgid "Live Context Edition"
+msgstr "Modification du contexte 'en direct'"
+
+msgid "Resources Edition"
+msgstr "Modification des propriétés des ressources"
+
+msgid "Open file"
+msgstr "Ouvrir"
+
+msgid "Create new file"
+msgstr "Créer fichier"
+
+msgid "Duplicate file"
+msgstr "Dupliquer le fichier"
+
+msgid "Delete file"
+msgstr "Supprimer le fichier"
+
+#
+#
+# Values modification page
+#
+#
+msgid "valuesModification.h1"
+msgstr "Interface de modification : "
+
+msgid "valuesModification.instructions"
+msgstr ""
+"Vous pouvez changer les valeurs en cliquant sur elles, puis en donnant la "
+"valeur souhaitée dans le formulaire afffiché, et en pressant 'entrée' pour "
+"valider la saisie. N'oubliez pas de sauvegarder le fichier une fois vos "
+"modifications terminées."
+
+msgid "valuesModification.currentFileIntro"
+msgstr "Modification de : "
+
+#, fuzzy
+#~ msgid "Currently defining "
+#~ msgstr "Modification de "
 
 #~ msgid "Selection of indicators"
 #~ msgstr "Sélection des indicateurs"

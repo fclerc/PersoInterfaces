@@ -14,6 +14,9 @@ msgstr ""
 msgid "strategy.h1"
 msgstr ""
 
+msgid "strategy.currentFileIntro"
+msgstr ""
+
 msgid "strategy.profiles.h2"
 msgstr ""
 
@@ -49,6 +52,10 @@ msgstr ""
 
 msgid "context"
 msgstr ""
+
+msgid "Save modifications"
+msgstr ""
+
 
 
 #
@@ -571,14 +578,25 @@ msgstr ""
 msgid "Results"
 msgstr ""
 
+msgid "strategy.rules.newrule.chose.indicator"
+msgstr ""
 
+msgid "strategy.rules.newrule.chose.activity"
+msgstr ""
 
+msgid "strategy.rules.newrule.chose.parameter"
+msgstr ""
 
+msgid "Add activity"
+msgstr ""
+
+msgid "Place above"
+msgstr ""
 
 
 #
 #
-#Profle Scales
+#Profile Scales
 #
 #
 
@@ -827,10 +845,6 @@ msgstr ""
 msgid "fileChoice.resources.instr"
 msgstr ""
 
-
-msgid "Name"
-msgstr ""
-
 msgid "Main Menu"
 msgstr ""
 
@@ -878,28 +892,8 @@ msgstr ""
 msgid "valuesModification.instructions"
 msgstr ""
 
-msgid ""
+msgid "valuesModification.currentFileIntro"
 msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-
 
 
 

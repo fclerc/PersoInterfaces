@@ -27,8 +27,8 @@
     </head>
     
     <body>
-		<h1><span id="strategyPageTitle">strategy.h1</span><span id="sectionName"><?php echo $section; ?> </span><small><span id="currentFile">Currently defining&nbsp;</span><span class="currentFileName"><?php echo $file; ?></span></small></h1>
-		<p id="mainLink"><a href="index.php">common.back</a></p>
+		<h1><span id="strategyPageTitle">strategy.h1</span><small><span id="currentFile">strategy.currentFileIntro</span><span class="currentFileName"><?php echo $file; ?></span></small></h1>
+		<p><a href="index.php" id="mainLink">common.back</a></p>
 			
         <div id="ProfileAndContext" class="mains">
             <h2>strategy.profiles.h2</h2>
@@ -924,7 +924,7 @@
                             });
                         }
                         else if(editMode && formToDisplay == 'indicator'){//no constraint and we are in edit mode, wanting to modify indicator : tell the user he has to select an indicator
-                            $(ifContainer).append($('<span>').addClass('instruction').append(_(' Select indicator')));
+                            $(ifContainer).append($('<span>').addClass('instruction').append(_('strategy.rules.newrule.chose.indicator')));
                         }
                         else if(editMode && formToDisplay !='indicator'){//editmode, with 'if' void and which is not currently edited : display a '+' icon to enable to add a constraint
                             var constraintAdder = $('<span>').addClass('glyphicon glyphicon-plus constraintAdder').attr('title', _('Add constraint'));
@@ -1383,7 +1383,7 @@
                                 
                                 if(editMode){//enabling to add a parameter
                                     if(formToDisplay == 'parameter' && currentActivity == activity){//highlight this zone where the user is chosing a new parameter
-                                        $(parametersContainer).append($('<li>').addClass('newParameterToAdd').addClass('instruction').append(_('Chose parameter on the right')));
+                                        $(parametersContainer).append($('<li>').addClass('newParameterToAdd').addClass('instruction').append(_('strategy.rules.newrule.chose.parameter')));
                                     }
                                     else{//display add parameter button
                                     
@@ -1405,10 +1405,10 @@
                             });
                             if(editMode){
                                 if(formToDisplay == 'thenActivity' && containerName == 'then'){
-                                    $(activitiesContainer).append($('<div>').addClass('instruction').text('Select activity on the right'));
+                                    $(activitiesContainer).append($('<div>').addClass('instruction').text(_('strategy.rules.newrule.chose.activity')));
                                 }
                                 else if(formToDisplay == 'elseActivity' && containerName == 'else'){
-                                    $(activitiesContainer).append($('<div>').addClass('instruction').text('Select activity on the right'));
+                                    $(activitiesContainer).append($('<div>').addClass('instruction').text(_('strategy.rules.newrule.chose.activity')));
                                 }
                             
                             }

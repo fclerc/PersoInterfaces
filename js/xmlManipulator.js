@@ -130,7 +130,7 @@ function manipulateXML(filepath, container, mode, reader, scales = '', scaleCont
 				var filenameInput = $('<input>').attr('type', 'text').attr('value', filename);//input to enable user to change the name of file
                 $(filenameInputContainer).append(filenameInput);
                 $(container).prepend(filenameInputContainer);
-                $(container).prepend($('<button>').addClass('btn btn-info').attr('id', "XMLSaveButton").append($('<span>').addClass('glyphicon glyphicon-floppy-disk')).append("Save modifications"));
+                $(container).prepend($('<button>').addClass('btn btn-info').attr('id', "XMLSaveButton").append($('<span>').addClass('glyphicon glyphicon-floppy-disk')).append(_("Save modifications")));
 			
 			
 			
