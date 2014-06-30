@@ -27,12 +27,12 @@
     </head>
     
     <body>
-		<h1>Strategy definition page:&nbsp;<?php echo $section; ?> <small>Currently defining&nbsp;<span class="currentFileName"><?php echo $file; ?></span></small></h1>
-		<p id="mainLink"><a href="index.php">Back to main menu</a></p>
+		<h1><span id="strategyPageTitle">strategy.h1</span><small><span id="currentFile">strategy.currentFileIntro</span><span class="currentFileName"><?php echo $file; ?></span></small></h1>
+		<p><a href="index.php" id="mainLink">common.back</a></p>
 			
         <div id="ProfileAndContext" class="mains">
-            <h2>Selection of indicators</h2>
-            <p>For each indicator, an example value is given (italic).</p>
+            <h2>strategy.profiles.h2</h2>
+            <p>strategy.profiles.explanation</p>
             <ul class="nav nav-tabs">
                 <li class="active" id="profileTabLi"><a href="#Profile" data-toggle="tab">Profile</a></li>
                 <li id="contextTabLi"><a href="#Context" data-toggle="tab">Context</a></li>
@@ -45,22 +45,22 @@
         </div>
 	
 		<div id="Rules" class="mains">
-			<h2>Definition of pedagogical strategy</h2>
+			<h2>strategy.rules.h2</h2>
             <div class="filenameForm"><label for="filenameInput">Name: </label><input type="text" name="filenameInput" id="strategyFilenameInput" value="<?php echo $file; ?>" /></div>
-			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>Add new Rule</span></button>
-			<button id="strategySaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Save my strategy</span></button>
+			<button id="ruleAdder" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>strategy.rules.add</span></button>
+			<button id="strategySaver" class = "btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>strategy.rules.save</span></button>
             <hr/>
-			<div id="newRuleInstruction">When editing or creating a rule, you can click on any part of this rule to change its values and structure.</div>
+			<div id="newRuleInstruction">strategy.rules.instructions</div>
 			<div id="newRuleContainer"></div>
 			<div id="newRuleForm"></div>
             <div id="newRuleButtons"></div>
             <hr/>
-            <h3>Rules you already defined:</h3>
+            <h3>strategy.rules.defined.h3</h3>
             
             <div id="uselessDivToInsertRulesAbove"></div>
 		</div>
 		<div id="Activities" class="mains">
-			<h2>Selection of the activities</h2>
+			<h2>strategy.activities.h2</h2>
 		</div>
         <div id="scaleDisplayer"></div>
 		
@@ -86,7 +86,7 @@
             success: function(data){
                 _.setTranslation(data);
 			//translating the already displayed content
-            $('#ProfileAndContext h2, #ProfileAndContext p, #ProfileAndContext ul li a, #Rules h2, #Rules h3, #Rules button span, #Activities h2').each(function(){
+            $('#ProfileAndContext h2, #ProfileAndContext p, #ProfileAndContext ul li a, #Rules h2, #Rules h3, #Rules button span, #Activities h2, #mainLink, #newRuleInstruction, #strategyPageTitle, #currentFile, #sectionName').each(function(){
                 $(this).text(_($(this).text()));
             });
         
@@ -496,7 +496,7 @@
                         }
                         
                         else if(currentOperation == 13){
-                            if(currentCondition.nodeName == 'constraint' || currentCondition.nodeName == 'CONSTRAINT' || formToDisplay == 'conditionType'){//we are adding a new constraint
+                            if((currentCondition.nodeName).toLowerCase() == 'constraint' || formToDisplay == 'conditionType'){//we are adding a new constraint
                                 $(currentCondition).wrap($('<'+ value +'>'));
                             }
                             else{//we are changing the 'and' or 'or' of the current condition
@@ -717,7 +717,7 @@
                                         alert('File not saved: a file with this name already exists');
                                     }
                                     else{
-                                        alert(_('Your data have been successfully saved'));
+                                        alert(_('strategy.save.success'));
                                         strategyFilename = $('#strategyFilenameInput').val();
                                         $('.currentFileName').text(strategyFilename);
                                     }
@@ -879,14 +879,14 @@
                         //Action to delete the rule
                         $(ruleRemover).click(function(){
                             if($('#newRuleContainer #' +$(rule).attr('id') ).length===0){//this is not the currently created rule : delete it in the xml tree
-                                if(confirm(_('Are you sure to delete this rule ? It will not be possible to retrieve it later.'))){
+                                if(confirm(_('strategy.rules.delete'))){
                                     $(rule).remove();
                                     $(ruleContainer).remove();
                                 }
                             }
                             
                             else{//this is the currently created rule
-                                if(confirm(_('Are you sure to delete this new rule?'))){
+                                if(confirm(_('strategy.rules.newrule.delete'))){
                                     builtRule = {};
                                     goFromTo(currentOperation, 0);
                                 }
@@ -901,7 +901,7 @@
                                 $('#newRuleInstruction')[0].scrollIntoView(true);
                             }
                             else{
-                                alert(_('Please save or delete your current rule before editing this one.'));
+                                alert(_('strategy.rules.cantedit'));
                             }
                         });
                         
@@ -924,7 +924,7 @@
                             });
                         }
                         else if(editMode && formToDisplay == 'indicator'){//no constraint and we are in edit mode, wanting to modify indicator : tell the user he has to select an indicator
-                            $(ifContainer).append($('<span>').addClass('instruction').append(_(' Select indicator')));
+                            $(ifContainer).append($('<span>').addClass('instruction').append(_('strategy.rules.newrule.chose.indicator')));
                         }
                         else if(editMode && formToDisplay !='indicator'){//editmode, with 'if' void and which is not currently edited : display a '+' icon to enable to add a constraint
                             var constraintAdder = $('<span>').addClass('glyphicon glyphicon-plus constraintAdder').attr('title', _('Add constraint'));
@@ -941,7 +941,7 @@
                         
                         function getConditionElementContainer(element){
                             var toReturn;
-                            if(element.nodeName == 'constraint' ||element.nodeName == 'CONSTRAINT'){
+                            if((element.nodeName).toLowerCase() == 'constraint'){
                                 toReturn = getConstraintContainer(element);
                             }
                             else{//AND or OR, with 2 conditionElement children
@@ -1070,7 +1070,7 @@
                                 var referenceValue = $($(constraint).find("referencevalue")[0]).text();
                                 var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
                                 
-                                if(editMode && formToDisplay == 'indicator' && currentCondition == constraint){//if we are currently editing this indicator, show it clearly
+                                if(editMode && formToDisplay == 'indicator' && currentCondition == constraint && editingCondition){//if we are currently editing this indicator, show it clearly
                                     $(indicatorContainer).addClass('editedIndicator');
                                 }
                                 
@@ -1149,7 +1149,7 @@
                                     
                                     $(constraintRemover).click(function(){
                                         var parent = $(constraint).parent()[0];//if it is and or or : only keep the other constraint
-                                        if(['and', 'AND', 'or', 'OR'].indexOf(parent.nodeName) != -1){
+                                        if(['and', 'or'].indexOf((parent.nodeName).toLowerCase()) != -1){
                                             constraint.remove();
                                             var theSecondConstraint = $(parent).children()[0];
                                             $(parent).replaceWith(theSecondConstraint);
@@ -1251,7 +1251,7 @@
                         //containerName = 'then' or 'else'
                         function getConsequencesContainer(consequencesElement, containerName){
                         
-                            var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(_(containerName.toUpperCase())+_(' the learner will do the following activities: ')));
+                            var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(_(containerName.toUpperCase())+_('strategy.rules.learnerActivity')));
                             
                             if(editMode){//displaying '+' icon to add a new activity
                                 var activityAdder = $('<span>').addClass('glyphicon glyphicon-plus activityAdder').attr('title', _('Add activity'));
@@ -1278,19 +1278,19 @@
                                 
                                 
                                 var typeOfActivityId = $($(this).find("typeofactivity")[0]).text();
-                                var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + _(', with parameters: '));
+                                var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + _('strategy.rules.parametersListIntro'));
                                 
                                 
                                 
                                 //link between activity in the rule and activity in the right part when hovering and clicking
                                 var typeOfActivitySelectionContainer = $('#Activities #'+typeOfActivityId);
-                                var typeOfActivitySelectionContainerColor = $(typeOfActivitySelectionContainer).css('background-color');
+                                //var typeOfActivitySelectionContainerColor = $(typeOfActivitySelectionContainer).css('background-color');
                                 
                                 $(typeOfActivityContainer).hover(function(){
                                     $(typeOfActivitySelectionContainer).css('background-color', '#FF7F24');
                                 },
                                 function(){
-                                    $(typeOfActivitySelectionContainer).css('background-color', typeOfActivitySelectionContainerColor);
+                                    $(typeOfActivitySelectionContainer).css('background-color', 'transparent');
                                 });
                                 
                                 $(typeOfActivityContainer).click(function(){
@@ -1303,10 +1303,17 @@
                                     var activityRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle activityRemover').attr('title', _('Remove activity'));
                                     $(typeOfActivityContainer).append(activityRemover);
                                     $(activityRemover).click(function(){
-                                        if(confirm(_('Are you sure to delete this activity?'))){										
+                                        if(confirm(_('strategy.rules.newrule.deleteActivity'))){										
                                             activity.remove();
                                             goFromTo(currentOperation, 11);
                                         }
+                                    });
+                                    
+                                    var activityUpper = $('<span>').addClass('glyphicon glyphicon glyphicon-arrow-up activityUpper').attr('title', _('Place above'));
+                                    $(typeOfActivityContainer).append(activityUpper);
+                                    $(activityUpper).click(function(){							
+                                        $(activity).insertBefore($(activity).prev());
+                                        goFromTo(currentOperation, 11);
                                     });
                                 }
                                 
@@ -1335,13 +1342,13 @@
                                     }
                                         //link between parameter in the rule and parameter in the right part when hovering and clicking
                                         var parameterSelectionContainer = $('#Activities #'+typeOfActivityId +' +ul li #'+paramId);
-                                        var parameterSelectionContainerColor = $(parameterSelectionContainer).css('background-color');
+                                        //var parameterSelectionContainerColor = $(parameterSelectionContainer).css('background-color');
                                         
                                         $(parameterContainer).hover(function(){
                                             $(parameterSelectionContainer).css('background-color', '#FF7F24');
                                         },
                                         function(){
-                                            $(parameterSelectionContainer).css('background-color', parameterSelectionContainerColor);
+                                            $(parameterSelectionContainer).css('background-color', 'transparent');
                                         });
                                         
                                         $(parameterContainer).click(function(){
@@ -1376,7 +1383,7 @@
                                 
                                 if(editMode){//enabling to add a parameter
                                     if(formToDisplay == 'parameter' && currentActivity == activity){//highlight this zone where the user is chosing a new parameter
-                                        $(parametersContainer).append($('<li>').addClass('newParameterToAdd').addClass('instruction').append(_('Chose parameter on the right')));
+                                        $(parametersContainer).append($('<li>').addClass('newParameterToAdd').addClass('instruction').append(_('strategy.rules.newrule.chose.parameter')));
                                     }
                                     else{//display add parameter button
                                     
@@ -1398,10 +1405,10 @@
                             });
                             if(editMode){
                                 if(formToDisplay == 'thenActivity' && containerName == 'then'){
-                                    $(activitiesContainer).append($('<div>').addClass('instruction').text('Select activity on the right'));
+                                    $(activitiesContainer).append($('<div>').addClass('instruction').text(_('strategy.rules.newrule.chose.activity')));
                                 }
                                 else if(formToDisplay == 'elseActivity' && containerName == 'else'){
-                                    $(activitiesContainer).append($('<div>').addClass('instruction').text('Select activity on the right'));
+                                    $(activitiesContainer).append($('<div>').addClass('instruction').text(_('strategy.rules.newrule.chose.activity')));
                                 }
                             
                             }

@@ -8,12 +8,12 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
     var scaleType = scaleElement[0].nodeName;
     
     if(scaleType == 'ScaleBoolean'){
-        $(informationToDisplay).append(_('true of false'));
+        $(informationToDisplay).append(_('true or false'));
     }
     else if(scaleType == 'ScaleList'){//display the  possibilities
         
         if($(scaleElement).find('Name').length > 0){
-            $(informationToDisplay).append(_('You can chose between: '));
+            $(informationToDisplay).append(_('scales.enumeration.intro'));
             //this variable will contain the list of possibilities, the values are clickable to fill the input, and display the translation if available
             var enumeration = $('<span>').addClass('enumeration');
             //TODO : if enumeration is void, then go in the json file
@@ -32,7 +32,7 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
                 
             });
             if(clickable){
-                $(enumeration).append(_('click on the value you want'));
+                $(enumeration).append(_('scales.enumeration.conclu'));
             }
             $(informationToDisplay).append(enumeration);
         }
@@ -40,7 +40,7 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
     }
     
     else if(scaleType == 'ScaleNumerical'){//display the type of value, integer or number, and the step.
-        $(informationToDisplay).append(_('The value must be a'));
+        $(informationToDisplay).append(_('scales.value.intro'));
         if($(scaleElement).find('Step').length === 0){
             $(informationToDisplay).append(_(' number'));
         }
@@ -57,12 +57,12 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
     }
     
     else{//the parameter is not in the dictionnary
-        $(informationToDisplay).append(_('There is no particular constraint on this parameter'));
+        $(informationToDisplay).append(_('scales.noscale'));
     }
     
     if(resourcesData){//if not undefined
         if(resourcesData.length > 0){//if the json file contains the list  of values used in the resources file for this parameter : display the values
-            $(informationToDisplay).append('<br>').append('In resources file you used the values: ');
+            $(informationToDisplay).append('<br>').append(_('scales.usedValuesIntro'));
             getEnumerationStringFromArray(informationToDisplay, resourcesData, clickable);
         }
     }
@@ -80,27 +80,27 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, sca
     if(scales[indicatorName]){//if a constraint concerning this indicator is present
         var scaleElement = scales[indicatorName];
         if(scaleElement.nature == 'predefined'){
-            $(informationToDisplay).append(_('The value must be a'));
+            $(informationToDisplay).append(_('scales.value.intro'));
             $(informationToDisplay).append(_(scaleElement.typeName));
         
         }
         else if(scaleElement.nature == 'restriction'){//restriction
             if(scaleElement.baseTypeName == 'xs:float' || scaleElement.baseTypeName == 'xs:integer'){//if number
-                $(informationToDisplay).append((_('The value must be a') + _(scaleElement.baseTypeName)));
+                $(informationToDisplay).append((_('scales.value.intro') + _(scaleElement.baseTypeName)));
                 if(scaleElement.min && scaleElement.max){//if min and max are set
                     $(informationToDisplay).append((_(' between ') + scaleElement.min + _(' and ') + scaleElement.max));
                 }
             }
             else if(scaleElement.baseTypeName == 'xs:string' && scaleElement.enumeration){//there's an enumeration
                 if(scaleElement.enumeration.length > 0){
-                    $(informationToDisplay).append(_('You can chose between: '));
+                    $(informationToDisplay).append(_('scales.enumeration.intro'));
                     getEnumerationStringFromArray(informationToDisplay, scaleElement.enumeration, clickable)
                 }
             }
             
         }
         else{
-            $(informationToDisplay).append(_('There is no particular constraint on this parameter'));
+            $(informationToDisplay).append(_('scales.noscale'));
         }
         
         var commentPopover;
@@ -138,7 +138,7 @@ function getEnumerationStringFromArray(container, valueArray, clickable){
     //container = container.slice(0, -2);
     $(container).append(enumeration);
     if(clickable){
-        $(enumeration).append(_('click on the value you want'));
+        $(enumeration).append(_('scales.enumeration.conclu'));
     }
 
 

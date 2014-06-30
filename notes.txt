@@ -1,5 +1,14 @@
-extraire tout ce que je peux des ressources, EXPLOITER DANS L'INTERFACE
+chercher les TODO
+mettre la doc où il faut dans les schémas
+session pour gestion du langage
+
+bugs :
+-create complex, and edit AND before defining indicator (mais pas si grave, puisqu'on peut supprimer la contrainte complexe après...)
+
+
+
 voir comment traiter la notion de order et permettre une définition facile (basée sur une liste de contextes disponibles,...)
+édition des ressources, en utilisant l'attribut group pour les 'dossiers'
 
 RESOURCES / REMOVE TOUS LES ID ET AJOUTE DE NOUVEAU
 modélisation complète
@@ -18,7 +27,7 @@ idAdderRunner : à utiliser quand on vient de créer un nouveau xml, avec des ta
 Pour activités : nécessité de réécrire un code spécifique pour l'afficher, dans la mesure où on ne veut pas aficher la même chose, et la fonction manipulateXML que j'ai écrite doit rester générique.
 
 
-For xml documents where jquery might add elements : there are case problems, thus I write everything in lower case.
+For xml documents where jquery might add elements : there are case problems, thus I write everything in lower case. Other solution : use toLowerCase everytime needed (for comparisons)
 
 
 Useful link for colors : http://web.njit.edu/~kevin/rgb.txt.html#columns

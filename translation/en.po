@@ -2,35 +2,889 @@
 #
 msgid ""
 msgstr ""
+"Project-Id-Version: Mooc Personalization\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Florian Clerc <fc@florianclerc.com>\n"
+"Language-Team: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 1.6.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: en\n"
 
-msgid "Selection of indicators"
+#
+#
+# Titles of the main parts
+#
+#
+msgid "strategy.h1"
+msgstr "Strategy definition page: "
+
+msgid "strategy.currentFileIntro"
+msgstr "Currently defining"
+
+msgid "strategy.profiles.h2"
 msgstr "Selection of indicators"
 
-msgid "For each indicator, an example value is given (italic)."
+msgid "strategy.profiles.explanation"
 msgstr "For each indicator, an example value is given (italic)."
 
-msgid "Definition of pedagogical strategy"
+msgid "common.back"
+msgstr "Back to main menu"
+
+msgid "strategy.rules.h2"
 msgstr "Definition of pedagogical strategy"
 
-msgid "Add new Rule"
+msgid "strategy.rules.add"
 msgstr "Add new Rule"
 
-msgid "Save my strategy"
+msgid "strategy.rules.save"
 msgstr "Save my strategy"
 
-msgid "Rules you already defined:"
+msgid "strategy.rules.instructions"
+msgstr ""
+"When editing or creating a rule, you can click on any part of this rule to "
+"change its values and structure."
+
+msgid "strategy.rules.defined.h3"
 msgstr "Rules you already defined:"
 
-msgid "Selection of the activities"
+msgid "strategy.activities.h2"
 msgstr "Selection of the activities"
+
+msgid "Profile"
+msgstr ""
+
+msgid "Context"
+msgstr ""
+
+msgid "context"
+msgstr ""
+
+msgid "Save modifications"
+msgstr ""
+
+#
+#
+# Activities
+#
+#
+msgid "Learning"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Sequence"
+msgstr ""
+
+msgid "Length"
+msgstr ""
+
+msgid "Categories"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Difficulty"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Social"
+msgstr ""
+
+msgid "Tool"
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "Exercise"
+msgstr ""
+
+msgid "Grade"
+msgstr ""
+
+msgid "Attempts"
+msgstr ""
+
+msgid "Message"
+msgstr ""
+
+msgid "Goal"
+msgstr ""
+
+#
+#
+# LearnerProfile
+#
+#
+msgid "learnerMoocProfile"
+msgstr ""
+
+msgid "learnerInformation"
+msgstr ""
+
+msgid "id"
+msgstr ""
+
+msgid "email"
+msgstr ""
+
+msgid "birthDate"
+msgstr ""
+
+msgid "sex"
+msgstr ""
+
+msgid "professionalSituation"
+msgstr ""
+
+msgid "educationLevel"
+msgstr ""
+
+msgid "educationDomain"
+msgstr ""
+
+msgid "country"
+msgstr ""
+
+msgid "languages"
+msgstr ""
+
+msgid "language"
+msgstr ""
+
+msgid "name"
+msgstr ""
+
+msgid "skill"
+msgstr ""
+
+msgid "registrationDate"
+msgstr ""
+
+msgid "colourBlind"
+msgstr ""
+
+msgid "externalToolsKnowledge"
+msgstr ""
+
+msgid "externalTool"
+msgstr ""
+
+msgid "toolName"
+msgstr ""
+
+msgid "grade"
+msgstr ""
+
+msgid "otherInformation"
+msgstr ""
+
+msgid "knowledge"
+msgstr ""
+
+msgid "courseKnowledge"
+msgstr ""
+
+msgid "knowledgeGroup"
+msgstr ""
+
+msgid "value"
+msgstr ""
+
+msgid "knowledgeUnit"
+msgstr ""
+
+msgid "toolsKnowledge"
+msgstr ""
+
+msgid "knowledgeTool"
+msgstr ""
+
+msgid "behaviour"
+msgstr ""
+
+msgid "studentPattern"
+msgstr ""
+
+msgid "dropoutFlag"
+msgstr ""
+
+msgid "IRLInteraction"
+msgstr ""
+
+msgid "socialInteractions"
+msgstr ""
+
+msgid "socialInteraction"
+msgstr ""
+
+msgid "socialTool"
+msgstr ""
+
+msgid "forumBehaviour"
+msgstr ""
+
+msgid "otherBehaviour"
+msgstr ""
+
+msgid "moocInteractions"
+msgstr ""
+
+msgid "activityDistributions"
+msgstr ""
+
+msgid "activityPerHour"
+msgstr ""
+
+msgid "hour"
+msgstr ""
+
+msgid "num"
+msgstr ""
+
+msgid "timePercentage"
+msgstr ""
+
+msgid "actionsPercentage"
+msgstr ""
+
+msgid "activityPerDay"
+msgstr ""
+
+msgid "day"
+msgstr ""
+
+msgid "activityPerSequence"
+msgstr ""
+
+msgid "sequence"
+msgstr ""
+
+msgid "lastVisits"
+msgstr ""
+
+msgid "visit"
+msgstr ""
+
+msgid "otherDynamics"
+msgstr ""
+
+msgid "resourcesInteractions"
+msgstr ""
+
+msgid "resourcesConsultation"
+msgstr ""
+
+msgid "resourceConsultation"
+msgstr ""
+
+msgid "resourceId"
+msgstr ""
+
+msgid "nbConsultations"
+msgstr ""
+
+msgid "childrenConsultationsDistribution"
+msgstr ""
+
+msgid "childPercentage"
+msgstr ""
+
+msgid "resource"
+msgstr ""
+
+msgid "percentage"
+msgstr ""
+
+msgid "duration"
+msgstr ""
+
+msgid "childrenDurationDistribution"
+msgstr ""
+
+msgid "completion"
+msgstr ""
+
+msgid "comparedPercentage"
+msgstr ""
+
+msgid "scale"
+msgstr ""
+
+msgid "consultationDuringHomework"
+msgstr ""
+
+msgid "totalTimeOnHomework"
+msgstr ""
+
+msgid "timeOtherResourcesDuringHw"
+msgstr ""
+
+msgid "distribution"
+msgstr ""
+
+msgid "courseware"
+msgstr ""
+
+msgid "forum"
+msgstr ""
+
+msgid "wiki"
+msgstr ""
+
+msgid "exercises"
+msgstr ""
+
+msgid "customInteractionIndicator"
+msgstr ""
+
+msgid "actionId"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "interval"
+msgstr ""
+
+msgid "beginDateTime"
+msgstr ""
+
+msgid "endDateTime"
+msgstr ""
+
+msgid "comment"
+msgstr ""
+
+#
+#
+# Context display
+#
+#
+msgid "sequenceContext"
+msgstr ""
+
+msgid "activitiesContext"
+msgstr ""
+
+msgid "numberOfActivities"
+msgstr ""
+
+msgid "min"
+msgstr ""
+
+msgid "max"
+msgstr ""
+
+msgid "activitiesDuration"
+msgstr ""
+
+msgid "quizVariation"
+msgstr ""
+
+msgid "liveContext"
+msgstr ""
+
+msgid "environmentContext"
+msgstr ""
+
+msgid "datetime"
+msgstr ""
+
+msgid "connecteds"
+msgstr ""
+
+msgid "connected"
+msgstr ""
+
+msgid "role"
+msgstr ""
+
+msgid "number"
+msgstr ""
+
+msgid "learnerLiveContext"
+msgstr ""
+
+msgid "IPAddress"
+msgstr ""
+
+msgid "device"
+msgstr ""
+
+msgid "OS"
+msgstr ""
+
+msgid "browser"
+msgstr ""
+
+msgid "bandwidth"
+msgstr ""
+
+msgid "availableTime"
+msgstr ""
+
+msgid "delay"
+msgstr ""
+
+msgid "timeAlreadySpent"
+msgstr ""
+
+msgid "otherLiveInformation"
+msgstr ""
+
+#
+#
+# Display rule
+#
+#
+msgid "Save rule"
+msgstr ""
+
+msgid "Priority: "
+msgstr ""
+
+msgid "Rule"
+msgstr ""
+
+msgid "strategy.rules.newrule.delete"
+msgstr "Are you sure to delete this new rule?"
+
+msgid "strategy.rules.cantedit"
+msgstr "Please save or delete your current rule before editing this one."
+
+msgid "IF"
+msgstr ""
+
+msgid "AND"
+msgstr ""
+
+msgid "OR"
+msgstr ""
+
+msgid "THEN"
+msgstr ""
+
+msgid "ELSE"
+msgstr ""
+
+msgid "strategy.rules.learnerActivity"
+msgstr " the learner will do the following activities: "
+
+msgid "strategy.rules.parametersListIntro"
+msgstr ", with parameters: "
+
+msgid "strategy.rules.newrule.deleteActivity"
+msgstr "Are you sure to delete this activity?"
+
+msgid "strategy.save.success"
+msgstr "Your data have been successfully saved"
+
+msgid "strategy.rules.delete"
+msgstr ""
+"Are you sure to delete this rule ? It will not be possible to retrieve it "
+"later."
+
+msgid "true or false"
+msgstr ""
+
+msgid "scales.enumeration.intro"
+msgstr "You can chose between: "
+
+msgid "scales.value.intro"
+msgstr "The value must be a"
+
+msgid "scales.usedValuesIntro"
+msgstr "In resources definition, you used values: "
+
+msgid " number"
+msgstr ""
+
+msgid "n integer"
+msgstr ""
+
+msgid " number, with step "
+msgstr ""
+
+msgid "scales.noscale"
+msgstr ""
+
+msgid "Mandatory"
+msgstr ""
+
+msgid "Optional"
+msgstr ""
+
+msgid "Bonus"
+msgstr ""
+
+msgid "Video"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Read"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Answer"
+msgstr ""
+
+msgid "Greeting"
+msgstr ""
+
+msgid "Encouraging"
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+msgid "Results"
+msgstr ""
+
+msgid "strategy.rules.newrule.chose.indicator"
+msgstr " Select indicator"
+
+msgid "strategy.rules.newrule.chose.activity"
+msgstr "Select activity on the right"
+
+msgid "strategy.rules.newrule.chose.parameter"
+msgstr "Chose parameter on the right"
+
+msgid "Add activity"
+msgstr ""
+
+msgid "Place above"
+msgstr ""
+
+#
+#
+# Profile Scales
+#
+#
+msgid "xs:duration"
+msgstr " duration"
+
+msgid "xs:float"
+msgstr " number"
+
+msgid "xs:NCName"
+msgstr " string without space"
+
+msgid "xs:integer"
+msgstr "n integer"
+
+msgid "xs:NMTOKENS"
+msgstr " list of strings without space and colons"
+
+msgid "xs:NMTOKEN"
+msgstr " string without space and colons"
+
+msgid "xs:date"
+msgstr " date"
+
+msgid "xs:string"
+msgstr " string"
+
+msgid "xs:boolean"
+msgstr " boolean"
+
+msgid "xs:anyType"
+msgstr "nything you want"
+
+msgid "xs:dateTime"
+msgstr " date and time"
+
+msgid "xs:positiveInteger"
+msgstr " positive integer"
+
+msgid "phone"
+msgstr ""
+
+msgid "tablet"
+msgstr ""
+
+msgid "computer"
+msgstr ""
+
+msgid "google_search_engine"
+msgstr ""
+
+msgid "consultation"
+msgstr ""
+
+msgid "play"
+msgstr ""
+
+msgid "pause"
+msgstr ""
+
+msgid "seek_fwd"
+msgstr ""
+
+msgid "seek_bck"
+msgstr ""
+
+msgid "change_speed"
+msgstr ""
+
+msgid "answer_forum"
+msgstr ""
+
+msgid "new_thread_forum"
+msgstr ""
+
+msgid "vote_forum"
+msgstr ""
+
+msgid "save_quiz"
+msgstr ""
+
+msgid "reset_quiz"
+msgstr ""
+
+msgid "submit_quiz"
+msgstr ""
+
+msgid "show_answer"
+msgstr ""
+
+msgid "submit_assignment"
+msgstr ""
+
+msgid "save_assignment"
+msgstr ""
+
+msgid "noshow"
+msgstr ""
+
+msgid "active_completing"
+msgstr ""
+
+msgid "passive_completing"
+msgstr ""
+
+msgid "auditing"
+msgstr ""
+
+msgid "disengaging"
+msgstr ""
+
+msgid "disengaging_dropout"
+msgstr ""
+
+msgid "sampling"
+msgstr ""
+
+msgid "absent"
+msgstr ""
+
+msgid "reader"
+msgstr ""
+
+msgid "actor"
+msgstr ""
+
+msgid "native"
+msgstr ""
+
+msgid "bilingual"
+msgstr ""
+
+msgid "fluent"
+msgstr ""
+
+msgid "moderate"
+msgstr ""
+
+msgid "unskilled"
+msgstr ""
+
+msgid "active"
+msgstr ""
+
+msgid "unemployed"
+msgstr ""
+
+msgid "student"
+msgstr ""
+
+msgid "retiree"
+msgstr ""
+
+msgid "primary"
+msgstr ""
+
+msgid "secondary"
+msgstr ""
+
+msgid "bachelor"
+msgstr ""
+
+msgid "master"
+msgstr ""
+
+msgid "doctoral"
+msgstr ""
+
+msgid " between "
+msgstr ""
+
+msgid " and "
+msgstr ""
+
+msgid ": "
+msgstr ""
+
+msgid "scales.enumeration.conclu"
+msgstr "click on the value you want"
+
+msgid "Edit rule"
+msgstr ""
+
+msgid "Delete rule"
+msgstr ""
+
+msgid "Duplicate rule"
+msgstr ""
+
+msgid "Remove constraint"
+msgstr ""
+
+msgid "Edit constraint"
+msgstr ""
+
+msgid "Edit value"
+msgstr ""
+
+msgid "Remove activity"
+msgstr ""
+
+msgid "Remove parameter"
+msgstr ""
+
+msgid "Add parameter"
+msgstr ""
+
+msgid "More information"
+msgstr ""
+
+msgid "Validate"
+msgstr ""
+
+msgid "Combine with another constraint"
+msgstr ""
+
+#
+#
+# File choice page
+#
+#
+msgid "fileChoice.delete.confirm"
+msgstr ""
+"Are you sure you want to delete this file ? This deletion can't be reversed."
+
+msgid "File successfully removed"
+msgstr ""
+
+msgid "fileChoice.profile.instr"
+msgstr ""
+"In this section you can select a profile, to edit its values and realize "
+"tests with your strategies."
+
+msgid "fileChoice.liveContext.instr"
+msgstr ""
+"In this section you can select a live context, to edit its values and "
+"realize tests with your strategies."
+
+msgid "fileChoice.sequenceContext.instr"
+msgstr ""
+"Select the sequence context for a week, and you will be able to edit its "
+"content."
+
+msgid "fileChoice.strategy.instr"
+msgstr ""
+"Select a strategy and edit it to define what you think is best for the "
+"learners."
+
+msgid "fileChoice.resources.instr"
+msgstr "Change the properties of MOOC resources"
+
+msgid "Main Menu"
+msgstr ""
+
+msgid "Sequence Context Edition"
+msgstr ""
+
+msgid "Strategy Edition"
+msgstr ""
+
+msgid "Profile Edition"
+msgstr ""
+
+msgid "Live Context Edition"
+msgstr ""
+
+msgid "Resources Edition"
+msgstr ""
+
+msgid "Open file"
+msgstr ""
+
+msgid "Create new file"
+msgstr ""
+
+msgid "Duplicate file"
+msgstr ""
+
+msgid "Delete file"
+msgstr ""
+
+#
+#
+# Values modification page
+#
+#
+msgid "valuesModification.h1"
+msgstr "Modification page "
+
+msgid "valuesModification.instructions"
+msgstr ""
+"You can change the value by clicking on them, giving the wished value in the "
+"input and then validating by pressing \"enter\". Don't forget to save your "
+"file once you're finished."
+
+msgid "valuesModification.currentFileIntro"
+msgstr "Currently editing "
+
+#~ msgid "Selection of indicators"
+#~ msgstr "Selection of indicators"
+
+#~ msgid "For each indicator, an example value is given (italic)."
+#~ msgstr "For each indicator, an example value is given (italic)."
+
+#~ msgid "Definition of pedagogical strategy"
+#~ msgstr "Definition of pedagogical strategy"
+
+#~ msgid "Add new Rule"
+#~ msgstr "Add new Rule"
+
+#~ msgid "Save my strategy"
+#~ msgstr "Save my strategy"
+
+#~ msgid "Rules you already defined:"
+#~ msgstr "Rules you already defined:"
+
+#~ msgid "Selection of the activities"
+#~ msgstr "Selection of the activities"

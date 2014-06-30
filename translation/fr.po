@@ -14,25 +14,39 @@ msgstr ""
 "X-Generator: Poedit 1.6.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Selection of indicators"
+msgid "strategy.h1"
+msgstr "Stratégie pédagogique "
+
+msgid "strategy.currentFileIntro"
+msgstr "Modification de "
+
+msgid "strategy.profiles.h2"
 msgstr "Sélection des indicateurs"
 
-msgid "For each indicator, an example value is given (italic)."
+msgid "strategy.profiles.explanation"
 msgstr "Pour chaque indicateur, une valeur exemple est donnée (en italique)."
 
-msgid "Definition of pedagogical strategy"
+msgid "common.back"
+msgstr "Retour au menu principal"
+
+msgid "strategy.rules.h2"
 msgstr "Définition de la stratégie pédagogique"
 
-msgid "Add new Rule"
+msgid "strategy.rules.add"
 msgstr "Ajouter une nouvelle règle"
 
-msgid "Save my strategy"
+msgid "strategy.rules.save"
 msgstr "Sauvegarder ma stratégie"
 
-msgid "Rules you already defined:"
+msgid "strategy.rules.instructions"
+msgstr ""
+"Lorsque vous créez ou éditez une règle, vous pouvez à tout moment changer "
+"ses valeurs et sa structure en cliquant sur les éléments qui la constituent ."
+
+msgid "strategy.rules.defined.h3"
 msgstr "Règles déjà définies :"
 
-msgid "Selection of the activities"
+msgid "strategy.activities.h2"
 msgstr "Sélection des activités"
 
 msgid "Profile"
@@ -43,6 +57,14 @@ msgstr "Contexte"
 
 msgid "context"
 msgstr "contexte"
+
+#
+#
+# Values modification page
+#
+#
+msgid "Save modifications"
+msgstr "Sauvegarder les modifications"
 
 msgid "Learning"
 msgstr "Apprentissage"
@@ -409,28 +431,8 @@ msgstr "temps déjà passé sur le MOOC"
 msgid "otherLiveInformation"
 msgstr "autres informations 'en direct'"
 
-#
-#
-# Display rule
-#
-#
-msgid "Edit 'IF'"
-msgstr "Editer le 'SI'"
-
-msgid "Add 'THEN' Activity"
-msgstr "Ajouter activité 'ALORS'"
-
-msgid "Add 'ELSE' Activity"
-msgstr "Ajouter activité 'SINON'"
-
-msgid "Edit Priority"
-msgstr "Modifier la priorité"
-
 msgid "Save rule"
 msgstr "Enregistrer la règle"
-
-msgid ", or click on a button below"
-msgstr ", ou cliquez sur un bouton ci-dessous"
 
 msgid "Priority: "
 msgstr "Priorité : "
@@ -438,10 +440,10 @@ msgstr "Priorité : "
 msgid "Rule"
 msgstr "Règle"
 
-msgid "Are you sure to delete this new rule?"
+msgid "strategy.rules.newrule.delete"
 msgstr "Êtes-vous sûr de vouloir supprimer cette nouvelle règle ?"
 
-msgid "Please save or delete your current rule before editing this one."
+msgid "strategy.rules.cantedit"
 msgstr ""
 "Merci de supprimer ou sauvegarder la règle en cours avant d'éditer celle-ci."
 
@@ -460,71 +462,35 @@ msgstr "ALORS "
 msgid "ELSE"
 msgstr "SINON "
 
-msgid " the learner will do the following activities: "
+msgid "strategy.rules.learnerActivity"
 msgstr "l'apprenant réalisera les activités suivantes : "
 
-msgid ", with parameters: "
+msgid "strategy.rules.parametersListIntro"
 msgstr ", avec comme paramètres: "
 
-msgid "Are you sure to delete this activity?"
+msgid "strategy.rules.newrule.deleteActivity"
 msgstr "Êtes-vous sûr de vouloir supprimer cette activité ?"
 
-msgid "Your data have been successfully saved"
+msgid "strategy.save.success"
 msgstr "Vos données ont bien été sauvegardées"
 
-msgid ""
-"Are you sure to delete this rule ? It will not be possible to retrieve it "
-"later."
+msgid "strategy.rules.delete"
 msgstr ""
 "Êtes-vous sûr de vouloir supprimer cette règle ? Il ne sera plus possible de "
-"la retrouver ensuite."
+"la retrouver ensuite"
 
-msgid "Click on new rule"
-msgstr "Ajoutez une nouvelle règle"
-
-msgid ""
-"Choose the indicator you want to base your rule on from the profile or the "
-"context"
-msgstr ""
-"Choisissez l'indicateur sur lequel vous souhaitez baser votre règle dans le "
-"profil d'apprenant ou le contexte"
-
-msgid "Choose the operator you want to use in this rule in the form below"
-msgstr "Choisissez l'opérateur dans le formulaire ci-dessous"
-
-msgid "Give the value used for the comparison"
-msgstr "Donnez la valeur utilisée pour la comparaison"
-
-msgid "Select the activity for the then part of the rule"
-msgstr "Sélectionnez une activité pour la partie 'alors' de la règle"
-
-msgid "Select a parameter you want to set for this activity"
-msgstr "Sélectionnez un paramètre pour cette activité"
-
-msgid "Give the value for the parameter"
-msgstr "Donnez la valeur du paramètre"
-
-msgid "Give the priority for this rule"
-msgstr "Donnez la priorité de cette règle"
-
-msgid "Save your new rule"
-msgstr "Sauvegardez votre règle"
-
-msgid ""
-"Success, your rule has been saved! You can create/edit another one if you "
-"want"
-msgstr ""
-"Votre règle a bien été sauvegardée! Vous pouvez en créer ou éditer autant "
-"que vous le souhaitez"
-
-msgid "true of false"
+msgid "true or false"
 msgstr "true (vrai) ou false (faux)"
 
-msgid "You can chose between: "
+msgid "scales.enumeration.intro"
 msgstr "Vous pouvez choisir entre : "
 
-msgid "The value must be a"
+msgid "scales.value.intro"
 msgstr "La valeur doit être un"
+
+msgid "scales.usedValuesIntro"
+msgstr ""
+"En définissant les ressources, vous avez utilisé les valeurs suivantes : "
 
 msgid " number"
 msgstr " nombre"
@@ -535,7 +501,7 @@ msgstr " entier"
 msgid " number, with step "
 msgstr " nombre, de pas "
 
-msgid "There is no particular constraint on this parameter"
+msgid "scales.noscale"
 msgstr "Il n'y a pas de contrainte particulière sur cet élément"
 
 msgid "Mandatory"
@@ -573,6 +539,21 @@ msgstr "Temps"
 
 msgid "Results"
 msgstr "Résultats"
+
+msgid "strategy.rules.newrule.chose.indicator"
+msgstr " Sélectionnez un indicateur"
+
+msgid "strategy.rules.newrule.chose.activity"
+msgstr "Sélectionnez une activité sur la droite"
+
+msgid "strategy.rules.newrule.chose.parameter"
+msgstr "Sélectionnez un paramètre sur la droite"
+
+msgid "Add activity"
+msgstr "Ajouter une activité"
+
+msgid "Place above"
+msgstr "Déplacer au-dessus"
 
 msgid "xs:duration"
 msgstr "e durée"
@@ -748,7 +729,7 @@ msgstr " et "
 msgid ": "
 msgstr " : "
 
-msgid "click on the value you want"
+msgid "scales.enumeration.conclu"
 msgstr "cliquez sur la valeur que vous souhaitez"
 
 msgid "Edit rule"
@@ -786,3 +767,108 @@ msgstr "Valider"
 
 msgid "Combine with another constraint"
 msgstr "Combiner avec une autre contrainte"
+
+#
+#
+# File choice page
+#
+#
+msgid "fileChoice.delete.confirm"
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer ce fichier ? Toute suppression est "
+"définitive."
+
+msgid "File successfully removed"
+msgstr "Le fichier a bien été supprimé"
+
+msgid "fileChoice.profile.instr"
+msgstr ""
+"Dans cette section vous pouvez choisir un profil afin de modifier ses "
+"valeurs, et réaliser des tests avec vos stratégies pédagogiques."
+
+msgid "fileChoice.liveContext.instr"
+msgstr ""
+"Dans cette section vous pouvez choisir un contexte 'live' afin de modifier "
+"ses valeurs, et réaliser des tests avec vos stratégies pédagogiques."
+
+msgid "fileChoice.sequenceContext.instr"
+msgstr ""
+"Choisissez un contexte de séquence, et vous pourrez éditer ses valeurs."
+
+msgid "fileChoice.strategy.instr"
+msgstr ""
+"Sélectionnez une stratégie (ou créez une nouvelle stratégie), et définissez "
+"ce que vous pensez être le mieux pour les apprenants"
+
+msgid "fileChoice.resources.instr"
+msgstr "Dans cette section, changez les propriétés des resssources du MOOC"
+
+msgid "Main Menu"
+msgstr "Meun principal"
+
+msgid "Sequence Context Edition"
+msgstr "Modification du contexte de séquence"
+
+msgid "Strategy Edition"
+msgstr "Modification de la stratégie"
+
+msgid "Profile Edition"
+msgstr "Modification du profil"
+
+msgid "Live Context Edition"
+msgstr "Modification du contexte 'en direct'"
+
+msgid "Resources Edition"
+msgstr "Modification des propriétés des ressources"
+
+msgid "Open file"
+msgstr "Ouvrir"
+
+msgid "Create new file"
+msgstr "Créer fichier"
+
+msgid "Duplicate file"
+msgstr "Dupliquer le fichier"
+
+msgid "Delete file"
+msgstr "Supprimer le fichier"
+
+#
+#
+# Values modification page
+#
+#
+msgid "valuesModification.h1"
+msgstr "Interface de modification : "
+
+msgid "valuesModification.instructions"
+msgstr ""
+"Vous pouvez changer les valeurs en cliquant sur elles, puis en donnant la "
+"valeur souhaitée dans le formulaire afffiché, et en pressant 'entrée' pour "
+"valider la saisie. N'oubliez pas de sauvegarder le fichier une fois vos "
+"modifications terminées."
+
+msgid "valuesModification.currentFileIntro"
+msgstr "Modification de : "
+
+#, fuzzy
+#~ msgid "Currently defining "
+#~ msgstr "Modification de "
+
+#~ msgid "Selection of indicators"
+#~ msgstr "Sélection des indicateurs"
+
+#~ msgid "Definition of pedagogical strategy"
+#~ msgstr "Définition de la stratégie pédagogique"
+
+#~ msgid "Add new Rule"
+#~ msgstr "Ajouter une nouvelle règle"
+
+#~ msgid "Save my strategy"
+#~ msgstr "Sauvegarder ma stratégie"
+
+#~ msgid "Rules you already defined:"
+#~ msgstr "Règles déjà définies :"
+
+#~ msgid "Selection of the activities"
+#~ msgstr "Sélection des activités"

@@ -27,9 +27,9 @@
     }
     ?>
 		<div class="container">
-			<h1>Modification page:&nbsp;<?php echo $section ?> <small>Currently editing&nbsp;<span id="currentFileName"><?php echo $file; ?></span></small></h1>
-			<p>You can change the value by clicking on them, giving the wished value in the input and then validating by pressing "enter". Don't forget to save your file once you're finished.</p>
-			<p><a href="index.php">Back to main menu</a></p>
+			<h1><span id="valuesPageTitle">valuesModification.h1</span><span id="sectionName"><?php echo $section; ?></span><small><span id="currentFile">valuesModification.currentFileIntro</span><span id="currentFileName"><?php echo $file; ?></span></small></h1>
+			<p id="generalInstructions">valuesModification.instructions</p>
+			<p><a href="index.php" id="mainLink">common.back</a></p>
 			<div id="XMLcontainer"></div>
         </div>
         
@@ -49,6 +49,13 @@
                 url: translationFile,
                 success: function(data){
                     _.setTranslation(data);
+                    
+                    $('#valuesPageTitle, #currentFile, #generalInstructions, #mainLink, #sectionName').each(function(){
+                        $(this).text(_($(this).text()));
+                    });
+                    
+                    
+                    
                     var file = <?php echo "'".$path."/".$file."'"; ?>;
                     var scales = <?php if($scales!=''){echo file_get_contents($scales);}else{echo '""';} ?>;
                     manipulateXML(file,'#XMLcontainer', 'modify','', scales , '#scalesContainer', "#currentFileName");   
