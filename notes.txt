@@ -1,5 +1,5 @@
 chercher les TODO
-
+script remove and add IDs : 2 choix tout suppr, ou continuer.
 
 bugs :
 -create complex, and edit AND before defining indicator (mais pas si grave, puisqu'on peut supprimer la contrainte complexe après...)

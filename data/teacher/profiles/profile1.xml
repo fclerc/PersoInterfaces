@@ -46,19 +46,18 @@
 				<grade id="LP70">100</grade>
 			</externalTool>
 		</externalToolsKnowledge>
-		<otherInformation id="LP14"/>
 	</learnerInformation>
 	<knowledge id="R66">
 		<courseKnowledge id="R67">
 			<knowledgeGroup id="R68">
-				<name id="LP15">Colonne vertébrale</name>
+				<name id="LP15" fixed="true">Séquence1</name>
 				<value id="LP16">80</value>
 				<knowledgeUnit id="R69">
-					<name id="LP17">Vertèbre type</name>
+					<name id="LP17" fixed="true">Quiz1</name>
 					<value id="LP18">90</value>
 				</knowledgeUnit>
                 <knowledgeUnit id="R69">
-					<name id="LP71">Muscles</name>
+					<name id="LP71">Quiz2</name>
 					<value id="LP72">70</value>
 				</knowledgeUnit>
 			</knowledgeGroup>
@@ -75,84 +74,111 @@
 		<dropoutFlag id="LP22">false</dropoutFlag>
 		<IRLInteraction id="LP23">false</IRLInteraction>
 		<socialInteractions id="R73">
-			<socialInteraction socialTool="facebook" id="LP24">false</socialInteraction>
-			<socialInteraction socialTool="twitter" id="LP73">true</socialInteraction>
-			<socialInteraction socialTool="linkedin" id="LP74">true</socialInteraction>
-			<socialInteraction socialTool="google_plus" id="LP75">false</socialInteraction>
+			<socialInteraction socialTool="facebook" id="LP24" attrfixed="true">false</socialInteraction>
+			<socialInteraction socialTool="twitter" id="LP73" attrfixed="true">true</socialInteraction>
+			<socialInteraction socialTool="linkedin" id="LP74" attrfixed="true">true</socialInteraction>
+			<socialInteraction socialTool="google_plus" id="LP75" attrfixed="true">false</socialInteraction>
 		</socialInteractions>
 		<forumBehaviour id="LP25">reading</forumBehaviour>
-		<otherBehaviour id="LP26"/>
 	</behaviour>
 	<moocInteractions id="R74">
 		<activityDistributions id="R75">
 			<activityPerHour id="R76">
-				<hour num="1" id="R77">
+				<hour num="1" id="R77" attrfixed="true">
 					<timePercentage id="LP27">0</timePercentage>
 					<actionsPercentage id="LP28">0</actionsPercentage>
+				</hour>
+                <hour num="2" id="R77" attrfixed="true">
+					<timePercentage id="LP27">20</timePercentage>
+					<actionsPercentage id="LP28">20</actionsPercentage>
+				</hour>
+                <hour num="3" id="R77" attrfixed="true">
+					<timePercentage id="LP27">80</timePercentage>
+					<actionsPercentage id="LP28">80</actionsPercentage>
 				</hour>
 			</activityPerHour>
 			<activityPerDay id="R78">
 				<day num="1" id="R79">
-					<timePercentage id="LP29">0</timePercentage>
-					<actionsPercentage id="LP30">0</actionsPercentage>
+					<timePercentage id="LP29">30</timePercentage>
+					<actionsPercentage id="LP30">40</actionsPercentage>
+				</day>
+                <day num="2" id="R79">
+					<timePercentage id="LP29">70</timePercentage>
+					<actionsPercentage id="LP30">60</actionsPercentage>
 				</day>
 			</activityPerDay>
 			<activityPerSequence id="R80">
 				<sequence num="1" id="R81">
-					<timePercentage id="LP31">0</timePercentage>
-					<actionsPercentage id="LP32">0</actionsPercentage>
+					<timePercentage id="LP31">100</timePercentage>
+					<actionsPercentage id="LP32">100</actionsPercentage>
 				</sequence>
 			</activityPerSequence>
 		</activityDistributions>
 		<lastVisits id="R82">
-			<visit id="LP33">2001-12-17T09:30:47.0Z</visit>
+			<visit id="LP33">2014-06-17T09:30:47.0Z</visit>
+			<visit id="LP33">2014-06-21T21:30:58.0Z</visit>
 		</lastVisits>
-		<otherDynamics id="LP34"/>
 	</moocInteractions>
 	<resourcesInteractions id="R83">
 		<resourcesConsultation id="R84">
 			<resourceConsultation id="R85">
-				<resourceId id="LP35">NCName</resourceId>
-				<nbConsultations id="LP36">0</nbConsultations>
-				<childrenConsultationsDistribution id="R86">
+				<resourceId id="LP35">http://youtu.be/LCUZF4THcrQ</resourceId>
+				<nbConsultations id="LP36">2</nbConsultations>
+				<duration id="LP39">26</duration>
+				<completion id="LP42">100</completion>
+			</resourceConsultation>
+            <resourceConsultation id="R85">
+				<resourceId id="LP35">http://claco.univ-lyon1.fr/resource/open/file/8171</resourceId>
+				<nbConsultations id="LP36">1</nbConsultations>
+			</resourceConsultation>
+            <resourceConsultation id="R85">
+				<resourceId id="LP35">https://www.youtube.com/watch?v=O-6pjG06XMY</resourceId>
+				<nbConsultations id="LP36">1</nbConsultations>
+				<duration id="LP39">8</duration>
+				<completion id="LP42">100</completion>
+			</resourceConsultation>
+            <resourceConsultation id="R85">
+				<resourceCategories id="LP35">beginner</resourceCategories>
+				<nbConsultations id="LP36">8</nbConsultations>
+				<duration id="LP39">89</duration>
+				<completion id="LP42">70</completion>
+                <comparedPercentage>80</comparedPercentage>
+			</resourceConsultation>
+            <resourceConsultation id="R85">
+				<resourceId id="LP35">http://claco.univ-lyon1.fr/workspaces/802/open/tool/home</resourceId>
+				<nbConsultations id="LP36">27</nbConsultations>
+                <childrenConsultationsDistribution id="R86">
 					<childPercentage id="R87">
-						<resource id="LP37">NCName</resource>
-						<percentage id="LP38">0</percentage>
+						<resource id="LP37">http://claco.univ-lyon1.fr/resource/open/claroline_forum/4256</resource>
+						<percentage id="LP38">30</percentage>
+					</childPercentage>
+                    <childPercentage id="R87">
+						<resource id="LP37">http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1</resource>
+						<percentage id="LP38">70</percentage>
 					</childPercentage>
 				</childrenConsultationsDistribution>
-				<duration id="LP39">P1Y2M3DT10H30M</duration>
+				<duration id="LP39">121</duration>
 				<childrenDurationDistribution id="R88">
-					<childPercentage id="R89">
-						<resource id="LP40">NCName</resource>
-						<percentage id="LP41">0</percentage>
+					<childPercentage id="R87">
+						<resource id="LP37">http://claco.univ-lyon1.fr/resource/open/claroline_forum/4256</resource>
+						<percentage id="LP38">30</percentage>
+					</childPercentage>
+                    <childPercentage id="R87">
+						<resource id="LP37">http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1</resource>
+						<percentage id="LP38">70</percentage>
 					</childPercentage>
 				</childrenDurationDistribution>
-				<completion id="LP42">0</completion>
-				<comparedPercentage scale="time" id="LP43">0</comparedPercentage>
 			</resourceConsultation>
 		</resourcesConsultation>
 		<consultationDuringHomework id="R90">
-			<totalTimeOnHomework id="LP44">P1Y2M3DT10H30M</totalTimeOnHomework>
-			<timeOtherResourcesDuringHw id="LP45">P1Y2M3DT10H30M</timeOtherResourcesDuringHw>
+			<totalTimeOnHomework id="LP44">50</totalTimeOnHomework>
+			<timeOtherResourcesDuringHw id="LP45">10</timeOtherResourcesDuringHw>
 			<distribution id="R91">
-				<courseware id="LP46">0</courseware>
+				<courseware id="LP46">100</courseware>
 				<forum id="LP47">0</forum>
 				<wiki id="LP48">0</wiki>
 				<exercises id="LP49">0</exercises>
 			</distribution>
 		</consultationDuringHomework>
-		<customInteractionIndicator id="R92">
-			<name id="LP50">NMTOKEN</name>
-			<resourceId id="LP51">NCName</resourceId>
-			<actionId id="LP52">consultation</actionId>
-			<period id="R93">
-				<interval id="R94">
-					<beginDateTime id="LP53">2001-12-17T09:30:47.0Z</beginDateTime>
-					<endDateTime id="LP54">2001-12-17T09:30:47.0Z</endDateTime>
-				</interval>
-			</period>
-			<value id="LP55">text</value>
-			<comment id="LP56">String</comment>
-		</customInteractionIndicator>
 	</resourcesInteractions>
 </learnerMoocProfile>
