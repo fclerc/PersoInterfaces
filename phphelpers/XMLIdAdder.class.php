@@ -27,9 +27,11 @@
         private $prefix='id';
         private $suffix='';
         private $targets='all';
+        private $mode = 'continue';
         
         /* Ids will be of the form : 'prefixNBsuffix' where NB is a number
         mode : 'continue' : highest number used in the file as id with prefix and suffix is fetched, and new ids are added with numbers higher than this highest id.
+        'restart' : remove all ids, and add new ones.
         targets : if 'all' : add ids to all tags; if 'leaves' only add ids to leaves. Default is 'all'.
         firstNumber is the first numeric value to use for the ids.
         
@@ -42,11 +44,12 @@
             $this->suffix=$suffix;
             $this->targets=$targets;
             $this->id=$firstNumber;
+            $this->mode = $mode;
             $root = new SimpleXMLElement($filename, NULL, TRUE);
             
             if($mode=='continue'){//search for the highest id and set current id to this value
                 $maxId = $this->searchHighestId($root);
-                $this->id = $maxId;
+                $this->id = $maxId + 1;
             }
             
             $this->addIdToElemAndChildren($root);
@@ -59,7 +62,11 @@
             Then go recursively through the children.
             */
         private function addIdToElemAndChildren($elem){
-            //add an id if all tags must have one, or this element is a leaf; and doesn't already have an id
+            //If mode is restart, first remove the id.
+            if($this->mode == 'restart'){
+                unset($elem['id']);
+            }
+            //add an id if all tags must have one, or this element is a leaf; and doesn't already have an id. 
             if(($this->targets=='all' || $elem->count() == 0) && !isset($elem['id'])){
                 $elem->addAttribute('id', ''.$this->prefix.$this->id.$this->suffix);
                 $this->id++;
