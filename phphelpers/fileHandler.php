@@ -2,8 +2,6 @@
 session_start();
 //This file treats demands of duplication, creation and deletion of files.
 
-var_dump($_POST);
-
 $_SESSION['file'] = $_POST['file'];
 $_SESSION['path'] = $_POST['path'];
 $_SESSION['section'] = $_POST['section'];
