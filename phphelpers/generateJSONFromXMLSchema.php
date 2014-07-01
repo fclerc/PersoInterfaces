@@ -3,7 +3,7 @@
 //generateJSONFromXMLSchema('context.xsd', 'contextScales.json');
 
 $t = new JSONFromXMLSchemaGenerator();
-$t->generateJSONFromXMLSchema('context.xsd', 'contextScales.json');
+$t->generateJSONFromXMLSchema('../data/schemas/context.xsd', '../data/schemas/contextScales.json');
 
 class JSONFromXMLSchemaGenerator{
     private $dictionnary;
@@ -22,10 +22,19 @@ class JSONFromXMLSchemaGenerator{
             $name = $element->getAttribute('name');
             if(!array_key_exists($name, $this->dictionnary)){//element not yet added
                 $this->dictionnary[$name] = array();
-                $documentations = $element->getElementsByTagName('documentation');
-                if($documentations->length > 0){
-                    $this->dictionnary[$name]["documentation"] = $documentations->item(0)->textContent;;
+                
+                //getting the documentation inside the element itself. Using a xpath expression to be sure you only get the documentation concerning this element (and not the documentation that could belong to its children)
+                $searchString = 'xs:annotation/xs:documentation';
+                $docContainer = $xpath->query($searchString, $element);
+                foreach($docContainer as $doc){
+                    if(isset( $this->dictionnary[$name]["documentation"])){
+                        $this->dictionnary[$name]["documentation"] += $doc->textContent;
+                    }
+                    else{
+                        $this->dictionnary[$name]["documentation"] = $doc->textContent;
+                    }
                 }
+                
                 
                 if($element->hasAttribute('type')){//we have to find the type definition somewhere else, or it is a pre-defined type
                     $type = $element->getAttribute('type');
@@ -34,11 +43,15 @@ class JSONFromXMLSchemaGenerator{
                     $complexTypeIsDefined = $xpath->evaluate($searchString);
                     
                     
-                    if($complexTypeIsDefined){//this is a complex type, defined somewhere in the document, do nothing yet
-                    
-                    
+                    if($complexTypeIsDefined){//this is a complex type, defined somewhere in the document, do nothing yet but getting the documentation
+                        $searchString = "//xs:complexType[@name='".$type."']";
+                        $complexTypeContainer = $xpath->query($searchString);
+                        foreach($complexTypeContainer as $complexType){
+                            $this->treatComplexType($name, $complexType, $xpath);
+                        }
                     }
-                    else{
+                    
+                    else{//this is a simple type
                         $searchString = "count(//xs:simpleType[@name='".$type."'])";
                         $simpleTypeIsDefined = $xpath->evaluate($searchString);
                         if($simpleTypeIsDefined){//this is a simple type, defined somewhere in the document
@@ -63,10 +76,16 @@ class JSONFromXMLSchemaGenerator{
                     if($element->getElementsByTagName('complexType')->length){//the type is complex, do nothing yet
                         
                     }
-                    else{//this is a simple type TODO
+                    else{//this is a simple type
                         $this->treatSimpleType($name, $element->getElementsByTagName('simpleType')->item(0));
                     }
                 
+                }
+                
+                
+                //removing all the \t from the documentation
+                if(isset( $this->dictionnary[$name]["documentation"])){
+                    $this->dictionnary[$name]["documentation"] = str_replace("\t", '', $this->dictionnary[$name]["documentation"]);
                 }
             }
             
@@ -126,6 +145,22 @@ class JSONFromXMLSchemaGenerator{
         
         
         //TODO if necessary : treat other simple types
+    }
+    
+    
+    private function treatComplexType($name, $complexType, $xpath){
+        //getting documentation
+        $searchString = 'xs:annotation/xs:documentation';
+        $docContainer = $xpath->query($searchString, $complexType);
+        foreach($docContainer as $doc){
+            if(isset( $this->dictionnary[$name]["documentation"])){
+                $this->dictionnary[$name]["documentation"] += $doc->textContent;
+            }
+            else{
+                $this->dictionnary[$name]["documentation"] = $doc->textContent;
+            }
+        }
+    
     }
     
 }

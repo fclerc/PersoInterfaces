@@ -8,10 +8,10 @@
 				<Parameters>
 					<Parameter ID="P000">
 						<Name>Status</Name>
-						<Comment>Status of the resource informs about the necessity or not for each learner to consult it. 
-							Mandatory if the resource has to be seen by all the participants.
-							Optional if it is not necessary for each learner to consult it (for example the learner already has the knowledge it contains)
-							Bonus if the resource might be added to the learner once he is finished with the work of the sequence, or if he already knows everything about the sequence topic. It can be a fun video related to the MOOC, a complement that is a bit more difficult,...
+						<Comment>Status of the resource informs about the necessity or not for each learner to consult it.
+						-Mandatory if the resource has to be seen by all the participants.
+						-Optional if it is not necessary for each learner to consult it (for example the learner already has the knowledge it contains)
+						-Bonus if the resource might be added to the learner once he is finished with the work of the sequence, or if he already knows everything about the sequence topic. It can be a fun video related to the MOOC, a complement that is a bit more difficult,...
 						</Comment>
 						<ScaleList>
 							<Variable>true</Variable>
@@ -51,14 +51,14 @@
 							<Ordered>false</Ordered>
 							<MultipleSelection>true</MultipleSelection>
 							<Value>
-							<!-- To be filled each time a new tag is created  -->
+							<!-- The values are searched in the resource definition file, and stored in resourcesData.json -->
 								
 							</Value>
 						</ScaleList>
 					</Parameter>
 					<Parameter ID="P006"><!--Used to indicate directly some resources -->
 						<Name>Name</Name>
-                        <Comment>The name of a resource (or its URI)</Comment>
+                        <Comment>The name of a resource (or its URI, both can be given)</Comment>
 						<ScaleList>
 							<Variable>true</Variable>
 							<Ordered>false</Ordered>
@@ -148,7 +148,7 @@
 				<Parameters>
 					<Parameter ID="P007">
 						<Name>Tool</Name>
-						<Comment>On which social tool do we want to orient them ?</Comment>
+						<Comment>Name of the social tool to be used</Comment>
 						<ScaleList>
 							<Variable>true</Variable>
 							<Ordered>false</Ordered>
