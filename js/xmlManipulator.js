@@ -213,7 +213,17 @@ function displayAndChildren(xmlNode, mode, scales, scaleContainer){
         $(result).prepend($('<span>').addClass('glyphicon glyphicon-minus').addClass('reducer'));
         
         if($(xmlNode).children().length === 0){//if it has attributes, but no child : its text value has to be displayed
-            result.append(': ').append($('<span>').append($(xmlNode).html()).addClass("value"));
+            if(mode != 'selectWithoutValues'){ //TODO  : REFACT, same operation made 3 times in this code
+                var nodeValue = $(xmlNode).html()
+                if(nodeValue === ''){
+					nodeValue = '&nbsp;';
+				}
+                var valueContainer = $('<span>').append(nodeValue);
+                if(mode == 'modify'){
+                    $(valueContainer).addClass("value");
+                }
+                result.append(': ').append(valueContainer);
+            }
         }
         
         //variable containing the texts returned by the call of the function on the children (in a html list)
@@ -234,8 +244,23 @@ function displayAndChildren(xmlNode, mode, scales, scaleContainer){
 					attributeValue = '&nbsp;';
 				}
 				
-                var txt = $('<li>').attr('id', $(xmlNode).attr('id') +'--'+ attrib.name ).append($('<span>').addClass('elementName').text(attribName + idText)).append(': ');
-                $(txt).append($('<span>').append(attrib.value).addClass('attribute value'));
+                var elementNameContainer = $('<span>').addClass('elementName').text(attribName + idText)
+                if(mode != 'modify'){
+                    $(elementNameContainer).addClass('elementNameClickable');
+                }
+                var txt = $('<li>').attr('id', $(xmlNode).attr('id') +'--'+ attrib.name ).append(elementNameContainer).append(': ');
+                
+                if(mode != 'selectWithoutValues'){
+                    var valueContainer = $('<span>').append(attrib.value).addClass('attribute')
+                    if(mode == 'modify'){
+                        $(valueContainer).addClass("value");
+                    }
+                
+                    $(txt).append(valueContainer);
+                }
+                
+                
+                
                 $(chs).append(txt);
             }
         });

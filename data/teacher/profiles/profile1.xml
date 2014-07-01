@@ -4,7 +4,7 @@
 	<learnerInformation id="R61">
 		<id id="LP0">rdupont</id>
 		<email id="LP1">dupont@laposte.net</email>
-		<birthDate id="LP2">1967-08-13</birthDate>
+		<birthDate id="LP2">1987-08-13</birthDate>
 		<sex id="LP3">M</sex>
 		<professionalSituation id="LP4">student</professionalSituation>
 		<educationLevel id="LP5">master</educationLevel>
@@ -12,13 +12,13 @@
 		<country id="LP7">France</country>
 		<languages id="R62">
 			<language id="R63">
-				<name id="LP8">French</name>
+				<name id="LP8" fixed="true">French</name>
 				<skill id="LP9">native</skill>
-                <name id="LP57">English</name>
+                <name id="LP57" fixed="true">English</name>
 				<skill id="LP58">fluent</skill>
-                <name id="LP59">German</name>
+                <name id="LP59" fixed="true">German</name>
 				<skill id="LP60">moderate</skill>
-                <name id="LP61">Chinese</name>
+                <name id="LP61" fixed="true">Chinese</name>
 				<skill id="LP62">unskilled</skill>
 			</language>
 		</languages>
@@ -26,15 +26,23 @@
 		<colourBlind id="LP11">true</colourBlind>
 		<externalToolsKnowledge id="R64">
 			<externalTool id="R65">
-				<toolName id="LP12">twitter</toolName>
+				<toolName id="LP12" fixed="true">twitter</toolName>
 				<grade id="LP13">90</grade>
-                <toolName id="LP63">facebook</toolName>
+            </externalTool>
+            <externalTool id="LP76">
+                <toolName id="LP63" fixed="true">facebook</toolName>
 				<grade id="LP64">50</grade>
-                <toolName id="LP65">linkedin</toolName>
+            </externalTool>
+            <externalTool id="LP77">
+                <toolName id="LP65" fixed="true">linkedin</toolName>
 				<grade id="LP66">60</grade>
-                <toolName id="LP67">google_plus</toolName>
+            </externalTool>
+            <externalTool id="LP78">
+                <toolName id="LP67" fixed="true">google_plus</toolName>
 				<grade id="LP68">20</grade>
-                <toolName id="LP69">google_search_engine</toolName>
+            </externalTool>
+            <externalTool id="LP79">
+                <toolName id="LP69" fixed="true">google_search_engine</toolName>
 				<grade id="LP70">100</grade>
 			</externalTool>
 		</externalToolsKnowledge>
