@@ -773,6 +773,47 @@ msgstr "Combiner avec une autre contrainte"
 # File choice page
 #
 #
+msgid "fileChoice.h1"
+msgstr ""
+"Mise en place de la personnalisation dans le cadre des MOOCs - Version de "
+"démonstration."
+
+msgid "fileChoice.explanations"
+msgstr ""
+"Bienvenue sur la version de démonstration de l'application 'PERSUA2mooc' "
+"développée par le l'équipe SILEX du laboratoire LIRIS, CNRS de l'Université "
+"Lyon 1. Ce travail est réalisé dans le cadre du projet COAT (Connaissance "
+"Ouverte A Tous).La version présentée ici est en cours de développement, et "
+"toutes les fonctionnalités ne sont pas encore disponibles. Le fonctionnement "
+"sur tout navigateur autre que Firefox n'est pas garanti (pour le moment...). "
+"Tout retour de votre part concernant cette version de test sera le bienvenu, "
+"et nous permettra d'améliorer la solution que nous proposons."
+
+msgid "fileChoice.links"
+msgstr ""
+"Voici quelques liens qui vous permettront de comprendre le projet 'Mise en "
+"place de la personnalisation dans le cadre des MOOCs', ainsi que le "
+"fonctionnement de la présente application : "
+
+msgid "fileChoice.coatLink"
+msgstr "Wiki du projet COAT"
+
+msgid "fileChoice.internshipLink"
+msgstr "Présentation du stage concerné par le projet - Présentation des enjeux"
+
+msgid "fileChoice.modelLink"
+msgstr "Présentation du modèle PERSUA2mooc et de l'application"
+
+msgid "fileChoice.readPresentation"
+msgstr ""
+"Avant toute utilisation de cette application, consultez la présentation du "
+"modèle PERSUA2MOOC pour bien comprendre son fonctionnement."
+
+#
+#
+# File choice page
+#
+#
 msgid "fileChoice.delete.confirm"
 msgstr ""
 "Êtes-vous sûr de vouloir supprimer ce fichier ? Toute suppression est "

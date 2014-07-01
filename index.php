@@ -26,9 +26,18 @@
     
     <body>
 	<div class="container">
-		<h1>Main Menu</h1>
-		<p>Quick explanations</p>
-		<p>Other links, for example to a deeper explanation about the models</p>
+		<h1>fileChoice.h1</h1>
+		<p>fileChoice.explanations</p>
+		<p>fileChoice.links</p>
+        <ul>
+            <li><a class='toTranslate' href="http://liris.cnrs.fr/coatcnrs/wiki/doku.php">fileChoice.coatLink</a></li>
+            <li><a class='toTranslate' href="http://liris.cnrs.fr/coatcnrs/wiki/doku.php?id=florian_clerc_stage_master_recherche_et_ingenieur_31_mars-_26_septembre#dokuwiki__top">fileChoice.internshipLink</a></li>
+            <li><a class='toTranslate' href="presentation.php">fileChoice.modelLink</a></li>
+        
+        
+        </ul>
+        <hr/>
+        <p>fileChoice.readPresentation</p>
         <div id="languageChoice"><span>languageChoice</span><a href="index.php?lang=fr"><img src="img/fr.png"/></a><a href="index.php?lang=en"><img src="img/gb.png"/></a></div>
         <?php 
             if(isset($_SESSION['fileRemoved'])){//if a file has bee removed, display a message
@@ -57,7 +66,7 @@
             success: function(data){
                 _.setTranslation(data);
 			//translating the already displayed content
-            $('#fileRemovedSuccess, .container h1, #languageChoice span').each(function(){
+            $('#fileRemovedSuccess, .container h1, #languageChoice span, p, .toTranslate').each(function(){
                 $(this).text(_($(this).text()));
             });
         

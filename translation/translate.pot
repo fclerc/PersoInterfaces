@@ -823,6 +823,26 @@ msgstr ""
 #
 #
 
+msgid "fileChoice.h1"
+msgstr ""
+
+msgid "fileChoice.explanations"
+msgstr ""
+
+msgid "fileChoice.links"
+msgstr ""
+
+msgid "fileChoice.coatLink"
+msgstr ""
+
+msgid "fileChoice.internshipLink"
+msgstr ""
+
+msgid "fileChoice.modelLink"
+msgstr ""
+
+msgid "fileChoice.readPresentation"
+msgstr ""
 
 msgid "fileChoice.delete.confirm"
 msgstr ""
@@ -877,6 +897,8 @@ msgstr ""
 
 msgid "languageChoice"
 msgstr ""
+
+
 
 
 
