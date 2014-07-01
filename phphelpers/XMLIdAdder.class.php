@@ -9,7 +9,7 @@
         
         include 'XMLIdAdder.class.php';
         $x = new XMLIdAdder();
-        $x->addIdsToXML('file.xml', 'youPrefix', 'yourSuffix', 'all', 0);
+        $x->addIdsToXML('file.xml', 'youPrefix', 'yourSuffix','continue' 'all', 0);
         
         It will generate id attributes to all tags : youPrefixNByourSuffix, with NB an incremented number.
         Use 'leaves' as targets argument if you only want to add ids to the leaves (tags having no child).

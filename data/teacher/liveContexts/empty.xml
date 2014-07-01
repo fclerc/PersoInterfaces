@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<liveContext id="CTX4">
-    <environmentContext id="CTX5">
-        <datetime id="LC1"/>
-        <connecteds id="CTX6">
+<liveContext id="CTX0">
+    <environmentContext id="CTX1">
+        <datetime id="CTX2"/>
+        <connecteds id="CTX3">
+            <connected id="CTX4">
+                <role id="CTX5"/>
+                <number id="CTX6"/>
+            </connected>
             <connected id="CTX7">
-                <role id="LC2"/>
-                <number id="LC3"/>
-                <role id="LC2"/>
-                <number id="LC3"/>
+                <role id="CTX8"/>
+                <number id="CTX9"/>
             </connected>
         </connecteds>
     </environmentContext>
-    <learnerLiveContext id="CTX8">
-        <IPAddress id="LC4"/>
-        <device id="LC5"/>
-        <OS id="LC6"/>
-        <browser id="LC7"/>
-        <bandwidth id="LC8"/>
-        <availableTime id="LC9"/>
-        <delay id="LC10"/>
-        <timeAlreadySpent id="LC11"/>
-        <otherLiveInformation id="CTX9">
-            <name id="LC12"/>
-            <value id="LC13"/>
-            <description id="LC14"/>
-        </otherLiveInformation>
+    <learnerLiveContext id="CTX10">
+        <IPAddress id="CTX11"/>
+        <device id="CTX12"/>
+        <OS id="CTX13"/>
+        <browser id="CTX14"/>
+        <bandwidth id="CTX15"/>
+        <availableTime id="CTX16"/>
+        <delay id="CTX17"/>
+        <timeAlreadySpent id="CTX18"/>
     </learnerLiveContext>
 </liveContext>

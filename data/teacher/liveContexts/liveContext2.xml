@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<liveContext id="CTX4">
-    <environmentContext id="CTX5">
-        <datetime id="LC1">20014-06-17T09:30:47.0Z</datetime>
-        <connecteds id="CTX6">
+<liveContext id="CTX0">
+    <environmentContext id="CTX1">
+        <datetime id="CTX2">2014-06-17T09:30:47.0Z</datetime>
+        <connecteds id="CTX3">
+            <connected id="CTX4">
+                <role id="CTX5">teacher</role>
+                <number id="CTX6">1</number>
+            </connected>
             <connected id="CTX7">
-                <role id="LC2">teacher</role>
-                <number id="LC3">1</number>
-                <role id="LC2">learner</role>
-                <number id="LC3">1722</number>
+                <role id="CTX8">learner</role>
+                <number id="CTX9">147</number>
             </connected>
         </connecteds>
     </environmentContext>
-    <learnerLiveContext id="CTX8">
-        <IPAddress id="LC4">123.321.123.321</IPAddress>
-        <device id="LC5">computer</device>
-        <OS id="LC6">windows</OS>
-        <browser id="LC7">firefox</browser>
-        <bandwidth id="LC8">1200</bandwidth>
-        <availableTime id="LC9">P0Y0M0DT1H0M</availableTime>
-        <delay id="LC10">P0Y0M14DT0H0M</delay>
-        <timeAlreadySpent id="LC11">P0Y0M0DT3H30M</timeAlreadySpent>
-        <otherLiveInformation id="CTX9">
-            <name id="LC12">String</name>
-            <value id="LC13">text</value>
-            <description id="LC14">String</description>
-        </otherLiveInformation>
+    <learnerLiveContext id="CTX10">
+        <IPAddress id="CTX11">123.321.123.321</IPAddress>
+        <device id="CTX12">computer</device>
+        <OS id="CTX13">windows</OS>
+        <browser id="CTX14">firefox</browser>
+        <bandwidth id="CTX15">1200</bandwidth>
+        <availableTime id="CTX16">P0Y0M0DT1H0M</availableTime>
+        <delay id="CTX17">P0Y0M14DT0H0M</delay>
+        <timeAlreadySpent id="CTX18">P0Y0M0DT3H30M</timeAlreadySpent>
     </learnerLiveContext>
 </liveContext>

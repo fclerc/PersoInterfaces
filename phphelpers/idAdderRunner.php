@@ -2,5 +2,5 @@
     include 'XMLIdAdder.class.php';
     $x = new XMLIdAdder();
     
-    $x->addIdsToXML('profile1.xml', 'LP', '','restart', 'all');
+    $x->addIdsToXML('../data/teacher/liveContexts/liveContext1.xml', 'CTX', '','restart', 'all');
 ?>
