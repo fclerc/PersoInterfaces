@@ -40,3 +40,7 @@ body{
 #languageChoice a{
     margin-right: 5px;
 }
+
+p{
+    text-align: justify;
+}
