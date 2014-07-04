@@ -126,6 +126,7 @@
             <p><strong>SINON aller sur le FORUM avec Action = Answer</strong>, on invite ainsi l'apprenant à aller sur le forum, et répondre aux questions que se posent ceux qui n'ont éventuellement pas compris certaines parties du cours (bien évidemment, dans la boussole le tout sera sous forme textuelle et bien plus explicite). On pourrait aussi lui proposer de faire un exercice en relation avec la boucle for qui soit d'un niveau plus avancé, plus ludique (calcul des termes de la suite de Fibonacci,...)</p>
             <p>Voici donc comment se décomposent les règles de la stratégie pédagogique :</p>
             <p><strong>SI {Contrainte sur profil} ALORS {Activité avec paramètres} [SINON {Activité avec paramètres}]</strong>.</p>
+            <p>A chacune des règles, l'enseignant peut attacher une valeur de priorité, nombre entier qui indique l'importance de cette règle. Ainsi, si plusieurs règles s'appliquent pour un apprenant, seules celles qui ont le plus hait degré de priorité seront prises en compte (et ce pour respecter les contraintes fixées dans le contexte de séquence).</p>
             <p>A partir de cette construction simple, l'enseignant a un champ de possibilités très large pour permettre aux apprenants d'avoir une boussole personnalisée, avec les activités qui leur convient au mieux.</p>
             
             <h4>Pour les plus courageux...</h4>
@@ -146,7 +147,22 @@
             
             
             <h2 id="appli">Présentation de l'application</h2>
-            Etat actuel
+            <h3>Fonctionnalités actuelles</h3>
+            <p>L'application que vous découvrez ici est en cours de développement, le descriptif qui suit est en date du 04/07/2014. N'hésitez pas à consulter les pages de l'application citées au fur et à mesure que vous lisez le descriptif.</p>
+            <p>Une première interface permet à l'enseignant de modifier le contexte de séquence, pour chaque séquence du MOOC. Il lui est tout simplement possible de modifier les valeurs textuelles contenues dans le fichier XML qu'il est en train de visualiser. Au passage, comme pour tous les fichiers utilisés par l'enseignant, il lui est possible de les consulter, modifier, supprimer, dupliquer, renommer et créer (à partir d'un fichier vide).<br/>
+            La deuxième interface, qui est l'interface principale pour l'enseignant, est celle qui va lui permettre l'édition de sa stratégie pédagogique pour chaque séquence du MOOC. Elle est décomposée en trois parties principale :</p>
+            <ul>
+                <li>Sur la gauche se trouvent deux onglets, contenant un exemple de profil d'apprenant et un exemple de contexte 'live'. C'est à partir de cette partie qu'il pourra sélectionner des indicateurs, et définir des contraintes dans le 'SI' des règles qu'il forme.</li>
+                <li>Sur la droite se trouvent les activités qui sont disponibles sur la plateforme de MOOC, avec leurs différents paramètres. Ces éléments seront eux sélectionnables lorsque l'enseignant définit les parties 'ALORS' et 'SINON' de la règle.</li>
+                <li>Au centre se trouve l'ensemble des règles déjà définies par l'enseignant dans le fichier ouvert (en bas, sous le titre 'Règles déjà définies'). Pour chacune d'entre elles, il est possible de supprimer, modifier ou dupliquer la règle. Un bouton en haut de cette partie permet également de créer une règle à partir d'un modèle vide. Une fois le mode édition lancé, il est possible de modifier toutes les parties de la règle de manière dynamique, grâce à une interface et des icônes facilement compréhensibles (du moins nous l'espérons). On peut ainsi définir de nouvelles contraintes, créer des contraintes complexes (en utilisant des opérateurs booléens), ajouter des activités et des paramètres pour ces activités. Tous les champs sont facilement éditables, et plusieurs fonctionnalités simples permettent à l'enseignant une manipulation plus aisée (par exemple, si un indicateur est utilisé dans une règle, un clic sur le nom de cet indicateur permettra de le localiser dans le profil ou le contexte "live", de même pour les activités et paramètres en opérant un simple survol).
+                TODO vidéo démo</li>
+            </ul>
+            
+            <p>Sur toutes les interfaces, la documentation disponible dans les modèles définis est affichée à l'enseignant (ce sont les petites icones <span class="glyphicon glyphicon-info-sign"></span>). Les valeurs admises par les paramètres et indicateurs sont également affichées ainsi que, dans le cas des paramètres d'activités, la liste des valeurs que l'enseignant a effectivement utilisées lorsqu'il a défini les ressources (cela lui permet par exemple de disposer de la liste de toutes les ressources). De plus, tous ces éléments sont cliquables lorsque l'enseignant doit remplir un formulaire dans la règle en cours de définition (le formulaire des directement rempli avec la valeur souhaitée).</p>
+            
+            <p><i>Note sur la définition des règles</i> : vous l'aurez remarqué, il est tout à fait possible de définir des règles qui n'ont aucun sens avec cette interface (partie 'SI' vide, indicateurs laissés seuls sans opérateur de comparaison,...) sans qu'aucun message d'alerte ne soit lancé. Cela n'est en effet pas une priorité : nous nous concentrons surtout actuellement sur le fait de rendre l'application entièrement fonctionnelle, quitte à faire peser dans un premier temps plus de responsabilités sur l'utilisateur, qui doit s'assurer lui-même que ce qu'il décrit a bien un sens. De plus, comme il est toujours possible de supprimer une règle qui serait mal définie, une contrainte mal exprimée,... l'utilisateur pourra toujours revenir en arrière et corriger ses éventuelles erreurs.</p>
+            
+            <p>Pour terrminer, nous vous proposons une vidéo de démonstration pour l'utilisation de l'application, telle qu'elle est avancée au 04/07/2014 :</p>
             
             <h3>Perspectives d'évolution</h3>
             
