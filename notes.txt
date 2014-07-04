@@ -1,3 +1,6 @@
+!!si attribut : mauvais reducer
+!!le empty ne doit pas suppr les fixed=true
+
 chercher les TODO
 langue paramètres
 

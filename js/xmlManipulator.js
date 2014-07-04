@@ -205,9 +205,9 @@ function displayAndChildren(xmlNode, mode, scales, scaleContainer){
     }
     
     
-    if($(xmlNode).children().length>0 || xmlNode.attributes.length > 1){
+    if($(xmlNode).children().length>0 || (xmlNode.attributes.length > 1 && !(xmlNode.attributes.length == 2 && ($(xmlNode).attr('fixed') ==='true')))){
     //if the node has children : display the list of these children.
-    //reducer class enables to toggle visibility of children
+    //reducer class enables to toggle visibility of children (particular case is: node has an attribute, this attribute is 'fixed', which is not displayed
     //other classes are used for style
         $(result).addClass('hasChild');
         $(result).prepend($('<span>').addClass('glyphicon glyphicon-minus').addClass('reducer'));
@@ -220,7 +220,10 @@ function displayAndChildren(xmlNode, mode, scales, scaleContainer){
 				}
                 var valueContainer = $('<span>').append(nodeValue);
                 if(mode == 'modify'){
-                    $(valueContainer).addClass("value");
+                    //check if it has no attribute fixed set to true
+                    if($(xmlNode).attr('fixed') != 'true'){
+                        $(valueContainer).addClass("value");
+                    }
                 }
                 result.append(': ').append(valueContainer);
             }
@@ -230,7 +233,7 @@ function displayAndChildren(xmlNode, mode, scales, scaleContainer){
         var chs = $('<ul>');
         
         $.each(xmlNode.attributes, function(i, attrib){//going through the attibutes
-            var attributesToIgnore = ["id", "xmlns:xsi", "xsi:noNamespaceSchemaLocation"];
+            var attributesToIgnore = ["id", "xmlns:xsi", "xsi:noNamespaceSchemaLocation", "fixed", "attrfixed"];
             if(attributesToIgnore.indexOf(attrib.name) == -1){
                 
                 var idText='';//uncomment next line to display the id
@@ -253,7 +256,10 @@ function displayAndChildren(xmlNode, mode, scales, scaleContainer){
                 if(mode != 'selectWithoutValues'){
                     var valueContainer = $('<span>').append(attrib.value).addClass('attribute')
                     if(mode == 'modify'){
-                        $(valueContainer).addClass("value");
+                        if($(xmlNode).attr('attrfixed') != 'true'){
+                        //if attribute is not fixed
+                            $(valueContainer).addClass("value");
+                        }
                     }
                 
                     $(txt).append(valueContainer);
@@ -285,7 +291,9 @@ function displayAndChildren(xmlNode, mode, scales, scaleContainer){
 		}
 		
 		if(mode == 'modify'){
-			$(valueContainer).addClass("value");
+            if($(xmlNode).attr('fixed') != 'true'){
+                $(valueContainer).addClass("value");
+            }
 		}
         result.append(': ').append(valueContainer);
         

@@ -99,11 +99,11 @@
 			</activityPerHour>
 			<activityPerDay id="LP75">
 				<day num="1" id="LP76">
-					<timePercentage id="LP77">30</timePercentage>
+					<timePercentage id="LP77">50</timePercentage>
 					<actionsPercentage id="LP78">40</actionsPercentage>
 				</day>
                 <day num="2" id="LP79">
-					<timePercentage id="LP80">70</timePercentage>
+					<timePercentage id="LP80">50</timePercentage>
 					<actionsPercentage id="LP81">60</actionsPercentage>
 				</day>
 			</activityPerDay>
@@ -122,49 +122,49 @@
 	<resourcesInteractions id="LP89">
 		<resourcesConsultation id="LP90">
 			<resourceConsultation id="LP91">
-				<resourceId id="LP92">http://youtu.be/LCUZF4THcrQ</resourceId>
+				<resourceId id="LP92" fixed="true">http://youtu.be/LCUZF4THcrQ</resourceId>
 				<nbConsultations id="LP93">2</nbConsultations>
 				<duration id="LP94">26</duration>
 				<completion id="LP95">100</completion>
 			</resourceConsultation>
             <resourceConsultation id="LP96">
-				<resourceId id="LP97">http://claco.univ-lyon1.fr/resource/open/file/8171</resourceId>
+				<resourceId id="LP97" fixed="true">http://claco.univ-lyon1.fr/resource/open/file/8171</resourceId>
 				<nbConsultations id="LP98">1</nbConsultations>
 			</resourceConsultation>
             <resourceConsultation id="LP99">
-				<resourceId id="LP100">https://www.youtube.com/watch?v=O-6pjG06XMY</resourceId>
+				<resourceId id="LP100" fixed="true">https://www.youtube.com/watch?v=O-6pjG06XMY</resourceId>
 				<nbConsultations id="LP101">1</nbConsultations>
 				<duration id="LP102">8</duration>
 				<completion id="LP103">100</completion>
 			</resourceConsultation>
             <resourceConsultation id="LP104">
-				<resourceCategories id="LP105">beginner</resourceCategories>
+				<resourceCategories id="LP105" fixed="true">beginner</resourceCategories>
 				<nbConsultations id="LP106">8</nbConsultations>
 				<duration id="LP107">89</duration>
 				<completion id="LP108">70</completion>
                 <comparedPercentage id="LP109">80</comparedPercentage>
 			</resourceConsultation>
             <resourceConsultation id="LP110">
-				<resourceId id="LP111">http://claco.univ-lyon1.fr/workspaces/802/open/tool/home</resourceId>
+				<resourceId id="LP111" fixed="true">http://claco.univ-lyon1.fr/workspaces/802/open/tool/home</resourceId>
 				<nbConsultations id="LP112">27</nbConsultations>
                 <childrenConsultationsDistribution id="LP113">
 					<childPercentage id="LP114">
-						<resource id="LP115">http://claco.univ-lyon1.fr/resource/open/claroline_forum/4256</resource>
+						<resource id="LP115"  fixed="true">http://claco.univ-lyon1.fr/resource/open/claroline_forum/4256</resource>
 						<percentage id="LP116">30</percentage>
 					</childPercentage>
                     <childPercentage id="LP117">
-						<resource id="LP118">http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1</resource>
+						<resource id="LP118"  fixed="true">http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1</resource>
 						<percentage id="LP119">70</percentage>
 					</childPercentage>
 				</childrenConsultationsDistribution>
 				<duration id="LP120">121</duration>
 				<childrenDurationDistribution id="LP121">
 					<childPercentage id="LP122">
-						<resource id="LP123">http://claco.univ-lyon1.fr/resource/open/claroline_forum/4256</resource>
+						<resource id="LP123"  fixed="true">http://claco.univ-lyon1.fr/resource/open/claroline_forum/4256</resource>
 						<percentage id="LP124">30</percentage>
 					</childPercentage>
                     <childPercentage id="LP125">
-						<resource id="LP126">http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1</resource>
+						<resource id="LP126"  fixed="true">http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1</resource>
 						<percentage id="LP127">70</percentage>
 					</childPercentage>
 				</childrenDurationDistribution>

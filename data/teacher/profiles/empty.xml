@@ -122,49 +122,49 @@
 	<resourcesInteractions id="LP89">
 		<resourcesConsultation id="LP90">
 			<resourceConsultation id="LP91">
-				<resourceId id="LP92"/>
+				<resourceId id="LP92" fixed="true"/>
 				<nbConsultations id="LP93"/>
 				<duration id="LP94"/>
 				<completion id="LP95"/>
 			</resourceConsultation>
             <resourceConsultation id="LP96">
-				<resourceId id="LP97"/>
+				<resourceId id="LP97" fixed="true"/>
 				<nbConsultations id="LP98"/>
 			</resourceConsultation>
             <resourceConsultation id="LP99">
-				<resourceId id="LP100"/>
+				<resourceId id="LP100" fixed="true"/>
 				<nbConsultations id="LP101"/>
 				<duration id="LP102"/>
 				<completion id="LP103"/>
 			</resourceConsultation>
             <resourceConsultation id="LP104">
-				<resourceCategories id="LP105"/>
+				<resourceCategories id="LP105" fixed="true"/>
 				<nbConsultations id="LP106"/>
 				<duration id="LP107"/>
 				<completion id="LP108"/>
                 <comparedPercentage id="LP109"/>
 			</resourceConsultation>
             <resourceConsultation id="LP110">
-				<resourceId id="LP111"/>
+				<resourceId id="LP111" fixed="true"/>
 				<nbConsultations id="LP112"/>
                 <childrenConsultationsDistribution id="LP113">
 					<childPercentage id="LP114">
-						<resource id="LP115"/>
+						<resource id="LP115" fixed="true"/>
 						<percentage id="LP116"/>
 					</childPercentage>
                     <childPercentage id="LP117">
-						<resource id="LP118"/>
+						<resource id="LP118" fixed="true"/>
 						<percentage id="LP119"/>
 					</childPercentage>
 				</childrenConsultationsDistribution>
 				<duration id="LP120"/>
 				<childrenDurationDistribution id="LP121">
 					<childPercentage id="LP122">
-						<resource id="LP123"/>
+						<resource id="LP123" fixed="true"/>
 						<percentage id="LP124"/>
 					</childPercentage>
                     <childPercentage id="LP125">
-						<resource id="LP126"/>
+						<resource id="LP126" fixed="true"/>
 						<percentage id="LP127"/>
 					</childPercentage>
 				</childrenDurationDistribution>
