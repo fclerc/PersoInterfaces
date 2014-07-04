@@ -36,6 +36,9 @@ function manipulateXML(filepath, container, mode, reader, scales = '', scaleCont
                 if(toToggle[0].nodeName != 'ul' && toToggle[0].nodeName != 'UL'){//in case there is the information icon, go one step further to find the list to hide.
                     toToggle = $(toToggle).next()
                 }
+                if(toToggle[0].nodeName != 'ul' && toToggle[0].nodeName != 'UL'){//in case there is a value, go one step further to find the list to hide.
+                    toToggle = $(toToggle).next()
+                }
 					$(toToggle).toggle(300);
 					
 					//just changing the glyphicon
