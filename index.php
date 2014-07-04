@@ -30,11 +30,10 @@
 		<p>fileChoice.explanations</p>
 		<p>fileChoice.links</p>
         <ul>
+            <li><a class='toTranslate' href="presentation.php">fileChoice.modelLink</a></li>
             <li><a class='toTranslate' href="http://liris.cnrs.fr/coatcnrs/wiki/doku.php">fileChoice.coatLink</a></li>
             <li><a class='toTranslate' href="http://liris.cnrs.fr/coatcnrs/wiki/doku.php?id=florian_clerc_stage_master_recherche_et_ingenieur_31_mars-_26_septembre#dokuwiki__top">fileChoice.internshipLink</a></li>
-            <li><a class='toTranslate' href="presentation.php">fileChoice.modelLink</a></li>
-        
-        
+            <li><a href="http://youtu.be/8UqVxA7Cl7E">Vidéo de démonstration</a></li>
         </ul>
         <hr/>
         <p>fileChoice.readPresentation</p>

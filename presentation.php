@@ -166,6 +166,7 @@
             <p><i>Note sur la définition des règles</i> : vous l'aurez remarqué, il est tout à fait possible de définir des règles qui n'ont aucun sens avec cette interface (partie 'SI' vide, indicateurs laissés seuls sans opérateur de comparaison,...) sans qu'aucun message d'alerte ne soit lancé. Cela n'est en effet pas une priorité : nous nous concentrons surtout actuellement sur le fait de rendre l'application entièrement fonctionnelle, quitte à faire peser dans un premier temps plus de responsabilités sur l'utilisateur, qui doit s'assurer lui-même que ce qu'il décrit a bien un sens. De plus, comme il est toujours possible de supprimer une règle qui serait mal définie, une contrainte mal exprimée,... l'utilisateur pourra toujours revenir en arrière et corriger ses éventuelles erreurs.</p>
             
             <p>Pour terminer, nous vous proposons une vidéo de démonstration pour l'utilisation de l'application, telle qu'elle est avancée au 04/07/2014 :</p>
+            <iframe width="560" height="315" src="//www.youtube.com/embed/8UqVxA7Cl7E" frameborder="0" allowfullscreen></iframe>
             
             <h3>Perspectives d'évolution</h3>
             <p>Voici, de manière non ordonnée, les perspectives d'évolution pour ce plugin, qui vont être abordées dans les prochains jours :</p>
