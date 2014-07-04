@@ -4,11 +4,11 @@
         <datetime id="CTX2">2014-06-17T09:30:47.0Z</datetime>
         <connecteds id="CTX3">
             <connected id="CTX4">
-                <role id="CTX5">teacher</role>
+                <role id="CTX5" fixed="true">teacher</role>
                 <number id="CTX6">1</number>
             </connected>
             <connected id="CTX7">
-                <role id="CTX8">learner</role>
+                <role id="CTX8"  fixed="true">learner</role>
                 <number id="CTX9">147</number>
             </connected>
         </connecteds>
