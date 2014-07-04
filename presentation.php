@@ -38,8 +38,8 @@
             <p>A chaque nouvelle séquence du MOOC (dans la plupart des MOOCs, 1 séquence = 1 semaine), l'enseignant définira une nouvelle stratégie pédagogique, et un nouveau contexte de séquence.</p>
             
             <p>Pour chaque apprenant, caractérisé par son profil et un contexte 'live', un premier processus est réalisé, qui permet de déterminer, dans la stratégie pédagogique, quelles sont les règles qui s'appliquent bien à lui. La sortie de ce processus est donc une liste de règles d'affectation, dont les parties 'ALORS' et 'SINON' contiennent des contraintes sur les activités de la plateforme.<p>
-            <p>Enfin, à partir de ces règles, des listes d'activités sont générées pour chaque apprenant. Nous appelons ici cette liste d'activité une 'boussole', en référence à la manière dont les activités sont proposées dans le MOOC FOVEA, sur la plateforme  <a href="http://claco.univ-lyon1.fr">Claroline Connect</a></p>.
-            
+            <p>Enfin, à partir de ces règles, des listes d'activités sont générées pour chaque apprenant. Nous appelons ici cette liste d'activité une 'boussole', en référence à la manière dont les activités sont proposées dans le MOOC FOVEA, sur la plateforme  <a href="http://claco.univ-lyon1.fr">Claroline Connect.</a></p>
+            <p>Pour plus de détails sur la modélisation complète, vous pouvez consulter la partie ci-dessous. Sinon, vous pouvez vous rendre directement à la section <a href="#appli">Présentation de l'application</a>.</p>
             <h3>Plus de détails sur...</h3>
             <p>Dans cette section, vous pourrez en apprendre plus sur chacun des éléments qui composent le modèle PERSUA2<sub>MOOC</sub> et son processus d'exploitation.</p>
             
@@ -55,7 +55,7 @@
             <h4>...le profil d'apprenant</h4>
             <p>Le profil d'apprenant comporte cinq sections, qui vont de la plus générale à propos de l'apprenant, à la plus précise concernant ses interactions avec les ressources qui lui sont proposées au sein du MOOC. Voici, sur un schéma les cunq sections et l'ordre dans lequel elles apparaissent (nous revenons ensuite sur chacune d'entre elles avec plus de précisions).</p>
             <img src='img/learnerMoocProfile.PNG' alt='Structure profil apprenant dans les MOOCs'/>
-            <h5>Section 'learnerInformation'</h5>
+            <h5>La section 'learnerInformation'</h5>
             <p>Cette première section contient des informations générales sur l'apprenant, qui ne sont pas extraites des traces, mais issues de questions qui peuvent être posées directement à l'apprenant (au moment de son inscription sur la plateforme ou lors de sa première connexion au MOOC). On y retrouve par exemple la date de naissance de l'apprenant, son sexe, sa situation professionnelle, son pays...(vous pourrez retrouver la liste complète des indicateurs qui sont pour l'instant présents au sein de cette section dans l'application elle-même).<p>
             
             <h5>La section 'knowledge'</h5>
@@ -70,6 +70,7 @@
                 <li>les 'auditing', qui suivent le cours durant sa majeure partie, mais ne répondent pas ou peu aux questionnaires et examens qui leur sont proposés,</li>
                 <li>les 'disengaging' qui sont dans les catégories 'completing' au début du MOOC, mais vont progressivement moins fréquenter le MOOC,</li>
                 <li>les 'sampling' qui vont simplement consulter quelques ressources du MOOC, mais sans aller vraiment plus loin</li>
+            </ul>
             <p>Pour déterminer à quelle catégorie appartient un apprenant, les traces sont exploitées afin de savoir quelle quantité de ressources il consulte à chaque séquence, s'il se rend sur le forum ou non,...<br/>
             Pour les autres indicateurs, vous pouvez vous reporter au profil utilisé dans l'application, et cliquer sur les bulles d'information pour lire la documentation concernant chacun des indicateurs.
             
@@ -90,22 +91,60 @@
             Par rapport au profil d'apprenant, ce modèle est relativement léger, et les informations qu'il contient sont globalement toutes celles que peut obtenir le serveur sur l'apprenant et le MOOC. Il est divisé en deux parties :</p>
             <ul>
                 <li>La partie 'environmentContext' qui contient les informations générales sur l'environnement du MOOC. Dans le modèle général, seules deux informations sont contenues : la date et l'heure, ainsi que des chiffres sur le type et le nombre de personnes qui sont connectées à un instant donné : le nombre d'apprenants, le nombre d'enseignants, d'administrateurs,... Cette section peut être enrichie en fonction des plateformes et de leurs fonctionnalités. Par exemple, si une plateforme comporte un outil de chat, un indicateur pourra contenir le nombre de connectés.</li>
-                </li>La partie 'learnerLiveContext' contient les informations disponibles sur l'apprenant lorsqu'il se connecte, on y retrouve le type d'appareil qu'il utilise (ordinateur, tablette, smartpgone), son système d'exploitation, le navigateur, son adresse IP... D'autres indicateurs plus avancés peuvent être ajoutés s'ils sont disponibles, comme la bande passante dont il dispose (cela peut avoir son importance si des vidéos sont à visionner), le temps disponible pour l'apprenant (on pourrait lui demander au moment où il se connecte le temps qu'il a devant lui pour cette session, afin de générer des activités qui répondront à cette contrainte),...
+                <li>La partie 'learnerLiveContext' contient les informations disponibles sur l'apprenant lorsqu'il se connecte, on y retrouve le type d'appareil qu'il utilise (ordinateur, tablette, smartpgone), son système d'exploitation, le navigateur, son adresse IP... D'autres indicateurs plus avancés peuvent être ajoutés s'ils sont disponibles, comme la bande passante dont il dispose (cela peut avoir son importance si des vidéos sont à visionner), le temps disponible pour l'apprenant (on pourrait lui demander au moment où il se connecte le temps qu'il a devant lui pour cette session, afin de générer des activités qui répondront à cette contrainte),...</li>
             </ul>
             
             <h4>...le contexte de séquence</h4>
             <p>Ce contexte est d'une toute autre nature que celui vu précédemment, puisqu'il ne va pas être calculé de manière automatique, mais défini par l'enseignant du MOOC à chaque séquence. Il s'agit de contraintes globales sur les activités qui vont être générées pour chaque apprenant. Ces contraintes vont concerner le nombre d'activités réalisées par un apprenant, ou le temps (théorique) qu'il devra passer sur le MOOC durant la séquence. Pour chacune de ces deux grandeurs, un minimum et un maximum seront donnés.<br/>
-            Le contexte de séquence contient un autre élément important, à savoir le 'contexte' dont les activités doivent être tirées. Le plus souvent, cela permettra à l'enseignant d'exprimer une contrainte comme 'Je veux que toutes les activités soient issues de la séquence 2', ou encore 'Je veux que toutes les activités soient issues de la catégorie "débutant"' (lorsqu'il définit ses ressources, l'enseignant a la possibilité de leur attacher des catégories, qu'il nomme comme il le souhaite).</p>
-            
-            <h4>...la stratégie pédagogique</h4>
-            <p>C'est avec la stratégie pédagogique que l'enseignant va pouvoir exprimer, sous forme de règles</p>
-            
+            Le contexte de séquence contient un autre élément important, à savoir le 'contexte' dont les activités doivent être tirées. Le plus souvent, cela permettra à l'enseignant d'exprimer une contrainte comme 'Je veux que toutes les activités soient issues de la séquence 2', ou encore 'Je veux que toutes les activités soient issues de la catégorie "débutant" ' (lorsqu'il définit ses ressources, l'enseignant a la possibilité de leur attacher des catégories, qu'il nomme comme il le souhaite).</p>
             
             <h4>...la caractérisation des activités</h4>
+            <p>Avant d'étudier plus en détail la notion de stratégie pédagogique, il nous faut revenir sur un point essentiel de notre modélisation, à savoir la caractérisation des fonctionnalités disponibles sur une plateforme de MOOC, et la manière dont on peut les paramétrer. Pour cela, on utilise un modèle appelé modèle 'OKEP' de la plateforme, élaboré à partir du méta-modèle 'AKEPI' (pour une présentation complète de ces concepts dans le cadre des EIAH, vous pouvez vous référer à la <a href="http://liris.cnrs.fr/Documents/Liris-4522.pdf">thèse de Marie Lefevre</a>. Nous n'avons ici exploité qu'une partie des possibilités de ce modèle, qui suffisent à notre modélisation : la caractérisation des activités disponibles (dans un premier temps nous ne souhaitons pas paramétrer directement les plateformes de MOOCs, mais simplement offrir aux apprenannts une boussole, une liste d'activités).</p>
+            <p>Après une étude complète de plusieurs plateformes de MOOCs, nous avons déduit les 4 activités qui sont présentes sur chacune d'entre elles, et les paramètres que nous pouvons utiliser en relation avec elles : (nous n'indiquons les paramètres que pour la première d'entre elles, pour les autres toutes les informations peuvent être trouvées au sein de l'application)</p>
+            <ul>
+                <li><strong>Apprentissage</strong> : cette activité concerne la consultation d'une ressource par un apprenant. Afin de choisir quelle ressource doit être consultée, plusieurs paramètres peuvent être utilisés par l'enseignant (tous sont optionnels, l'enseignant peut donc utiliser les paramètres qu'il souhaite) :
+                    <ul>
+                        <li><strong>Nom</strong> : ce paramètre est le plus simple et le plus direct, on désigne la ressource directement par son nom (éventuellement son URI).</li>
+                        <li><strong>Statut</strong> : une ressource peut avoir trois statuts différents : Obligatoire, Facultatif (ceux qui ont des connaissances déjà avancées du sujet n'auront pas besoin de la consulter), Bonus (pour les apprenants en avance sur le MOOC, on leur propose des activités plus compliquées, amusantes,...plutôt que de les laisser avec une boussole vide).</li>
+                        <li><strong>Séquence</strong> : permet de désigner directement la séquence dans laquelle aller chercher la ressources.</li>
+                        <li><strong>Catégorie</strong> : à chaque ressources peuvent être attachées des catégories (des 'tags'), comme 'débutant', 'c++',etc. (tout ce que l'enseignant souhaite ajouter).</li>
+                        <li><strong>Durée</strong> : le temps estimé, en minutes, que doit durer l'activité</li>
+                        <li><strong>Difficulté</strong> : ce paramètre peut aller de 0 (très facile) à 5 (très difficile)</li>
+                        <li><strong>Type</strong>  : tout simplement le type de la ressource (vidéo, image, texte...)</li>
+                    </ul>
+                    <p>S'il utilise un de ces paramètres, l'enseignant devra bien sûr avoir au préalable renseigné leurs valeurs pour chacune des ressources utilisées dans le cours (ou du moins pour celles qu'il souhaite pouvoir désigner avec ces paramètres).</p>
+                </li>
+                <li><strong>Social</strong> : l'apprenant est invité à se rendre sur les réseaux sociaux, ou sur le forum du MOOC.</li>
+                <li><strong>Exercice</strong> : cette activité est la réalisation d'un exercice par l'apprenant</li>
+                <li><strong>Message</strong> : il ne s'agit pas d'une activité à proprement parlé, mais se manifestera tout de même dans la boussole : il s'agit du simple affichage d'un message à destination de l'apprenant (pour lui dire bonjour, le féliciter, l'encourager,...).</li>
+            </ul>
             
+            <h4>...la stratégie pédagogique</h4>
+            <p>C'est avec la stratégie pédagogique que l'enseignant va pouvoir exprimer, sous forme de règles, la manière dont il souhaite personnaliser son MOOC à chacun des apprenants, en fonction des valeurs prises par les indicateurs dans son profil. Afin de bien comprendre la manière dont sont définies les règles, prenons l'exemple d'un cours de programmation en Python, qui contient deux ressources : une vidéo 'boucle for' et un quiz 'Quiz1' qui permet de tester les connaissances sur la boucle for. Supposons que l'enseignant, afin de tester le niveau des apprenants, leur mettre directement, dès la première séquence, le Quiz1 (sans leur montrer la vidéo). Le résultat à ce quiz remplit directement un indicateur dans la partie 'knowledge' du profil d'apprenant, l'indicateur 'RésultatBoucleFor'. Voici la règle que peut alors définir l'enseignant :</p>
+            <p><strong>SI RésultatBoucleFor &lt; 60 ALORS regarder vidéo 'bouclefor'</strong>.</p>
+            <p>La partie SINON étant optionnelle, nous ne l'avons pas fait figurer ici, mais on pourrait avoir :</p>
+            <p><strong>SINON aller sur le FORUM avec Action = Answer</strong>, on invite ainsi l'apprenant à aller sur le forum, et répondre aux questions que se posent ceux qui n'ont éventuellement pas compris certaines parties du cours (bien évidemment, dans la boussole le tout sera sous forme textuelle et bien plus explicite). On pourrait aussi lui proposer de faire un exercice en relation avec la boucle for qui soit d'un niveau plus avancé, plus ludique (calcul des termes de la suite de Fibonacci,...)</p>
+            <p>Voici donc comment se décomposent les règles de la stratégie pédagogique :</p>
+            <p><strong>SI {Contrainte sur profil} ALORS {Activité avec paramètres} [SINON {Activité avec paramètres}]</strong>.</p>
+            <p>A partir de cette construction simple, l'enseignant a un champ de possibilités très large pour permettre aux apprenants d'avoir une boussole personnalisée, avec les activités qui leur convient au mieux.</p>
             
+            <h4>Pour les plus courageux...</h4>
+            <p>Pour ceux qui souhaiteraient avoir une vision complète de tous les modèles évoqués ici, voici tout simplement un  lien vers les différents fichiers XMLSchema qui nous ont permis de formaliser notre modèle :</p>
+            <ul>
+                <li><a href="resources/learnerMoocProfile.xsd">Modèle de profil d'apprenant</a></li>
+                <li><a href="resources/context.xsd">Modèle de contexte</a> (qui regroupe contexte de séquence et contexte 'live')</li>
+                <li><a href="resources/foveaPedagogicalProperties.xml">Modèle OKEP de base</a> (issu du modèle OKEP, et relativement simple à comprendre, reegroupant les activités et leurs paramètres)</li>
+                
+            </ul>
             
+            Voici également un exemple de <a href="resources/Sequence1.xml">stratégie pédagogique</a>, stockée au format XML (afffichez la source de la page si l'affichage n'est pas satisfaisant).
+            
+            <h3>Bilan</h3>
             <p>Tout ceci demande donc un gros effort de réflexion de la part des enseignants et de la part de toute l'équipe de conception d'un MOOC, afin d'identifier quelles informations judicieuses permettront une personnalisation efficace. Bien entendu, tout cela doit se faire en collaboration avec les concepteurs de la plateforme, qui seront les plus à mêmes de savoir quelles informations peuvent ou non être extraites des traces générées par les apprenants durant leurs activités.</p>
+            
+            
+            
+            
             <h2 id="appli">Présentation de l'application</h2>
             Etat actuel
             

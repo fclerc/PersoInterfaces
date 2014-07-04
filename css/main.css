@@ -44,3 +44,8 @@ body{
 p{
     text-align: justify;
 }
+
+.presentation h5{
+    font-weight: bold;
+    font-style: italic;
+}
