@@ -12,13 +12,13 @@
 		<country id="LP9"/>
 		<languages id="LP10">
 			<language id="LP11">
-				<name fixed="true" id="LP12"/>
+				<name fixed="true" id="LP12">French</name>
 				<skill id="LP13"/>
-                <name fixed="true" id="LP14"/>
+                <name fixed="true" id="LP14">English</name>
 				<skill id="LP15"/>
-                <name fixed="true" id="LP16"/>
+                <name fixed="true" id="LP16">German</name>
 				<skill id="LP17"/>
-                <name fixed="true" id="LP18"/>
+                <name fixed="true" id="LP18">Chinese</name>
 				<skill id="LP19"/>
 			</language>
 		</languages>
@@ -26,23 +26,23 @@
 		<colourBlind id="LP21"/>
 		<externalToolsKnowledge id="LP22">
 			<externalTool id="LP23">
-				<toolName fixed="true" id="LP24"/>
+				<toolName fixed="true" id="LP24">twitter</toolName>
 				<grade id="LP25"/>
             </externalTool>
             <externalTool id="LP26">
-                <toolName fixed="true" id="LP27"/>
+                <toolName fixed="true" id="LP27">facebook</toolName>
 				<grade id="LP28"/>
             </externalTool>
             <externalTool id="LP29">
-                <toolName fixed="true" id="LP30"/>
+                <toolName fixed="true" id="LP30">linkedin</toolName>
 				<grade id="LP31"/>
             </externalTool>
             <externalTool id="LP32">
-                <toolName fixed="true" id="LP33"/>
+                <toolName fixed="true" id="LP33">google_plus</toolName>
 				<grade id="LP34"/>
             </externalTool>
             <externalTool id="LP35">
-                <toolName fixed="true" id="LP36"/>
+                <toolName fixed="true" id="LP36">google_search_engine</toolName>
 				<grade id="LP37"/>
 			</externalTool>
 		</externalToolsKnowledge>
@@ -50,10 +50,10 @@
 	<knowledge id="LP38">
 		<courseKnowledge id="LP39">
 			<knowledgeGroup id="LP40">
-				<name fixed="true" id="LP41"/>
+				<name fixed="true" id="LP41">Séquence1</name>
 				<value id="LP42"/>
 				<knowledgeUnit id="LP43">
-					<name fixed="true" id="LP44"/>
+					<name fixed="true" id="LP44">Quiz1</name>
 					<value id="LP45"/>
 				</knowledgeUnit>
                 <knowledgeUnit id="LP46">
@@ -122,49 +122,49 @@
 	<resourcesInteractions id="LP89">
 		<resourcesConsultation id="LP90">
 			<resourceConsultation id="LP91">
-				<resourceId id="LP92" fixed="true"/>
+				<resourceId id="LP92" fixed="true">http://youtu.be/LCUZF4THcrQ</resourceId>
 				<nbConsultations id="LP93"/>
 				<duration id="LP94"/>
 				<completion id="LP95"/>
 			</resourceConsultation>
             <resourceConsultation id="LP96">
-				<resourceId id="LP97" fixed="true"/>
+				<resourceId id="LP97" fixed="true">http://claco.univ-lyon1.fr/resource/open/file/8171</resourceId>
 				<nbConsultations id="LP98"/>
 			</resourceConsultation>
             <resourceConsultation id="LP99">
-				<resourceId id="LP100" fixed="true"/>
+				<resourceId id="LP100" fixed="true">https://www.youtube.com/watch?v=O-6pjG06XMY</resourceId>
 				<nbConsultations id="LP101"/>
 				<duration id="LP102"/>
 				<completion id="LP103"/>
 			</resourceConsultation>
             <resourceConsultation id="LP104">
-				<resourceCategories id="LP105" fixed="true"/>
+				<resourceCategories id="LP105" fixed="true">beginner</resourceCategories>
 				<nbConsultations id="LP106"/>
 				<duration id="LP107"/>
 				<completion id="LP108"/>
                 <comparedPercentage id="LP109"/>
 			</resourceConsultation>
             <resourceConsultation id="LP110">
-				<resourceId id="LP111" fixed="true"/>
+				<resourceId id="LP111" fixed="true">http://claco.univ-lyon1.fr/workspaces/802/open/tool/home</resourceId>
 				<nbConsultations id="LP112"/>
                 <childrenConsultationsDistribution id="LP113">
 					<childPercentage id="LP114">
-						<resource id="LP115" fixed="true"/>
+						<resource id="LP115" fixed="true">http://claco.univ-lyon1.fr/resource/open/claroline_forum/4256</resource>
 						<percentage id="LP116"/>
 					</childPercentage>
                     <childPercentage id="LP117">
-						<resource id="LP118" fixed="true"/>
+						<resource id="LP118" fixed="true">http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1</resource>
 						<percentage id="LP119"/>
 					</childPercentage>
 				</childrenConsultationsDistribution>
 				<duration id="LP120"/>
 				<childrenDurationDistribution id="LP121">
 					<childPercentage id="LP122">
-						<resource id="LP123" fixed="true"/>
+						<resource id="LP123" fixed="true">http://claco.univ-lyon1.fr/resource/open/claroline_forum/4256</resource>
 						<percentage id="LP124"/>
 					</childPercentage>
                     <childPercentage id="LP125">
-						<resource id="LP126" fixed="true"/>
+						<resource id="LP126" fixed="true">http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1</resource>
 						<percentage id="LP127"/>
 					</childPercentage>
 				</childrenDurationDistribution>

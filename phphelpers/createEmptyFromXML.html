@@ -22,14 +22,14 @@ $(function(){
                 if(mode=='all'){
                     //go through attributes, empty useless ones
                     $.each($(elem)[0].attributes, function(){
-                        if(this.name != 'id'){
+                        if(this.name != 'id' && this.name !='fixed' && this.name!='attrfixed'){
                             this.value = '';
                         }
                     });
                 }
                 
                 
-                if($(elem).children().length == 0){//if only text contained, empty
+                if($(elem).children().length == 0 && $(elem).attr('fixed') != 'true'){//if only text contained and this is not fixed, empty
                     $(elem).text('');
                 }
                 else{
