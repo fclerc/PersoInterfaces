@@ -47,8 +47,49 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title toTranslate">paramModal.h4</h4>
               </div>
-              <div class="modal-body toTranslate">
-                Nothing
+              <div class="modal-body">
+                <form id='paramForm'>
+                    <label for="name">Name: </label><input class="form-control" type='text' name="name" id="name" /><br/>
+                    <label for="URI">URI: </label><input class="form-control" type='text' name="URI" id="URI" /><br/>
+                    
+                    <label for="type">Type: </label>
+                    <select class="form-control" name='type' id='type'>
+                        <option>video</option>
+                        <option>text</option>
+                        <option>audio</option>
+                        <option>quiz</option>
+                        <option>assignment</option>
+                        <option>trainingExercise</option>
+                        <option>forum</option>
+                        <option>wiki</option>
+                        <option>group</option>
+                        <option>other</option>
+                    </select><br/>
+                    
+                    <label for='status'>Status: </label>
+                    <select class="form-control" name='status' id='status'>
+                        <option>Mandatory</option>
+                        <option>Optional</option>
+                        <option>Bonus</option>
+                    </select><br/>
+                    
+                    <label for='difficulty'>Difficulty: </label>
+                    <select class="form-control" name='difficulty' id='difficulty'>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select><br/>
+                    
+                    <label for="sequence">Sequence: </label><input class="form-control" type='number' step='1' name="sequence" id="sequence" /><br/>
+                    <label for="length">Length: </label><input class="form-control" type='number' step='1' name="length" id="length" /><br/>
+                    <label for="categories">Categories: </label><input class="form-control" type='text' name="categories" id="categories" /><br/>
+                    
+                    <label for="description">Description: </label> 
+                    <textarea name="description" class="form-control" id="description"></textarea>
+                    
+                </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default toTranslate" data-dismiss="modal">Close</button>

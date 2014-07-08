@@ -7,9 +7,11 @@ Script used to display and modify the parameters and the whole tree of resources
 
 
 
+//cloned when addding a new resource
+var emptyResource = '<resource URI=""><name></name><type></type><status></status><order></order><difficulty></difficulty><sequence></sequence><grade></grade><length></length><categories></categories><description></description></resource>';
 
-
-
+//when editing parameters of a resource, 
+var currentResource;
 
 //container : the id of the container of the displayed XML, for example : '#MyXMLContainer'. Used as a sort of namespace for data manipulation in case of using several times this function in the same page (see xml[container] or selectors to define events).
 //scales : json with information about the indicators. WARNING : scalesDisplayers have to be loaded before.
@@ -146,9 +148,35 @@ function manipulateResourcesXML(filepath, container, scales = '', scaleContainer
     
 }        
         
-    //this function takes a resource node as argument, displays its name and URI + form to edit its parameters + button to add children + button to remove it
+//this function takes a resource node as argument, displays its name and URI + form to edit its parameters + button to add children + button to remove it
 function displayAndChildren(xmlNode, scales, scaleContainer){
+    var result = displayThis(xmlNode, scales, scaleContainer);
     
+    
+    //if this is a group : recurse
+    if($($(xmlNode).children('type')).text() == 'group'){
+    //reducer class enables to toggle visibility of children (particular case is: node has an attribute, this attribute is 'fixed', which is not displayed
+    //other classes are used for style
+        $(result).addClass('hasChild');
+        $(result).prepend($('<span>').addClass('glyphicon glyphicon-minus').addClass('reducer'));
+        
+        //variable containing the texts returned by the call of the function on the children (in a html list)
+        var chs = $('<ul>');
+        $(xmlNode).children('resource').each(function(){
+            $(chs).append(displayAndChildren(this, scales, scaleContainer));
+        });
+        
+        result.append(chs);
+    
+    }
+    return result;
+}
+
+
+
+
+function displayThis(xmlNode, scales, scaleContainer){
+
     var resourceName = $($(xmlNode).children('name')).text();
     var resourceURI = $(xmlNode).attr('URI');
     var resourceNameContainer = $('<span>').append(resourceName).addClass('resourceName');
@@ -156,10 +184,18 @@ function displayAndChildren(xmlNode, scales, scaleContainer){
     
     var resourceEditor = $('<span>').addClass('glyphicon glyphicon-edit resourceEditor').attr('title', _('Edit properties'));
     $(resourceEditor).click(function(){
+        currentResource = xmlNode;
+        
+        //fill the input with available parameters
+        $(currentResource).children().each(function(){
+            var parameterName = this.nodeName.toLowerCase();
+            if(parameterName != 'resource'){
+                $('#paramForm #'+parameterName).val($(this).text());
+            }
+        })
+        $('#paramForm #URI').val($(currentResource).attr('URI'));
+        
         $('#paramModal').modal('show');
-    });
-    $(resourceEditor).hover(function(){
-        console.log('see');//todo with scale container
     });
     
     var resourceRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle resourceRemover').attr('title', _('Remove resource'));
@@ -172,7 +208,7 @@ function displayAndChildren(xmlNode, scales, scaleContainer){
     
     var resourceAdder = $('<span>').addClass('glyphicon glyphicon-plus resourceAdder').attr('title', _('Add resource'));
     $(resourceAdder).click(function(){
-        alert('add');
+        //TODO later
     });
     
     
@@ -202,26 +238,24 @@ function displayAndChildren(xmlNode, scales, scaleContainer){
             $(result).append(commentPopover);
         }
     } */
-    
-    
-    if($($(xmlNode).children('type')).text() == 'group'){
-    //reducer class enables to toggle visibility of children (particular case is: node has an attribute, this attribute is 'fixed', which is not displayed
-    //other classes are used for style
-        $(result).addClass('hasChild');
-        $(result).prepend($('<span>').addClass('glyphicon glyphicon-minus').addClass('reducer'));
-        
-        
-        
-        //variable containing the texts returned by the call of the function on the children (in a html list)
-        var chs = $('<ul>');
-        
-        
-        $(xmlNode).children('resource').each(function(){
-            $(chs).append(displayAndChildren(this, scales, scaleContainer));
-        });
-        
-        result.append(chs);
-    
-    }
     return result;
 }
+
+$('#paramModalSaver').click(function(){
+    
+    //fill the resource with non-void inputs
+    $('#paramForm').children().each(function(){
+    console.log('o1');
+        if($(this).attr('name') != '' && $(this).val()!=''){console.log('og');
+            var input = this;
+            var parameterName = $(input).attr('name').toLowerCase();
+            if(parameterName != 'resource'){
+                $(currentResource).children(parameterName).each(function(){
+                    console.log(this);
+                    $(this).text($(input).val());
+                });
+            }
+        }
+    })
+    $(currentResource).attr('URI', $('#paramForm #URI').val());
+});

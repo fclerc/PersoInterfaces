@@ -1,4 +1,8 @@
 chercher les TODO
+toutes les comparaisons avec cha$ines : toLowerCase
+ajouter tous les éléments dans def ressource
+ajouter scales dans def ressources
+update values dans def ressources
 
 bugs :
 -create complex, and edit AND before defining indicator (mais pas si grave, puisqu'on peut supprimer la contrainte complexe après...)
