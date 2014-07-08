@@ -8,10 +8,15 @@ Script used to display and modify the parameters and the whole tree of resources
 
 
 //cloned when addding a new resource
-var emptyResource = '<resource URI=""><name></name><type></type><status></status><order></order><difficulty></difficulty><sequence></sequence><grade></grade><length></length><categories></categories><description></description></resource>';
+//var emptyResource = '<resource URI=""><name></name><type></type><status></status><order></order><difficulty></difficulty><sequence></sequence><grade></grade><length></length><categories></categories><description></description></resource>';
+var emptyResource = '<resource URI=""><name></name></resource>';
+
+
+
 
 //when editing parameters of a resource, 
 var currentResource;
+var currentResourceContainer;
 
 //container : the id of the container of the displayed XML, for example : '#MyXMLContainer'. Used as a sort of namespace for data manipulation in case of using several times this function in the same page (see xml[container] or selectors to define events).
 //scales : json with information about the indicators. WARNING : scalesDisplayers have to be loaded before.
@@ -182,9 +187,16 @@ function displayThis(xmlNode, scales, scaleContainer){
     var resourceNameContainer = $('<span>').append(resourceName).addClass('resourceName');
     var resourceURIContainer = $('<span>').append(resourceURI).addClass('resourceURI');
     
+    
     var resourceEditor = $('<span>').addClass('glyphicon glyphicon-edit resourceEditor').attr('title', _('Edit properties'));
+    var resourceRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle resourceRemover').attr('title', _('Remove resource'));
+    var resourceAdder = $('<span>').addClass('glyphicon glyphicon-plus resourceAdder').attr('title', _('Add resource'));
+    
+    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append(resourceNameContainer).append(resourceURIContainer).append(resourceEditor).append(resourceAdder).append(resourceRemover);
+    
     $(resourceEditor).click(function(){
         currentResource = xmlNode;
+        currentResourceContainer = result;
         
         //fill the input with available parameters
         $(currentResource).children().each(function(){
@@ -198,7 +210,6 @@ function displayThis(xmlNode, scales, scaleContainer){
         $('#paramModal').modal('show');
     });
     
-    var resourceRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle resourceRemover').attr('title', _('Remove resource'));
     $(resourceRemover).click(function(){
         if(confirm('Are you sure ? Any deletion is definitive')){
             $(xmlNode).remove();
@@ -206,14 +217,25 @@ function displayThis(xmlNode, scales, scaleContainer){
         }
     });
     
-    var resourceAdder = $('<span>').addClass('glyphicon glyphicon-plus resourceAdder').attr('title', _('Add resource'));
     $(resourceAdder).click(function(){
-        //TODO later
+        var newResource = $(emptyResource).clone();
+        $(xmlNode).append($(newResource));
+        
+        currentResource = newResource;
+        var newContent = displayAndChildren(xmlNode, scales, scaleContainer)
+        
+        $(result).children().last().replaceWith(newContent.children().last());
+        currentResourceContainer = $(result).children('ul').children().last();
+        $('#paramModal form').children().each(function(){
+            $(this).val('');        
+        });
+        $('#paramModal').modal('show');
+        
+        
     });
     
     
     
-    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append(resourceNameContainer).append(resourceURIContainer).append(resourceEditor).append(resourceAdder).append(resourceRemover);
     
     /* if(scales !== ''){//if we want to display the scales TODO : use mode (also for attributes display)
         var popoverTitleInfo = 'Click for more information'
@@ -242,7 +264,6 @@ function displayThis(xmlNode, scales, scaleContainer){
 }
 
 $('#paramModalSaver').click(function(){
-    
     //fill the resource with non-void inputs
     $('#paramForm').children().each(function(){
         if($(this).attr('name') != '' && $(this).val()!=''){
@@ -264,6 +285,13 @@ $('#paramModalSaver').click(function(){
     $(currentResource).attr('URI', $('#paramForm #URI').val());
     
     //updating the name and URI displayed
-    $('#' + $(currentResource).attr('id') + '> .resourceName').text($('#paramForm #name').val());
-    $('#' + $(currentResource).attr('id') + '> .resourceURI').text($('#paramForm #URI').val());
+    $(currentResourceContainer).children().each(function(){
+        if($(this).hasClass('resourceName')){
+            $(this).text($('#paramForm #name').val())
+        }
+        
+        else if($(this).hasClass('resourceURI')){
+            $(this).text($('#paramForm #URI').val())
+        }
+    });
 });
