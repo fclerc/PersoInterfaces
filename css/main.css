@@ -50,3 +50,7 @@ p{
     font-weight: bold;
     font-style: italic;
 }
+
+#paramForm #maxPointsForm{
+    display: none;
+}

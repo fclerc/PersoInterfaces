@@ -30,13 +30,14 @@
 					<order id="R22">
 						<context id="R23">beginner</context>
 						<position id="R24">1</position>
+                        <context id="R823">beginners</context>
+						<position id="R824">2</position>
 					</order>
 					<difficulty id="R25">1</difficulty>
 					<sequence id="R26">1</sequence>
 					<length id="R27">20</length>
 					<categories id="R28">beginner noob</categories>
-					<description id="R29">  mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description>
-				</resource>
+					<description id="R29">  mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description><grade xmlns="http://www.w3.org/1999/xhtml" maxpoints="" maxPoints="3">true</grade></resource>
 				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426" id="R30">
 					<name id="R31">Quiz1</name>
 					<type id="R32">quiz</type>
@@ -47,7 +48,7 @@
 					</order>
 					<difficulty id="R37">1</difficulty>
 					<sequence id="R38">1</sequence>
-					<grade maxPoints="20" id="R39">true</grade>
+					<grade maxPoints="22" id="R39">true</grade>
 					<length id="R40">15</length>
 				</resource>
 				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A-1" id="R41">

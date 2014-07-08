@@ -89,13 +89,26 @@
                     <label for="length">Length: </label><input class="form-control" type='number' step='1' name="length" id="length" /><br/>
                     <label for="categories">Categories: </label><input class="form-control" type='text' name="categories" id="categories" /><br/>
                     
+                    <label for="grade">Grade?</label><input type="checkbox" name='grade' id='grade' />
+                    <div id="maxPointsForm">
+                        <label for="maxPoints">Maximum of points: </label><input type="number" step="1" name="maxPoints" id="maxPoints"/>
+                    </div>
+                    <label for="description">Description: </label> 
+                    
+                    <div id="orderForms">Orders
+                        <span class="glyphicon glyphicon-plus orderAdder" title="Add order"></span>
+                    </div>
+                    
                     <label for="description">Description: </label> 
                     <textarea name="description" class="form-control" id="description"></textarea>
+                    
+                    
+                    
                     
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default toTranslate" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default toTranslate" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary toTranslate" id="paramModalSaver">Validate</button>
               </div>
             </div>
@@ -117,7 +130,7 @@
         <script type="text/javascript" src="translation/translate.js"></script>
         <script type="text/javascript" src="translation/icu.js"></script>
         <script type="text/javascript">
-        $(function(){    
+        $(function(){  
             var pedagogicalPropertiesFilename = <?php if($scales!=''){echo "'".$scales."'";}else{echo '""';} ?>;
             var translationFile = 'translation/'+<?php echo "'".$lang."'"; ?>+'.json';
             $.ajax({//loading translation
@@ -179,6 +192,36 @@
                     
                     
                     });
+                    
+                    $('#grade').change(function(){
+                        if($('#grade').is(':checked')){
+                            $('#maxPointsForm').show();
+                        }
+                        else{
+                            $('#maxPointsForm').hide();
+                        }
+                    
+                    });
+                    
+                    
+                    var orderForm = '<div class="orderForm"><span class="glyphicon glyphicon-minus orderRemover" title="Remove order"></span><label for="context">Context: </label><input type="text" name="context"/><label for="position">Position: </label><input type="number" step="1" name="position"/></div>';
+                    
+                    $('.orderAdder').click(function(){
+                        $('#orderForms').append($(orderForm).clone());
+                    
+                        $('.orderRemover').unbind().click(function(){
+                            $(this).next().remove();
+                            $(this).next().remove();
+                            $(this).next().remove();
+                            $(this).next().remove();
+                            $(this).remove();
+                        });
+                    });
+                    
+                    
+                    
+                    
+                    
                     
                     
                     

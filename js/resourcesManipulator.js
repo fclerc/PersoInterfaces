@@ -8,8 +8,7 @@ Script used to display and modify the parameters and the whole tree of resources
 
 
 //cloned when addding a new resource
-//var emptyResource = '<resource URI=""><name></name><type></type><status></status><order></order><difficulty></difficulty><sequence></sequence><grade></grade><length></length><categories></categories><description></description></resource>';
-var emptyResource = '<resource URI=""><name></name></resource>';
+var emptyResource = '<resource URI=""><name></name><type></type><status></status><order></order><difficulty></difficulty><sequence></sequence><grade></grade><length></length><categories></categories><grade></grade><order></order><description></description></resource>';
 
 
 
@@ -139,14 +138,64 @@ function displayThis(xmlNode){
         currentResource = xmlNode;
         currentResourceContainer = result;
         
-        //fill the input with available parameters
+        emptyForm();
+        
+        //fill the form with available parameters
         $(currentResource).children().each(function(){
             var parameterName = this.nodeName.toLowerCase();
             if(parameterName != 'resource'){
                 $('#paramForm #'+parameterName).val($(this).text());
             }
+            
+            if(parameterName == 'grade' && $(this).text() == 'true'){
+                $('#paramForm #'+parameterName).prop('checked','true');
+                if(typeof $(this).attr('maxPoints') == 'undefined'){//lowercase issue...
+                    $('#paramForm #maxPoints').val($(this).attr('maxpoints'));
+                }
+                else{
+                    $('#paramForm #maxPoints').val($(this).attr('maxPoints'));   
+                }
+                $('#maxPointsForm').show();
+            
+            }
         })
         $('#paramForm #URI').val($(currentResource).attr('URI'));
+        
+        
+        //treating orders
+        //void form element to clone and use to display orders
+        var orderForm = '<div class="orderForm"><span class="glyphicon glyphicon-minus orderRemover" title="Remove order"></span><label for="context">Context: </label><input type="text" name="context"></input><label for="position">Position: </label><input type="number" step="1" name="position"></input></div>';
+        
+        //if  resource has order tag 
+        if($(currentResource).children('order').length > 0){
+            $(currentResource).children('order').first().children('context').each(function(){
+                var form = $(orderForm).clone()
+                $(form).children('input').first().val($(this).text());
+                $(form).children('input').last().val($(this).next().text());
+                console.log(form);
+                $('#orderForms').append(form);
+                
+                //TODO : remove duplication, same code in resourcesModification.php
+                $('.orderRemover').unbind().click(function(){
+                    $(this).next().remove();
+                    $(this).next().remove();
+                    $(this).next().remove();
+                    $(this).next().remove();
+                    $(this).remove();
+                });
+            });
+        
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         $('#paramModal').modal('show');
     });
@@ -167,9 +216,8 @@ function displayThis(xmlNode){
         
         $(result).children().last().replaceWith(newContent.children().last());
         currentResourceContainer = $(result).children('ul').children().last();
-        $('#paramModal form').children().each(function(){
-            $(this).val('');        
-        });
+        
+        emptyForm();
         $('#paramModal').modal('show');
         
         
@@ -199,6 +247,25 @@ $('#paramModalSaver').click(function(){
     })
     $(currentResource).attr('URI', $('#paramForm #URI').val());
     
+    if($('#paramModal #grade').prop('checked')){
+        if($(currentResource).children('grade').length > 0){//grade tag already here
+            $(currentResource).children('grade').first().text('true');
+            $(currentResource).children('grade').first().attr('maxPoints', $('#paramForm #maxPoints').val());
+        }
+        else{//create the tag
+            var gradeElement = $('<grade>').text('true').attr('maxPoints', $('#paramForm #maxPoints').val());
+            
+            $(currentResource).append(gradeElement);
+        }
+    }
+    else{
+        $(currentResource).children('grade').each(function(){
+            $(this).text('false');
+        });
+    }
+    
+    
+    
     //updating the name and URI displayed
     $(currentResourceContainer).children().each(function(){
         if($(this).hasClass('resourceName')){
@@ -213,3 +280,13 @@ $('#paramModalSaver').click(function(){
     $('#paramModal').modal('hide');
     
 });
+
+function emptyForm(){
+    $('#paramModal form').children().each(function(){
+        $(this).val('');        
+    });
+    $('#paramModal #maxPoints').val('');
+    $('#maxPointsForm').hide();
+    $('#paramModal #grade').prop('checked', false);
+    
+}

@@ -1,12 +1,15 @@
 chercher les TODO
 ajouter tous les éléments dans def ressource
 
-toutes les comparaisons avec cha$ines : toLowerCase
+toutes les comparaisons avec chaines : toLowerCase
 add ids when storing (if necessary)
 
 bugs :
 -create complex, and edit AND before defining indicator (mais pas si grave, puisqu'on peut supprimer la contrainte complexe après...)
 
+
+incompréhensible : jquery, pour la première création de l'attribut maxPoints : tout en minuscule.
+Pour la suite : prend bien en compte la casse...
 
 
 voir comment traiter la notion de order et permettre une définition facile (basée sur une liste de contextes disponibles,...)
