@@ -1,6 +1,5 @@
 chercher les TODO
 ajouter tous les éléments dans def ressource
-ajouter scales dans def ressources
 
 toutes les comparaisons avec cha$ines : toLowerCase
 add ids when storing (if necessary)

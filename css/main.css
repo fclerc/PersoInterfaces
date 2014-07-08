@@ -29,6 +29,7 @@ body{
     padding: 10px;
     border-radius: 30px;
     display:none;
+    z-index: 10000;
 }
 
 #languageChoice{

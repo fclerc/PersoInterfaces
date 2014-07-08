@@ -22,7 +22,8 @@ var currentResourceContainer;
 //scales : json with information about the indicators. WARNING : scalesDisplayers have to be loaded before.
 //scaleContainer : the html element you want the scale to be displayed
 //filenameContainer : if elements in your page display the name of the file, give their selector in order to have name changed if the user renames his file.
-function manipulateResourcesXML(filepath, container, scales = '', scaleContainer = '', filenameContainer = ''){
+function manipulateResourcesXML(filepath, container, filenameContainer = ''){
+    
     return $.ajax({
 		type: "GET",
 		url: filepath,
@@ -31,7 +32,7 @@ function manipulateResourcesXML(filepath, container, scales = '', scaleContainer
 			xml[container]=$(data);//load xml tree
 			
 			//going recursively through the resources xml, and displaying its content
-			$(container).append($('<div>').addClass('resourcesContainer').addClass(filepath.split('.').join("")).append(displayAndChildren($($(xml[container]).children('resourcesStructure')).children('resource').first()[0], scales, scaleContainer) ));
+			$(container).append($('<div>').addClass('resourcesContainer').addClass(filepath.split('.').join("")).append(displayAndChildren($($(xml[container]).children('resourcesStructure')).children('resource').first()[0]) ));
 			
 			//for elements having list below them : toggle visibility of this list when clicking on the element
 			$(container +' .reducer').click(function(event){
@@ -55,67 +56,7 @@ function manipulateResourcesXML(filepath, container, scales = '', scaleContainer
 					}
 				
 				return false;
-			});
-			
-			
-			//If element can be modified :
-			//-on click : replace it by input containing the value
-			//-when enter on the input : replace input by simple text with the new value
-			$(container +' .value').click(function(event){
-				var elem = event.target;
-				var value = $(elem).html();
-				
-				/* if(mode == 'modify'){
-				//the target can be 2 things : the span (thus check if it doesn't already contain an input), or the input (thus don't try to add a new input into this)
-					if($(elem).children('input').length === 0 && $(elem).prop('tagName')!='INPUT'){//we have to add an input
-						input=$('<input>').attr("type", "text").attr('value', value);
-						if(value == '&nbsp;'){//if the value is just the space we use to always hae span with a min-width : don't display the entity of the space
-							$(input).attr('value', '');
-						}
-						$(elem).html(input);
-						$(input).select();
-						
-						$(input).keyup(function (event) {//event when submiting content of input : replace by plain text and modify xml tree, based on id.
-							if (event.keyCode == 13) {
-								//replacing input by plain text
-								var input = event.target;
-								var value = $(input).prop('value');
-								var id;
-								if($(input).parent().hasClass('attribute')){
-									//finding the right element having this attribute
-									var data = $(input).parent().parent().attr('id').split('--');
-									id = data[0];
-									var attribute = data[1];
-									var valueToDisplay;
-									if(value === ''){//never let a span empty, otherwise it won't be possible to click on it
-										valueToDisplay = '&nbsp';
-									}
-									else valueToDisplay = value;
-									$(input).parent().html(valueToDisplay);
-									$(xml[container]).find('[id="' + id + '"]').attr(attribute, value);
-								}
-								
-								else{//replace the value of an element
-									id = $(input).parent().parent().attr("id");//corresponding id in the xml tree
-									
-									var valueToDisplay;
-									if(value === ''){//never let a span empty, otherwise it won't be possible to click on it
-										valueToDisplay = '&nbsp';
-									}
-									else valueToDisplay = value;
-									
-									$(input).parent().html(valueToDisplay);
-									
-									//modifying value in XML tree
-									$(xml[container]).find('[id="' + id + '"]').text(value);
-								}
-							}
-						});
-					}
-				} */
-				
-				return false;
-			});                   
+			});                 
 
             
             //lines to add the 'save' button and send data with XHR
@@ -154,8 +95,8 @@ function manipulateResourcesXML(filepath, container, scales = '', scaleContainer
 }        
         
 //this function takes a resource node as argument, displays its name and URI + form to edit its parameters + button to add children + button to remove it
-function displayAndChildren(xmlNode, scales, scaleContainer){
-    var result = displayThis(xmlNode, scales, scaleContainer);
+function displayAndChildren(xmlNode){
+    var result = displayThis(xmlNode);
     
     
     //if this is a group : recurse
@@ -168,7 +109,7 @@ function displayAndChildren(xmlNode, scales, scaleContainer){
         //variable containing the texts returned by the call of the function on the children (in a html list)
         var chs = $('<ul>');
         $(xmlNode).children('resource').each(function(){
-            $(chs).append(displayAndChildren(this, scales, scaleContainer));
+            $(chs).append(displayAndChildren(this));
         });
         
         result.append(chs);
@@ -180,7 +121,7 @@ function displayAndChildren(xmlNode, scales, scaleContainer){
 
 
 
-function displayThis(xmlNode, scales, scaleContainer){
+function displayThis(xmlNode){
 
     var resourceName = $($(xmlNode).children('name')).text();
     var resourceURI = $(xmlNode).attr('URI');
@@ -222,7 +163,7 @@ function displayThis(xmlNode, scales, scaleContainer){
         $(xmlNode).append($(newResource));
         
         currentResource = newResource;
-        var newContent = displayAndChildren(xmlNode, scales, scaleContainer)
+        var newContent = displayAndChildren(xmlNode)
         
         $(result).children().last().replaceWith(newContent.children().last());
         currentResourceContainer = $(result).children('ul').children().last();
@@ -234,32 +175,6 @@ function displayThis(xmlNode, scales, scaleContainer){
         
     });
     
-    
-    
-    
-    /* if(scales !== ''){//if we want to display the scales TODO : use mode (also for attributes display)
-        var popoverTitleInfo = 'Click for more information'
-        if(typeof window._ != "undefined"){//if translation object is set, translate the nodeName
-            popoverTitleInfo = _(popoverTitleInfo);
-        }
-        var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', popoverTitleInfo);
-        $(commentPopover).hover(function(){
-            $(scaleContainer).empty();
-            displayIndicatorScale(untranslatedNodeName, scaleContainer, $(xmlNode).attr('id'), scales, false);
-            $(scaleContainer).show();
-        },
-        function(){
-            $(scaleContainer).hide();
-        });
-        if(scales[untranslatedNodeName]){
-            if(scales[untranslatedNodeName].documentation){
-                $(commentPopover).click(function(){
-                    alert(scales[untranslatedNodeName].documentation);
-                });
-            }
-            $(result).append(commentPopover);
-        }
-    } */
     return result;
 }
 
@@ -294,4 +209,7 @@ $('#paramModalSaver').click(function(){
             $(this).text($('#paramForm #URI').val())
         }
     });
+    
+    $('#paramModal').modal('hide');
+    
 });

@@ -96,7 +96,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default toTranslate" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary toTranslate" id="paramModalSaver">Save changes</button>
+                <button type="button" class="btn btn-primary toTranslate" id="paramModalSaver">Validate</button>
               </div>
             </div>
           </div>
@@ -118,7 +118,7 @@
         <script type="text/javascript" src="translation/icu.js"></script>
         <script type="text/javascript">
         $(function(){    
-            
+            var pedagogicalPropertiesFilename = <?php if($scales!=''){echo "'".$scales."'";}else{echo '""';} ?>;
             var translationFile = 'translation/'+<?php echo "'".$lang."'"; ?>+'.json';
             $.ajax({//loading translation
                 type: "GET",
@@ -130,12 +130,61 @@
                         $(this).text(_($(this).text()));
                     });
                     
-                    
+                    $.ajax({//loading translation
+                        type: "GET",
+                        url: pedagogicalPropertiesFilename,
+                        success: function(scalesData){
+                            scales = $(scalesData);
                     
                     var file = <?php echo "'".$path."/".$file."'"; ?>;
-                    var scales;
-                    //var scales = <?php //if($scales!=''){echo file_get_contents($scales);}else{echo '""';} ?>;
-                    manipulateResourcesXML(file,'#XMLcontainer', scales , '#scalesContainer', "#currentFileName");   
+                    manipulateResourcesXML(file,'#XMLcontainer', "#currentFileName");  
+                    
+                    //displaying documentation and scales
+                    $('#paramForm').children().each(function(){
+                        var label = this;
+                        if(typeof $(this).attr('for') != 'undefined'){;
+                            var parameterName = $(this).attr('for');
+                            $(scales).children().find('Parameter').each(function(){
+                                if($(this).children('Name').text().toLowerCase() == parameterName){
+                                
+                                    var parameterComment = $($(this).children('Comment')[0]).text();
+                                    var parameterScale = $(this).children().last()
+                                    
+                                    if(parameterComment != ''){
+                                        var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', _('Click for more information'));
+                                        $(commentPopover).click(function(){
+                                            alert(parameterComment);
+                                        });
+                                        
+                                        $(commentPopover).hover(function(){
+                                            $('#scalesContainer').empty();
+                                            displayParameterScale(parameterScale, '', '#scalesContainer', false);
+                                            $('#scalesContainer').show();
+                                        },
+                                        function(){
+                                            $('#scalesContainer').hide();
+                                        
+                                        });
+                                        
+                                        $(label).after(commentPopover);
+                                    }
+                                    
+                                    
+                                    return false;
+                                }
+                            
+                            });
+                            
+                        }
+                    
+                    
+                    });
+                    
+                    
+                    
+                    
+                    
+                    }});
                 }
             });
         });
