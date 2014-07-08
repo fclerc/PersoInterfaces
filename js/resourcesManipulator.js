@@ -35,11 +35,8 @@ function manipulateResourcesXML(filepath, container, filenameContainer = ''){
 			
 			//for elements having list below them : toggle visibility of this list when clicking on the element
 			$(container +' .reducer').click(function(event){
-				var toToggle = $(event.target).next().next();
-                if(toToggle[0].nodeName != 'ul' && toToggle[0].nodeName != 'UL'){//in case there is the information icon, go one step further to find the list to hide.
-                    toToggle = $(toToggle).next()
-                }
-                if(toToggle[0].nodeName != 'ul' && toToggle[0].nodeName != 'UL'){//in case there is a value, go one step further to find the list to hide.
+				var toToggle = $(event.target).next();
+                while(toToggle[0].nodeName != 'ul' && toToggle[0].nodeName != 'UL'){
                     toToggle = $(toToggle).next()
                 }
 					$(toToggle).toggle(300);
@@ -294,6 +291,17 @@ $('#paramModalSaver').click(function(){
             $(this).text($('#paramForm #URI').val())
         }
     });
+    
+    
+    
+    //re-displaying the resource and its children (necessarily to handle all changes possibilities)
+    var newContent = displayAndChildren(currentResource);
+    $(currentResourceContainer).replaceWith(newContent);
+    
+    
+    
+    
+    
     
     $('#paramModal').modal('hide');
     

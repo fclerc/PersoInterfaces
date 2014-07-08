@@ -57,12 +57,12 @@
 					
 					<resource URI="http://youtu.be/TvOSAWc1l5o" id="R51">
 						<name id="R52">Colonne vertébrale : video non sonorisée</name>
-						<type id="R53">video</type>
+						<type id="R53">group</type>
 						<status id="R54">Optional</status>
 						<difficulty id="R55">1</difficulty>
 						<sequence id="R56">1</sequence>
 						<length id="R57">15</length>
-					</resource>
+					<order xmlns="http://www.w3.org/1999/xhtml"/></resource>
 					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/8171" id="R58">
 						<name id="R59">Colonne vertébrale : cours écrit</name>
 						<type id="R60">text</type>
