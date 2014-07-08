@@ -156,7 +156,6 @@ function displayThis(xmlNode){
                     $('#paramForm #maxPoints').val($(this).attr('maxPoints'));   
                 }
                 $('#maxPointsForm').show();
-            
             }
         })
         $('#paramForm #URI').val($(currentResource).attr('URI'));
@@ -172,7 +171,6 @@ function displayThis(xmlNode){
                 var form = $(orderForm).clone()
                 $(form).children('input').first().val($(this).text());
                 $(form).children('input').last().val($(this).next().text());
-                console.log(form);
                 $('#orderForms').append(form);
                 
                 //TODO : remove duplication, same code in resourcesModification.php
@@ -265,6 +263,26 @@ $('#paramModalSaver').click(function(){
     }
     
     
+    //removing all orders, then adding all the orders corresponding to inputs
+    var orderElement;
+    if($(currentResource).children('order').length > 0){
+        $(currentResource).children('order').first().text('');
+        orderElement = $(currentResource).children('order').first();
+    }
+    
+    else{
+        orderElement = $('<order>');
+        $(currentResource).append(orderElement);
+    }
+    
+    $('#paramForm .orderForm').each(function(){
+       $(orderElement).append($('<context>').text($(this).find('input').first().val()))
+       $(orderElement).append($('<position>').text($(this).find('input').last().val()))
+    
+    });
+    
+    
+    
     
     //updating the name and URI displayed
     $(currentResourceContainer).children().each(function(){
@@ -285,6 +303,8 @@ function emptyForm(){
     $('#paramModal form').children().each(function(){
         $(this).val('');        
     });
+    
+    $('#paramModal .orderForm').remove();
     $('#paramModal #maxPoints').val('');
     $('#maxPointsForm').hide();
     $('#paramModal #grade').prop('checked', false);
