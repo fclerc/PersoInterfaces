@@ -36,7 +36,7 @@
 					<sequence id="R38">1</sequence>
 					<grade maxPoints="20" id="R39">true</grade>
 					<length id="R40">15</length>
-				</resource>
+				<uri xmlns="http://www.w3.org/1999/xhtml">http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426</uri></resource>
 				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A-1" id="R41">
 					<name id="R42">Colonne vertébrale : video non sonorisée + document</name>
 					<type id="R43">group</type>
@@ -56,7 +56,7 @@
 						<difficulty id="R55">1</difficulty>
 						<sequence id="R56">1</sequence>
 						<length id="R57">15</length>
-					</resource>
+                        <categories xmlns="http://www.w3.org/1999/xhtml">aaa</categories><description xmlns="http://www.w3.org/1999/xhtml">sdsssqdssvdsf</description></resource>
 					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/8171" id="R58">
 						<name id="R59">Colonne vertébrale : cours écrit</name>
 						<type id="R60">text</type>

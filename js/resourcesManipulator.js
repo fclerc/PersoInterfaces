@@ -248,10 +248,16 @@ $('#paramModalSaver').click(function(){
         if($(this).attr('name') != '' && $(this).val()!=''){
             var input = this;
             var parameterName = $(input).attr('name').toLowerCase();
-            if(parameterName != 'resource'){
-                $(currentResource).children(parameterName).each(function(){
-                    $(this).text($(input).val());
-                });
+            if(parameterName != 'uri'){
+                if($(currentResource).children(parameterName).length != 0){
+                    $(currentResource).children(parameterName).each(function(){
+                        $(this).text($(input).val());
+                    });
+                }
+                else{
+                    var parameterElement = $('<'+parameterName+'>').text($(input).val());
+                    $(currentResource).append(parameterElement);
+                }
             }
         }
     })
