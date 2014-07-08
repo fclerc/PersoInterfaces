@@ -1,7 +1,4 @@
-!!le empty ne doit pas suppr les fixed=true
-
 chercher les TODO
-langue paramètres
 
 bugs :
 -create complex, and edit AND before defining indicator (mais pas si grave, puisqu'on peut supprimer la contrainte complexe après...)

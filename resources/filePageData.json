@@ -33,7 +33,7 @@
         "liveContext":"fileValuesModification.php",
         "sequenceContext":"fileValuesModification.php",
         "strategy":"rules_definition.php",
-        "resources":"fileValuesModification.php"
+        "resources":"resourcesModification.php"
     },
     
     "schema":{
@@ -49,6 +49,6 @@
         "liveContext":"data\/schemas\/contextScales.json",
         "sequenceContext":"data\/schemas\/contextScales.json",
         "strategy":"foveaPedagogicalProperties.xml",
-        "resources":""
+        "resources":"foveaPedagogicalProperties.xml"
     }
 }
