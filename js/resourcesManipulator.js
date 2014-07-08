@@ -245,17 +245,19 @@ $('#paramModalSaver').click(function(){
     
     //fill the resource with non-void inputs
     $('#paramForm').children().each(function(){
-    console.log('o1');
-        if($(this).attr('name') != '' && $(this).val()!=''){console.log('og');
+        if($(this).attr('name') != '' && $(this).val()!=''){
             var input = this;
             var parameterName = $(input).attr('name').toLowerCase();
             if(parameterName != 'resource'){
                 $(currentResource).children(parameterName).each(function(){
-                    console.log(this);
                     $(this).text($(input).val());
                 });
             }
         }
     })
     $(currentResource).attr('URI', $('#paramForm #URI').val());
+    
+    //updating the name and URI displayed
+    $('#' + $(currentResource).attr('id') + '> .resourceName').text($('#paramForm #name').val());
+    $('#' + $(currentResource).attr('id') + '> .resourceURI').text($('#paramForm #URI').val());
 });

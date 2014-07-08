@@ -54,6 +54,7 @@
                     
                     <label for="type">Type: </label>
                     <select class="form-control" name='type' id='type'>
+                        <option></option>
                         <option>video</option>
                         <option>text</option>
                         <option>audio</option>
@@ -68,6 +69,7 @@
                     
                     <label for='status'>Status: </label>
                     <select class="form-control" name='status' id='status'>
+                        <option></option>
                         <option>Mandatory</option>
                         <option>Optional</option>
                         <option>Bonus</option>
@@ -75,6 +77,7 @@
                     
                     <label for='difficulty'>Difficulty: </label>
                     <select class="form-control" name='difficulty' id='difficulty'>
+                        <option></option>
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
