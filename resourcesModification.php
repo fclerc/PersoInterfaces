@@ -92,9 +92,8 @@
                     
                     <label for="grade">Grade?</label><input type="checkbox" name='grade' id='grade' />
                     <div id="maxPointsForm">
-                        <label for="maxPoints">Maximum of points: </label><input type="number" step="1" name="maxPoints" id="maxPoints"/>
+                        <label for="maxPoints">Maximum of points: </label><input class="form-control" type="number" step="1" name="maxPoints" id="maxPoints"/>
                     </div>
-                    <label for="description">Description: </label> 
                     
                     <div id="orderForms">Orders
                         <span class="glyphicon glyphicon-plus orderAdder" title="Add order"></span>
@@ -199,10 +198,10 @@
 					//displaying the maxPoints input only if 'grade' is checked
                     $('#grade').change(function(){
                         if($('#grade').is(':checked')){
-                            $('#maxPointsForm').show();
+                            $('#maxPointsForm').show('300');
                         }
                         else{
-                            $('#maxPointsForm').hide();
+                            $('#maxPointsForm').hide('300');
                         }
                     
                     });
