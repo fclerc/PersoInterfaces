@@ -1,6 +1,5 @@
 chercher les TODO
-ajouter tous les éléments dans def ressource
-
+pour l'interface test stratégie : faire choisir le contexte de séquence dans filechoice. En plus : il ne faut pas mettreles boutons de gestion de fichier.
 toutes les comparaisons avec chaines : toLowerCase
 add ids when storing (if necessary)
 
@@ -11,6 +10,8 @@ bugs :
 incompréhensible : jquery, pour la première création de l'attribut maxPoints : tout en minuscule.
 Pour la suite : prend bien en compte la casse...
 
+
+pour le rapport:  intro sur le labo, ses chiffres clé, ses missions, principales actions.
 
 voir comment traiter la notion de order et permettre une définition facile (basée sur une liste de contextes disponibles,...)
 édition des ressources, en utilisant l'attribut group pour les 'dossiers'

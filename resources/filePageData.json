@@ -4,7 +4,8 @@
 		"sequenceContext",
 		"profile",
 		"liveContext",
-        "resources"
+        "resources",
+		"strategyTest"
 	],
 
     "h2":{
@@ -12,28 +13,32 @@
         "liveContext":"Live Context Edition",
         "sequenceContext":"Sequence Context Edition",
         "strategy":"Strategy Edition",
-        "resources":"Resources Edition"
+        "resources":"Resources Edition",
+		"strategyTest": "Strategy testing"
     },
     "instruction":{
         "profile":"fileChoice.profile.instr",
         "liveContext":"fileChoice.liveContext.instr",
         "sequenceContext":"fileChoice.sequenceContext.instr",
         "strategy":"fileChoice.strategy.instr",
-        "resources": "fileChoice.resources.instr"
+        "resources": "fileChoice.resources.instr",
+		"strategyTest": "filechoice.strategyTest.instr"
     },
     "path":{
         "profile":"data\/teacher\/profiles\/",
         "liveContext":"data\/teacher\/liveContexts\/",
         "sequenceContext":"data\/teacher\/sequenceContexts\/",
         "strategy":"data\/teacher\/strategies\/",
-        "resources":"data\/resources\/"
+        "resources":"data\/resources\/",
+		"strategyTest": "data\/teacher\/strategies\/"
     },
     "interface":{
         "profile":"fileValuesModification.php",
         "liveContext":"fileValuesModification.php",
         "sequenceContext":"fileValuesModification.php",
         "strategy":"rules_definition.php",
-        "resources":"resourcesModification.php"
+        "resources":"resourcesModification.php",
+		"strategyTest": "strategyTest.php"
     },
     
     "schema":{
@@ -41,7 +46,8 @@
         "liveContext":"data\/schemas\/context.xsd",
         "sequenceContext":"data\/schemas\/context.xsd",
         "strategy":"",
-        "resources":""
+        "resources":"",
+		"strategyTest": ""
     },
     
     "scales":{
@@ -49,6 +55,7 @@
         "liveContext":"data\/schemas\/contextScales.json",
         "sequenceContext":"data\/schemas\/contextScales.json",
         "strategy":"foveaPedagogicalProperties.xml",
-        "resources":"data\/schemas\/foveaPedagogicalProperties.xml"
+        "resources":"data\/schemas\/foveaPedagogicalProperties.xml",
+		"strategyTest": ""
     }
 }
