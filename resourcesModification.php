@@ -2,7 +2,7 @@
     require_once 'phphelpers/langFinder.php';
 ?>
 <!DOCTYPE HTML>
-<!-- This file uses XMLManipulator in order to enable the user to change the values of the XML file he is using. Name and path of the file are sent by a POST form  -->
+<!-- This file enables the user to modify the content of the resources file : adding resources and editing their parameters.  -->
 <html>
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -47,6 +47,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title toTranslate">paramModal.h4</h4>
               </div>
+			  <!-- The form which is displayed when user edits or create a new resource -->
               <div class="modal-body">
                 <form id='paramForm'>
                     <label for="name">Name: </label><input class="form-control" type='text' name="name" id="name" /><br/>
@@ -131,6 +132,7 @@
         <script type="text/javascript" src="translation/icu.js"></script>
         <script type="text/javascript">
         $(function(){  
+			//file used in order to display scales and documentation about the parameters.
             var pedagogicalPropertiesFilename = <?php if($scales!=''){echo "'".$scales."'";}else{echo '""';} ?>;
             var translationFile = 'translation/'+<?php echo "'".$lang."'"; ?>+'.json';
             $.ajax({//loading translation
@@ -152,10 +154,11 @@
                     var file = <?php echo "'".$path."/".$file."'"; ?>;
                     manipulateResourcesXML(file,'#XMLcontainer', "#currentFileName");  
                     
-                    //displaying documentation and scales
+                    //displaying documentation and scales in the form (next to each label of the inputs)
                     $('#paramForm').children().each(function(){
                         var label = this;
-                        if(typeof $(this).attr('for') != 'undefined'){;
+						//the 'for' attribute contains the name of the parameter, we search it in the pedagogical properties file, and (if found) add popovers for click and hover
+                        if(typeof $(this).attr('for') != 'undefined'){ 
                             var parameterName = $(this).attr('for');
                             $(scales).children().find('Parameter').each(function(){
                                 if($(this).children('Name').text().toLowerCase() == parameterName){
@@ -193,6 +196,7 @@
                     
                     });
                     
+					//displaying the maxPoints input only if 'grade' is checked
                     $('#grade').change(function(){
                         if($('#grade').is(':checked')){
                             $('#maxPointsForm').show();
@@ -203,7 +207,9 @@
                     
                     });
                     
-                    
+					
+					//next part enables to add and remove order inputs.
+                    //the basic form of an order form (2 inputs)
                     var orderForm = '<div class="orderForm"><span class="glyphicon glyphicon-minus orderRemover" title="Remove order"></span><label for="context">Context: </label><input type="text" name="context"/><label for="position">Position: </label><input type="number" step="1" name="position"/></div>';
                     
                     $('.orderAdder').click(function(){
@@ -217,15 +223,6 @@
                             $(this).remove();
                         });
                     });
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     
                     }});
                 }

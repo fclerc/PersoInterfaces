@@ -7,19 +7,17 @@ Script used to display and modify the parameters and the whole tree of resources
 
 
 
-//cloned when addding a new resource
+//cloned when addding a new resource, this is the basic xml structure
 var emptyResource = '<resource URI=""><name></name><type></type><status></status><order></order><difficulty></difficulty><sequence></sequence><grade></grade><length></length><categories></categories><grade></grade><order></order><description></description></resource>';
 
 
 
 
-//when editing parameters of a resource, 
+//when editing parameters of a resource : currentResource = the resource in XML tree; currentResourceContainer = the html element in page which displays it
 var currentResource;
 var currentResourceContainer;
 
 //container : the id of the container of the displayed XML, for example : '#MyXMLContainer'. Used as a sort of namespace for data manipulation in case of using several times this function in the same page (see xml[container] or selectors to define events).
-//scales : json with information about the indicators. WARNING : scalesDisplayers have to be loaded before.
-//scaleContainer : the html element you want the scale to be displayed
 //filenameContainer : if elements in your page display the name of the file, give their selector in order to have name changed if the user renames his file.
 function manipulateResourcesXML(filepath, container, filenameContainer = ''){
     
@@ -95,7 +93,7 @@ function displayAndChildren(xmlNode){
     var result = displayThis(xmlNode);
     
     
-    //if this is a group : recurse
+    //if this is a group : recursivity
     if($($(xmlNode).children('type')).text() == 'group'){
     //reducer class enables to toggle visibility of children (particular case is: node has an attribute, this attribute is 'fixed', which is not displayed
     //other classes are used for style
@@ -127,10 +125,10 @@ function displayThis(xmlNode){
     
     var resourceEditor = $('<span>').addClass('glyphicon glyphicon-edit resourceEditor').attr('title', _('Edit properties'));
     var resourceRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle resourceRemover').attr('title', _('Remove resource'));
-    var resourceAdder = $('<span>').addClass('glyphicon glyphicon-plus resourceAdder').attr('title', _('Add resource'));
     
-    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append(resourceNameContainer).append(resourceURIContainer).append(resourceEditor).append(resourceAdder).append(resourceRemover);
+    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append(resourceNameContainer).append(resourceURIContainer).append(resourceEditor).append(resourceRemover);
     
+	
     $(resourceEditor).click(function(){
         currentResource = xmlNode;
         currentResourceContainer = result;
@@ -202,27 +200,34 @@ function displayThis(xmlNode){
         }
     });
     
-    $(resourceAdder).click(function(){
-        var newResource = $(emptyResource).clone();
-        $(xmlNode).append($(newResource));
-        
-        currentResource = newResource;
-        var newContent = displayAndChildren(xmlNode)
-        
-        $(result).children().last().replaceWith(newContent.children().last());
-        currentResourceContainer = $(result).children('ul').children().last();
-        
-        emptyForm();
-        $('#paramModal').modal('show');
-        
-        
-    });
+	//if this s a group of resources : enable addition of a children
+	if($($(xmlNode).children('type')).text() == 'group'){
+		var resourceAdder = $('<span>').addClass('glyphicon glyphicon-plus resourceAdder').attr('title', _('Add resource'));
+		result.append(resourceAdder);
+		$(resourceAdder).click(function(){
+			var newResource = $(emptyResource).clone();
+			$(xmlNode).append($(newResource));
+			
+			currentResource = newResource;
+			var newContent = displayAndChildren(xmlNode)
+			
+			$(result).children().last().replaceWith(newContent.children().last());
+			currentResourceContainer = $(result).children('ul').children().last();
+			
+			emptyForm();
+			$('#paramModal').modal('show');
+			
+			
+		});
+	
+	}
+    
     
     return result;
 }
-
+//when submiting the form
 $('#paramModalSaver').click(function(){
-    //fill the resource with non-void inputs
+    //fill the resource parameters with non-void inputs
     $('#paramForm').children().each(function(){
         if($(this).attr('name') != '' && $(this).val()!=''){
             var input = this;
@@ -242,6 +247,7 @@ $('#paramModalSaver').click(function(){
     })
     $(currentResource).attr('URI', $('#paramForm #URI').val());
     
+	//a bit more complicated for the grade : check if yes, then add maxpoints
     if($('#paramModal #grade').prop('checked')){
         if($(currentResource).children('grade').length > 0){//grade tag already here
             $(currentResource).children('grade').first().text('true');
@@ -281,7 +287,7 @@ $('#paramModalSaver').click(function(){
     
     
     
-    //updating the name and URI displayed
+    //updating the name and URI displayed in the html page
     $(currentResourceContainer).children().each(function(){
         if($(this).hasClass('resourceName')){
             $(this).text($('#paramForm #name').val())
@@ -307,6 +313,7 @@ $('#paramModalSaver').click(function(){
     
 });
 
+//empty the form
 function emptyForm(){
     $('#paramModal form').children().each(function(){
         $(this).val('');        
