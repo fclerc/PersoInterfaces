@@ -67,17 +67,42 @@
 				foreach ($rules as $rule){
 					$ifElement = $rule->getElementsByTagName('if')->item(0);
 					$condition = $ifElement->childNodes->item(0);
-					
-					checkCondition($condition);
+					var_dump(checkCondition($condition, $profile, $liveContext));
 					
 				
 				}
 			
 				
 				
-				function checkCondition($condition){
+				function checkCondition($condition, $profile, $liveContext){
+					$xpathProfile = new DOMXPath($profile);
+					
 					if(strToLower($condition->tagName) == 'constraint'){
-						echo 'cns!!';
+						$indicatorId = $condition->getElementsByTagName('indicator')->item(0)->nodeValue;
+						$indicator = $xpathProfile->query("//*[@id='$indicatorId']")->item(0);
+						$referenceValue;
+						if($condition->getElementsByTagName('referenceValue')->item(0) != null){
+							$referenceValue = $condition->getElementsByTagName('referenceValue')->item(0)->nodeValue;
+						}
+						else{//because of jQUery, case is not always respected
+							$referenceValue = $condition->getElementsByTagName('referencevalue')->item(0)->nodeValue;
+						}
+						
+						$operator  = $condition->getElementsByTagName('operator')->item(0)->nodeValue;
+						if($operator == '='){
+							return ($referenceValue == $indicator->nodeValue);
+						}
+						elseif($operator == '!='){
+							return $referenceValue != $indicator->nodeValue;
+						}
+						else if($operator == '>'){//todo : scale and jpin with next
+							return $referenceValue > $indicator->nodeValue;
+						}
+						else if($operator == '<'){//todo : scale
+							return $referenceValue < $indicator->nodeValue;
+						}
+						
+						
 					}
 				}
 				
