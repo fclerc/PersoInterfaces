@@ -36,10 +36,10 @@
 			
 			<?php
 				$strategyPath = $path.$file;
-				$generator = new activitiesGenerator($strategyPath);
+				$generator = new ActivitiesGenerator($strategyPath);
 				$generator->generate('', '', '');
 				
-				class activitiesGenerator{
+				class ActivitiesGenerator{
 					private $strategy;
 					private $pedaProp;
 					
@@ -59,39 +59,51 @@
 						//TODO : replace it with arguments
 						$exploitedProfileFile = $this->strategy->getElementsByTagName('exploitedProfile')->item(0)->nodeValue;
 						$exploitedContextFile = $this->strategy->getElementsByTagName('exploitedContext')->item(0)->nodeValue;
-						
 						$profile = new DOMDocument();
 						$profile->load($exploitedProfileFile);
-						
 						$liveContext = new DOMDocument();
 						$liveContext->load($exploitedContextFile);
-					
 						//TODO ; use $_POST
 						$seqContext = new DOMDocument();
 						$seqContext->load('data/teacher/sequenceContexts/Sequence1.xml');
-					
 						//TODO : us it as argument (or not ?)
 						$profileScales = json_decode(file_get_contents('data/schemas/profileScales.json'));
 						$contextScales = json_decode(file_get_contents('data/schemas/contextScales.json'));
-					
-					
+						
 						
 						
 						$checker = new ConditionChecker($profile, $liveContext, $profileScales, $contextScales);
 						
 						$rules = $this->strategy->getElementsByTagName('rule');
 						
+						$activities = array();
+						
 						//this array will contain the rules that apply to the learner.
 						//elements have the form 'then' or 'else' => rule    TODO change if changed
-						$rulesToApply = array();
 						foreach ($rules as $rule){
-							$ifElement = $rule->getElementsByTagName('if')->item(0);
-							$condition = $ifElement->childNodes->item(0);
-							var_dump($checker->checkCondition($condition));
+							$verified = true; //if 'if' part is void, evaluate at true by default
+							if($rule->getElementsByTagName('if')->length > 0){
+								$ifElement = $rule->getElementsByTagName('if')->item(0);
+								$condition = $ifElement->childNodes->item(0);
+								$verified = $checker->checkCondition($condition);
+							}
+							$consequence = '';
+							if($verified && $rule->getElementsByTagName('then')->length > 0){
+								$consequence = $rule->getElementsByTagName('then')->item(0);
+							}
+							else if($rule->getElementsByTagName('else')->length > 0){
+								$consequence = $rule->getElementsByTagName('else')->item(0);
+							}
+							
+							$csqMgr = new ConsequenceGenerator($this->pedaProp);
+							$csqMgr->generate($consequence);
+							
+						
+
+	
+						
 						}
-					
-					
-					
+						//to sort by priority : http://stackoverflow.com/questions/4282413/php-sort-array-of-objects-by-object-fields
 					}
 				
 				}
@@ -206,6 +218,75 @@
 				
 				}
 				
+				//argument is <then> or <else> part of the rule
+				//returns array containing the activities to realize (what has to be displayed to the learner).
+				class ConsequenceGenerator{
+					private $pedaProp;
+					private $xpathPedaProp;
+					
+					public function __construct($pedaProp){
+						$this->pedaProp = $pedaProp;
+						$this->xpathPedaProp = new DOMXPath($this->pedaProp);
+					}
+					
+					public function generate($consequence){
+						$generatedActivities = array();
+						if($consequence != ''){
+							if($consequence->getElementsByTagName('activity')->length > 0){
+								$activities = $consequence->getElementsByTagName('activity');
+								foreach($activities as $activity){
+									$generatedActivities[] = $this->treatActivity($activity);
+								}
+							}
+						}
+						var_dump($generatedActivities);
+					
+					}
+					
+					private function treatActivity($activity){
+						$activityId = $this->getActivityId($activity);
+						
+						$query = "//TypeOfActivity[@ID='$activityId']";
+						$activityDef = $this->xpathPedaProp->query($query)->item(0);
+						
+						$activityName = $activityDef->getElementsByTagName('Name')->item(0)->nodeValue;
+						
+						$parameters = $activity->getElementsByTagName('parameter');
+						if($activityName == 'Learning'){
+							
+						}
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						// fetching the list of parameters that apply to all activities
+						/* $query = "//TypeOfActivity[@ID='A000']/Parameters";
+						$allActivityParameters = $this->xpathPedaProp->query($query)->item(0);
+						var_dump($allActivityParameters); */
+						
+						
+					}
+				
+					
+					private function getActivityId($activity){
+						$activityId = '';
+						if($activity->getElementsByTagName('typeofactivity')->item(0) != null){
+							$activityId = $activity->getElementsByTagName('typeofactivity')->item(0)->nodeValue;
+						}
+						else{//because of jQUery, case is not always respected
+							$activityId = $activity->getElementsByTagName('typeOfActivity')->item(0)->nodeValue;
+						}
+						return $activityId;
+					}
+					
+					
+				}
 				
 			?>
 			
