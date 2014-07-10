@@ -1,7 +1,9 @@
 chercher les TODO
-pour l'interface test stratégie : faire choisir le contexte de séquence dans filechoice. En plus : il ne faut pas mettreles boutons de gestion de fichier.
+pour l'interface test stratégie : faire choisir le contexte de séquence dans filechoice. En plus : il ne faut pas mettreles boutons de gestion de fichier. Et en plus : il faut donner le choix pour tous les fichiers (profil, contexte)
 toutes les comparaisons avec chaines : toLowerCase
 add ids when storing (if necessary)
+
+voir zend
 
 bugs :
 -create complex, and edit AND before defining indicator (mais pas si grave, puisqu'on peut supprimer la contrainte complexe après...)

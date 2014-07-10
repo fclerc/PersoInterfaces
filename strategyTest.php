@@ -58,6 +58,11 @@
 				$seqContext = new DOMDocument();
 				$seqContext->load('data/teacher/sequenceContexts/Sequence1.xml');
 			
+				//TODO : us it as argument (or not ?)
+				$profileScales = json_decode(file_get_contents('data/schemas/profileScales.json'));
+				$contextScales = json_decode(file_get_contents('data/schemas/contextScales.json'));
+				
+				$checker = new ConditionChecker($profile, $liveContext, $profileScales, $contextScales);
 				
 				$rules = $strategy->getElementsByTagName('rule');
 				
@@ -67,20 +72,80 @@
 				foreach ($rules as $rule){
 					$ifElement = $rule->getElementsByTagName('if')->item(0);
 					$condition = $ifElement->childNodes->item(0);
-					var_dump(checkCondition($condition, $profile, $liveContext));
+					var_dump($checker->checkCondition($condition));
 					
 				
 				}
 			
 				
+				/*
+				Class used to check conditions
+				Constructor arguments : profile, context and scales.
+				Then use with bool checkCondition($condition)
 				
-				function checkCondition($condition, $profile, $liveContext){
-					$xpathProfile = new DOMXPath($profile);
+				*/
+				class ConditionChecker{
+					private $profile;
+					private $liveContext;
+					private $profileScales;
+					private $contextScales;
 					
-					if(strToLower($condition->tagName) == 'constraint'){
-						$indicatorId = $condition->getElementsByTagName('indicator')->item(0)->nodeValue;
-						$indicator = $xpathProfile->query("//*[@id='$indicatorId']")->item(0);
-						$referenceValue;
+					public function __construct($profile, $liveContext, $profileScales, $contextScales){
+						$this->profile = $profile;
+						$this->liveContext = $liveContext;
+						$this->profileScales = $profileScales;
+						$this->contextScales = $contextScales;
+					
+					}
+					
+					public function checkCondition($condition){
+						$xpathProfile = new DOMXPath($this->profile);
+						
+						if(strToLower($condition->tagName) == 'constraint'){
+							$indicatorId = $condition->getElementsByTagName('indicator')->item(0)->nodeValue;
+							$indicator = $xpathProfile->query("//*[@id='$indicatorId']")->item(0);
+							$indicatorValue = $indicator->nodeValue;
+							$indicatorName = $indicator->tagName;
+							$referenceValue = $this->getReferenceValue($condition);
+							
+							
+							$operator  = $condition->getElementsByTagName('operator')->item(0)->nodeValue;
+							//possible conversions : find the type of the indicator in docs
+							$indicatorType = $this->getIndicatorType($indicatorName);
+							
+							echo $indicatorType;
+							if($indicatorType == 'xs:float'){
+								$referenceValue = floatval($referenceValue);
+								$indicatorValue = floatval($indicatorValue);
+							}
+							elseif($indicatorType == 'xs:integer'){
+								$referenceValue = intval($referenceValue);
+								$indicatorValue = intval($indicatorValue);
+							}
+							var_dump($referenceValue);
+							var_dump($indicatorValue);
+							
+							
+							//doing the comparison, according to the operator
+							if($operator == '='){
+								return ($referenceValue == $indicatorValue);
+							}
+							elseif($operator == '!='){
+								return $referenceValue != $indicatorValue;
+							}
+							else if($operator == '>'){//todo join with next
+								return $indicatorValue > $referenceValue ;
+							}
+							else if($operator == '<'){//todo
+								return $indicatorValue < $referenceValue ;
+							}
+						}
+						
+					}
+					
+					//returns reference value of the condition
+					private function getReferenceValue($condition){
+						$referenceValue = '';
 						if($condition->getElementsByTagName('referenceValue')->item(0) != null){
 							$referenceValue = $condition->getElementsByTagName('referenceValue')->item(0)->nodeValue;
 						}
@@ -88,22 +153,23 @@
 							$referenceValue = $condition->getElementsByTagName('referencevalue')->item(0)->nodeValue;
 						}
 						
-						$operator  = $condition->getElementsByTagName('operator')->item(0)->nodeValue;
-						if($operator == '='){
-							return ($referenceValue == $indicator->nodeValue);
-						}
-						elseif($operator == '!='){
-							return $referenceValue != $indicator->nodeValue;
-						}
-						else if($operator == '>'){//todo : scale and jpin with next
-							return $referenceValue > $indicator->nodeValue;
-						}
-						else if($operator == '<'){//todo : scale
-							return $referenceValue < $indicator->nodeValue;
-						}
-						
-						
+						return $referenceValue;
 					}
+					
+					//returns type of the indicator (finds it in scales of profile and contexts)
+					private function getIndicatorType($indicatorName){
+						$indicatorType = '';
+						if($this->profileScales->$indicatorName != null){
+							if(isset($this->profileScales->$indicatorName->typeName)){
+								$indicatorType = $this->profileScales->$indicatorName->typeName;
+							}
+							else if(isset($this->profileScales->$indicatorName->baseTypeName)){
+								$indicatorType = $this->profileScales->$indicatorName->baseTypeName;
+							}
+						}
+						return $indicatorType;
+					}
+				
 				}
 				
 				
