@@ -35,47 +35,69 @@
 			
 			
 			<?php
-			
-				//loading strategy file
-				$strategy = new DOMDocument();
-				$strategy->load($path.$file);
-				//loading other files used for test
-				$exploitedProfileFile = $strategy->getElementsByTagName('exploitedProfile')->item(0)->nodeValue;
-				$exploitedContextFile = $strategy->getElementsByTagName('exploitedContext')->item(0)->nodeValue;
-				$pedagogicalPropertiesFile = $strategy->getElementsByTagName('pedagogicalProperties')->item(0)->nodeValue;
+				$strategyPath = $path.$file;
+				$generator = new activitiesGenerator($strategyPath);
+				$generator->generate('', '', '');
 				
-				$profile = new DOMDocument();
-				$profile->load($exploitedProfileFile);
-				
-				$liveContext = new DOMDocument();
-				$liveContext->load($exploitedContextFile);
-			
-				$pedaProp = new DOMDocument();
-				$pedaProp->load($pedagogicalPropertiesFile);
-			
-			
-			//TODO ; use $_POST
-				$seqContext = new DOMDocument();
-				$seqContext->load('data/teacher/sequenceContexts/Sequence1.xml');
-			
-				//TODO : us it as argument (or not ?)
-				$profileScales = json_decode(file_get_contents('data/schemas/profileScales.json'));
-				$contextScales = json_decode(file_get_contents('data/schemas/contextScales.json'));
-				
-				$checker = new ConditionChecker($profile, $liveContext, $profileScales, $contextScales);
-				
-				$rules = $strategy->getElementsByTagName('rule');
-				
-				//this array will contain the rules that apply to the learner.
-				//elements have the form 'then' or 'else' => rule    TODO change if changed
-				$rulesToApply = array();
-				foreach ($rules as $rule){
-					$ifElement = $rule->getElementsByTagName('if')->item(0);
-					$condition = $ifElement->childNodes->item(0);
-					var_dump($checker->checkCondition($condition));
+				class activitiesGenerator{
+					private $strategy;
+					private $pedaProp;
 					
+					public function __construct($strategyPath){
+						//loading strategy file
+						$this->strategy = new DOMDocument();
+						$this->strategy->load($strategyPath);
+						
+						//pedagogical properties
+						$pedagogicalPropertiesFile = $this->strategy->getElementsByTagName('pedagogicalProperties')->item(0)->nodeValue;
+						$this->pedaProp = new DOMDocument();
+						$this->pedaProp->load($pedagogicalPropertiesFile);
+					}
+				
+					public function generate($profile, $liveContext, $sequenceContext){
+						//loading other files used for test
+						//TODO : replace it with arguments
+						$exploitedProfileFile = $this->strategy->getElementsByTagName('exploitedProfile')->item(0)->nodeValue;
+						$exploitedContextFile = $this->strategy->getElementsByTagName('exploitedContext')->item(0)->nodeValue;
+						
+						$profile = new DOMDocument();
+						$profile->load($exploitedProfileFile);
+						
+						$liveContext = new DOMDocument();
+						$liveContext->load($exploitedContextFile);
+					
+						//TODO ; use $_POST
+						$seqContext = new DOMDocument();
+						$seqContext->load('data/teacher/sequenceContexts/Sequence1.xml');
+					
+						//TODO : us it as argument (or not ?)
+						$profileScales = json_decode(file_get_contents('data/schemas/profileScales.json'));
+						$contextScales = json_decode(file_get_contents('data/schemas/contextScales.json'));
+					
+					
+						
+						
+						$checker = new ConditionChecker($profile, $liveContext, $profileScales, $contextScales);
+						
+						$rules = $this->strategy->getElementsByTagName('rule');
+						
+						//this array will contain the rules that apply to the learner.
+						//elements have the form 'then' or 'else' => rule    TODO change if changed
+						$rulesToApply = array();
+						foreach ($rules as $rule){
+							$ifElement = $rule->getElementsByTagName('if')->item(0);
+							$condition = $ifElement->childNodes->item(0);
+							var_dump($checker->checkCondition($condition));
+						}
+					
+					
+					
+					}
 				
 				}
+				
+				
+				
 			
 				
 				/*
@@ -86,12 +108,14 @@
 				*/
 				class ConditionChecker{
 					private $profile;
+					private $xpathProfile;
 					private $liveContext;
 					private $profileScales;
 					private $contextScales;
 					
 					public function __construct($profile, $liveContext, $profileScales, $contextScales){
 						$this->profile = $profile;
+						$this->xpathProfile = new DOMXPath($this->profile);
 						$this->liveContext = $liveContext;
 						$this->profileScales = $profileScales;
 						$this->contextScales = $contextScales;
@@ -99,58 +123,60 @@
 					}
 					
 					public function checkCondition($condition){
-						$xpathProfile = new DOMXPath($this->profile);
 						
+						//simple constraint
 						if(strToLower($condition->tagName) == 'constraint'){
-							$indicatorId = $condition->getElementsByTagName('indicator')->item(0)->nodeValue;
-							$indicator = $xpathProfile->query("//*[@id='$indicatorId']")->item(0);
-							$indicatorValue = $indicator->nodeValue;
-							$indicatorName = $indicator->tagName;
-							$referenceValue = $this->getReferenceValue($condition);
-							
-							
-							$operator  = $condition->getElementsByTagName('operator')->item(0)->nodeValue;
-							//possible conversions : find the type of the indicator in docs
-							$indicatorType = $this->getIndicatorType($indicatorName);
-							
-							echo $indicatorType;
-							if($indicatorType == 'xs:float'){
-								$referenceValue = floatval($referenceValue);
-								$indicatorValue = floatval($indicatorValue);
-							}
-							elseif($indicatorType == 'xs:integer'){
-								$referenceValue = intval($referenceValue);
-								$indicatorValue = intval($indicatorValue);
-							}
-							var_dump($referenceValue);
-							var_dump($indicatorValue);
-							
-							
-							//doing the comparison, according to the operator
-							if($operator == '='){
-								return ($referenceValue == $indicatorValue);
-							}
-							elseif($operator == '!='){
-								return $referenceValue != $indicatorValue;
-							}
-							else if($operator == '>'){//todo join with next
-								return $indicatorValue > $referenceValue ;
-							}
-							else if($operator == '<'){//todo
-								return $indicatorValue < $referenceValue ;
-							}
+							return $this->checkConstraint($condition);
 						}
 						
 					}
 					
-					//returns reference value of the condition
-					private function getReferenceValue($condition){
+					//argument is a constraint element, returns boolean
+					private function checkConstraint($constraint){
+						$indicatorId = $constraint->getElementsByTagName('indicator')->item(0)->nodeValue;
+						$indicator = $this->xpathProfile->query("//*[@id='$indicatorId']")->item(0);
+						$indicatorValue = $indicator->nodeValue;
+						$indicatorName = $indicator->tagName;
+						$referenceValue = $this->getReferenceValue($constraint);
+						
+						//possible conversions : find the type of the indicator in docs
+						$indicatorType = $this->getIndicatorType($indicatorName);
+						
+						if($indicatorType == 'xs:float'){
+							$referenceValue = floatval($referenceValue);
+							$indicatorValue = floatval($indicatorValue);
+						}
+						elseif($indicatorType == 'xs:integer'){
+							$referenceValue = intval($referenceValue);
+							$indicatorValue = intval($indicatorValue);
+						}
+						
+						
+						
+						//doing the comparison, according to the operator
+						$operator  = $constraint->getElementsByTagName('operator')->item(0)->nodeValue;
+						if($operator == '='){
+							return ($referenceValue == $indicatorValue);
+						}
+						elseif($operator == '!='){
+							return $referenceValue != $indicatorValue;
+						}
+						else if($operator == '>'){//todo join with next
+							return $indicatorValue > $referenceValue ;
+						}
+						else if($operator == '<'){//todo
+							return $indicatorValue < $referenceValue ;
+						}
+					}
+					
+					//returns reference value of the constraint
+					private function getReferenceValue($constraint){
 						$referenceValue = '';
-						if($condition->getElementsByTagName('referenceValue')->item(0) != null){
-							$referenceValue = $condition->getElementsByTagName('referenceValue')->item(0)->nodeValue;
+						if($constraint->getElementsByTagName('referenceValue')->item(0) != null){
+							$referenceValue = $constraint->getElementsByTagName('referenceValue')->item(0)->nodeValue;
 						}
 						else{//because of jQUery, case is not always respected
-							$referenceValue = $condition->getElementsByTagName('referencevalue')->item(0)->nodeValue;
+							$referenceValue = $constraint->getElementsByTagName('referencevalue')->item(0)->nodeValue;
 						}
 						
 						return $referenceValue;
