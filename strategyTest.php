@@ -41,12 +41,14 @@
 				
 				class ActivitiesGenerator{
 					private $strategy;
+					private $xpathStrategy;
 					private $pedaProp;
 					
 					public function __construct($strategyPath){
 						//loading strategy file
 						$this->strategy = new DOMDocument();
 						$this->strategy->load($strategyPath);
+						$this->xpathStrategy = new DOMXPath($this->strategy);
 						
 						//pedagogical properties
 						$pedagogicalPropertiesFile = $this->strategy->getElementsByTagName('pedagogicalProperties')->item(0)->nodeValue;
@@ -77,6 +79,7 @@
 						$rules = $this->strategy->getElementsByTagName('rule');
 						
 						$activities = array();
+						$csqMgr = new ConsequenceGenerator($this->pedaProp, $this->xpathStrategy);
 						
 						//this array will contain the rules that apply to the learner.
 						//elements have the form 'then' or 'else' => rule    TODO change if changed
@@ -95,7 +98,6 @@
 								$consequence = $rule->getElementsByTagName('else')->item(0);
 							}
 							
-							$csqMgr = new ConsequenceGenerator($this->pedaProp);
 							$csqMgr->generate($consequence);
 							
 						
@@ -223,10 +225,26 @@
 				class ConsequenceGenerator{
 					private $pedaProp;
 					private $xpathPedaProp;
+					private $xpathStrategy;
+					private $paramDictionnary; //contains elements in the form  "name" => "P001"
 					
-					public function __construct($pedaProp){
+					
+					public function __construct($pedaProp, $xpathStrategy){
 						$this->pedaProp = $pedaProp;
 						$this->xpathPedaProp = new DOMXPath($this->pedaProp);
+						$this->xpathStrategy = $xpathStrategy;
+						$this->paramDictionnary = $this->getParamDictionnary();
+					}
+					
+					private function getParamDictionnary(){
+						$dict = array();
+						$params = $this->pedaProp->getElementsByTagName('Parameter');
+						foreach($params as $param){
+							if(!isset($dict[$param->getElementsByTagName('Name')->item(0)->nodeValue])){
+								$dict[$param->getElementsByTagName('Name')->item(0)->nodeValue] = $param->getAttribute('ID');
+							}
+						}
+						return $dict;
 					}
 					
 					public function generate($consequence){
@@ -239,21 +257,21 @@
 								}
 							}
 						}
-						var_dump($generatedActivities);
+						//var_dump($generatedActivities);
 					
 					}
 					
 					private function treatActivity($activity){
 						$activityId = $this->getActivityId($activity);
-						
 						$query = "//TypeOfActivity[@ID='$activityId']";
 						$activityDef = $this->xpathPedaProp->query($query)->item(0);
 						
 						$activityName = $activityDef->getElementsByTagName('Name')->item(0)->nodeValue;
 						
-						$parameters = $activity->getElementsByTagName('parameter');
-						if($activityName == 'Learning'){
+						$param = $this->xpathStrategy->query(".//*[name()='parameter']", $activity, false);
+						
 							
+						if($activityName == 'Learning'){
 						}
 						
 						

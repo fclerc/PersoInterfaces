@@ -271,7 +271,7 @@
 
 		<Feedback>
 			<Parameters>
-				<Parameter ID="P000">
+				<Parameter ID="P011">
 					<Name>Content</Name>
 					<Comment>What is the content of the feedback ? 'Time' --> total time spent on the platform ; 'Results' --> grades obtained by the learner; 'Forum' --> statistics concerning his activity on the forum</Comment>
 					<ScaleList>
