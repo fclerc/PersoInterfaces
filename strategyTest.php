@@ -128,6 +128,14 @@
 						if(strToLower($condition->tagName) == 'constraint'){
 							return $this->checkConstraint($condition);
 						}
+						else if(strToLower($condition->tagName) == 'and'){
+							$children = $condition->childNodes;
+							return ($this->checkCondition($children->item(0)) && $this->checkCondition($children->item(1)));
+						}
+						else if(strToLower($condition->tagName) == 'or'){
+							$children = $condition->childNodes;
+							return ($this->checkCondition($children->item(0)) || $this->checkCondition($children->item(1)));
+						}
 						
 					}
 					
