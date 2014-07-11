@@ -8,6 +8,9 @@ important :
 -if 'xmlns' attribute on a node of xml doc, then php xpath ignores these nodes in queries.
 conclusion : make sure that all xml docs treated by jquery (and where it will insert nodes) have xmlns attribute on their root.
 
+changer scale sex  :F - M (et pas H)
+
+currently I do no use lower bounds for duration and nbofActivitiues
 
 voir zend
 

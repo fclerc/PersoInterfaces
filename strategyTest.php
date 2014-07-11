@@ -84,6 +84,9 @@
 						//this array will contain the rules that apply to the learner.
 						//elements have the form 'then' or 'else' => rule    TODO change if changed
 						foreach ($rules as $rule){
+							
+							$priority = $this->getPriority($rule);
+						
 							$verified = true; //if 'if' part is void, evaluate at true by default
 							if($rule->getElementsByTagName('if')->length > 0){
 								$ifElement = $rule->getElementsByTagName('if')->item(0);
@@ -98,14 +101,56 @@
 								$consequence = $rule->getElementsByTagName('else')->item(0);
 							}
 							
-							$csqMgr->generate($consequence);
-							
+							//TODO : append list of activities, adding priority argument to each of these.
+							$csqActivities = $csqMgr->generate($consequence);
+							foreach($csqActivities as $act){
+								$activities[] = array('activity' => $act, 'priority' => $priority);
+							}
+						}
 						
-
-	
+						//sorting by priority
+						usort($activities, function($a, $b){
+							return $a['priority'] <= $b['priority'];
+						});
+						
+						var_dump($activities);
+						$this->displayActivities($activities, $seqContext);
+					
+					}
+					
+					private function displayActivities($activities, $seqContext){
+						echo 'Hello! Let you do this: <br/>';
+						$maxAct = intval($seqContext->getElementsByTagName('numberOfActivities')->item(0)->getElementsByTagName('max')->item(0)->nodeValue);
+						$minAct = intval($seqContext->getElementsByTagName('numberOfActivities')->item(0)->getElementsByTagName('min')->item(0)->nodeValue);
+						$maxTime = intval($seqContext->getElementsByTagName('activitiesDuration')->item(0)->getElementsByTagName('max')->item(0)->nodeValue);
+						$minTime = intval($seqContext->getElementsByTagName('activitiesDuration')->item(0)->getElementsByTagName('min')->item(0)->nodeValue);
+						
+						//total values for currently displayed rules
+						$nbAct = 0;
+						$time = 0;
+						
+						foreach($activities as $activity){
+							if($nbAct < $maxAct){
+								$activityTime = $activity['activity']['length'];
+								if($time + $activityTime <= $maxTime){
+									echo $activity['activity']['text'].'<br/>';
+									$nbAct++;
+									$time += $activity['activity']['length'];
+								}
+							}
 						
 						}
-						//to sort by priority : http://stackoverflow.com/questions/4282413/php-sort-array-of-objects-by-object-fields
+						
+					}
+					
+					
+					private function getPriority($rule){
+						$priority = 0;
+						//getting the priority
+						if($rule->getElementsByTagName('priority')->length > 0){
+							$priority = $rule->getElementsByTagName('priority')->item(0)->nodeValue;
+						}
+						return intval($priority);
 					}
 				
 				}
@@ -257,20 +302,17 @@
 								}
 							}
 						}
-						var_dump($generatedActivities);
+						return($generatedActivities);
 					
 					}
 					
 					//takes activity as an argument, returns information about what has to be done by learner
 					private function treatActivity($activity){
-						$activityId = $this->getActivityId($activity);
-						$query = "//TypeOfActivity[@ID='$activityId']";
-						$activityDef = $this->xpathPedaProp->query($query)->item(0);
-						
-						$activityName = $activityDef->getElementsByTagName('Name')->item(0)->nodeValue;
+						$activityName = $this->getActivityName($activity);
 						
 						if($activityName == 'Learning'){
-							var_dump($this->getParameterByName('Sequence', $activity));
+							return array('text' => 'go to learn !', 'length' => 16);
+							//($this->getParameterByName('Name', $activity));
 						}
 						
 					}
@@ -286,6 +328,15 @@
 						else{
 							return null;
 						}
+					}
+					//gets an activity, and returns the name of this activity
+					private function getActivityName($activity){
+						$activityId = $this->getActivityId($activity);
+						$query = "//TypeOfActivity[@ID='$activityId']";
+						$activityDef = $this->xpathPedaProp->query($query)->item(0);
+						
+						$activityName = $activityDef->getElementsByTagName('Name')->item(0)->nodeValue;
+						return $activityName;
 					}
 				
 					

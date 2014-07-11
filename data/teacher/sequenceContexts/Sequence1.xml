@@ -6,8 +6,8 @@
         <max id="SC3">5</max>
     </numberOfActivities>
     <activitiesDuration id="CTX3">
-        <min id="SC4">P0Y0M0DT1H30M</min>
-        <max id="SC5">P0Y0M0DT2H30M</max>
+        <min id="SC4">30</min>
+        <max id="SC5">60</max>
     </activitiesDuration>
     <quizVariation id="SC6">false</quizVariation>
 </sequenceContext>
