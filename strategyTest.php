@@ -312,6 +312,13 @@
 					private function treatActivity($activity){
 						$activityName = $this->getActivityName($activity);
 						
+						//if defined, get the given length
+						$length = 0;
+						$lengthParam = $this->getParameterByName('Length', $activity);
+						if($lengthParam){
+							$length = $lengthParam->getElementsByTagName('value')->item(0)->nodeValue;
+						}
+						
 						if($activityName == 'Learning'){
 							$nameParam = $this->getParameterByName('Name', $activity);
 							if($nameParam){
@@ -320,8 +327,11 @@
 								
 								$resource = $this->xpathResources->query($resourceQuery)->item(0);
 								$resourceURI = $resource->getAttribute('URI');
-							//todo length
-								return array('text' => 'Consultez <a href="'.$resourceURI.'">'.$resourceName.'</a>', 'length' => 12);
+								
+								//getting the length of the resource
+								$lengthQuery = "./*[local-name()='length']";
+								$resourceLength = $this->xpathResources->query($lengthQuery, $resource, false)->item(0)->nodeValue;
+								return array('text' => 'Consultez <a href="'.$resourceURI.'">'.$resourceName.'</a>', 'length' => $resourceLength);
 							
 							}
 							
