@@ -257,10 +257,11 @@
 								}
 							}
 						}
-						//var_dump($generatedActivities);
+						var_dump($generatedActivities);
 					
 					}
 					
+					//takes activity as an argument, returns information about what has to be done by learner
 					private function treatActivity($activity){
 						$activityId = $this->getActivityId($activity);
 						$query = "//TypeOfActivity[@ID='$activityId']";
@@ -268,27 +269,23 @@
 						
 						$activityName = $activityDef->getElementsByTagName('Name')->item(0)->nodeValue;
 						
-						$param = $this->xpathStrategy->query(".//*[name()='parameter']", $activity, false);
-						
-							
 						if($activityName == 'Learning'){
+							var_dump($this->getParameterByName('Sequence', $activity));
 						}
 						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						// fetching the list of parameters that apply to all activities
-						/* $query = "//TypeOfActivity[@ID='A000']/Parameters";
-						$allActivityParameters = $this->xpathPedaProp->query($query)->item(0);
-						var_dump($allActivityParameters); */
-						
-						
+					}
+					//arguments are the name of a parameter and an activity (coming from a rule)
+					//returns the corresponding parameter, if contained by the activity (otherwise returns null)
+					private function getParameterByName($name, $activity){
+						if(isset($this->paramDictionnary[$name])){
+							$paramId = $this->paramDictionnary[$name];
+							$query = ".//*[local-name()='parameter' and .//*[local-name()='id' and .='$paramId']]";
+							$param = $this->xpathStrategy->query($query, $activity, false);
+							return $param;
+						}
+						else{
+							return null;
+						}
 					}
 				
 					
