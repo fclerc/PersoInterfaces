@@ -43,6 +43,9 @@
 					private $strategy;
 					private $xpathStrategy;
 					private $pedaProp;
+					private $resources;
+					private $xpathResources;
+					
 					
 					public function __construct($strategyPath){
 						//loading strategy file
@@ -54,6 +57,10 @@
 						$pedagogicalPropertiesFile = $this->strategy->getElementsByTagName('pedagogicalProperties')->item(0)->nodeValue;
 						$this->pedaProp = new DOMDocument();
 						$this->pedaProp->load($pedagogicalPropertiesFile);
+						
+						$this->resources = new DOMDocument();
+						$this->resources->load('data/resources/foveaResources.xml');
+						$this->xpathResources = new DOMXPath($this->resources);
 					}
 				
 					public function generate($profile, $liveContext, $sequenceContext){
@@ -79,7 +86,9 @@
 						$rules = $this->strategy->getElementsByTagName('rule');
 						
 						$activities = array();
-						$csqMgr = new ConsequenceGenerator($this->pedaProp, $this->xpathStrategy);
+						
+						$activitiesContext = $seqContext->getElementsByTagName('activitiesContext')->item(0)->nodeValue;
+						$csqMgr = new ConsequenceGenerator($this->pedaProp, $this->xpathStrategy, $this->xpathResources, $activitiesContext);
 						
 						//this array will contain the rules that apply to the learner.
 						//elements have the form 'then' or 'else' => rule    TODO change if changed
@@ -87,7 +96,7 @@
 							
 							$priority = $this->getPriority($rule);
 						
-							$verified = true; //if 'if' part is void, evaluate at true by default
+							$verified = true; //True if condition is verified. If 'if' part is void, evaluate at true by default
 							if($rule->getElementsByTagName('if')->length > 0){
 								$ifElement = $rule->getElementsByTagName('if')->item(0);
 								$condition = $ifElement->childNodes->item(0);
@@ -101,7 +110,7 @@
 								$consequence = $rule->getElementsByTagName('else')->item(0);
 							}
 							
-							//TODO : append list of activities, adding priority argument to each of these.
+							
 							$csqActivities = $csqMgr->generate($consequence);
 							foreach($csqActivities as $act){
 								$activities[] = array('activity' => $act, 'priority' => $priority);
@@ -119,7 +128,7 @@
 					}
 					
 					private function displayActivities($activities, $seqContext){
-						echo 'Hello! Let you do this: <br/>';
+						echo 'Bonjour. Nous vous proposons de réaliser les activités suivantes : <br/><ol>';
 						$maxAct = intval($seqContext->getElementsByTagName('numberOfActivities')->item(0)->getElementsByTagName('max')->item(0)->nodeValue);
 						$minAct = intval($seqContext->getElementsByTagName('numberOfActivities')->item(0)->getElementsByTagName('min')->item(0)->nodeValue);
 						$maxTime = intval($seqContext->getElementsByTagName('activitiesDuration')->item(0)->getElementsByTagName('max')->item(0)->nodeValue);
@@ -133,7 +142,7 @@
 							if($nbAct < $maxAct){
 								$activityTime = $activity['activity']['length'];
 								if($time + $activityTime <= $maxTime){
-									echo $activity['activity']['text'].'<br/>';
+									echo '<li>'.$activity['activity']['text'].'</li>';
 									$nbAct++;
 									$time += $activity['activity']['length'];
 								}
@@ -141,6 +150,7 @@
 						
 						}
 						
+						echo '</ol>';
 					}
 					
 					
@@ -152,7 +162,6 @@
 						}
 						return intval($priority);
 					}
-				
 				}
 				
 				
@@ -272,25 +281,18 @@
 					private $xpathPedaProp;
 					private $xpathStrategy;
 					private $paramDictionnary; //contains elements in the form  "name" => "P001"
+					private $xpathResources;
+					private $activitiesContext;//the context (tag, resource...) in which resources have to be taken from.
 					
-					
-					public function __construct($pedaProp, $xpathStrategy){
+					public function __construct($pedaProp, $xpathStrategy, $xpathResources, $activitiesContext){
 						$this->pedaProp = $pedaProp;
 						$this->xpathPedaProp = new DOMXPath($this->pedaProp);
 						$this->xpathStrategy = $xpathStrategy;
 						$this->paramDictionnary = $this->getParamDictionnary();
+						$this->xpathResources = $xpathResources;
+						$this->activitiesContext = $activitiesContext;
 					}
 					
-					private function getParamDictionnary(){
-						$dict = array();
-						$params = $this->pedaProp->getElementsByTagName('Parameter');
-						foreach($params as $param){
-							if(!isset($dict[$param->getElementsByTagName('Name')->item(0)->nodeValue])){
-								$dict[$param->getElementsByTagName('Name')->item(0)->nodeValue] = $param->getAttribute('ID');
-							}
-						}
-						return $dict;
-					}
 					
 					public function generate($consequence){
 						$generatedActivities = array();
@@ -311,11 +313,27 @@
 						$activityName = $this->getActivityName($activity);
 						
 						if($activityName == 'Learning'){
-							return array('text' => 'go to learn !', 'length' => 16);
-							//($this->getParameterByName('Name', $activity));
+							$nameParam = $this->getParameterByName('Name', $activity);
+							if($nameParam){
+								$resourceName = $nameParam->getElementsByTagName('value')->item(0)->nodeValue;
+								$resourceQuery = "//*[local-name()='resource' and ./*[local-name()='name' and .='".$resourceName."']]";
+								
+								$resource = $this->xpathResources->query($resourceQuery)->item(0);
+								$resourceURI = $resource->getAttribute('URI');
+							//todo length
+								return array('text' => 'Consultez <a href="'.$resourceURI.'">'.$resourceName.'</a>', 'length' => 12);
+							
+							}
+							
+							
+							
 						}
 						
 					}
+					
+					
+					
+					
 					//arguments are the name of a parameter and an activity (coming from a rule)
 					//returns the corresponding parameter, if contained by the activity (otherwise returns null)
 					private function getParameterByName($name, $activity){
@@ -323,12 +341,13 @@
 							$paramId = $this->paramDictionnary[$name];
 							$query = ".//*[local-name()='parameter' and .//*[local-name()='id' and .='$paramId']]";
 							$param = $this->xpathStrategy->query($query, $activity, false);
-							return $param;
+							return $param->item(0);
 						}
 						else{
 							return null;
 						}
 					}
+					
 					//gets an activity, and returns the name of this activity
 					private function getActivityName($activity){
 						$activityId = $this->getActivityId($activity);
@@ -339,7 +358,6 @@
 						return $activityName;
 					}
 				
-					
 					private function getActivityId($activity){
 						$activityId = '';
 						if($activity->getElementsByTagName('typeofactivity')->item(0) != null){
@@ -351,7 +369,16 @@
 						return $activityId;
 					}
 					
-					
+					private function getParamDictionnary(){
+						$dict = array();
+						$params = $this->pedaProp->getElementsByTagName('Parameter');
+						foreach($params as $param){
+							if(!isset($dict[$param->getElementsByTagName('Name')->item(0)->nodeValue])){
+								$dict[$param->getElementsByTagName('Name')->item(0)->nodeValue] = $param->getAttribute('ID');
+							}
+						}
+						return $dict;
+					}
 				}
 				
 			?>

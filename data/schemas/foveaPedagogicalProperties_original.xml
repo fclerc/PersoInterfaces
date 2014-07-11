@@ -6,18 +6,6 @@
 			<TypeOfActivity ID="A000">
 				<Name>All</Name><!--These properties concern all the following activities -->
 				<Parameters>
-					<Parameter ID="P004">
-						<Name>Length</Name>
-						<Comment>The estimated time, in minutes, required to study the resource</Comment>
-						<ScaleNumerical>
-						</ScaleNumerical>
-					</Parameter>
-				</Parameters>
-			</TypeOfActivity>
-			
-			<TypeOfActivity ID="A001">
-				<Name>Learning</Name>
-				<Parameters>
 					<Parameter ID="P000">
 						<Name>Status</Name>
 						<Comment>Status of the resource informs about the necessity or not for each learner to consult it.
@@ -40,6 +28,49 @@
 							</Value>
 						</ScaleList>
 					</Parameter>
+					<Parameter ID="P003">
+						<Name>Sequence</Name>
+						<AssociatedCompetence></AssociatedCompetence>
+						<Comment>Sequence (identified by its number) from which the resources have to be selected</Comment>
+						<ScaleNumerical>
+							<Step>1</Step>
+						</ScaleNumerical>
+					</Parameter>
+					<Parameter ID="P004">
+						<Name>Length</Name>
+						<Comment>The estimated time, in minutes, required to study the resource</Comment>
+						<ScaleNumerical>
+						</ScaleNumerical>
+					</Parameter>
+					<Parameter ID="P005">
+						<Name>Categories</Name>
+						<Comment>Categories from which the resources have to be selected.
+                        Note: Categories are defined in the resources. Choice is given among all the already defined categories in the resource description.</Comment>
+						<ScaleList>
+							<Variable>true</Variable>
+							<Ordered>false</Ordered>
+							<MultipleSelection>true</MultipleSelection>
+							<Value>
+							<!-- The values are searched in the resource definition file, and stored in resourcesData.json -->
+								
+							</Value>
+						</ScaleList>
+					</Parameter>
+					<Parameter ID="P006"><!--Used to indicate directly some resources -->
+						<Name>Name</Name>
+                        <Comment>The name of a resource (or its URI, both can be given)</Comment>
+						<ScaleList>
+							<Variable>true</Variable>
+							<Ordered>false</Ordered>
+							<MultipleSelection>true</MultipleSelection>
+						</ScaleList>
+					</Parameter>
+				</Parameters>
+			</TypeOfActivity>
+			
+			<TypeOfActivity ID="A001">
+				<Name>Learning</Name>
+				<Parameters>
 					<Parameter ID="P001">
 						<Name>Difficulty</Name>
 						<Comment>Difficulty to understand the resource. 0 means it is very easy, 5 that it is very difficult.</Comment>
@@ -67,7 +98,6 @@
 							</Value>
 						</ScaleList>
 					</Parameter>				
-
 
 					<Parameter ID="P002">
 						<Name>Type</Name>
@@ -108,37 +138,6 @@
 								<Name>other</Name>
 							</Value>
                             
-						</ScaleList>
-					</Parameter>
-					<Parameter ID="P003">
-						<Name>Sequence</Name>
-						<AssociatedCompetence></AssociatedCompetence>
-						<Comment>Sequence (identified by its number) from which the resources have to be selected</Comment>
-						<ScaleNumerical>
-							<Step>1</Step>
-						</ScaleNumerical>
-					</Parameter>
-					<Parameter ID="P005">
-						<Name>Categories</Name>
-						<Comment>Categories from which the resources have to be selected.
-                        Note: Categories are defined in the resources. Choice is given among all the already defined categories in the resource description.</Comment>
-						<ScaleList>
-							<Variable>true</Variable>
-							<Ordered>false</Ordered>
-							<MultipleSelection>true</MultipleSelection>
-							<Value>
-							<!-- The values are searched in the resource definition file, and stored in resourcesData.json -->
-								
-							</Value>
-						</ScaleList>
-					</Parameter>
-					<Parameter ID="P006"><!--Used to indicate directly some resources -->
-						<Name>Name</Name>
-                        <Comment>The name of a resource (or its URI, both can be given)</Comment>
-						<ScaleList>
-							<Variable>true</Variable>
-							<Ordered>false</Ordered>
-							<MultipleSelection>true</MultipleSelection>
 						</ScaleList>
 					</Parameter>
 				</Parameters>
@@ -197,131 +196,6 @@
 			<TypeOfActivity ID="A003">
 				<Name>Exercise</Name>
 				<Parameters>
-				
-					<Parameter ID="P000">
-						<Name>Status</Name>
-						<Comment>Status of the resource informs about the necessity or not for each learner to consult it.
-						-Mandatory if the resource has to be seen by all the participants.
-						-Optional if it is not necessary for each learner to consult it (for example the learner already has the knowledge it contains)
-						-Bonus if the resource might be added to the learner once he is finished with the work of the sequence, or if he already knows everything about the sequence topic. It can be a fun video related to the MOOC, a complement that is a bit more difficult,...
-						</Comment>
-						<ScaleList>
-							<Variable>true</Variable>
-							<Ordered>true</Ordered>
-							<MultipleSelection>false</MultipleSelection>
-							<Value>
-								<Name>Mandatory</Name>
-							</Value>
-							<Value>
-								<Name>Optional</Name>
-							</Value>
-							<Value>
-								<Name>Bonus</Name>
-							</Value>
-						</ScaleList>
-					</Parameter>
-					<Parameter ID="P001">
-						<Name>Difficulty</Name>
-						<Comment>Difficulty to understand the resource. 0 means it is very easy, 5 that it is very difficult.</Comment>
-						<ScaleList>
-							<Variable>true</Variable>
-							<Ordered>true</Ordered>
-							<MultipleSelection>false</MultipleSelection>
-							<Value>
-								<Name>0</Name>
-							</Value>
-							<Value>
-								<Name>1</Name>
-							</Value>
-							<Value>
-								<Name>2</Name>
-							</Value>
-							<Value>
-								<Name>3</Name>
-							</Value>
-							<Value>
-								<Name>4</Name>
-							</Value>
-							<Value>
-								<Name>5</Name>
-							</Value>
-						</ScaleList>
-					</Parameter>				
-
-
-					<Parameter ID="P002">
-						<Name>Type</Name>
-						<AssociatedCompetence></AssociatedCompetence>
-						<Comment>Type of the resource</Comment>
-						<ScaleList>
-							<Variable>true</Variable>
-							<Ordered>true</Ordered>
-							<MultipleSelection>false</MultipleSelection>
-							<Value>
-								<Name>Video</Name>
-							</Value>
-							<Value>
-								<Name>Audio</Name>
-							</Value>
-							<Value>
-								<Name>Text</Name>
-							</Value>
-                            <Value>
-								<Name>Quiz</Name>
-							</Value>
-                            <Value>
-								<Name>Assignment</Name>
-							</Value>
-                            <Value>
-								<Name>trainingExercise</Name>
-							</Value>
-                            <Value>
-								<Name>forum</Name>
-							</Value>
-                            <Value>
-								<Name>wiki</Name>
-							</Value>
-                            <Value>
-								<Name>group</Name>
-							</Value>
-                            <Value>
-								<Name>other</Name>
-							</Value>
-                            
-						</ScaleList>
-					</Parameter>
-					<Parameter ID="P003">
-						<Name>Sequence</Name>
-						<AssociatedCompetence></AssociatedCompetence>
-						<Comment>Sequence (identified by its number) from which the resources have to be selected</Comment>
-						<ScaleNumerical>
-							<Step>1</Step>
-						</ScaleNumerical>
-					</Parameter>
-					<Parameter ID="P005">
-						<Name>Categories</Name>
-						<Comment>Categories from which the resources have to be selected.
-                        Note: Categories are defined in the resources. Choice is given among all the already defined categories in the resource description.</Comment>
-						<ScaleList>
-							<Variable>true</Variable>
-							<Ordered>false</Ordered>
-							<MultipleSelection>true</MultipleSelection>
-							<Value>
-							<!-- The values are searched in the resource definition file, and stored in resourcesData.json -->
-								
-							</Value>
-						</ScaleList>
-					</Parameter>
-					<Parameter ID="P006"><!--Used to indicate directly some resources -->
-						<Name>Name</Name>
-                        <Comment>The name of a resource (or its URI, both can be given)</Comment>
-						<ScaleList>
-							<Variable>true</Variable>
-							<Ordered>false</Ordered>
-							<MultipleSelection>true</MultipleSelection>
-						</ScaleList>
-					</Parameter>
-				
 					<Parameter ID="P009">
 						<Name>Grade</Name>
 						<Comment>Is a grade (couting for the MOOC's evaluation) issued with this exercise? </Comment>
