@@ -335,8 +335,41 @@
 							
 							}
 							
+						}
+						
+						else if($activityName == 'Social'){
+							$text = 'Allez sur ';
+							
+							//TODO : enable url as param (or defined somewhere else), to enable learner to lead them directly on the course's page on the social networks
+							$toolsText = array(
+								'Twitter' => '<a href="http://twitter.com">le réseau social Twitter</a> ',
+								'Forum' => 'le forum du cours ',
+								'Facebook' => '<a href="http://facebook.com">le réseau social Facebook</a> ',
+								'Google+' => '<a href="http://plus.google.com">le réseau social Google+</a> ',
+							);
+							$toolParam = $this->getParameterByName('Tool', $activity);
+							if($toolParam){
+								$toolName = $toolParam->getElementsByTagName('value')->item(0)->nodeValue;
+								$text = $text . $toolsText[$toolName];
+							}
 							
 							
+							$actionsText = array(
+								'Answer' => ', et portez secours aux autres apprenants qui y posent des questions ',
+								'Read' => ', et lisez les messages qui pourraient vous intéresser ',
+								'Create' => ', et posez vos questions ou présentez vos réflexions aux autres participants ',
+							);
+							
+							$actionParam = $this->getParameterByName('Action', $activity);
+							if($actionParam){
+								$actionName = $actionParam->getElementsByTagName('value')->item(0)->nodeValue;
+								$text = $text . $actionsText[$actionName];
+							}
+							
+							$text = $text . '(passez-y environ '.$length.' minutes).';
+							
+							return array('text' => $text, 'length' => $length);
+						
 						}
 						
 					}

@@ -5,6 +5,10 @@ add ids when storing (if necessary)
 
 -dans les explications pour le prof : indiquer quels sont les paramètres obligatoires / optionnels (et éventuellement les générer automatiquement lors de la création d'activité, empêcher leur suppression...)
 
+-passer les liens en target blank dans la boussole
+
+-afficher en fin (ou début) de boussole : temps total estimé et nombre activités
+
 important : 
 -if no 'xmlns' attribute to root of xml, jquery automatically adds it to new elements inserted
 -if 'xmlns' attribute on a node of xml doc, then php xpath ignores these nodes in queries.
