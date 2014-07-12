@@ -330,25 +330,20 @@
 					
 					//argument : resource, issued from resourcesDefinition
 					//returns array of array describing activities (but doesn't consider exercises)
+					//TODO : use it for each resource identified as having to be done
+					//realizes the filter on resource status
 					private function getResourceActivity($resource){
 						$activities = array();
-						$resourceURI = $resource->getAttribute('URI');
-						$nameQuery = "./*[local-name()='name']";		
-						$resourceName = $this->xpathResources->query($nameQuery, $resource, false)->item(0)->nodeValue;
+						$URI = $resource->getAttribute('URI');
 						
-						$typeQuery = "./*[local-name()='type']";		
-						$resourceType = $this->xpathResources->query($typeQuery, $resource, false)->item(0)->nodeValue;
-						
-						//getting the length of the resource
-						$lengthQuery = "./*[local-name()='length']";
-						$lengthElement = $this->xpathResources->query($lengthQuery, $resource, false)->item(0);
-						if($lengthElement){
-							$resourceLength = intval($lengthElement->nodeValue);
-						}
-						
+						$name = $this->getResourceProperty($resource, 'name');
+						$type = $this->getResourceProperty($resource, 'type');
+						$status = $this->getResourceProperty($resource, 'status');
+						$length = intval($this->getResourceProperty($resource, 'length'));
+							
 						//group of resource : display this resource, and apply same function to its children
-						if($resourceType == 'group'){
-							$activities[] = array('text' => 'Consultez les ressources de la section <a href="'.$resourceURI.'">'.$resourceName.'</a> (elles sont listées ci-dessous)', 'length' => 0, 'countActivity' => false);
+						if($type == 'group'){
+							$activities[] = array('text' => 'Consultez les ressources de la section <a href="'.$URI.'">'.$name.'</a> (elles sont listées ci-dessous)', 'length' => 0, 'countActivity' => false);
 							
 							foreach($resource->childNodes as $child){
 								if(isset($child->tagName)){
@@ -363,13 +358,24 @@
 						
 						}
 						
-						else if($resourceType != 'quiz' && $resourceType != 'assignment'){
-							$activities[] = array('text' => 'Consultez <a href="'.$resourceURI.'">'.$resourceName.'</a>', 'length' => $resourceLength);
+						else if($type != 'quiz' && $type != 'assignment'){
+							$activities[] = array('text' => 'Consultez <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
 						}
 						return $activities;
 					
 					}
 					
+					//Arguments : a resource, and the name of a property
+					//returns the value of the property (or 0 if nothing can be found)
+					private function getResourceProperty($resource, $propertyName){
+						$prop = 0;
+						$query = "./*[local-name()='".$propertyName."']";
+						$element = $this->xpathResources->query($query, $resource, false)->item(0);
+						if($element){
+							$prop = $element->nodeValue;
+						}
+						return $prop;
+					}
 					
 					
 					//takes activity as an argument, returns information about what has to be done by learner
