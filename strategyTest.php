@@ -130,8 +130,7 @@
 									$activities[] = $activity;
 								}
 							}
-						
-						var_dump($consequences);var_dump($activities);
+						var_dump($activities);
 						$this->displayActivities($activities, $seqContext);
 					
 					}
@@ -152,14 +151,23 @@
 								$activityTime = $activity['length'];
 								if($time + $activityTime <= $maxTime){
 									echo '<li>'.$activity['text'].'</li>';
-									$nbAct++;
+									//incrementing nbAct, except if 'countActivity' is set to false
+									if(isset($activity['countActivity'])){
+										if($activity['countActivity'] == true){
+											$nbAct++;
+										}
+									}
+									else{
+										$nbAct++;
+									}
 									$time += $activity['length'];
 								}
 							}
-						
 						}
 						
 						echo '</ol>';
+						
+						echo '<p>Vous avez ainsi '.$nbAct.' activités à réaliser, et cela devrait durer environ '.$time.' minutes</p>';
 					}
 					
 					
@@ -394,8 +402,8 @@
 								$text = $text . $goalsText[$goalName];
 							}
 							
-							
-							return array('text' => $text, 'length' => $length);
+							//countActivity = false : this is not considered as an activity (and is not considered when doing the sum of activities the learner has to realize)
+							return array('text' => $text, 'length' => $length, 'countActivity' => false);
 						}
 						
 					}
