@@ -9,6 +9,11 @@ add ids when storing (if necessary)
 
 -afficher en fin (ou début) de boussole : temps total estimé et nombre activités
 
+-prendre en compte les priorités au moment où les activités sont encore groupées ensemble au sein d'une même conséquence (pour que l'ordre affiché dans une même règle concernant les activités soit conservé).
+
+
+
+
 important : 
 -if no 'xmlns' attribute to root of xml, jquery automatically adds it to new elements inserted
 -if 'xmlns' attribute on a node of xml doc, then php xpath ignores these nodes in queries.

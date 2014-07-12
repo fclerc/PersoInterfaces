@@ -85,15 +85,15 @@
 						
 						$rules = $this->strategy->getElementsByTagName('rule');
 						
+						//contains arrays of activities (each array corresponding to the set of activities contained in a consequence to apply to the learner)
+						$consequences = array();
+						//contains the final list of activities, in the right order, that have to be realized by learner
 						$activities = array();
 						
 						$activitiesContext = $seqContext->getElementsByTagName('activitiesContext')->item(0)->nodeValue;
 						$csqMgr = new ConsequenceGenerator($this->pedaProp, $this->xpathStrategy, $this->xpathResources, $activitiesContext);
 						
-						//this array will contain the rules that apply to the learner.
-						//elements have the form 'then' or 'else' => rule    TODO change if changed
-						foreach ($rules as $rule){
-							
+						foreach ($rules as $rule){	
 							$priority = $this->getPriority($rule);
 						
 							$verified = true; //True if condition is verified. If 'if' part is void, evaluate at true by default
@@ -111,18 +111,27 @@
 							}
 							
 							
-							$csqActivities = $csqMgr->generate($consequence);
-							foreach($csqActivities as $act){
+							//$csqActivities = $csqMgr->generate($consequence);
+							
+							$consequences[] = array('activities' => $csqMgr->generate($consequence), 'priority' => $priority);
+							/* foreach($csqActivities as $act){
 								$activities[] = array('activity' => $act, 'priority' => $priority);
-							}
+							} */
 						}
 						
-						//sorting by priority
-						usort($activities, function($a, $b){
-							return $a['priority'] <= $b['priority'];
-						});
+							//sorting consequences by priority
+							usort($consequences, function($a, $b){
+								return $a['priority'] <= $b['priority'];
+							});
+							
+							foreach($consequences as $consequence){
+								$csqAct = $consequence['activities'];
+								foreach($csqAct as $activity){
+									$activities[] = $activity;
+								}
+							}
 						
-						var_dump($activities);
+						var_dump($consequences);var_dump($activities);
 						$this->displayActivities($activities, $seqContext);
 					
 					}
@@ -140,11 +149,11 @@
 						
 						foreach($activities as $activity){
 							if($nbAct < $maxAct){
-								$activityTime = $activity['activity']['length'];
+								$activityTime = $activity['length'];
 								if($time + $activityTime <= $maxTime){
-									echo '<li>'.$activity['activity']['text'].'</li>';
+									echo '<li>'.$activity['text'].'</li>';
 									$nbAct++;
-									$time += $activity['activity']['length'];
+									$time += $activity['length'];
 								}
 							}
 						
@@ -311,7 +320,7 @@
 					//takes activity as an argument, returns information about what has to be done by learner
 					private function treatActivity($activity){
 						$activityName = $this->getActivityName($activity);
-						
+						echo $activityName;
 						//if defined, get the given length
 						$length = 0;
 						$lengthParam = $this->getParameterByName('Length', $activity);
@@ -370,6 +379,23 @@
 							
 							return array('text' => $text, 'length' => $length);
 						
+						}
+						
+						else if($activityName == 'Message'){
+							$goalsText = array(
+								'Encouraging' => 'Continuez vos efforts, bientôt vous serez un as de la colonne vertébrale !',
+								'Greeting' => 'Bonjour, ravi de vous retrouver aujourd\'hui pour étudier cette belle matière qu\'est l\'anatomie !',
+							);
+							
+							$goalParam = $this->getParameterByName('Goal', $activity);
+							$text = '';
+							if($goalParam){
+								$goalName = $goalParam->getElementsByTagName('value')->item(0)->nodeValue;
+								$text = $text . $goalsText[$goalName];
+							}
+							
+							
+							return array('text' => $text, 'length' => $length);
 						}
 						
 					}
