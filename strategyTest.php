@@ -328,54 +328,9 @@
 					
 					}
 					
-					//argument : resource, issued from resourcesDefinition
-					//returns array of array describing activities (but doesn't consider exercises)
-					//TODO : use it for each resource identified as having to be done
-					//realizes the filter on resource status
-					private function getResourceActivity($resource){
-						$activities = array();
-						$URI = $resource->getAttribute('URI');
-						
-						$name = $this->getResourceProperty($resource, 'name');
-						$type = $this->getResourceProperty($resource, 'type');
-						$status = $this->getResourceProperty($resource, 'status');
-						$length = intval($this->getResourceProperty($resource, 'length'));
-							
-						//group of resource : display this resource, and apply same function to its children
-						if($type == 'group'){
-							$activities[] = array('text' => 'Consultez les ressources de la section <a href="'.$URI.'">'.$name.'</a> (elles sont listées ci-dessous)', 'length' => 0, 'countActivity' => false);
-							
-							foreach($resource->childNodes as $child){
-								if(isset($child->tagName)){
-									if($child->tagName == 'resource'){
-										$result = $this->getResourceActivity($child);
-										foreach($result as $r){
-											$activities[] = $r;
-										}
-									}
-								}
-							}
-						
-						}
-						
-						else if($type != 'quiz' && $type != 'assignment'){
-							$activities[] = array('text' => 'Consultez <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
-						}
-						return $activities;
 					
-					}
 					
-					//Arguments : a resource, and the name of a property
-					//returns the value of the property (or 0 if nothing can be found)
-					private function getResourceProperty($resource, $propertyName){
-						$prop = 0;
-						$query = "./*[local-name()='".$propertyName."']";
-						$element = $this->xpathResources->query($query, $resource, false)->item(0);
-						if($element){
-							$prop = $element->nodeValue;
-						}
-						return $prop;
-					}
+					
 					
 					
 					//takes activity as an argument, returns information about what has to be done by learner
@@ -389,6 +344,21 @@
 						}
 						
 						if($activityName == 'Learning'){
+						
+						
+							
+							//the params for which a simple filter is realized. We create an array associating each of the defined parameters to the value given by the teacher
+							$filters = array();
+							$simpleParams = array('Length', 'Status', 'Difficulty', 'Type', 'Sequence');
+							foreach($simpleParams as $param){
+								$paramValue = $this->getParameterValueByName($param, $activity);
+								if($paramValue !== null){
+									$filters[] = array('parameter' => strToLower($param), 'value' => $paramValue);
+								}
+							
+							}
+							var_dump($filters);
+							
 							$nameParam = $this->getParameterByName('Name', $activity);
 							if($nameParam){
 								$resourceName = $nameParam->getElementsByTagName('value')->item(0)->nodeValue;
@@ -455,6 +425,57 @@
 						
 					}
 					
+					//argument : resource, issued from resourcesDefinition
+					//returns array of array describing activities (but doesn't consider exercises)
+					//TODO : use it for each resource identified as having to be done
+					//realizes simple filters that are done directly on eahc resource (status, type, difficulty, sequence)
+					private function getResourceActivity($resource){
+						$activities = array();
+						$URI = $resource->getAttribute('URI');
+						
+						$name = $this->getResourceProperty($resource, 'name');
+						$type = $this->getResourceProperty($resource, 'type');
+						$status = $this->getResourceProperty($resource, 'status');
+						$length = intval($this->getResourceProperty($resource, 'length'));
+						$difficulty = intval($this->getResourceProperty($resource, 'difficulty'));
+						$sequence = intval($this->getResourceProperty($resource, 'difficulty'));
+							
+						//group of resource : display this resource, and apply same function to its children
+						if($type == 'group'){
+							$activities[] = array('text' => 'Consultez les ressources de la section <a href="'.$URI.'">'.$name.'</a> (elles sont listées ci-dessous)', 'length' => 0, 'countActivity' => false);
+							
+							foreach($resource->childNodes as $child){
+								if(isset($child->tagName)){
+									if($child->tagName == 'resource'){
+										$result = $this->getResourceActivity($child);
+										foreach($result as $r){
+											$activities[] = $r;
+										}
+									}
+								}
+							}
+						
+						}
+						
+						else if($type != 'quiz' && $type != 'assignment'){
+							$activities[] = array('text' => 'Consultez <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+						}
+						return $activities;
+					
+					}
+					
+					
+					//Arguments : a resource, and the name of a property
+					//returns the value of the property (or 0 if nothing can be found)
+					private function getResourceProperty($resource, $propertyName){
+						$prop = 0;
+						$query = "./*[local-name()='".$propertyName."']";
+						$element = $this->xpathResources->query($query, $resource, false)->item(0);
+						if($element){
+							$prop = $element->nodeValue;
+						}
+						return $prop;
+					}
 					
 					
 					
@@ -466,6 +487,17 @@
 							$query = ".//*[local-name()='parameter' and .//*[local-name()='id' and .='$paramId']]";
 							$param = $this->xpathStrategy->query($query, $activity, false);
 							return $param->item(0);
+						}
+						else{
+							return null;
+						}
+					}
+					
+					private function getParameterValueByName($name, $activity){
+						$param = $this->getParameterByName($name, $activity);
+						if($param){
+							$value = $param->getElementsByTagName('value')->item(0)->nodeValue;
+							return $value;
 						}
 						else{
 							return null;
