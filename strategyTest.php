@@ -317,7 +317,10 @@
 							if($consequence->getElementsByTagName('activity')->length > 0){
 								$activities = $consequence->getElementsByTagName('activity');
 								foreach($activities as $activity){
-									$generatedActivities[] = $this->treatActivity($activity);
+									$computedActivities = $this->treatActivity($activity);
+									foreach($computedActivities as $acti){
+										$generatedActivities[] = $acti;
+									}
 								}
 							}
 						}
@@ -325,15 +328,58 @@
 					
 					}
 					
+					//argument : resource, issued from resourcesDefinition
+					//returns array of array describing activities (but doesn't consider exercises)
+					private function getResourceActivity($resource){
+						$activities = array();
+						$resourceURI = $resource->getAttribute('URI');
+						$nameQuery = "./*[local-name()='name']";		
+						$resourceName = $this->xpathResources->query($nameQuery, $resource, false)->item(0)->nodeValue;
+						
+						$typeQuery = "./*[local-name()='type']";		
+						$resourceType = $this->xpathResources->query($typeQuery, $resource, false)->item(0)->nodeValue;
+						
+						//getting the length of the resource
+						$lengthQuery = "./*[local-name()='length']";
+						$lengthElement = $this->xpathResources->query($lengthQuery, $resource, false)->item(0);
+						if($lengthElement){
+							$resourceLength = intval($lengthElement->nodeValue);
+						}
+						
+						//group of resource : display this resource, and apply same function to its children
+						if($resourceType == 'group'){
+							$activities[] = array('text' => 'Consultez les ressources de la section <a href="'.$resourceURI.'">'.$resourceName.'</a> (elles sont listées ci-dessous)', 'length' => 0, 'countActivity' => false);
+							
+							foreach($resource->childNodes as $child){
+								if(isset($child->tagName)){
+									if($child->tagName == 'resource'){
+										$result = $this->getResourceActivity($child);
+										foreach($result as $r){
+											$activities[] = $r;
+										}
+									}
+								}
+							}
+						
+						}
+						
+						else if($resourceType != 'quiz' && $resourceType != 'assignment'){
+							$activities[] = array('text' => 'Consultez <a href="'.$resourceURI.'">'.$resourceName.'</a>', 'length' => $resourceLength);
+						}
+						return $activities;
+					
+					}
+					
+					
+					
 					//takes activity as an argument, returns information about what has to be done by learner
 					private function treatActivity($activity){
 						$activityName = $this->getActivityName($activity);
-						echo $activityName;
 						//if defined, get the given length
 						$length = 0;
 						$lengthParam = $this->getParameterByName('Length', $activity);
 						if($lengthParam){
-							$length = $lengthParam->getElementsByTagName('value')->item(0)->nodeValue;
+							$length = intval($lengthParam->getElementsByTagName('value')->item(0)->nodeValue);
 						}
 						
 						if($activityName == 'Learning'){
@@ -341,15 +387,10 @@
 							if($nameParam){
 								$resourceName = $nameParam->getElementsByTagName('value')->item(0)->nodeValue;
 								$resourceQuery = "//*[local-name()='resource' and ./*[local-name()='name' and .='".$resourceName."']]";
-								
 								$resource = $this->xpathResources->query($resourceQuery)->item(0);
-								$resourceURI = $resource->getAttribute('URI');
 								
-								//getting the length of the resource
-								$lengthQuery = "./*[local-name()='length']";
-								$resourceLength = $this->xpathResources->query($lengthQuery, $resource, false)->item(0)->nodeValue;
-								return array('text' => 'Consultez <a href="'.$resourceURI.'">'.$resourceName.'</a>', 'length' => $resourceLength);
-							
+								return $this->getResourceActivity($resource);
+								
 							}
 							
 						}
@@ -385,7 +426,7 @@
 							
 							$text = $text . '(passez-y environ '.$length.' minutes).';
 							
-							return array('text' => $text, 'length' => $length);
+							return array(array('text' => $text, 'length' => $length));
 						
 						}
 						
@@ -403,7 +444,7 @@
 							}
 							
 							//countActivity = false : this is not considered as an activity (and is not considered when doing the sum of activities the learner has to realize)
-							return array('text' => $text, 'length' => $length, 'countActivity' => false);
+							return array(array('text' => $text, 'length' => $length, 'countActivity' => false));
 						}
 						
 					}
