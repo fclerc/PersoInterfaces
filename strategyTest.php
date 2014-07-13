@@ -346,7 +346,7 @@
 						if($activityName == 'Learning'){
 							//the params for which a simple filter is realized. We create an array associating each of the defined parameters to the value given by the teacher
 							$filters = array();
-							$simpleParams = array('Length', 'Status', 'Difficulty', 'Type', 'Sequence');
+							$simpleParams = array('Length', 'Status', 'Difficulty', 'Type', 'Sequence', 'Categories');
 							foreach($simpleParams as $param){
 								$paramValue = $this->getParameterValueByName($param, $activity);
 								if($paramValue !== null){
@@ -361,7 +361,7 @@
 								$resourceQuery = "//*[local-name()='resource' and ./*[local-name()='name' and .='".$resourceName."']]";
 								$resource = $this->xpathResources->query($resourceQuery)->item(0);
 								
-								return $this->getResourceActivity($resource, $filters);
+								return $this->treatLearningActivity($resource, $filters);
 								
 							}
 							
@@ -395,8 +395,9 @@
 								$actionName = $actionParam->getElementsByTagName('value')->item(0)->nodeValue;
 								$text = $text . $actionsText[$actionName];
 							}
-							
-							$text = $text . '(passez-y environ '.$length.' minutes).';
+							if($length){
+								$text = $text . '(passez-y environ '.$length.' minutes).';
+							}
 							
 							return array(array('text' => $text, 'length' => $length));
 						
@@ -425,7 +426,7 @@
 					//returns array of array describing activities (but doesn't consider exercises)
 					//TODO : use it for each resource identified as having to be done
 					//realizes simple filters that are done directly on eahc resource (status, type, difficulty, sequence)
-					private function getResourceActivity($resource, $filters){
+					private function treatLearningActivity($resource, $filters){
 						$activities = array();
 						$URI = $resource->getAttribute('URI');
 						
@@ -435,7 +436,9 @@
 						
 						//true iff resource filters applied up now
 						$valid = true;
-						$valid = $this->checkFilter('status', $resource, $filters) && $this->checkFilter('difficulty', $resource, $filters) && $this->checkFilter('sequence', $resource, $filters);
+						//echo $name;
+						//var_dump($this->checkFilter('categories', $resource, $filters));
+						$valid = $this->checkFilter('status', $resource, $filters) && $this->checkFilter('difficulty', $resource, $filters) && $this->checkFilter('sequence', $resource, $filters) && $this->checkFilter('categories', $resource, $filters);
 						
 						if($valid){//eg status, type and length are good
 							//group of resource : apply same function to its children, and display iff non void result (at least one activity returned)
@@ -444,7 +447,7 @@
 								foreach($resource->childNodes as $child){
 									if(isset($child->tagName)){
 										if($child->tagName == 'resource'){
-											$result = $this->getResourceActivity($child, $filters);
+											$result = $this->treatLearningActivity($child, $filters);
 											foreach($result as $r){
 												$activities[] = $r;
 											}
@@ -468,9 +471,21 @@
 					
 					//false iff the resource verifies the value in the filter for the given parameter name
 					private function checkFilter($name, $resource, $filters){
-						$resourceValue = $this->getResourceProperty($resource, $name);
-						if(isset($filters[$name]) && $resourceValue !== null){
-							return $filters[$name] == $resourceValue;
+						$resourceValues = $this->getResourceProperty($resource, $name);
+						if(isset($filters[$name]) && $resourceValues !== null){
+							$resourceValues = explode(' ' , $resourceValues);
+							$filterValues = explode(' ' , $filters[$name]);
+							
+							foreach($resourceValues as $resourceValue){
+								if($resourceValue != ''){
+									foreach($filterValues as $filterValue){
+										if($filterValue == $resourceValue){
+											return true;
+										}
+									}
+								}
+							}
+							return false;
 						}
 						else{
 							return true;
