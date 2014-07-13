@@ -460,7 +460,10 @@
 							}
 							
 							else if($type != 'quiz' && $type != 'assignment'){
-								$activities[] = array('text' => 'Consultez <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+								$valid = $this->checkFilter('type', $resource, $filters);
+								if($valid){
+									$activities[] = array('text' => 'Consultez <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+								}
 							}
 						}
 						
