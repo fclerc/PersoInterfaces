@@ -22,7 +22,7 @@
 			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A" id="R14">
 				<name id="R15">A) Étude de la colonne vertébrale simplifiée et la vertèbre type </name>
 				<type id="R16">group</type>
-				<status id="R17">Optional</status>
+				<status id="R17">Mandatory</status>
 				
 				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426" id="R30">
 					<name id="R31">Quiz1</name>
@@ -40,7 +40,7 @@
 				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A-1" id="R41">
 					<name id="R42">Colonne vertébrale : video non sonorisée + document</name>
 					<type id="R43">group</type>
-					<status id="R44">Optional</status>
+					<status id="R44">Mandatory</status>
 					<order id="R45">
 						<context id="R46">beginner</context>
 						<position id="R47">3</position>
@@ -52,7 +52,7 @@
 					<resource URI="http://youtu.be/TvOSAWc1l5o" id="R51">
 						<name id="R52">Colonne vertébrale : video non sonorisée</name>
 						<type id="R53">video</type>
-						<status id="R54">Optional</status>
+						<status id="R54">Mandatory</status>
 						<difficulty id="R55">1</difficulty>
 						<sequence id="R56">1</sequence>
 						<length id="R57">15</length>
@@ -60,7 +60,7 @@
 					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/8171" id="R58">
 						<name id="R59">Colonne vertébrale : cours écrit</name>
 						<type id="R60">text</type>
-						<status id="R61">Optional</status>
+						<status id="R61">Mandatory</status>
 						<difficulty id="R62">1</difficulty>
 						<sequence id="R63">1</sequence>
 						<length id="R64">15</length>
@@ -113,12 +113,12 @@
 				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-B-1" id="R102">
 					<name id="R103">Courbures  vertébrales : video non sonorisée + document</name>
 					<type id="R104">group</type>
-					<status id="R105">Optional</status>
+					<status id="R105">Mandatory</status>
 					<order id="R106">
 						<context id="R107">beginner</context>
 						<position id="R108">3</position>
 					</order>
-					<difficulty id="R109">1</difficulty>
+					<difficulty id="R109">2</difficulty>
 					<sequence id="R110">1</sequence>
 					<length id="R111">15</length>
 					

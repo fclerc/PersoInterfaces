@@ -12,7 +12,11 @@ add ids when storing (if necessary)
 -prendre en compte les priorités au moment où les activités sont encore groupées ensemble au sein d'une même conséquence (pour que l'ordre affiché dans une même règle concernant les activités soit conservé).
 
 
+todo : if no child displayed, don't display group
 
+decide if children values override parents' ones.
+
+allow list of values for a parameter (between spaces, only thing todo is modify checkFilter)
 
 important : 
 -if no 'xmlns' attribute to root of xml, jquery automatically adds it to new elements inserted

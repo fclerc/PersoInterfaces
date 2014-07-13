@@ -432,34 +432,36 @@
 						$name = $this->getResourceProperty($resource, 'name');
 						$type = $this->getResourceProperty($resource, 'type');
 						$length = intval($this->getResourceProperty($resource, 'length'));
-						$difficulty = intval($this->getResourceProperty($resource, 'difficulty'));
-						$status = $this->getResourceProperty($resource, 'status');
-						$sequence = intval($this->getResourceProperty($resource, 'difficulty'));
 						
-						//true iff resource verifies filters
+						//true iff resource filters applied up now
 						$valid = true;
-						//$this->checkFilter('type', $resource, $filters)
+						$valid = $this->checkFilter('status', $resource, $filters) && $this->checkFilter('difficulty', $resource, $filters) && $this->checkFilter('sequence', $resource, $filters);
 						
-						//group of resource : display this resource, and apply same function to its children
-						if($type == 'group'){
-							$activities[] = array('text' => 'Consultez les ressources de la section <a href="'.$URI.'">'.$name.'</a> (elles sont listées ci-dessous)', 'length' => 0, 'countActivity' => false);
-							
-							foreach($resource->childNodes as $child){
-								if(isset($child->tagName)){
-									if($child->tagName == 'resource'){
-										$result = $this->getResourceActivity($child, $filters);
-										foreach($result as $r){
-											$activities[] = $r;
+						if($valid){//eg status, type and length are good
+							//group of resource : apply same function to its children, and display iff non void result (at least one activity returned)
+							if($type == 'group'){
+								
+								foreach($resource->childNodes as $child){
+									if(isset($child->tagName)){
+										if($child->tagName == 'resource'){
+											$result = $this->getResourceActivity($child, $filters);
+											foreach($result as $r){
+												$activities[] = $r;
+											}
 										}
 									}
 								}
+								if(count($activities) > 0){//if at least one child resource has been added : add the current resource also
+									array_unshift($activities, array('text' => 'Consultez les ressources de la section <a href="'.$URI.'">'.$name.'</a> (elles sont listées ci-dessous)', 'length' => 0, 'countActivity' => false));
+								}
 							}
-						
+							
+							else if($type != 'quiz' && $type != 'assignment'){
+								$activities[] = array('text' => 'Consultez <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+							}
 						}
 						
-						else if($type != 'quiz' && $type != 'assignment'){
-							$activities[] = array('text' => 'Consultez <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
-						}
+						
 						return $activities;
 					
 					}
