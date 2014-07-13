@@ -130,13 +130,12 @@
 									$activities[] = $activity;
 								}
 							}
-						var_dump($activities);
 						$this->displayActivities($activities, $seqContext);
 					
 					}
 					
 					private function displayActivities($activities, $seqContext){
-						echo 'Bonjour. Nous vous proposons de réaliser les activités suivantes : <br/><ol>';
+						echo 'Bonjour. Nous vous proposons de réaliser les activités suivantes : <br/><ul>';
 						$maxAct = intval($seqContext->getElementsByTagName('numberOfActivities')->item(0)->getElementsByTagName('max')->item(0)->nodeValue);
 						$minAct = intval($seqContext->getElementsByTagName('numberOfActivities')->item(0)->getElementsByTagName('min')->item(0)->nodeValue);
 						$maxTime = intval($seqContext->getElementsByTagName('activitiesDuration')->item(0)->getElementsByTagName('max')->item(0)->nodeValue);
@@ -165,7 +164,7 @@
 							}
 						}
 						
-						echo '</ol>';
+						echo '</ul>';
 						
 						echo '<p>Vous avez ainsi '.$nbAct.' activités à réaliser, et cela devrait durer environ '.$time.' minutes</p>';
 					}
@@ -436,8 +435,6 @@
 						
 						//true iff resource filters applied up now
 						$valid = true;
-						//echo $name;
-						//var_dump($this->checkFilter('categories', $resource, $filters));
 						$valid = $this->checkFilter('status', $resource, $filters) && $this->checkFilter('difficulty', $resource, $filters) && $this->checkFilter('sequence', $resource, $filters) && $this->checkFilter('categories', $resource, $filters);
 						
 						if($valid){//eg status, type and length are good
