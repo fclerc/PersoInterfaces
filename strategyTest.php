@@ -38,7 +38,6 @@
         $scales = $_POST['scales'];
         $section = $_POST['section'];
     }
-    var_dump($_POST);
     ?>
 		<div class="container">
 			<h1><span class="toTranslate">strategyTest.h1</span><small><span id="currentFile">strategyTest.currentFileIntro</span><span id="currentFileName"><?php echo $file; ?></span></small></h1>
@@ -52,8 +51,8 @@
 				$profilePath = $profilepath.$profilefile;
 				$sequenceContextPath = $sequenceContextpath.$sequenceContextfile;
 				$liveContextPath = $liveContextpath.$liveContextfile;
-				$generator = new ActivitiesGenerator($strategyPath);
-				$generator->generate('', '', '');
+				$generator = new ActivitiesGenerator($strategyPath, $profilePath, $sequenceContextPath, $liveContextPath);
+				$generator->generate($profilePath, $sequenceContextPath, $liveContextPath);
 				
 				class ActivitiesGenerator{
 					private $strategy;
@@ -79,18 +78,17 @@
 						$this->xpathResources = new DOMXPath($this->resources);
 					}
 				
-					public function generate($profile, $liveContext, $sequenceContext){
+					public function generate($profilePath, $sequenceContextPath, $liveContextPath){
 						//loading other files used for test
 						//TODO : replace it with arguments
-						$exploitedProfileFile = $this->strategy->getElementsByTagName('exploitedProfile')->item(0)->nodeValue;
-						$exploitedContextFile = $this->strategy->getElementsByTagName('exploitedContext')->item(0)->nodeValue;
+						//$exploitedProfileFile = $this->strategy->getElementsByTagName('exploitedProfile')->item(0)->nodeValue;
+						//$exploitedContextFile = $this->strategy->getElementsByTagName('exploitedContext')->item(0)->nodeValue;
 						$profile = new DOMDocument();
-						$profile->load($exploitedProfileFile);
+						$profile->load($profilePath);
 						$liveContext = new DOMDocument();
-						$liveContext->load($exploitedContextFile);
-						//TODO ; use $_POST
+						$liveContext->load($liveContextPath);
 						$seqContext = new DOMDocument();
-						$seqContext->load('data/teacher/sequenceContexts/Sequence1.xml');
+						$seqContext->load($sequenceContextPath);
 						//TODO : us it as argument (or not ?)
 						$profileScales = json_decode(file_get_contents('data/schemas/profileScales.json'));
 						$contextScales = json_decode(file_get_contents('data/schemas/contextScales.json'));
