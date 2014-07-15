@@ -116,7 +116,7 @@
                 </li>
                 <li><strong>Social</strong> : l'apprenant est invité à se rendre sur les réseaux sociaux, ou sur le forum du MOOC.</li>
                 <li><strong>Exercice</strong> : cette activité est la réalisation d'un exercice par l'apprenant</li>
-                <li><strong>Message</strong> : il ne s'agit pas d'une activité à proprement parlé, mais se manifestera tout de même dans la boussole : il s'agit du simple affichage d'un message à destination de l'apprenant (pour lui dire bonjour, le féliciter, l'encourager,...).</li>
+                <li><strong>Message</strong> : il ne s'agit pas d'une activité à proprement parler, mais se manifestera tout de même dans la boussole : il s'agit du simple affichage d'un message à destination de l'apprenant (pour lui dire bonjour, le féliciter, l'encourager,...).</li>
             </ul>
             
             <h4>...la stratégie pédagogique</h4>

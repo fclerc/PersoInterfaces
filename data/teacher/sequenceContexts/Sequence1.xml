@@ -2,8 +2,8 @@
 <sequenceContext id="CTX1">
     <activitiesContext id="SC1">beginner</activitiesContext>
     <numberOfActivities id="CTX2">
-        <min id="SC2">3</min>
-        <max id="SC3">12</max>
+        <min id="SC2">2</min>
+        <max id="SC3">2</max>
     </numberOfActivities>
     <activitiesDuration id="CTX3">
         <min id="SC4">30</min>
