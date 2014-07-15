@@ -29,8 +29,8 @@
     }
     ?>
 		<div class="container">
-			<h1><span class="toTranslate">resourcesModification.h1</span><span id="sectionName"><?php echo $section; ?></span><small><span id="currentFile">resourcesModification.currentFileIntro</span><span id="currentFileName"><?php echo $file; ?></span></small></h1>
-			<p id="generalInstructions">resourcesModification.instructions</p>
+			<h1><span class="toTranslate">resourcesModification.h1</span><small><span id="currentFile"  class="toTranslate">resourcesModification.currentFileIntro</span><span id="currentFileName"><?php echo $file; ?></span></small></h1>
+			<p id="generalInstructions" class="toTranslate">resourcesModification.instructions</p>
 			<p><a href="index.php" id="mainLink">common.back</a></p>
 			<div id="XMLcontainer"></div>
         </div>
@@ -50,10 +50,10 @@
 			  <!-- The form which is displayed when user edits or create a new resource -->
               <div class="modal-body">
                 <form id='paramForm'>
-                    <label for="name">Name: </label><input class="form-control" type='text' name="name" id="name" /><br/>
+                    <label for="name" ><span class="toTranslate">Name</span>: </label><input class="form-control" type='text' name="name" id="name" /><br/>
                     <label for="URI">URI: </label><input class="form-control" type='text' name="URI" id="URI" /><br/>
                     
-                    <label for="type">Type: </label>
+                    <label for="type" ><span class="toTranslate">Type</span>: </label>
                     <select class="form-control" name='type' id='type'>
                         <option></option>
                         <option>video</option>
@@ -68,7 +68,7 @@
                         <option>other</option>
                     </select><br/>
                     
-                    <label for='status'>Status: </label>
+                    <label for='status'  ><span class="toTranslate">Status</span>: </label>
                     <select class="form-control" name='status' id='status'>
                         <option></option>
                         <option>Mandatory</option>
@@ -76,7 +76,7 @@
                         <option>Bonus</option>
                     </select><br/>
                     
-                    <label for='difficulty'>Difficulty: </label>
+                    <label for='difficulty'  ><span class="toTranslate">Difficulty</span>: </label>
                     <select class="form-control" name='difficulty' id='difficulty'>
                         <option></option>
                         <option>1</option>
@@ -86,20 +86,20 @@
                         <option>5</option>
                     </select><br/>
                     
-                    <label for="sequence">Sequence: </label><input class="form-control" type='number' step='1' name="sequence" id="sequence" /><br/>
-                    <label for="length">Length: </label><input class="form-control" type='number' step='1' name="length" id="length" /><br/>
-                    <label for="categories">Categories: </label><input class="form-control" type='text' name="categories" id="categories" /><br/>
+                    <label for="sequence" ><span class="toTranslate">Sequence</span>: </label><input class="form-control" type='number' step='1' name="sequence" id="sequence" /><br/>
+                    <label for="length" ><span class="toTranslate">Length</span>: </label><input class="form-control" type='number' step='1' name="length" id="length" /><br/>
+                    <label for="categories" ><span class="toTranslate">Categories</span>: </label><input class="form-control" type='text' name="categories" id="categories" /><br/>
                     
-                    <label for="grade">Grade?</label><input type="checkbox" name='grade' id='grade' />
+                    <label for="grade" class="toTranslate">Grade?</label><input type="checkbox" name='grade' id='grade' />
                     <div id="maxPointsForm">
-                        <label for="maxPoints">Maximum of points: </label><input class="form-control" type="number" step="1" name="maxPoints" id="maxPoints"/>
+                        <label for="maxPoints" ><span class="toTranslate">Maximum of points</span>: </label><input class="form-control" type="number" step="1" name="maxPoints" id="maxPoints"/>
                     </div>
                     
-                    <div id="orderForms">Orders
+                    <div id="orderForms"><span  class="toTranslate">Orders</span>
                         <span class="glyphicon glyphicon-plus orderAdder" title="Add order"></span>
                     </div>
                     
-                    <label for="description">Description: </label> 
+                    <label for="description" ><span class="toTranslate">Description</span>: </label> 
                     <textarea name="description" class="form-control" id="description"></textarea>
                     
                     

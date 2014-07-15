@@ -62,8 +62,8 @@
         $.ajax({//loading translation
             type: "GET",
             url: translationFile,
-            success: function(data){
-                _.setTranslation(data);
+            success: function(translationData){
+                _.setTranslation(translationData);
 			//translating the already displayed content
             $('#fileRemovedSuccess, .container h1, #languageChoice span, p, .toTranslate').each(function(){
                 $(this).text(_($(this).text()));
@@ -106,7 +106,37 @@
                     }
                 });
                 
+                //if strategy test : several files have to be displayed
+                if(section == 'strategyTest'){
+                    $(form).append($('<label>').append(_('Chose your strategy')).attr('for', 'file'));
+                }
+                
 				$(form).append(fileSelect).append(pathForm).append(sectionForm).append(schemaForm).append(scalesForm).append(actionForm);
+                
+                
+                
+                
+                if(section == 'strategyTest'){
+                    var otherFiles = ['profile', 'liveContext', 'sequenceContext'];
+                    $(otherFiles).each(function(id, name){
+                        var label = $('<label>').append(_(name)).attr('for', name+'file')
+                        var fileSelect = $('<select>').addClass('form-control').attr('name', name+'file');
+                        $(data['files'][name]).each(function(id, file){
+                            if(file != '.' && file !='..' && file!='empty.xml'){
+                                $(fileSelect).append($('<option>').append(file));
+                            }
+                        });
+                        var pathForm = $('<input>').attr('type', 'hidden').attr('name', name+'path').attr('value', data['path'][name]);
+                        
+                        $(form).append(label).append(fileSelect).append(pathForm);
+                    });
+                    //$(form).append($('<span>').append('Profile Choice'));
+                }
+                
+                
+                
+                
+                
 				$(form).append(fileOpener).append(fileCreator).append(fileDuplicator).append(fileDeleter);
 				
 				$(sectionContainer).append(form);

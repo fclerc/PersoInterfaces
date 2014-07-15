@@ -919,12 +919,54 @@ msgid "valuesModification.currentFileIntro"
 msgstr ""
 
 
+#
+#
+#Resources and strategy
+#
+#
 
 
+msgid "filechoice.strategyTest.instr"
+msgstr ""
 
+msgid "resourcesModification.h1"
+msgstr ""
 
+msgid "resourcesModification.currentFileIntro"
+msgstr ""
 
+msgid "resourcesModification.instructions"
+msgstr ""
 
+msgid "paramModal.h4"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "strategyTest.h1"
+msgstr ""
+
+msgid "strategyTest.currentFileIntro"
+msgstr ""
+
+msgid "strategyTest.instructions"
+msgstr ""
+
+msgid "Maximum of points"
+msgstr ""
+
+msgid "Grade?"
+msgstr ""
+
+msgid "Strategy testing"
+msgstr ""
+
+msgid "profile"
+msgstr ""
+
+msgid "Chose your strategy"
+msgstr ""
 
 
 

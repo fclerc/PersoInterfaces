@@ -895,6 +895,57 @@ msgstr ""
 msgid "valuesModification.currentFileIntro"
 msgstr "Modification de : "
 
+msgid "filechoice.strategyTest.instr"
+msgstr ""
+"Sélectionnez une stratégie, un profil d'apprenant, un contexte 'live' et un "
+"contexte de séquence, découvrez la boussole qui sera ainsi générée !"
+
+#
+#
+# Values modification page
+#
+#
+msgid "resourcesModification.h1"
+msgstr "Modification des propriétés des ressources"
+
+msgid "resourcesModification.currentFileIntro"
+msgstr "Vous éditez les ressources du fichier "
+
+msgid "resourcesModification.instructions"
+msgstr ""
+"Ajoutez ou supprimez des ressources, et éditez leurs propriétés en cliquant "
+"sur l'icône de modification."
+
+msgid "paramModal.h4"
+msgstr "Modification des propriétés"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "strategyTest.h1"
+msgstr "Test de stratégie pédagogique"
+
+msgid "strategyTest.currentFileIntro"
+msgstr "Vous testez : "
+
+msgid "strategyTest.instructions"
+msgstr "Voici la boussole telle qu'elle sera vue par l'apprenant :"
+
+msgid "Maximum of points"
+msgstr "Nombre de points maximum"
+
+msgid "Grade?"
+msgstr "Noté ?"
+
+msgid "Strategy testing"
+msgstr "Test de la stratégie"
+
+msgid "Orders"
+msgstr "Ordres"
+
+#~ msgid "strategyTest.h1strategyTest"
+#~ msgstr "Test de stratégie pédagogique"
+
 #, fuzzy
 #~ msgid "Currently defining "
 #~ msgstr "Modification de "
