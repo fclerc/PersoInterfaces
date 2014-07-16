@@ -968,5 +968,11 @@ msgstr ""
 msgid "Chose your strategy"
 msgstr ""
 
+msgid "You are using files: "
+msgstr ""
+ 
+msgid "Live Context"
+msgstr ""
 
-
+msgid "Sequence Context"
+msgstr ""

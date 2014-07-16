@@ -42,6 +42,14 @@
 		<div class="container">
 			<h1><span class="toTranslate">strategyTest.h1</span><small><span id="currentFile">strategyTest.currentFileIntro</span><span id="currentFileName"><?php echo $file; ?></span></small></h1>
 			<p id="generalInstructions">strategyTest.instructions</p>
+            <p><span class="toTranslate">You are using files: </span></br/>
+                <?php
+                    echo '<b><span class="toTranslate">Profile</span></b>: '.$profilefile.'<br/>';
+                    echo '<b><span class="toTranslate">Live Context</span></b>: '.$liveContextfile.'<br/>';
+                    echo '<b><span class="toTranslate">Sequence Context</span></b>: '.$sequenceContextfile.'<br/>';
+                ?>
+            </p>
+            
 			<p><a href="index.php" id="mainLink">common.back</a></p>
 			
 			
@@ -356,10 +364,11 @@
 							$length = intval($lengthParam->getElementsByTagName('value')->item(0)->nodeValue);
 						}
 						
-						if($activityName == 'Learning'){
+						if($activityName == 'Learning' || $activityName == 'Exercise'){
 							//the params for which a simple filter is realized. We create an array associating each of the defined parameters to the value given by the teacher
 							$filters = array();
-							$simpleParams = array('Length', 'Status', 'Difficulty', 'Type', 'Sequence', 'Categories');
+							$simpleParams = array('Length', 'Status', 'Difficulty', 'Type', 'Sequence', 'Categories', 'Grade');
+                            
 							foreach($simpleParams as $param){
 								$paramValue = $this->getParameterValueByName($param, $activity);
 								if($paramValue !== null){
@@ -371,14 +380,16 @@
 							$nameParam = $this->getParameterByName('Name', $activity);
 							if($nameParam){
 								$resourceName = $nameParam->getElementsByTagName('value')->item(0)->nodeValue;
-								$resourceQuery = "//*[local-name()='resource' and ./*[local-name()='name' and .='".$resourceName."']]";
+								//finding the corresponding resource in the tree
+                                $resourceQuery = "//*[local-name()='resource' and ./*[local-name()='name' and .='".$resourceName."']]";
 								$resource = $this->xpathResources->query($resourceQuery)->item(0);
 								
-								return $this->treatLearningActivity($resource, $filters);
+								return $this->treatLearningActivity($resource, $filters, $activityName);
 								
 							}
 							
 						}
+                        
 						
 						else if($activityName == 'Social'){
 							$text = 'Allez sur ';
@@ -439,7 +450,7 @@
 					//returns array of array describing activities (but doesn't consider exercises)
 					//TODO : use it for each resource identified as having to be done
 					//realizes simple filters that are done directly on eahc resource (status, type, difficulty, sequence)
-					private function treatLearningActivity($resource, $filters){
+					private function treatLearningActivity($resource, $filters, $activityName){
 						$activities = array();
 						$URI = $resource->getAttribute('URI');
 						
@@ -451,14 +462,15 @@
 						$valid = true;
 						$valid = $this->checkFilter('status', $resource, $filters) && $this->checkFilter('difficulty', $resource, $filters) && $this->checkFilter('sequence', $resource, $filters) && $this->checkFilter('categories', $resource, $filters);
 						
-						if($valid){//eg status, type and length are good
+						if($valid){//eg status, type, difficulty, sequence are good
 							//group of resource : apply same function to its children, and display iff non void result (at least one activity returned)
 							if($type == 'group'){
 								
+                                //going recursively through children, and getting the activities
 								foreach($resource->childNodes as $child){
 									if(isset($child->tagName)){
 										if($child->tagName == 'resource'){
-											$result = $this->treatLearningActivity($child, $filters);
+											$result = $this->treatLearningActivity($child, $filters, $activityName);
 											foreach($result as $r){
 												$activities[] = $r;
 											}
@@ -470,12 +482,19 @@
 								}
 							}
 							
-							else if($type != 'quiz' && $type != 'assignment'){
+							else if($activityName == 'Learning' && $type != 'quiz' && $type != 'assignment'){
 								$valid = $this->checkFilter('type', $resource, $filters);
 								if($valid){
 									$activities[] = array('text' => 'Consultez <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
 								}
 							}
+                            else if($activityName == 'Exercise' && ($type == 'quiz' || $type == 'assignment')){
+                                $valid = $this->checkFilter('grade', $resource, $filters);
+                                //graded exercise
+                                if($valid){
+                                    $activities[] = array('text' => 'Faites le devoir noté <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+                                }
+                            }
 						}
 						
 						
@@ -485,7 +504,11 @@
 					
 					//false iff the resource verifies the value in the filter for the given parameter name
 					private function checkFilter($name, $resource, $filters){
-						$resourceValues = $this->getResourceProperty($resource, $name);
+						if($name == 'grade'){
+                            echo $this->getResourceProperty($resource, $name);
+                        }
+                        
+                        $resourceValues = $this->getResourceProperty($resource, $name);
 						if(isset($filters[$name]) && $resourceValues !== null){
 							$resourceValues = explode(' ' , $resourceValues);
 							$filterValues = explode(' ' , $filters[$name]);

@@ -940,8 +940,23 @@ msgstr "Noté ?"
 msgid "Strategy testing"
 msgstr "Test de la stratégie"
 
-msgid "Orders"
-msgstr "Ordres"
+msgid "profile"
+msgstr "Profil"
+
+msgid "Chose your strategy"
+msgstr "Stratégie"
+
+msgid "You are using files: "
+msgstr "Vous utilisez les fichiers :"
+
+msgid "Live Context"
+msgstr "Contexte 'en direct'"
+
+msgid "Sequence Context"
+msgstr "Contexte de la séquence"
+
+#~ msgid "Orders"
+#~ msgstr "Ordres"
 
 #~ msgid "strategyTest.h1strategyTest"
 #~ msgstr "Test de stratégie pédagogique"
@@ -958,9 +973,6 @@ msgstr "Ordres"
 
 #~ msgid "Add new Rule"
 #~ msgstr "Ajouter une nouvelle règle"
-
-#~ msgid "Save my strategy"
-#~ msgstr "Sauvegarder ma stratégie"
 
 #~ msgid "Rules you already defined:"
 #~ msgstr "Règles déjà définies :"

@@ -26,7 +26,7 @@
 				
 				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426" id="R30">
 					<name id="R31">Quiz1</name>
-					<type id="R32">quiz</type>
+					<type id="R32">assignment</type>
 					<status id="R33">Mandatory</status>
 					<order id="R34">
 						<context id="R35">beginner</context>
@@ -34,7 +34,7 @@
 					</order>
 					<difficulty id="R37">1</difficulty>
 					<sequence id="R38">1</sequence>
-					<grade maxPoints="20" id="R39">true</grade>
+					<grade maxPoints="20" id="R39">false</grade>
 					<length id="R40">15</length>
 				<uri xmlns="http://www.w3.org/1999/xhtml">http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426</uri></resource>
 				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A-1" id="R41">
