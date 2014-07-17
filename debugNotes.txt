@@ -1,0 +1,36 @@
+
+Bonsoir,
+
+Voilà mes remarques :
+
+- Il faut noter qqpart de ne pas utiliser Chrome... j'avais encore oublier :-/
+--> Tout marche maintenant sur chrome.
+
+- dans une nouvelle règle, une fois l'indicateur et l'opérateur choisis on a le message "Vous pouvez choisir entre : (actif), (sans emploi), (étudiant), (à la retraite), cliquez sur la valeur que vous souhaitez" 
+=> mais le clic ne marche pas, il doit manquer les valeurs anglaise avant la parenthese, non ?
+
+- pour l'affectation d'une activité : "Vous pouvez choisir entre : Video (Vidéo), Audio, Text (Texte), Quiz, Assignment, trainingExercise, forum, wiki, group, other, cliquez sur la valeur que vous souhaitez
+En définissant les ressources, vous avez utilisé les valeurs suivantes : , , , , , cliquez sur la valeur que vous souhaitez"
+=> je ne comprends pas la fin
+
+--> tout simplement des valeurs qui n'apparaissent pas...mais je ne l'ai pas sur mon PC (que ce soit sur la version locale ou la version en ligne).
+
+- j'ai un bug sur la R3...
+et une question : comment tu gères les contraintes sur les elements non terminaux ?
+
+- la modification de la priorité de R1 l'a dupliquée... R3 aussi mais pas R2
+- ah si finalement R2 est dupliquée quand j'ai changé la contrainte du SI
+
+- on ne peut pas modifier une partie d'une contrainte sur le SI, il faut tout recréer :-(
+
+- j'ai sauvegardé, fermé et quand je ré-ouvre ma SP, je n'ai plus que 2 règles :-/
+
+- les + un peu partout dans le SI me perturbe encore un peu :-)
+
+- bon du coup je génère rien avec la SP MBL mais mes règles sont bancales... mais rien non plus avec MBL2 qui me parait juste :
+--> corrigé (et la règle était bonne)
+
+
+Images intégrées 1
+
+J'arrete de tout casser, on regarde demain :-)

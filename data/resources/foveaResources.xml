@@ -16,31 +16,37 @@
 		<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1" id="R9">
 			<name id="R10">Session1 : PRESENTATION GENERALE DU FONCTIONNEMENT DE LA COLONNE VERTEBRALE</name>
 			<type id="R11">group</type>
-			<length id="R12">123</length>
+			<length id="R12">125</length>
 			<description id="R13">Première session du MOOC FOVEA, présentation du fonctionnement de la colonne vertébrale.</description>
             
 			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A" id="R14">
 				<name id="R15">A) Étude de la colonne vertébrale simplifiée et la vertèbre type </name>
 				<type id="R16">group</type>
-				<status id="R17">Mandatory</status>
-				
+				<status id="R17">Optional</status>
+				<resource URI="http://youtu.be/LCUZF4THcrQ" id="R18">
+					<name id="R19">La colonne vertébrale simplifiée et la vertèbre type</name>
+					<type id="R20">video</type>
+					<status id="R21">Optional</status>
+					<order id="R22"><context xmlns="http://www.w3.org/1999/xhtml">beginner</context><position xmlns="http://www.w3.org/1999/xhtml">1</position><context xmlns="http://www.w3.org/1999/xhtml">beginners</context><position xmlns="http://www.w3.org/1999/xhtml">2</position></order>
+					<difficulty id="R25">1</difficulty>
+					<sequence id="R26">1</sequence>
+					<length id="R27">20</length>
+					<categories id="R28">beginner noob</categories>
+					<description id="R29">  mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description><grade xmlns="http://www.w3.org/1999/xhtml" maxpoints="" maxPoints="3">true</grade></resource>
 				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426" id="R30">
 					<name id="R31">Quiz1</name>
-					<type id="R32">assignment</type>
+					<type id="R32">quiz</type>
 					<status id="R33">Mandatory</status>
-					<order id="R34">
-						<context id="R35">beginner</context>
-						<position id="R36">2</position>
-					</order>
+					<order id="R34"><context xmlns="http://www.w3.org/1999/xhtml">beginner</context><position xmlns="http://www.w3.org/1999/xhtml">2</position><context xmlns="http://www.w3.org/1999/xhtml"/><position xmlns="http://www.w3.org/1999/xhtml"/></order>
 					<difficulty id="R37">1</difficulty>
 					<sequence id="R38">1</sequence>
-					<grade maxPoints="20" id="R39">false</grade>
+					<grade maxPoints="22" id="R39">true</grade>
 					<length id="R40">15</length>
-				<uri xmlns="http://www.w3.org/1999/xhtml">http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426</uri></resource>
+				</resource>
 				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A-1" id="R41">
 					<name id="R42">Colonne vertébrale : video non sonorisée + document</name>
 					<type id="R43">group</type>
-					<status id="R44">Mandatory</status>
+					<status id="R44">Optional</status>
 					<order id="R45">
 						<context id="R46">beginner</context>
 						<position id="R47">3</position>
@@ -52,15 +58,15 @@
 					<resource URI="http://youtu.be/TvOSAWc1l5o" id="R51">
 						<name id="R52">Colonne vertébrale : video non sonorisée</name>
 						<type id="R53">video</type>
-						<status id="R54">Mandatory</status>
+						<status id="R54">Optional</status>
 						<difficulty id="R55">1</difficulty>
 						<sequence id="R56">1</sequence>
 						<length id="R57">15</length>
-                        <categories xmlns="http://www.w3.org/1999/xhtml">aa bbb</categories><description xmlns="http://www.w3.org/1999/xhtml">sdsssqdssvdsf</description></resource>
+					<order xmlns="http://www.w3.org/1999/xhtml"/></resource>
 					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/8171" id="R58">
 						<name id="R59">Colonne vertébrale : cours écrit</name>
 						<type id="R60">text</type>
-						<status id="R61">Mandatory</status>
+						<status id="R61">Optional</status>
 						<difficulty id="R62">1</difficulty>
 						<sequence id="R63">1</sequence>
 						<length id="R64">15</length>
@@ -74,7 +80,7 @@
 						<sequence id="R71">1</sequence>
 						<length id="R72">15</length>
                         <categories id="R73">pdf</categories>
-					</resource>
+					<order xmlns="http://www.w3.org/1999/xhtml"><context>jhh,y</context><position>11</position></order></resource>
 				</resource>
 			</resource>
 	
@@ -100,7 +106,7 @@
 					<length id="R91">20</length>
 					<categories id="R92">NMTOKEN</categories>
 					<description id="R93">  mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description>
-				</resource>
+				<order xmlns="http://www.w3.org/1999/xhtml"/></resource>
 				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426" id="R94">
 					<name id="R95">Quiz2</name>
 					<type id="R96">quiz</type>
@@ -109,16 +115,13 @@
 					<sequence id="R99">1</sequence>
 					<grade maxPoints="20" id="R100">true</grade>
 					<length id="R101">15</length>
-				</resource>	
+				<order xmlns="http://www.w3.org/1999/xhtml"/></resource>	
 				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-B-1" id="R102">
 					<name id="R103">Courbures  vertébrales : video non sonorisée + document</name>
 					<type id="R104">group</type>
-					<status id="R105">Mandatory</status>
-					<order id="R106">
-						<context id="R107">beginner</context>
-						<position id="R108">3</position>
-					</order>
-					<difficulty id="R109">2</difficulty>
+					<status id="R105">Optional</status>
+					<order id="R106"><context xmlns="http://www.w3.org/1999/xhtml">beginner</context><position xmlns="http://www.w3.org/1999/xhtml">3</position></order>
+					<difficulty id="R109">1</difficulty>
 					<sequence id="R110">1</sequence>
 					<length id="R111">15</length>
 					
@@ -149,7 +152,7 @@
                         <categories id="R134">pdf</categories>
 					</resource>
 				</resource>
-			</resource>	
+			<order xmlns="http://www.w3.org/1999/xhtml"/></resource>	
 		</resource>
         
         

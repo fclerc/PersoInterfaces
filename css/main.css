@@ -54,3 +54,9 @@ p{
 #paramForm #maxPointsForm{
     display: none;
 }
+
+#boussole {
+    padding: 20px;
+    border: 1px solid #666;
+    background: none repeat scroll 0% 0% #FDF5E6;
+}

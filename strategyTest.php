@@ -41,7 +41,6 @@
     ?>
 		<div class="container">
 			<h1><span class="toTranslate">strategyTest.h1</span><small><span id="currentFile">strategyTest.currentFileIntro</span><span id="currentFileName"><?php echo $file; ?></span></small></h1>
-			<p id="generalInstructions">strategyTest.instructions</p>
             <p><span class="toTranslate">You are using files: </span></br/>
                 <?php
                     echo '<b><span class="toTranslate">Profile</span></b>: '.$profilefile.'<br/>';
@@ -51,8 +50,9 @@
             </p>
             
 			<p><a href="index.php" id="mainLink">common.back</a></p>
+			<p id="generalInstructions">strategyTest.instructions</p>
 			
-			
+			<div id="boussole">
 			
 			<?php
 				$strategyPath = $path.$file;
@@ -619,7 +619,7 @@
 				
 			?>
 			
-			
+			</div>
 			
 			
 			
