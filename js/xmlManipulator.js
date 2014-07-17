@@ -18,7 +18,12 @@ In mode 'select', "leafValueReading" events will be triggered, containing the id
 //scales : json with information about the indicators. WARNING : scalesDisplayers have to be loaded before.
 //scaleContainer : the html element you want the scale to be displayed
 //filenameContainer : if elements in your page display the name of the file, give their selector in order to have name changed if the user renames his file.
-function manipulateXML(filepath, container, mode, reader, scales = '', scaleContainer = '', filenameContainer = ''){
+function manipulateXML(filepath, container, mode, reader, scales, scaleContainer, filenameContainer){
+    scales = typeof scales !== 'undefined' ? scales : '';
+    scaleContainer = typeof scaleContainer !== 'undefined' ? scaleContainer : '';
+    filenameContainer = typeof filenameContainer !== 'undefined' ? filenameContainer : '';
+    
+    
     return $.ajax({
 		type: "GET",
 		url: filepath,

@@ -19,8 +19,8 @@ var currentResourceContainer;
 
 //container : the id of the container of the displayed XML, for example : '#MyXMLContainer'. Used as a sort of namespace for data manipulation in case of using several times this function in the same page (see xml[container] or selectors to define events).
 //filenameContainer : if elements in your page display the name of the file, give their selector in order to have name changed if the user renames his file.
-function manipulateResourcesXML(filepath, container, filenameContainer = ''){
-    
+function manipulateResourcesXML(filepath, container, filenameContainer){
+    filenameContainer = typeof filenameContainer !== 'undefined' ? filenameContainer : '';
     return $.ajax({
 		type: "GET",
 		url: filepath,

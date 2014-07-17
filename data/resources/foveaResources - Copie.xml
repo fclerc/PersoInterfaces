@@ -816,11 +816,8 @@
 					<name id="R656">Les muscles postérieurs du tronc</name>
 					<type id="R657">video</type>
 					<status id="R658">Optional</status>
-					<order id="R659">
-						<context id="R660">beginner</context>
-						<position id="R661">1</position>
-					</order>
-					<difficulty id="R662">1</difficulty>
+					<order id="R659"><context xmlns="http://www.w3.org/1999/xhtml">beginner</context><position xmlns="http://www.w3.org/1999/xhtml">1</position></order>
+					<difficulty id="R662">2</difficulty>
 					<sequence id="R663">4</sequence>
 					<length id="R664">20</length>
 					<categories id="R665">NMTOKEN</categories>
