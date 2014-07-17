@@ -2,8 +2,9 @@
 Takes a scale element, and displays an information about allowed values next to the value form
 clickable : boolean to know if the user has the possibility to click on the values (currently only used in order not to display the 'click on the value you want')
 reesourcesData : list of the values the parameter takes in the resources definition
+style : if 'list', display it as an html list (used when enumeration with lots of elements
 */
-function displayParameterScale(scaleElement, resourcesData, container, clickable){//TODO : add elements
+function displayParameterScale(scaleElement, resourcesData, container, clickable, style){//TODO : add elements
     var informationToDisplay = $('<span>').addClass('scaleInformation');
     var scaleType = scaleElement[0].nodeName;
     
@@ -15,16 +16,21 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
         if($(scaleElement).find('Name').length > 0){
             $(informationToDisplay).append(_('scales.enumeration.intro'));
             //this variable will contain the list of possibilities, the values are clickable to fill the input, and display the translation if available
-            var enumeration = $('<span>').addClass('enumeration');
+            var enumeration = $('<ul>').addClass('enumeration');
             //TODO : if enumeration is void, then go in the json file
             $(scaleElement).find('Name').each(function(){
                 var value = $(this).text();
-                var valueContainer = $('<span>').addClass('inputFiller').text(value);
-                $(enumeration).append(valueContainer);
-                if(!(value == _(value))){//translate between brackets if necessary
-                    $(enumeration).append(' ('+_(value)+')');
+                var elementContainer = $('<span>');
+                if(style == 'list'){
+                    elementContainer = $('<li>');
                 }
-                $(enumeration).append(', ');
+                var valueContainer = $('<span>').addClass('inputFiller').text(value);
+                $(elementContainer).append(valueContainer);
+                if(!(value == _(value))){//translate between brackets if necessary
+                    $(elementContainer).append(' ('+_(value)+')');
+                }
+                $(elementContainer).append(', ');
+                $(enumeration).append(elementContainer);
                 
                 $(valueContainer).click(function(){//enable user to click on the container, and fill the input with the value
                     $($('#newRuleContainer').find('input')[0]).attr('value', value);
@@ -63,7 +69,7 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
     if(resourcesData){//if not undefined
         if(resourcesData.length > 0){//if the json file contains the list  of values used in the resources file for this parameter : display the values
             $(informationToDisplay).append('<br>').append(_('scales.usedValuesIntro'));
-            getEnumerationStringFromArray(informationToDisplay, resourcesData, clickable);
+            getEnumerationStringFromArray(informationToDisplay, resourcesData, clickable, style);
         }
     }
     $(container).append(informationToDisplay);
@@ -73,8 +79,9 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
 /*
 Takes the name of an indicator, and displays the corresponding scale.
 function displayIndicatorScale(indicatorName){//TODO : merge with precedent one, with argument profile or activity
+style : if 'list', display it as an html list (used when enumeration with lots of elements)
 */
-function displayIndicatorScale(indicatorName, container, currentIndicatorId, scales, clickable){//TODO : merge with precedent one, with argument profile or activity
+function displayIndicatorScale(indicatorName, container, currentIndicatorId, scales, clickable, style){//TODO : merge with precedent one, with argument profile or activity
     
     var informationToDisplay = $('<span>').addClass('scaleInformation');
     if(scales[indicatorName]){//if a constraint concerning this indicator is present
@@ -94,7 +101,7 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, sca
             else if(scaleElement.baseTypeName == 'xs:string' && scaleElement.enumeration){//there's an enumeration
                 if(scaleElement.enumeration.length > 0){
                     $(informationToDisplay).append(_('scales.enumeration.intro'));
-                    getEnumerationStringFromArray(informationToDisplay, scaleElement.enumeration, clickable)
+                    getEnumerationStringFromArray(informationToDisplay, scaleElement.enumeration, clickable, style)
                 }
             }
             
@@ -120,17 +127,24 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, sca
 
 /*
 Appends container with the list of values (clickable)
+style : if 'list', display it as an html list (used when enumeration with lots of elements
 */
-function getEnumerationStringFromArray(container, valueArray, clickable){
-    var enumeration = $('<span>').addClass('enumeration');
+function getEnumerationStringFromArray(container, valueArray, clickable, style){
+    var enumeration = $('<ul>').addClass('enumeration');
     $(valueArray).each(function(){
         var value = this;
-        var valueContainer = $('<span>').addClass('inputFiller').text(value);
-        $(enumeration).append(valueContainer);
-        if(!(value == _(value))){//translate between brackets if necessary
-             $(enumeration).append(' ('+_(value)+')');
+        var elementContainer = $('<span>');
+        if(style == 'list'){
+            elementContainer = $('<li>');
         }
-        $(enumeration).append(', ');
+        var valueContainer = $('<span>').addClass('inputFiller').text(value);
+        $(elementContainer).append(valueContainer);
+        if(!(value == _(value))){//translate between brackets if necessary
+            $(elementContainer).append(' ('+_(value)+')');
+        }
+        $(elementContainer).append(', ');
+        $(enumeration).append(elementContainer);
+        
         $(valueContainer).click(function(){//enable user to click on the container, and fill the input with the value TODO : add as parameter
             $($('#newRuleContainer').find('input')[0]).attr('value', value);
         });

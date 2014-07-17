@@ -560,11 +560,15 @@
                         },
                         function(){//6
                             formToDisplay = 'refValueParameter';
-                            //displaying information about the scale just above the rule
+                            //displaying information about the scale just below the rule
                             var currentParameterId = $($(currentParameter).find('id')[0]).text();
                             var currentParameterName = (parametersDictionnary[currentParameterId]).name.toLowerCase();
+                            style = '';
+                            if(currentParameterName == 'name'){
+                                style = 'list';
+                            }
                             if(parametersDictionnary[currentParameterId]){
-                                displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true);
+                                displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true, style);
                             }
                         },
                         function(){//7
@@ -580,8 +584,12 @@
                             //displaying information about the scale just after the form
                             var currentParameterId = $($(currentParameter).find('id')[0]).text();
                             var currentParameterName = (parametersDictionnary[currentParameterId]).name.toLowerCase();
+                            style = '';
+                            if(currentParameterName == 'name'){
+                                style = 'list';
+                            }
                             if(parametersDictionnary[currentParameterId]){
-                                displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true);
+                                displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true, style);
                             }
                         
                         },
