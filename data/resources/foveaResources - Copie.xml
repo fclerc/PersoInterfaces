@@ -27,17 +27,17 @@
 					<name id="R19">La colonne vertébrale simplifiée et la vertèbre type</name>
 					<type id="R20">video</type>
 					<status id="R21">Optional</status>
-					<order id="R22"><context xmlns="http://www.w3.org/1999/xhtml">beginner</context><position xmlns="http://www.w3.org/1999/xhtml">1</position><context xmlns="http://www.w3.org/1999/xhtml">beginners</context><position xmlns="http://www.w3.org/1999/xhtml">2</position></order>
+					<order id="R22"><context xmlns="http://www.w3.org/1999/xhtml" id="R765">beginner</context><position xmlns="http://www.w3.org/1999/xhtml" id="R766">1</position><context xmlns="http://www.w3.org/1999/xhtml" id="R767">beginners</context><position xmlns="http://www.w3.org/1999/xhtml" id="R768">2</position></order>
 					<difficulty id="R25">1</difficulty>
 					<sequence id="R26">1</sequence>
 					<length id="R27">20</length>
 					<categories id="R28">beginner noob</categories>
-					<description id="R29">  mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description><grade xmlns="http://www.w3.org/1999/xhtml" maxpoints="" maxPoints="3">true</grade></resource>
+					<description id="R29">  mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description><grade xmlns="http://www.w3.org/1999/xhtml" maxpoints="" maxPoints="3" id="R769">true</grade></resource>
 				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426" id="R30">
 					<name id="R31">Quiz1</name>
 					<type id="R32">quiz</type>
 					<status id="R33">Mandatory</status>
-					<order id="R34"><context xmlns="http://www.w3.org/1999/xhtml">beginner</context><position xmlns="http://www.w3.org/1999/xhtml">2</position><context xmlns="http://www.w3.org/1999/xhtml"/><position xmlns="http://www.w3.org/1999/xhtml"/></order>
+					<order id="R34"><context xmlns="http://www.w3.org/1999/xhtml" id="R770">beginner</context><position xmlns="http://www.w3.org/1999/xhtml" id="R771">2</position><context xmlns="http://www.w3.org/1999/xhtml" id="R772"/><position xmlns="http://www.w3.org/1999/xhtml" id="R773"/></order>
 					<difficulty id="R37">1</difficulty>
 					<sequence id="R38">1</sequence>
 					<grade maxPoints="22" id="R39">true</grade>
@@ -62,7 +62,7 @@
 						<difficulty id="R55">1</difficulty>
 						<sequence id="R56">1</sequence>
 						<length id="R57">15</length>
-					<order xmlns="http://www.w3.org/1999/xhtml"/></resource>
+					<order xmlns="http://www.w3.org/1999/xhtml" id="R774"/></resource>
 					<resource URI="http://claco.univ-lyon1.fr/resource/open/file/8171" id="R58">
 						<name id="R59">Colonne vertébrale : cours écrit</name>
 						<type id="R60">text</type>
@@ -80,9 +80,9 @@
 						<sequence id="R71">1</sequence>
 						<length id="R72">15</length>
                         <categories id="R73">pdf</categories>
-					<order xmlns="http://www.w3.org/1999/xhtml"><context>jhh,y</context><position>11</position></order></resource>
+					<order xmlns="http://www.w3.org/1999/xhtml" id="R775"><context id="R776">jhh,y</context><position id="R777">11</position></order></resource>
 				</resource>
-			</resource>
+			<resource xmlns="http://www.w3.org/1999/xhtml" uri="" URI="" id="R778"><name id="R779">hju,uk,</name><type id="R780"/><status id="R781"/><order id="R782"/><difficulty id="R783"/><sequence id="R784"/><grade id="R785">false</grade><length id="R786"/><categories id="R787">blabla</categories><grade id="R788">false</grade><order id="R789"/><description id="R790"/></resource></resource>
 	
 			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-B" id="R74">
 				<name id="R75">Étude des courbures vertébrales</name>
@@ -816,7 +816,7 @@
 					<name id="R656">Les muscles postérieurs du tronc</name>
 					<type id="R657">video</type>
 					<status id="R658">Optional</status>
-					<order id="R659"><context xmlns="http://www.w3.org/1999/xhtml">beginner</context><position xmlns="http://www.w3.org/1999/xhtml">1</position></order>
+					<order id="R659"><context xmlns="http://www.w3.org/1999/xhtml" id="R791">beginner</context><position xmlns="http://www.w3.org/1999/xhtml" id="R792">1</position></order>
 					<difficulty id="R662">2</difficulty>
 					<sequence id="R663">4</sequence>
 					<length id="R664">20</length>

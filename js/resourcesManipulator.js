@@ -66,7 +66,7 @@ function manipulateResourcesXML(filepath, container, filenameContainer){
             $(container +' #XMLSaveButton').click(function(){//using ajax to store the xml on the server.
                 var xmlS = (new XMLSerializer()).serializeToString(xml[container][0]);
                 $.post('phphelpers/saveXMLDocument.php', { file: '../'+repo+$(filenameInput).val() , data: xmlS, formerFile: '../'+repo+filename}, 
-                    function(data, txt, jqXHR){
+                function(data, txt, jqXHR){
                         if(txt=="success"){
                             if(data.message == 'RENAMEERROR'){
                                 alert('File not saved: a file with this name already exists');

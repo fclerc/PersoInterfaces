@@ -3,7 +3,7 @@
 //Even if some attributes are depending on lists that are defined in schemas or other files, we store here all the values that the user actually gave to its resources when defining them (might help him to provide better support, by shiwung only the values that are useful to him, and could also help detecting errors).
 
 $t = new getDataFromResourceStructure();
-$t->generateJSONFromDoc('../data/resources/foveaResources.xml', '../data/schemas/resourcesData.json');
+//$t->generateJSONFromDoc('../data/resources/foveaResources.xml', '../data/schemas/resourcesData.json');
 
 class getDataFromResourceStructure{
     private $dictionnary;
