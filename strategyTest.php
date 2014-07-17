@@ -216,6 +216,7 @@
 					private $profile;
 					private $xpathProfile;
 					private $liveContext;
+                    private $xpathLiveContext;
 					private $profileScales;
 					private $contextScales;
 					
@@ -223,6 +224,7 @@
 						$this->profile = $profile;
 						$this->xpathProfile = new DOMXPath($this->profile);
 						$this->liveContext = $liveContext;
+                        $this->xpathLiveContext = new DOMXPath($this->liveContext);
 						$this->profileScales = $profileScales;
 						$this->contextScales = $contextScales;
 					
@@ -249,6 +251,11 @@
 					private function checkConstraint($constraint){
 						$indicatorId = $constraint->getElementsByTagName('indicator')->item(0)->nodeValue;
 						$indicator = $this->xpathProfile->query("//*[@id='$indicatorId']")->item(0);
+                        
+                        if($indicator === null){
+                            $indicator = $this->xpathLiveContext->query("//*[@id='$indicatorId']")->item(0);
+                        }
+                        
 						$indicatorValue = $indicator->nodeValue;
 						$indicatorName = $indicator->tagName;
 						$referenceValue = $this->getReferenceValue($constraint);
@@ -299,12 +306,20 @@
 					//returns type of the indicator (finds it in scales of profile and contexts)
 					private function getIndicatorType($indicatorName){
 						$indicatorType = '';
-						if($this->profileScales->$indicatorName != null){
+						if(isset($this->profileScales->$indicatorName)){
 							if(isset($this->profileScales->$indicatorName->typeName)){
 								$indicatorType = $this->profileScales->$indicatorName->typeName;
 							}
 							else if(isset($this->profileScales->$indicatorName->baseTypeName)){
 								$indicatorType = $this->profileScales->$indicatorName->baseTypeName;
+							}
+						}
+                        else if(isset($this->contextScales->$indicatorName)){
+							if(isset($this->contextScales->$indicatorName->typeName)){
+								$indicatorType = $this->contextScales->$indicatorName->typeName;
+							}
+							else if(isset($this->contextScales->$indicatorName->baseTypeName)){
+								$indicatorType = $this->contextScales->$indicatorName->baseTypeName;
 							}
 						}
 						return $indicatorType;
