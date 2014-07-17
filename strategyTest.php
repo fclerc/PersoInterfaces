@@ -188,7 +188,7 @@
 						
 						echo '</ul>';
 						
-						echo '<p>Vous avez ainsi '.$nbAct.' activités à réaliser, et cela devrait durer environ '.$time.' minutes</p>';
+						echo '<p>Vous avez ainsi '.$nbAct.' activités à réaliser, et cela devrait durer environ '.round($time, -1).' minutes</p>';
 					}
 					
 					
@@ -411,10 +411,10 @@
 							
 							//TODO : enable url as param (or defined somewhere else), to enable learner to lead them directly on the course's page on the social networks
 							$toolsText = array(
-								'Twitter' => '<a href="http://twitter.com">le réseau social Twitter</a> ',
+								'Twitter' => '<a target="_blank" href="http://twitter.com">le réseau social Twitter</a> ',
 								'Forum' => 'le forum du cours ',
-								'Facebook' => '<a href="http://facebook.com">le réseau social Facebook</a> ',
-								'Google+' => '<a href="http://plus.google.com">le réseau social Google+</a> ',
+								'Facebook' => '<a target="_blank" href="http://facebook.com">le réseau social Facebook</a> ',
+								'Google+' => '<a target="_blank" href="http://plus.google.com">le réseau social Google+</a> ',
 							);
 							$toolParam = $this->getParameterByName('Tool', $activity);
 							if($toolParam){
@@ -493,21 +493,21 @@
 									}
 								}
 								if(count($activities) > 0){//if at least one child resource has been added : add the current resource also
-									array_unshift($activities, array('text' => 'Consultez les ressources de la section <a href="'.$URI.'">'.$name.'</a> (elles sont listées ci-dessous)', 'length' => 0, 'countActivity' => false));
+									array_unshift($activities, array('text' => 'Consultez les ressources de la section <a target="_blank" href="'.$URI.'">'.$name.'</a> (elles sont listées ci-dessous)', 'length' => 0, 'countActivity' => false));
 								}
 							}
 							
 							else if($activityName == 'Learning' && $type != 'quiz' && $type != 'assignment'){
 								$valid = $this->checkFilter('type', $resource, $filters);
 								if($valid){
-									$activities[] = array('text' => 'Consultez <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+									$activities[] = array('text' => 'Consultez <a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
 								}
 							}
                             else if($activityName == 'Exercise' && ($type == 'quiz' || $type == 'assignment')){
                                 $valid = $this->checkFilter('grade', $resource, $filters);
                                 //graded exercise
                                 if($valid){
-                                    $activities[] = array('text' => 'Faites le devoir noté <a href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+                                    $activities[] = array('text' => 'Faites le devoir noté <a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
                                 }
                             }
 						}
@@ -519,11 +519,7 @@
 					
 					//false iff the resource verifies the value in the filter for the given parameter name
 					private function checkFilter($name, $resource, $filters){
-						if($name == 'grade'){
-                            echo $this->getResourceProperty($resource, $name);
-                        }
-                        
-                        $resourceValues = $this->getResourceProperty($resource, $name);
+						$resourceValues = $this->getResourceProperty($resource, $name);
 						if(isset($filters[$name]) && $resourceValues !== null){
 							$resourceValues = explode(' ' , $resourceValues);
 							$filterValues = explode(' ' , $filters[$name]);
