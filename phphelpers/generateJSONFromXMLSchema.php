@@ -3,7 +3,8 @@
 //generateJSONFromXMLSchema('context.xsd', 'contextScales.json');
 
 $t = new JSONFromXMLSchemaGenerator();
-$t->generateJSONFromXMLSchema('../data/schemas/context.xsd', '../data/schemas/contextScales.json');
+//$t->generateJSONFromXMLSchema('../data/schemas/context.xsd', '../data/schemas/contextScales.json');
+$t->generateJSONFromXMLSchema('../data/schemas/learnerMoocProfile.xsd', '../data/schemas/profileScales.json');
 
 class JSONFromXMLSchemaGenerator{
     private $dictionnary;
