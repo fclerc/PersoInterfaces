@@ -137,8 +137,10 @@
                 
                 
                 
-				$(form).append(fileOpener).append(fileCreator).append(fileDuplicator).append(fileDeleter);
-				
+				$(form).append(fileOpener)
+                if(section != 'strategyTest'){
+                    $(form).append(fileCreator).append(fileDuplicator).append(fileDeleter);
+				}
 				$(sectionContainer).append(form);
 				
 				
