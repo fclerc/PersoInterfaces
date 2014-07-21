@@ -36,7 +36,7 @@
             <li><a href="http://youtu.be/8UqVxA7Cl7E">Vidéo de démonstration</a></li>
         </ul>
         <hr/>
-		<p><a href="statistics.php" class="toTranslate">fileChoice.statistics.link</a>
+		<a href="statistics.php">fileChoice.statistics.link</a>
         <p>fileChoice.readPresentation</p>
         <div id="languageChoice"><span>languageChoice</span><a href="index.php?lang=fr"><img src="img/fr.png"/></a><a href="index.php?lang=en"><img src="img/gb.png"/></a></div>
         <?php 

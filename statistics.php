@@ -21,11 +21,56 @@
 			<div id="statistics">
 			
                 <?php
-					$pathToProfiles = 'data/students';
-					$studentsFiles = scandir($pathToProfiles);
+					/*
+					Structure : use empty.xml to know the structure of the profile. Then array 'profileElementId' => list_of_all_values.
+					Then used to make statistics, displaying all the statistic elements in the right order of the profile (if possible in the form of a tree, like for values modification)
+					*/
 					
-					var_dump($studentsFiles);
-				
+					$pathToProfiles = 'data/learners';
+					$learnersFiles = scandir($pathToProfiles);
+					$nbOfLearners = count($learnersFiles) - 2;
+					$data = array();
+					$emptyProfilePath = 'data/teacher/profiles/empty.xml';					
+					$emptyProfile= new DOMDocument();
+					$emptyProfile->load($emptyProfilePath);
+					
+					$allElements = $emptyProfile->getElementsByTagName('*');
+					foreach($allElements as $element){
+						if($element->childNodes->length === 0){
+							if($element->tagName != 'id'){// TODO : use array of untreated arguments
+								if($element->getAttribute('fixed') != 'true'){
+									$elementId = $element->getAttribute('id');
+									$data[$elementId] = array();
+								}
+							}
+						}
+					}
+					
+					foreach($learnersFiles as $learnerFile){
+						if($learnerFile != '.' && $learnerFile != '..'){
+							$profile= new DOMDocument();
+							$fullPath = $pathToProfiles.'/'.$learnerFile.'/profile.xml';
+							$profile->load($fullPath);
+							$xpathProfile = new DOMXPath($profile);
+							$query = "//*[@id='LP5']";
+							$t2 = $xpathProfile->query($query);
+							var_dump($t2->item(0)->nodeValue);
+							
+							/* foreach($data as $profileId => $arr){
+							var_dump($profileId);
+								//$learnerValue = $profile->getElementById($profileId);
+								$learnerValue = $profile->getElementById('LP5');
+								var_dump($learnerValue);
+								//echo $learnerValue->item(0)->nodeValue;
+							
+							} */
+							
+							
+							
+						}
+					}
+					
+					var_dump($data);
 				
                 ?>
 		
