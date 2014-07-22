@@ -52,18 +52,13 @@
 							$fullPath = $pathToProfiles.'/'.$learnerFile.'/profile.xml';
 							$profile->load($fullPath);
 							$xpathProfile = new DOMXPath($profile);
-							$query = "//*[@id='LP5']";
-							$t2 = $xpathProfile->query($query);
-							var_dump($t2->item(0)->nodeValue);
 							
-							/* foreach($data as $profileId => $arr){
-							var_dump($profileId);
-								//$learnerValue = $profile->getElementById($profileId);
-								$learnerValue = $profile->getElementById('LP5');
-								var_dump($learnerValue);
-								//echo $learnerValue->item(0)->nodeValue;
-							
-							} */
+							foreach($data as $profileId => $arr){
+								$query = "//*[@id='".$profileId."']";
+								$value = $xpathProfile->query($query)->item(0)->nodeValue;
+								$data[$profileId][] = $value;
+								
+							}
 							
 							
 							

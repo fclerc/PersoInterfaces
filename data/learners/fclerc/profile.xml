@@ -3,7 +3,7 @@
 <learnerMoocProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="learnerMoocProfile.xsd" id="LP0">
 	<learnerInformation id="LP1">
 		<id id="LP2">rdupont</id>
-		<email id="LP3">dupont@laposte.net</email>
+		<email id="LP3">dupont2@laposte.net</email>
 		<birthDate id="LP4">1987-08-13</birthDate>
 		<sex id="LP5">M</sex>
 		<professionalSituation id="LP6">student</professionalSituation>
