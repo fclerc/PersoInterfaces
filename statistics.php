@@ -18,7 +18,7 @@
             
 			<p><a href="index.php" id="mainLink">common.back</a></p>
 			<p id="generalInstructions">statistics.instructions</p>
-			
+			<div class="pie"></div>
 			<div id="statistics">
 			
                 <?php
@@ -31,12 +31,12 @@
 					$learnersFiles = scandir($pathToProfiles);
 					$nbOfLearners = count($learnersFiles) - 2;
                     $idToIndicatorName = array();
-					$data = array();
+					$initialData = array();
 					$emptyProfilePath = 'data/teacher/profiles/empty.xml';					
 					$emptyProfile= new DOMDocument();
 					$emptyProfile->load($emptyProfilePath);
 					
-                    $indicatorsToIgnore = array('id', 'email', 'birthDate');
+                    $indicatorsToIgnore = array('id', 'email', 'birthDate', 'registrationDate');
                     
 					$allElements = $emptyProfile->getElementsByTagName('*');
 					foreach($allElements as $element){
@@ -44,7 +44,7 @@
 							if(!in_array($element->tagName, $indicatorsToIgnore)){
 								if($element->getAttribute('fixed') != 'true'){
 									$elementId = $element->getAttribute('id');
-									$data[$elementId] = array();
+									$initialData[$elementId] = array();
                                     $idToIndicatorName[$elementId] = $element->tagName;
 								}
 							}
@@ -58,11 +58,10 @@
 							$profile->load($fullPath);
 							$xpathProfile = new DOMXPath($profile);
 							
-							foreach($data as $profileId => $arr){
+							foreach($initialData as $profileId => $arr){
 								$query = "//*[@id='".$profileId."']";
 								$value = $xpathProfile->query($query)->item(0)->nodeValue;
-								$data[$profileId][] = $value;
-								
+								$initialData[$profileId][] = $value;
 							}
 						}
 					}
@@ -71,14 +70,37 @@
                     $scalesFile = file_get_contents('data/schemas/profileScales.json');
                     $scales = json_decode($scalesFile);
                     
-                    foreach($data as $indicatorId=>$values){
+                    $data = array();
+                    
+                    foreach($initialData as $indicatorId=>$values){
+                        $data[$indicatorId] = array();
                         $indicatorScale = $scales->$idToIndicatorName[$indicatorId];
-                        var_dump($indicatorScale);
+                        
+                        $pieTypes = array('xs:string', 'xs:integer', 'xs:NCNAME', 'xs:boolean');
+                        if(isset($indicatorScale->nature) && (($indicatorScale->nature == 'restriction' && isset($indicatorScale->baseTypeName) && in_array($indicatorScale->baseTypeName, $pieTypes))  ||  $indicatorScale->nature == 'predefined' && ($indicatorScale->typeName == 'xs:boolean' || $indicatorScale->typeName == 'xs:string' ))){
+                            $data[$indicatorId]['chart'] = 'pie';
+                            
+                            //data will contain pairs 'value' => nbOfLearnersHavingThisValue
+                            $data[$indicatorId]['data'] = array();
+                            foreach($values as $value){
+                                if(isset($data[$indicatorId]['data'][$value])){
+                                 $data[$indicatorId]['data'][$value]++;
+                                }
+                                else{
+                                    $data[$indicatorId]['data'][$value] = 1;
+                                }
+                            }
+                        }
+                        
+                        else{
+                            $data[$indicatorId]['chart'] = 'boxplot';
+                            $data[$indicatorId]['data'] = $values;
+                        }
                     
                     }
                     
-                    var_dump($idToIndicatorName);
-                    var_dump($data);
+                    echo '<p>There are currently '.$nbOfLearners.' students in the MOOC';
+                    
 				
                 ?>
                 
@@ -92,26 +114,6 @@
         </div>
 		
 		
-        <div class="boxplot">
-        
-        
-        </div>
-        
-        <div class="pie">
-        
-        
-        </div>
-      
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
        
@@ -136,11 +138,11 @@
         
         <script src="js/d3.min.js" charset="utf-8"></script>
         <script>
-data = [{'name': 12 , 'value' : 1200}, {'name': 14 , 'value' : 120}, {'name': 16 , 'value' : 120}];
+//data = [{'name': 'M' , 'value' : 1200}, {'name': 14 , 'value' : 120}, {'name': 16 , 'value' : 120}];
 //displayPie(data, '.pie');
 function displayPie(data, target){
-    var width = 960,
-        height = 500,
+    var width = 500,
+        height = 350,
         radius = Math.min(width, height) / 2;
 
     var color = d3.scale.ordinal()
@@ -516,7 +518,9 @@ var input = [1,2,4];
 //displayBoxPlot(input, ".boxplot", 'Students');
 
 function displayBoxPlot(input, target, title){
-
+    for(id in input){
+        input[id] = parseInt(input[id]);
+    }
 
     var labels = true; // show the text labels beside individual boxplots?
 
@@ -574,7 +578,7 @@ function displayBoxPlot(input, target, title){
         
         // the x-axis
         var x = d3.scale.ordinal()	   
-            .domain( data.map(function(d) { console.log(d); return d[0] } ) )	    
+            .domain( data.map(function(d) { return d[0] } ) )	    
             .rangeRoundBands([0 , width], 0.7, 0.3); 		
 
         var xAxis = d3.svg.axis()
@@ -599,25 +603,25 @@ function displayBoxPlot(input, target, title){
         
               
         // add a title
-        svg.append("text")
+        /* svg.append("text")
             .attr("x", (width / 2))             
             .attr("y", 0 + (margin.top / 2))
             .attr("text-anchor", "middle")  
             .style("font-size", "18px") 
             //.style("text-decoration", "underline")  
-            .text(title);
+            .text(title); */
      
          // draw y axis
         svg.append("g")
             .attr("class", "y axis")
-            .call(yAxis)
-            .append("text") // and text1
-              .attr("transform", "rotate(-90)")
-              .attr("y", 6)
-              .attr("dy", ".71em")
-              .style("text-anchor", "end")
-              .style("font-size", "16px") 
-              .text("Revenue in €");		
+            .call(yAxis);
+            // .append("text") // and text1
+              // .attr("transform", "rotate(-90)")
+              // .attr("y", 6)
+              // .attr("dy", ".71em")
+              // .style("text-anchor", "end")
+              // .style("font-size", "16px") 
+              // .text("Revenue in €");		
         
         // draw x axis	
         svg.append("g")
@@ -647,6 +651,92 @@ function displayBoxPlot(input, target, title){
     }
 }
 
+        
+
+var data = <?php echo json_encode($data); ?>;
+
+displayChartsTree(data, 'data/teacher/profiles/empty.xml', '#statistics');
+function displayChartsTree(data, structureFile, container){
+    $.ajax({
+    type: "GET",
+    url: structureFile,
+    success: function(structure){
+        structure = $(structure)
+        
+        //going recursively through structure, to display tag names or charts
+        $(container).append($('<div>').addClass('container').append(displayAndChildren($(structure).children().first()[0], data) ));
+		displayCharts(data);
+        //for elements having list below them : toggle visibility of this list when clicking on the element
+        $(container +' .reducer').click(function(event){
+            var toToggle = $(event.target).next().next();
+            if(toToggle[0].nodeName != 'ul' && toToggle[0].nodeName != 'UL'){//in case there is the information icon, go one step further to find the list to hide.
+                toToggle = $(toToggle).next()
+            }
+            if(toToggle[0].nodeName != 'ul' && toToggle[0].nodeName != 'UL'){//in case there is a value, go one step further to find the list to hide.
+                toToggle = $(toToggle).next()
+            }
+                $(toToggle).toggle(300);
+                
+                //just changing the glyphicon
+                if($(event.target).hasClass('glyphicon-plus')){
+                    $(event.target).addClass('glyphicon-minus');
+                    $(event.target).removeClass('glyphicon-plus');
+                }
+                else{
+                    $(event.target).addClass('glyphicon-plus');
+                    $(event.target).removeClass('glyphicon-minus');
+                }
+            
+            return false;
+        });
+    }});
+}
+
+function displayAndChildren(xmlNode, data){
+    var nodeName = xmlNode.nodeName;
+    var elementNameContainer = $('<span>').append(nodeName).addClass('elementName');
+    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append(elementNameContainer); 
+    
+    if($(xmlNode).children().length>0 ){
+        $(result).addClass('hasChild');
+        $(result).prepend($('<span>').addClass('glyphicon glyphicon-minus').addClass('reducer'));
+        var chs = $('<ul>');
+        $(xmlNode).children().each(function(){
+            $(chs).append(displayAndChildren(this, data));
+        });
+        
+        result.append(chs);
+    
+    }
+    else if(typeof data[$(xmlNode).attr('id')] == 'undefined'){
+        result.append($(xmlNode).html());
+    }
+    return result;
+}
+
+function displayCharts(data){
+    for(id in data){
+        if(data[id]['chart'] == 'pie'){
+            $('#'+id).addClass('pie');
+            dataForPie = convertForPie(data[id]['data']);
+            displayPie(dataForPie, '#'+id);
+        }
+        else if(data[id]['chart'] == 'boxplot'){
+            $('#'+id).addClass('boxplot');
+            //console.log(typeof data[id]['data'][0]);
+            displayBoxPlot(data[id]['data'], '#'+id, '')
+        }
+    }
+}
+
+function convertForPie(data){
+    var result = [];
+    for(elem in data){
+        result.push({'name': elem, 'value': data[elem]});
+    }
+    return result;
+
+}     
         
         </script>
         

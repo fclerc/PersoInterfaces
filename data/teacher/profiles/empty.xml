@@ -57,14 +57,14 @@
 					<value id="LP45"/>
 				</knowledgeUnit>
                 <knowledgeUnit id="LP46">
-					<name id="LP47"/>
+					<name fixed="true" id="LP47">Quiz2</name>
 					<value id="LP48"/>
 				</knowledgeUnit>
 			</knowledgeGroup>
 		</courseKnowledge>
 		<toolsKnowledge id="LP49">
 			<knowledgeTool id="LP50">
-				<name id="LP51"/>
+				<name fixed="true" id="LP51">Fablab</name>
 				<value id="LP52"/>
 			</knowledgeTool>
 		</toolsKnowledge>

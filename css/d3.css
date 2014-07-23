@@ -1,3 +1,7 @@
+.elementName{   
+    display: block;
+}
+
 .boxplot .box {
   font: 10px sans-serif;
 }
