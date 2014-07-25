@@ -663,9 +663,11 @@ function displayChartsTree(data, structureFile, container){
     success: function(structure){
         structure = $(structure)
         
-        //going recursively through structure, to display tag names or charts
+        //going recursively through structure, to display a tree with tag names
         $(container).append($('<div>').addClass('container').append(displayAndChildren($(structure).children().first()[0], data) ));
+        //once structure is in the html page, add the charts whereever it is required
 		displayCharts(data);
+        
         //for elements having list below them : toggle visibility of this list when clicking on the element
         $(container +' .reducer').click(function(event){
             var toToggle = $(event.target).next().next();
@@ -692,9 +694,11 @@ function displayChartsTree(data, structureFile, container){
     }});
 }
 
+//display the structure of the XML document
 function displayAndChildren(xmlNode, data){
     var nodeName = xmlNode.nodeName;
-    var elementNameContainer = $('<span>').append(nodeName).addClass('elementName');
+    //var translatedNodeName = _(nodeName);
+    var elementNameContainer = $('<span>').append(nodeName).addClass('elementName toTranslate');
     var result = $('<li>').attr('id', $(xmlNode).attr('id')).append(elementNameContainer); 
     
     if($(xmlNode).children().length>0 ){
@@ -713,7 +717,7 @@ function displayAndChildren(xmlNode, data){
     }
     return result;
 }
-
+//displaying all the charts
 function displayCharts(data){
     for(id in data){
         if(data[id]['chart'] == 'pie'){
@@ -728,6 +732,7 @@ function displayCharts(data){
         }
     }
 }
+
 
 function convertForPie(data){
     var result = [];
