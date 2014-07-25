@@ -998,3 +998,25 @@ msgstr ""
 
 msgid "fileChoice.statistics.link"
 msgstr ""
+
+
+#
+#
+#Association
+#
+#
+
+msgid "fileChoice.association.link"
+msgstr ""
+
+msgid "association.h1"
+msgstr ""
+
+msgid "association.instructions"
+msgstr ""
+
+msgid "Strategy: "
+msgstr ""
+
+msgid "Context: "
+msgstr ""

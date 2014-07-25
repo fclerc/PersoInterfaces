@@ -792,7 +792,7 @@ msgstr ""
 #
 #
 msgid "fileChoice.h1"
-msgstr ""
+msgstr "Personalization and MOOCs - Demo version"
 
 msgid "fileChoice.explanations"
 msgstr "Welcome on the test version of the application \"PERSUA2mooc\""
@@ -921,7 +921,7 @@ msgstr ""
 "icon."
 
 msgid "paramModal.h4"
-msgstr ""
+msgstr "Properties modification"
 
 msgid "Cancel"
 msgstr ""
@@ -970,7 +970,7 @@ msgstr ""
 #
 #
 msgid "statistics.h1"
-msgstr ""
+msgstr "General statistics on the MOOC learners"
 
 msgid "statistics.instructions"
 msgstr ""
@@ -985,6 +985,22 @@ msgstr ""
 
 msgid "fileChoice.statistics.link"
 msgstr "General statistics"
+
+msgid "fileChoice.association.link"
+msgstr "Associate strategies and contexts to MOOC sequences"
+
+#
+#
+# Values modification page
+#
+#
+msgid "association.h1"
+msgstr "Sequence - strategies and contexts association"
+
+msgid "association.instructions"
+msgstr ""
+"For each sequence of the MOOC, select the strategy and sequence context to "
+"be used in order to perform personalization for each learner of the MOOC."
 
 #~ msgid "Selection of indicators"
 #~ msgstr "Selection of indicators"

@@ -977,6 +977,29 @@ msgstr " apprenants dans le MOOC"
 msgid "fileChoice.statistics.link"
 msgstr "Statistiques générales"
 
+msgid "fileChoice.association.link"
+msgstr "Associer stratégies et contextes aux séquences du MOOC"
+
+#
+#
+# Values modification page
+#
+#
+msgid "association.h1"
+msgstr "Association séquences - stratégies et contextes"
+
+msgid "association.instructions"
+msgstr ""
+"Pour chaque séquence du MOOC, indiquez quelles sont la stratégie et le "
+"contexte de séquence à employer afin de personnaliser les activités à chacun "
+"des apprenants."
+
+msgid "Strategy: "
+msgstr "Stratégie : "
+
+msgid "Context: "
+msgstr "Contexte : "
+
 #~ msgid "Orders"
 #~ msgstr "Ordres"
 
