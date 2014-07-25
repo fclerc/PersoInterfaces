@@ -38,7 +38,7 @@
                     
                     $form = '<form action="sequence_association.php" method="post">';
                     foreach($associations as $sequence => $data){
-                        $form = $form.'<span><b>'.$sequence.' : </b></span>';
+                        $form = $form.'<div><span><b>'.$sequence.' : </b></span>';
                         
                         $form = $form.'<label class="toTranslate">Strategy: </label>';
                         $form = $form.getStrategySelect($strategyFiles, $data->strategy, $sequence);
@@ -46,13 +46,13 @@
                         $form = $form.'<label class="toTranslate">Context: </label>';
                         $form = $form.getContextSelect($contextFiles, $data->context, $sequence);
                         
-                        $form = $form.'<br/>';
+                        $form = $form.'</div>';
                     }
                 
                 
                 
                     $form = $form.'<input type="hidden" name="formSent" value="dontcare" />';
-                    $form = $form.'<input type="submit" value="Save" />';
+                    $form = $form.'<input class="btn btn-success" type="submit" value="Save" />';
                     $form = $form.'</form>';
                     
                     echo $form;

@@ -60,3 +60,24 @@ p{
     border: 1px solid #666;
     background: none repeat scroll 0% 0% #FDF5E6;
 }
+
+
+#association{
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 30px;
+    width: 50%;
+    margin:auto;
+}
+
+#association input{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+#association div{
+    margin-bottom: 8px;
+    padding: 3px;
+    border-radius: 3px;
+    background-color: #ccc;
+}
