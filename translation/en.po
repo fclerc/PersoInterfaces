@@ -791,6 +791,34 @@ msgstr ""
 # File choice page
 #
 #
+msgid "fileChoice.h1"
+msgstr ""
+
+msgid "fileChoice.explanations"
+msgstr "Welcome on the test version of the application \"PERSUA2mooc\""
+
+msgid "fileChoice.links"
+msgstr "Here are a few links to understand the project:"
+
+msgid "fileChoice.coatLink"
+msgstr "COAT Project Wiki"
+
+msgid "fileChoice.internshipLink"
+msgstr "Presentation of the internship dealing with this project"
+
+msgid "fileChoice.modelLink"
+msgstr "Presentation of PERSUA2mooc and the application"
+
+msgid "fileChoice.readPresentation"
+msgstr ""
+"Before you experiment this version, we strongly enjoin you to read the "
+"presentation of PERSUA2mooc, to understand the way this application is built."
+
+#
+#
+# File choice page
+#
+#
 msgid "fileChoice.delete.confirm"
 msgstr ""
 "Are you sure you want to delete this file ? This deletion can't be reversed."
@@ -871,6 +899,93 @@ msgstr ""
 msgid "valuesModification.currentFileIntro"
 msgstr "Currently editing "
 
+msgid "filechoice.strategyTest.instr"
+msgstr ""
+"Select a strategy, a profile and contexts to see what would be generated for "
+"a learner."
+
+#
+#
+# Values modification page
+#
+#
+msgid "resourcesModification.h1"
+msgstr "Modification of resources' properties"
+
+msgid "resourcesModification.currentFileIntro"
+msgstr "You are currently editing the resources of "
+
+msgid "resourcesModification.instructions"
+msgstr ""
+"Add or delete resources, and edit their properties by clicking on the edit "
+"icon."
+
+msgid "paramModal.h4"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+#
+#
+# Titles of the main parts
+#
+#
+msgid "strategyTest.h1"
+msgstr "Strategy test"
+
+msgid "strategyTest.currentFileIntro"
+msgstr "You are testing: "
+
+msgid "strategyTest.instructions"
+msgstr "Here is the list of activities, as it will be showed to the learner: "
+
+msgid "Maximum of points"
+msgstr ""
+
+msgid "Grade?"
+msgstr ""
+
+msgid "Strategy testing"
+msgstr ""
+
+msgid "profile"
+msgstr ""
+
+msgid "Chose your strategy"
+msgstr ""
+
+msgid "You are using files: "
+msgstr ""
+
+msgid "Live Context"
+msgstr ""
+
+msgid "Sequence Context"
+msgstr ""
+
+#
+#
+# Statistics
+#
+#
+msgid "statistics.h1"
+msgstr ""
+
+msgid "statistics.instructions"
+msgstr ""
+"For each indicator, statistics are displayed, enabling you to have a global "
+"view of the learners in this MOOC."
+
+msgid "There are currently "
+msgstr ""
+
+msgid " learners in the MOOC"
+msgstr ""
+
+msgid "fileChoice.statistics.link"
+msgstr "General statistics"
+
 #~ msgid "Selection of indicators"
 #~ msgstr "Selection of indicators"
 
@@ -882,9 +997,6 @@ msgstr "Currently editing "
 
 #~ msgid "Add new Rule"
 #~ msgstr "Add new Rule"
-
-#~ msgid "Save my strategy"
-#~ msgstr "Save my strategy"
 
 #~ msgid "Rules you already defined:"
 #~ msgstr "Rules you already defined:"
