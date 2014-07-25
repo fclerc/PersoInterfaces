@@ -1,9 +1,1 @@
-{"Sequence1" : {"strategy": "Sequence1.xml", "context": "Sequence1.xml"},
-"Sequence2" : {"strategy": "Sequence2.xml", "context": "Sequence2.xml"},
-"Sequence3" : {"strategy": "Sequence3.xml", "context": "Sequence1.xml"},
-"Sequence4" : {"strategy": "Sequence1.xml", "context": "Sequence1.xml"},
-"Sequence5" : {"strategy": "Sequence1.xml", "context": "Sequence1.xml"},
-"Sequence6" : {"strategy": "Sequence1.xml", "context": "Sequence1.xml"},
-"Sequence7" : {"strategy": "Sequence1.xml", "context": "Sequence1.xml"},
-"Sequence8" : {"strategy": "Sequence1.xml", "context": "Sequence1.xml"}
-}
+{"Sequence1":{"strategy":"Btest.xml","context":"Sequence1.xml"},"Sequence2":{"strategy":"Sequence2.xml","context":"Sequence2.xml"},"Sequence3":{"strategy":"Sequence3.xml","context":"Sequence1.xml"},"Sequence4":{"strategy":"Sequence1.xml","context":"Sequence1.xml"},"Sequence5":{"strategy":"Atest.xml","context":"Sequence1.xml"},"Sequence6":{"strategy":"Sequence1.xml","context":"Sequence1.xml"},"Sequence7":{"strategy":"Sequence1.xml","context":"Sequence2.xml"},"Sequence8":{"strategy":"Sequence8.xml","context":"Sequence4.xml"}}

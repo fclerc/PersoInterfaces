@@ -21,16 +21,25 @@
 			<div class="pie"></div>
 			<div id="association">
                 <?php
+                    $associationsPath = 'data/teacher/sequence_association.json';
+                    $associations = json_decode(file_get_contents($associationsPath));
                 
                     if(isset($_POST['formSent'])){//treat data sent by the form
-                        echo 'letsgo';
-                    
+                        echo '<p class="alert alert-info">Data successfully saved</p>';
+                        
+                        foreach($associations as $sequence => $data){
+                            $newStrategy = $_POST[$sequence.'Strategy'];
+                            $associations->$sequence->strategy = $newStrategy;
+                        
+                            $newContext = $_POST[$sequence.'Context'];
+                            $associations->$sequence->context = $newContext;
+                        }
+                        
+                        file_put_contents($associationsPath, json_encode($associations));
                     }
                 
                     $contextPath = 'data/teacher/sequenceContexts';
                     $strategyPath = 'data/teacher/strategies';
-                    $associationsPath = 'data/teacher/sequence_association.json';
-                    $associations = json_decode(file_get_contents($associationsPath));
                     
                 
                     $contextFiles = scandir($contextPath);
