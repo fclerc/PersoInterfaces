@@ -99,7 +99,7 @@
                     
                     }
                     
-                    echo '<p>There are currently '.$nbOfLearners.' students in the MOOC';
+                    echo '<p><span class="toTranslate">There are currently </span>'.$nbOfLearners.'<span class="toTranslate"> learners in the MOOC</span>';
                     
 				
                 ?>

@@ -976,3 +976,25 @@ msgstr ""
 
 msgid "Sequence Context"
 msgstr ""
+
+
+#
+#
+#Statistics
+#
+#
+
+msgid "statistics.h1"
+msgstr ""
+
+msgid "statistics.instructions"
+msgstr ""
+
+msgid "There are currently "
+msgstr ""
+
+msgid " learners in the MOOC"
+msgstr ""
+
+msgid "fileChoice.statistics.link"
+msgstr ""

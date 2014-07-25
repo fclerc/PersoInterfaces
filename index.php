@@ -36,8 +36,8 @@
             <li><a href="http://youtu.be/8UqVxA7Cl7E">Vidéo de démonstration</a></li>
         </ul>
         <hr/>
-		<a href="statistics.php">fileChoice.statistics.link</a>
         <p>fileChoice.readPresentation</p>
+		<a href="statistics.php" class="toTranslate">fileChoice.statistics.link</a>
         <div id="languageChoice"><span>languageChoice</span><a href="index.php?lang=fr"><img src="img/fr.png"/></a><a href="index.php?lang=en"><img src="img/gb.png"/></a></div>
         <?php 
             if(isset($_SESSION['fileRemoved'])){//if a file has bee removed, display a message

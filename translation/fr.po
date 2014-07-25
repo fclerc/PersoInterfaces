@@ -955,6 +955,28 @@ msgstr "Contexte 'en direct'"
 msgid "Sequence Context"
 msgstr "Contexte de la séquence"
 
+#
+#
+# Statistics
+#
+#
+msgid "statistics.h1"
+msgstr "Statistiques générales sur les apprenants du MOOC"
+
+msgid "statistics.instructions"
+msgstr ""
+"Voici, pour chaque indicateur, des statistiques (répartition, moyennes,...) "
+"permettant d'avoir une vue globale des apprenants sur ce MOOC."
+
+msgid "There are currently "
+msgstr "Il y a actuellement "
+
+msgid " learners in the MOOC"
+msgstr " apprenants dans le MOOC"
+
+msgid "fileChoice.statistics.link"
+msgstr "Statistiques générales"
+
 #~ msgid "Orders"
 #~ msgstr "Ordres"
 
