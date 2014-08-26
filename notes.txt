@@ -1,4 +1,7 @@
 
+traitement biblio liens :
+howpublished = \{(.*)\}
+howpublished = \{\\url\{$1\}\}
 
 chercher les TODO
 -dans les explications pour le prof : indiquer quels sont les paramètres obligatoires / optionnels (et éventuellement les générer automatiquement lors de la création d'activité, empêcher leur suppression...)
