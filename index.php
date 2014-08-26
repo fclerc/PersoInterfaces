@@ -1,5 +1,14 @@
-<?php session_start();
-    require_once 'phphelpers/langFinder.php';
+<?php 
+
+/*
+Main page of the application
+Choice is given to the user to go to the other interfaces by selecting files.
+
+
+*/
+
+session_start();
+require_once 'phphelpers/langFinder.php';
     
 ?>
 <!DOCTYPE HTML>
