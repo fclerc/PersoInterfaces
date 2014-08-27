@@ -2,9 +2,9 @@
 	"sections":[
 		"strategy",
 		"sequenceContext",
+        "resources",
 		"profile",
 		"liveContext",
-        "resources",
 		"strategyTest"
 	],
 
@@ -42,20 +42,20 @@
     },
     
     "schema":{
-        "profile":"data\/schemas\/learnerMoocProfile.xsd",
-        "liveContext":"data\/schemas\/context.xsd",
-        "sequenceContext":"data\/schemas\/context.xsd",
+        "profile":"data\/models\/learnerMoocProfile.xsd",
+        "liveContext":"data\/models\/context.xsd",
+        "sequenceContext":"data\/models\/context.xsd",
         "strategy":"",
         "resources":"",
 		"strategyTest": ""
     },
     
     "scales":{
-        "profile":"data\/schemas\/profileScales.json",
-        "liveContext":"data\/schemas\/contextScales.json",
-        "sequenceContext":"data\/schemas\/contextScales.json",
-        "strategy":"foveaPedagogicalProperties.xml",
-        "resources":"data\/schemas\/foveaPedagogicalProperties.xml",
+        "profile":"data\/infos\/profileScales.json",
+        "liveContext":"data\/infos\/contextScales.json",
+        "sequenceContext":"data\/infos\/contextScales.json",
+        "strategy":"data\/models\/foveaPedagogicalProperties.xml",
+        "resources":"data\/models\/foveaPedagogicalProperties.xml",
 		"strategyTest": ""
     }
 }

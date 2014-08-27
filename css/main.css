@@ -55,6 +55,10 @@ p{
     display: none;
 }
 
+#statsLink, #associationsLink{
+    margin-bottom: 5px;
+}
+
 #boussole {
     padding: 20px;
     border: 1px solid #666;
