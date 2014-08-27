@@ -150,7 +150,7 @@ require_once 'phphelpers/langFinder.php';
                     var otherFiles = ['profile', 'liveContext', 'sequenceContext'];
                     //for each type of file, display the select
                     $(otherFiles).each(function(id, name){
-                        var label = $('<label>').append(_(name)).attr('for', name+'file')
+                        var label = $('<label>').append(_(name)).attr('for', name+'file');
                         var fileSelect = $('<select>').addClass('form-control').attr('name', name+'file');
                         $(data['files'][name]).each(function(id, file){
                             if(file != '.' && file !='..' && file!='empty.xml'){
@@ -165,7 +165,7 @@ require_once 'phphelpers/langFinder.php';
                 }
                 
                 //adding buttons (in case of strategy test, buttons other than open make no sense)
-				$(form).append(fileOpener)
+				$(form).append(fileOpener);
                 if(section != 'strategyTest'){
                     $(form).append(fileCreator).append(fileDuplicator).append(fileDeleter);
 				}
@@ -173,7 +173,7 @@ require_once 'phphelpers/langFinder.php';
 				
 				
 				//Adding generated html to the sectionsContainer
-				if(i%2 == 0){//new row
+				if(i%2 === 0){//new row
 					$(sectionsContainer).append($('<div>').addClass('row').append(sectionContainer));
 				}
 				else{//append last row

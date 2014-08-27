@@ -2,7 +2,7 @@
     require_once 'phphelpers/langFinder.php';
 ?>
 <!DOCTYPE HTML>
-<!-- This file enables the user to modify the content of the resources file : adding resources and editing their parameters.  -->
+<!-- This file is used to display statistics coming from the learner profiles.  -->
 <html>
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -23,22 +23,35 @@
 			
                 <?php
 					/*
-					Structure : use empty.xml to know the structure of the profile. Then array 'profileElementId' => list_of_all_values.
-					Then used to make statistics, displaying all the statistic elements in the right order of the profile (if possible in the form of a tree, like for values modification)
+					Structure : use empty.xml to know the structure of the profile. Then an array is created withe key => value : 'profileElementId' => list_of_all_values (all values contained in the profiles). Then a pre-treatment is realized in php to organize data
+					Then used to make statistics in js, displaying all the statistic elements in the form of a tree (same functioning as for xmlManipulator)
+                    
+                    Of course whole process could be really optimized...
 					*/
 					
+                    //getting the profiles folders
 					$pathToProfiles = 'data/learners';
 					$learnersFiles = scandir($pathToProfiles);
+                    // -2 because of 'files' . and ..
 					$nbOfLearners = count($learnersFiles) - 2;
+                    //array used to convert an id into its indicator name
                     $idToIndicatorName = array();
+                    //array used to store raw data extracted from all profiles
 					$initialData = array();
+                    //getting empty profile
 					$emptyProfilePath = 'data/teacher/profiles/empty.xml';					
 					$emptyProfile= new DOMDocument();
 					$emptyProfile->load($emptyProfilePath);
 					
+                    //indicators for which statistics are not generated
                     $indicatorsToIgnore = array('id', 'email', 'birthDate', 'registrationDate');
                     
-					$allElements = $emptyProfile->getElementsByTagName('*');
+                    /*getting the tags of all elements in the profile.
+                    for each element that has no child and is not fixed (eg the elements for which we want to display statistics) :
+					-initialize a new array in $initialData to contain the raw data (all values taken by this element in real profiles)
+                    -fill $idToIndicatorName
+                    */
+                    $allElements = $emptyProfile->getElementsByTagName('*');
 					foreach($allElements as $element){
 						if($element->childNodes->length === 0){
 							if(!in_array($element->tagName, $indicatorsToIgnore)){
@@ -51,13 +64,14 @@
 						}
 					}
 					
+                    //for each profile : for each indicator, add the value contained in the profile to initialData
 					foreach($learnersFiles as $learnerFile){
 						if($learnerFile != '.' && $learnerFile != '..'){
 							$profile= new DOMDocument();
 							$fullPath = $pathToProfiles.'/'.$learnerFile.'/profile.xml';
 							$profile->load($fullPath);
 							$xpathProfile = new DOMXPath($profile);
-							
+							//going through all the elements' ids for which we collect data
 							foreach($initialData as $profileId => $arr){
 								$query = "//*[@id='".$profileId."']";
 								$value = $xpathProfile->query($query)->item(0)->nodeValue;
@@ -66,20 +80,25 @@
 						}
 					}
                     
-                    
+                    //getting the scales (used to know what type of data is contained for each element)
                     $scalesFile = file_get_contents('data/schemas/profileScales.json');
                     $scales = json_decode($scalesFile);
                     
+                    //this array will store the data in an adapted form for the display of graphs, after a treatment on data contained in $initialData.
                     $data = array();
                     
+                    //going through all arrays containing the raw data
                     foreach($initialData as $indicatorId=>$values){
                         $data[$indicatorId] = array();
                         $indicatorScale = $scales->$idToIndicatorName[$indicatorId];
                         
+                        //the list of types that are modelized with a pie
                         $pieTypes = array('xs:string', 'xs:integer', 'xs:NCNAME', 'xs:boolean');
+                        
+                        //long condition to check if the indicator is indeed adapted to pie chart
                         if(isset($indicatorScale->nature) && (($indicatorScale->nature == 'restriction' && isset($indicatorScale->baseTypeName) && in_array($indicatorScale->baseTypeName, $pieTypes))  ||  $indicatorScale->nature == 'predefined' && ($indicatorScale->typeName == 'xs:boolean' || $indicatorScale->typeName == 'xs:string' ))){
+                            //indicating it will be a pie
                             $data[$indicatorId]['chart'] = 'pie';
-                            
                             //data will contain pairs 'value' => nbOfLearnersHavingThisValue
                             $data[$indicatorId]['data'] = array();
                             foreach($values as $value){
@@ -92,13 +111,14 @@
                             }
                         }
                         
+                        //else no treatment : js functions will directly take the list of values to make a boxplot
                         else{
                             $data[$indicatorId]['chart'] = 'boxplot';
                             $data[$indicatorId]['data'] = $values;
                         }
                     
                     }
-                    
+                    //indicating number of learners
                     echo '<p><span class="toTranslate">There are currently </span>'.$nbOfLearners.'<span class="toTranslate"> learners in the MOOC</span>';
                     
 				
@@ -138,6 +158,10 @@
         
         <script src="js/d3.min.js" charset="utf-8"></script>
         <script>
+        
+/*
+The 3 next functions are inspired by open source works realized with d3.js, enabling to display charts. Examples of use are given above the 2 functoins used.
+*/
 //data = [{'name': 'M' , 'value' : 1200}, {'name': 14 , 'value' : 120}, {'name': 16 , 'value' : 120}];
 //displayPie(data, '.pie');
 function displayPie(data, target){
@@ -181,9 +205,6 @@ function displayPie(data, target){
           .style("text-anchor", "middle")
           .text(function(d) { return d.data.name; });
 }
-
-
-
 
 
 
@@ -510,10 +531,6 @@ function boxQuartiles(d) {
 
 
 
-
-
-
-
 var input = [1,2,4];
 //displayBoxPlot(input, ".boxplot", 'Students');
 
@@ -652,10 +669,11 @@ function displayBoxPlot(input, target, title){
 }
 
         
-
+//passing data from php to js
 var data = <?php echo json_encode($data); ?>;
 
 displayChartsTree(data, 'data/teacher/profiles/empty.xml', '#statistics');
+//arguments are the data in the good form, the xml giving the structure of the profile, and the div container of the whole displayed html
 function displayChartsTree(data, structureFile, container){
     $.ajax({
     type: "GET",
@@ -694,7 +712,7 @@ function displayChartsTree(data, structureFile, container){
     }});
 }
 
-//display the structure of the XML document
+//display the structure of the XML document (same way as xmlManipulator)
 function displayAndChildren(xmlNode, data){
     var nodeName = xmlNode.nodeName;
     //var translatedNodeName = _(nodeName);
@@ -717,7 +735,7 @@ function displayAndChildren(xmlNode, data){
     }
     return result;
 }
-//displaying all the charts
+//displaying all the charts in the right place (thanks to the ids given to the elements in the html page)
 function displayCharts(data){
     for(id in data){
         if(data[id]['chart'] == 'pie'){
@@ -727,21 +745,19 @@ function displayCharts(data){
         }
         else if(data[id]['chart'] == 'boxplot'){
             $('#'+id).addClass('boxplot');
-            //console.log(typeof data[id]['data'][0]);
             displayBoxPlot(data[id]['data'], '#'+id, '')
         }
     }
 }
 
-
+//adapts the data to the way the displayPie requires it (json)
 function convertForPie(data){
     var result = [];
     for(elem in data){
         result.push({'name': elem, 'value': data[elem]});
     }
     return result;
-
-}     
+}
         
         </script>
         
