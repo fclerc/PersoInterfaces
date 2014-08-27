@@ -1,24 +1,25 @@
 <?php
-//This script generates as much documentation as possible in a json object form the annotations present in a XML Schema.
-//generateJSONFromXMLSchema('context.xsd', 'contextScales.json');
+//This script generates documentation in a json object form the annotations present in a XML Schema. Also enables  to know more about the data types to use for the elements (these informations are then used to help the user when he does tasks like defining his strategy)
 
+//use next  lines to generate the documentation for the schema you want
 $t = new JSONFromXMLSchemaGenerator();
 //$t->generateJSONFromXMLSchema('../data/schemas/context.xsd', '../data/schemas/contextScales.json');
 $t->generateJSONFromXMLSchema('../data/schemas/learnerMoocProfile.xsd', '../data/schemas/profileScales.json');
 
 class JSONFromXMLSchemaGenerator{
-    private $dictionnary;
+    private $dictionnary;//the array that will contain all the informations extracted
     public function __construct(){
         $this->dictionnary = array();
     }
-    
+     //$resourcesDoc : full path to the schema file; $outputFile = full path for the JSON you want to create
     public function generateJSONFromXMLSchema($schemaFileName, $outputFile){
 
         $xml = new DOMDocument();
         $xml->load($schemaFileName);
-        $elements = $xml->getElementsByTagName('element');
         $xpath = new DOMXpath($xml);//used for more complex queries
-
+        $elements = $xml->getElementsByTagName('element');
+        
+        //going through all the elements, and getting doc about them. Informations are diverse and can be foind in different places of the document; depending on whether it is a simple or complex type, whether the type is defined directly with the element or somewhere else,...
         foreach ($elements as $element) {
             $name = $element->getAttribute('name');
             if(!array_key_exists($name, $this->dictionnary)){//element not yet added
@@ -91,8 +92,6 @@ class JSONFromXMLSchemaGenerator{
             }
             
         }
-
-        
 
         //TODO : also treat the attributes
 

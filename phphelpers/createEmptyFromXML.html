@@ -4,6 +4,7 @@ Note : doesn't work for xml having mixed elements (text and children)
 -->
 <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
 <script type="text/javascript">
+//change values to empty the file you wish
 var filePath = '../data/teacher/liveContexts'
 var filename = 'liveContext1.xml'
 $(function(){    
@@ -14,9 +15,10 @@ $(function(){
         url: filePath+'/'+filename,
         success: function(data){
             xml = $(data);
+            //goes recursively through all the elements of the xml tree
             emptyElementAndChildren($(xml).children().first()[0])
             
-            
+            //takes an element of the xml tree as argument, and empties it and its children
             function emptyElementAndChildren(elem){
                 
                 if(mode=='all'){
@@ -28,18 +30,19 @@ $(function(){
                     });
                 }
                 
-                
-                if($(elem).children().length == 0 && $(elem).attr('fixed') != 'true'){//if only text contained and this is not fixed, empty
+                //if only text contained and this is not fixed: empty it
+                if($(elem).children().length == 0 && $(elem).attr('fixed') != 'true'){
                     $(elem).text('');
                 }
+                //else: recurse
                 else{
-                    $(elem).children().each(function(){//else: recurse
+                    $(elem).children().each(function(){
                         emptyElementAndChildren($(this));
                     });
                 }
             }
             
-            
+            //serialize the empty xml file, and send it to the saveXMLDocument
             var xmlS = (new XMLSerializer()).serializeToString(xml[0]);
             $.post('saveXMLDocument.php', { file: filePath+'/'+'empty.xml' , data: xmlS, formerFile: ''}, 
                 function(data, txt, jqXHR){

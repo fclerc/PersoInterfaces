@@ -1,7 +1,7 @@
 <?php
 
     /*
-        Class to add recursively ids to tags in xml document.
+        Class to add ids to all tags in xml document.
         
         
         Example of use :
@@ -23,7 +23,7 @@
 
     class XMLIdAdder{
     
-        private $id = 0; //the id will be iterated over all tags TODO : if ids already exist, search for the highest in the file
+        private $id = 0; //the id will be iterated over all tags
         private $prefix='id';
         private $suffix='';
         private $targets='all';

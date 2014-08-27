@@ -9,6 +9,7 @@ if($_POST['file'] == $_POST['formerFile'] || !(file_exists($_POST['file']))){//n
         unlink($_POST['formerFile']);
     }
     
+    //in case this is the file containing the resources, add the ids and re-generate the docs about resources
     if($doc->getElementsByTagName('resourcesStructure')->length > 0){
         //adding ids to new elements
         include 'idAdderRunner.php';
