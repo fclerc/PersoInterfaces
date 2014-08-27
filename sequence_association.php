@@ -2,7 +2,10 @@
     require_once 'phphelpers/langFinder.php';
 ?>
 <!DOCTYPE HTML>
-<!-- This file enables the user to modify the content of the resources file : adding resources and editing their parameters.  -->
+<!-- This file enables the user  to tell which strategy and context have to be used for each sequence of the MOOC. 
+Same file is used to store the results once the form is submitted by the user.
+sequence_association.json must be initialized with the right number of sequences
+ -->
 <html>
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -21,9 +24,13 @@
 			<div class="pie"></div>
 			<div id="association">
                 <?php
+                    //getting the file that contains the associations
                     $associationsPath = 'data/teacher/sequence_association.json';
                     $associations = json_decode(file_get_contents($associationsPath));
-                
+                    
+                    
+                    //if user has just submitted the form : store the data indicating the associations.
+                    //example : {"Sequence1":{"strategy":"Atest.xml","context":"Sequence1.xml"},"Sequence2":{"strategy":"Sequence2.xml","context":"Sequence2.xml"}}
                     if(isset($_POST['formSent'])){//treat data sent by the form
                         echo '<p class="alert alert-info">Data successfully saved</p>';
                         
@@ -38,14 +45,18 @@
                         file_put_contents($associationsPath, json_encode($associations));
                     }
                 
+                
+                    //getting the lists of files for contexts and strategies
                     $contextPath = 'data/teacher/sequenceContexts';
                     $strategyPath = 'data/teacher/strategies';
                     
-                
                     $contextFiles = scandir($contextPath);
                     $strategyFiles = scandir($strategyPath);
                     
+                    //the form used to define the associations
                     $form = '<form action="sequence_association.php" method="post">';
+                    
+                    //for each sequence, displaying the form with the 2 select
                     foreach($associations as $sequence => $data){
                         $form = $form.'<div><span><b>'.$sequence.' : </b></span>';
                         
@@ -65,7 +76,8 @@
                     $form = $form.'</form>';
                     
                     echo $form;
-                
+                    
+                    //returns hmtl for a select with the context files, selecting the right one. sequence is used to give unique names to the select elements (like Sequence1Context
                     function getContextSelect($contextFiles, $selectedContext, $sequence){
                         $toReturn = '<select name="'.$sequence.'Context">';
                         foreach($contextFiles as $file){
@@ -82,6 +94,7 @@
                         return $toReturn;
                     }
                     
+                    //returns hmtl for a select with the strategy files, selecting the right one. sequence is used to give unique names to the select elements (like Sequence1Strategy
                     function getStrategySelect($strategyFiles, $selectedStrategy, $sequence){
                         $toReturn = '<select name="'.$sequence.'Strategy">';
                         foreach($strategyFiles as $file){
