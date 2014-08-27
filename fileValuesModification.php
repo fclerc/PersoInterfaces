@@ -15,13 +15,13 @@
     <body>
     <?php 
     //I store these variables here to call them later...could be easier to use directly $_POST['path'],... in the rest of the script but idiot php tells me these indexes no longer exist in the array (well in fact sometimes there is no problem, but some other times, in EXACTLY the same conditions, it tells me they don't exist (even if it is possible to echo and display these array values in the html page, it doesn't let me use it in the other parts of the script)...
-    if(!isset($_POST['path'])){//values are in the session variable
+    if(!isset($_POST['path'])){//values are in the session variable (sent by the fileHandler.php)
         $path = $_SESSION['path'];
         $file = $_SESSION['file'];
         $scales = $_SESSION['scales'];
         $section = $_SESSION['section'];
     }
-    else{
+    else{//files are in the post, directly sent by index.php
         $path = $_POST['path'];
         $file = $_POST['file'];
         $scales = $_POST['scales'];
@@ -57,7 +57,7 @@
                     });
                     
                     
-                    
+                    //getting the file and corresponding scales, and calling the function to display XML
                     var file = <?php echo "'".$path."/".$file."'"; ?>;
                     var scales = <?php if($scales!=''){echo file_get_contents($scales);}else{echo '""';} ?>;
                     manipulateXML(file,'#XMLcontainer', 'modify','', scales , '#scalesContainer', "#currentFileName");   
