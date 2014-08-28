@@ -99,9 +99,10 @@
                 var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
                 var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
         
-        $.getJSON('data/schemas/profileScales.json', function(profileScales){
-        $.getJSON('data/schemas/contextScales.json', function(contextScales){
-        $.getJSON('data/schemas/resourcesData.json', function(resourcesData){
+        //getting the scales
+        $.getJSON('data/infos/profileScales.json', function(profileScales){
+        $.getJSON('data/infos/contextScales.json', function(contextScales){
+        $.getJSON('data/infos/resourcesData.json', function(resourcesData){
         
 		
 		
@@ -124,6 +125,7 @@
                 
                 $.when(t1, t2).done(function() {//when profile and context are displayed
                     
+                    
                     displayActivitiesAndRules(pedagogicalPropertiesFilename, strategy);
                     
                     
@@ -138,6 +140,7 @@
                     //the element which triggers events to treat them when an element is clicked.
                     var reader = $('#Rules');
                     
+                    //used to display the activities on the right part, and the rules in the center, give the two files
                     function displayActivitiesAndRules(pedagogicalPropertiesFilename, strategy){
                         
                     
@@ -151,7 +154,7 @@
                                 
                                 
                                 
-                                //the element that will contain all the activities
+                                //the html element that will contain all the activities
                                 var activitiesContainer = $('<ul>').addClass('activities');
                                 
                                 //going through the activities a first time, to find the 'All' one and expand all the other parameters list with its parameters. At the same time, we fill the activitiesDictionnary.
@@ -213,9 +216,7 @@
                     
                     /*
                     Takes an xml element containing the activity, and the list of parameters contained in the 'All' activity.
-                    Returns the html.
-                    
-                    
+                    Returns the html to be displayed on the right part of the interface.
                     */
                     function displayActivity(activity, allActivityParameters){
                         var activityName = _($($(activity).children('Name')[0]).text());
@@ -261,7 +262,7 @@
                         //var commentPopover = $('<a>').attr('id', 'popParameterComment').attr('href', '#').attr('data-toggle', 'popover').attr('data-content', parameterComment).append($('<span>').addClass('glyphicon glyphicon-info-sign commentPopover'));
                         
                         //displaying comment in alert
-                        if(parameterComment != ''){
+                        if(parameterComment !== ''){
                             var commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', _('Click for more information'));
                             $(commentPopover).click(function(){
                                 alert(parameterComment);
@@ -329,9 +330,17 @@
                     
                     
                     
-                    
-                    //responding to user definition of rules
                     /*
+                    
+                    responding to user definition of rules
+                    Each time user makes a click, he triggers  an event 'leafValueReading' (the same as the event triggered by the xmlmanipulator).
+                    Depending on what the user clicked on, and which was the currentOperation (see below for list of operations), the system decides whether something has to be done or not.
+                    When event is received, we first go in the currentOperation part of the code, and then make some tests about the data contained in the event (for example the 'container' value in the event tells from which part of the page the event comes : profile, activities,...). If the data is not corresponding to what has to be done during this currentOperation, nothing is made.
+                    
+                    In addition to currentOperation, other variables are srored during the whole process; for example currentParameter enables to remember which parameter was selected in operation 5 or 8, when the user gives it a value during operations 6 or 9.
+                    
+                    Operations are :
+                    0: Creation of a new rule
                     1: Selection of indicator
                     2: Selection of operator
                     3: referenceValue is given
@@ -346,8 +355,13 @@
                     12: Rule is saved
                     13: chosing 'AND' or 'OR' (should be another number, but I only added it in the end)
                     
+                    For each of these operations, some things have to be done just before the user makes them (for example display a form before operation 3 to enable the user to give the value), and some other just after (removing the forms for example. These operations are in the arrays todoAfter and todoBefore, the number of the operation is the corresponding index of the array.
                     
-                    At each time : change the xml tree, and make a new call on the displayer.
+                    Some buttons are present in the rule which is being modified, and the user can click on them, which makes the currentOperation variable change
+                    
+                    goFromTo(i,j) : makes everything so that the interface goes from operation i to operation j.
+                    
+                    After each operation : change the xml tree of the built rule, and make a new call on the displayer to display this new rule from its XML.
                     
                     */
                     var currentOperation = 0;
@@ -356,7 +370,7 @@
                     //used in last operations, to know whether we are in the definition of <then> or <else>
                     var operationToConsequence = ['new','if', 'if', 'if', 'then','then','then','else','else','else', 'priority', 'save', 'save'];
                     
-                    var builtRule = {};
+                    var builtRule = {};//the rule which is currently being defined or edited
                     
                     var currentIndicatorId;//used to display the scale in todoBefore[3]
                     
@@ -369,7 +383,7 @@
                     var resetAllCurrent = false; //in case the rule has just been saved, reset all the 'current' variables to avoid any problem if user clicks on buttons without paying attention
                     
                     
-                    var formToDisplay = '' //used when displaying a new rule, to know whether a form has to be displayed in it.
+                    var formToDisplay = ''; //used when displaying a new rule, to know whether a form has to be displayed in it.
                     //formToDisplay  = string. 'comparisonOperator' = form to select an operator for currentCondition; 'refValueConstraint' = form for the value of currentParameter; 'refValueParameter' = form for the value of currentParameter; 'priority' = you know what.
                     //'indicator' if the user has to chose an indicator in the list (either to edit an indicator, or to chose the indicator of a new constraint)
                     //'parameter' if the user has to chose a new parameter in the list
@@ -378,7 +392,13 @@
                     //'conditionType' if the user has to chose between 'and' and 'or'
                     //'conditionTypeEdition' if the user has to chose between 'and' and 'or' to MODIFY a condition operator
                     
+                    /*
+                    variables value and id take represent various informations depending on the operation, but most of the time they indeed contain a value (eg the value given as refValue in a rule) and an id.
+                    container represents the part of the interface from which the message initially comes (profile, liveContext,...)
                     
+                    
+                    
+                    */
                     $("#Rules").on("leafValueReading", function(event, value, id, container){
                         
                         
@@ -386,7 +406,7 @@
                             if(container == "#Profile" || container == "#Context"){
                                 var newConstraint = $('<constraint>').append($('<indicator>').text(id));
                                 currentIndicatorId = id;
-                                if($(builtRule).find('if').length === 0){//there's no 'if' defined.                                    
+                                if($(builtRule).find('if').length === 0){//there's no 'if' defined yet in the rule.                                    
                                     $(builtRule).append($('<if>').append(newConstraint));
                                     currentCondition = newConstraint[0];
                                 }
@@ -404,8 +424,8 @@
                                 }
                                 
                                 
-                                else{//else : replace the first indicator (or create it, in the case the rule only contains <if></if> TODO : maybe forget it, and don't display 'edit if' button once <if> is not void.
-                                    if($(builtRule).find('constraint').length==0){//create the first constraint
+                                else{//the 'if' tag exists, but contains no constraint
+                                    if($(builtRule).find('constraint').length===0){//create the first constraint
                                         $($(builtRule).find('if')[0]).append(newConstraint);
                                     }
                                     else{//replace the first constraint
@@ -445,7 +465,7 @@
                         
                         }
                         
-                        else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts), or user has clicked on the button 'noelse'
+                        else if(currentOperation == 4 || currentOperation == 7){//an activity has been clicked on (either for then or else parts) : add it to the list of activities of the 'then' or 'else'
                             if(container=='#Activities' && value == 'activity'){
                                 var activity = $('<activity>').append($('<typeofactivity>').append(id)).append($('<parameters>'));
                                 currentActivity = activity[0];
@@ -465,10 +485,8 @@
                             
                         }
                         
-                        else if(currentOperation == 5 ||currentOperation==8){//a parameter has been clicked on
+                        else if(currentOperation == 5 ||currentOperation==8){//a parameter has been clicked on, add it to the current activity parameters list
                             if(container=='#Activities' && value == 'parameter'){
-                                //var activity = $($(builtRule).find(operationToConsequence[currentOperation])[0]).find('activity').last();
-                                
                                 var parameter = $('<parameter>').append($('<id>').text(id));
                                 $($(currentActivity).find('parameters')[0]).append(parameter);
                                 currentParameter = parameter[0];
@@ -489,14 +507,14 @@
                             }
                         }
                         
-                        else if(currentOperation==10){
+                        else if(currentOperation==10){//priority is given
                             if(container == '#newRuleContainer'){
                                 $(builtRule).prepend($('<priority>').append(value));
                                 goFromTo(10,11);
                             }
                         }
                         
-                        else if(currentOperation == 13){
+                        else if(currentOperation == 13){//the form enabling to chose between 'and' and 'or' has been submitted
                             if((currentCondition.nodeName).toLowerCase() == 'constraint' || formToDisplay == 'conditionType'){//we are adding a new constraint
                                 $(currentCondition).wrap($('<'+ value +'>'));
                             }
@@ -511,7 +529,7 @@
                     });
                     
                     /*
-                    Function used to change the interface and text dispalyed when going from any 'currentOperation' origin to any other 'currentOperation' target.
+                    Function used to change the interface and text displayed when going from any 'currentOperation' origin to any other 'currentOperation' target.
                     
                     */
                     function goFromTo(origin, target){
@@ -522,7 +540,6 @@
                         if(target!==0 && target !=12){
                             displayNewRule();
                         }
-                        //instruct();
                     }
                     
                     var todoBefore = [//contains what has to be done before each operation
@@ -531,15 +548,14 @@
                             $('#newRuleContainer').empty();
                         },
                         function(){//1
-                            //addEditButtons();
                             formToDisplay = 'indicator';
                         },
                         function(){//2
                             formToDisplay = 'comparisonOperator';
-                        
                         },
                         function(){//3
                             formToDisplay = 'refValueConstraint';
+                            //getting informations about the indicator, and displaying it below the currently defined rule
                             var indicatorName;
                             if($(profile).find('#'+currentIndicatorId)[0]){
                                 indicatorName = $(profile).find('#'+currentIndicatorId)[0].nodeName;
@@ -594,12 +610,10 @@
                         
                         },
                         function(){//10
-                            formToDisplay = 'priority'
-                            //displayValueInput();
+                            formToDisplay = 'priority';
                         
                         },
                         function(){//11
-                            //addEditButtons();
                         },
                         function(){//12
                             removeAllButtons();
@@ -682,7 +696,7 @@
                     
                     
                     
-                    
+                    //this function saves the currently built rule in the xml tree containing the pedagogical strategy
                     function saveRule(){
                         var ruleInXMLFile = $(strategy).find('rule[id="' + $(builtRule).attr('id') + '"]');
                         if(ruleInXMLFile.length === 0){//this is a new rule, add it to the end of the file
@@ -699,6 +713,7 @@
                         
                     }
                     
+                    //create new rule when click on the button and precedent rule has been stored or deleted
                     $('#ruleAdder').click(function(){
                         if(currentOperation === 0 || currentOperation == 12){
                             var nextRuleId = rulesMaxId+1;
@@ -714,6 +729,7 @@
                         addButton(_('Save rule'), 'ruleSaver', 11);
                     }
                     
+                    //saving the whole strategy file when clicking on the button
                     $('#strategySaver').click(function(){
                         var xmlS = (new XMLSerializer()).serializeToString(strategy[0]);
                         $.post('phphelpers/saveXMLDocument.php', { 
@@ -788,6 +804,7 @@
                         }
                     }
                     
+                    
                     function removeAllButtons(){
                         $('#newRuleButtons').empty();
                     }
@@ -795,21 +812,22 @@
                     
                     
                     
-                    
-                    function updateRule(ruleXML, id){//updates a rule which is displayed : removes the rule and displays the new one at the same place/
+                    //updates a rule which is displayed : removes the rule and displays the new one at the same place
+                    function updateRule(ruleXML, id){
                         formerRuleContainer = $('#Rules').find('.ruleContainer[id="' + id + '"]');
                         insBefore = $(formerRuleContainer).next();
                         $(formerRuleContainer).remove();
                         displayRule(ruleXML, insBefore, false, false);                        
                     }
                     
+                    
+                    //duplicates a rules, and enables the user to then edit it
                     function duplicateAndEditRule(rule){
                         if($('#newRuleContainer').text().length===0){//no rule is currently being edited
                                 currentOperation = 11;
                                 builtRule = $(rule).clone();
                                 var nextRuleId = rulesMaxId+1;
                                 $(builtRule).attr('id', 'R'+(nextRuleId));
-                                //addEditButtons();
                                 displayNewRule();
                                 $('#newRuleInstruction')[0].scrollIntoView(true);
                         }
@@ -832,7 +850,7 @@
                         
                         
                         
-                        
+                        //displaying the priority and enabling its modification when edit mode and priority is thecurrently edited element
                         var priority = $($(rule).find("priority")[0]).text();
                         var priorityContainer = $('<div>').addClass('priority').append(_('Priority: '));
                         if(editMode && formToDisplay == 'priority'){//we are editing the priority
@@ -858,13 +876,14 @@
                             
                             $(priorityContainer).append(priorityEditor);
                         }
-                        else{
+                        else{//simply display the value, with no possibility to modify it.
                             $(priorityContainer).append(priority);
                         }
                         
-                        
+                        //fill the ruleContainer with all created html
                         var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append(_('Rule') + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(ruleDuplicator).append(priorityContainer);
                         
+                        //add sace button
                         if(editMode){
                             var ruleSaver = $('<span>').addClass('glyphicon glyphicon-floppy-disk ruleSaver pull-right').attr('title', _('Save rule'));
                             $(ruleSaver).click(function(){
@@ -876,7 +895,7 @@
                             $(ruleContainer).append(ruleSaver);
                         }
                         
-                        
+                        //during the 1st step, eg displaying the rules already contained in the file : search for the highest id used in the file
                         if(!createdRule){
                             var ruleIdNumber = parseInt($(rule).attr('id').split('R')[1]);
                         
@@ -903,6 +922,7 @@
                             }
                         });
                         
+                        //click on the edit button, which is allowed iff no rule is currently being edited (user first has to store or delete the currently edited rule)
                         $(ruleEditor).click(function(){
                             if($('#newRuleContainer').text().length===0){//no rule is currently being edited
                                 builtRule = $(rule);
@@ -913,19 +933,24 @@
                                 alert(_('strategy.rules.cantedit'));
                             }
                         });
-                        
+                        // duplicate a rule
                         $(ruleDuplicator).click(function(){
                             duplicateAndEditRule(rule);
                         });
                         
                         
                         
+                        /*
+                        Display of the rule itself
+                        Lots of 'if' tests are made to see whether we are in modification mode or not, and whether the currentOperation has consequence on the elements that are being displayed (should the value be replaced with a form?,...)
+                        
+                        */
                         
                         
-                        
-                        
+                        //element that will contain the whole condition
                         var ifContainer = $('<div>').addClass('ifContainer').append(_('IF'));
-
+                        
+                        //getting the if part of the rule
                         var ifElement = $(rule).find("if")[0];
                         if($(ifElement).children().length > 0){//there are constraints, display it
                             $(ifElement).children().each(function(){
@@ -948,22 +973,24 @@
                         
                         todoWhenConditionReady();
                         
+                        //element is a condition, or a part of it, eg it can be 3 types of tags : 'constraint', 'or' and 'and'.
+                        //function returns html to display this condition
                         function getConditionElementContainer(element){
                             var toReturn;
                             if((element.nodeName).toLowerCase() == 'constraint'){
                                 toReturn = getConstraintContainer(element);
                             }
-                            else{//AND or OR, with 2 conditionElement children
+                            else{//AND or OR, with 2 condition element children : display '(c1 OR c2)' or '(c1 AND c2)'
                                 var c1, c2;
                                 if($(element).children().length >= 1){
                                     c1 = getConditionElementContainer($(element).children()[0]);
                                         if($(element).children().length >= 2){
                                             c2 = getConditionElementContainer($(element).children()[1]);
                                         }
-                                        else if(editMode){
+                                        else if(editMode){//add buttons to remove the condition
                                             var constraintRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle constraintRemover').attr('title', _('Remove complex condition'));
-                                            $(constraintRemover).click(function(){
-                                                var constraintToKeep = $(element).children()[0]
+                                            $(constraintRemover).click(function(){//when clicking on remove button of a complex condition : remove the second constraint, and keep the first one.
+                                                var constraintToKeep = $(element).children()[0];
                                                 $(element).replaceWith(constraintToKeep);
                                                 goFromTo(currentOperation, 11);
                                             });
@@ -979,6 +1006,7 @@
                                 
                                 toReturn = $('<span>').addClass('conditionElement');
                                 
+                                //conditionTypeContainer contains the name of the operator, 'AND' or 'OR', with eventually forms and buttons
                                 var conditionTypeContainer = $('<span>').addClass('conditionType');
                                 
                                 if(editMode){
@@ -1005,14 +1033,14 @@
                                         var conditionTypeEditor = ($('<span>').addClass('glyphicon glyphicon-edit conditionTypeEditor').attr('title', _('Edit operator')));
                                         
                                         var otherConstraintAdder = $('<span>').addClass('glyphicon glyphicon-plus otherConstraintAdder').attr('title', _('Combine with another constraint'));
-                                            
+                                        //new constraint
                                         $(otherConstraintAdder).click(function(){
                                             currentCondition = element;
                                             goFromTo(currentOperation, 13);
                                             editingCondition = false;
                                             currentCondition = element;//doing it once again if changed by goFromTo...
                                         });
-                                        
+                                        //change the condition type (and or or)
                                         $(conditionTypeEditor).click(function(){
                                             currentCondition = element;
                                             formToDisplay = 'conditionTypeEdition';
@@ -1024,7 +1052,7 @@
                                         $(conditionTypeContainer).append(conditionTypeEditor).append(otherConstraintAdder);
                                     }
                                 }
-                                
+                                //just display the operator
                                 else{
                                     $(conditionTypeContainer).append(' '+_(element.nodeName.toUpperCase()));
                                 }
@@ -1051,6 +1079,8 @@
                             return toReturn;
                         }
                         
+                        //constraint : a constraint element.
+                        //returns the html to display it
                         function getConstraintContainer(constraint){
                             var indicatorId = $($(constraint).find("indicator")[0]).text();
                             //finding the corresponding element in the left part of the page, to display the name of the indicator, and indicate it when hovering the indicator in the page.
@@ -1074,6 +1104,7 @@
                                 return todoWhenIndicatorReady();
                             }*/
                             
+                            //last part of function todoWhenIndicatorReady, returns the constraint displayed in html
                             function todoWhenIndicatorReady(){
                                 var operator = $($(constraint).find("operator")[0]).text();
                                 var referenceValue = $($(constraint).find("referencevalue")[0]).text();
@@ -1086,7 +1117,7 @@
                                 var operatorContainer = $('<span>').addClass('operator').append(' ');
                                 var referenceValueContainer = $('<span>').addClass('referenceValue').append(' ');
                                 
-                                var allowComplex = true;
+                                var allowComplex = true;//true iff user is allowed to define a complex condition (eg add a AND or OR). This is always the case, except when he is currently chosing between 'AND' and 'OR' in the form.
                                 if(editMode && formToDisplay == 'comparisonOperator' && constraint == currentCondition){
                                     allowComplex = false;
                                     //displaying the form to select operator
@@ -1106,11 +1137,12 @@
                                 }
                                 
                                 
-                                
+                                //just add the operator
                                 else{
                                     $(operatorContainer).append(operator);
                                 }
                                 
+                                //if currently editing the value of this constraint, display a form
                                 if(editMode && formToDisplay == 'refValueConstraint' && constraint == currentCondition){
                                     var valueInput = $('<input>').attr('type', 'text').attr('value', referenceValue);
                                     $(referenceValueContainer).append(valueInput);
@@ -1123,7 +1155,7 @@
                                     });
                                 }
                                 
-                                
+                                //else just display the value
                                 else{
                                     $(referenceValueContainer).append(referenceValue);
                                 }
@@ -1138,6 +1170,7 @@
                                 $(constraintContainer).append(operatorContainer);
                                 $(constraintContainer).append(referenceValueContainer);
                                 
+                                //enable the user to combine with other constraints, remove or edit the constraint
                                 if(editMode){
                                     var otherConstraintAdder;
                                     if(allowComplex){//enable conditions combination only if you aren't currently selecting the operator
@@ -1156,6 +1189,7 @@
                                     var constraintRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle constraintRemover').attr('title', _('Remove constraint'));
                                     var constraintEditor = $('<span>').addClass('glyphicon glyphicon-edit constraintEditor').attr('title', _('Edit constraint'));
                                     
+                                    //when clicking to remove the constraint
                                     $(constraintRemover).click(function(){
                                         var parent = $(constraint).parent()[0];//if it is and or or : only keep the other constraint
                                         if(['and', 'or'].indexOf((parent.nodeName).toLowerCase()) != -1){
@@ -1166,10 +1200,10 @@
                                         else{
                                             constraint.remove();
                                         }
-                                        
-                                       
                                         goFromTo(currentOperation, 11);
                                     });
+                                    
+                                    //button to edit the constraint
                                     $(constraintEditor).click(function(){
                                         currentCondition = constraint;
                                         editingCondition = true;
@@ -1184,7 +1218,7 @@
                                 
                                 
                                 
-                                //displaying the indicator in color when hovering
+                                //displaying the indicator in the left part in color when hovering the indicator in the rule
                                 var indicatorSelectionContainerColor = $(indicatorSelectionContainer).css('background-color');
                                 $(indicatorContainer).hover(function(event){
                                     $(indicatorSelectionContainer).css('background-color', '#FF7F24');
@@ -1194,7 +1228,7 @@
                                 
                                 });
                                 
-                                //scrolling to the indicator in left part when clicking on it in rule part (and swithing if necessary to context or profile).
+                                //scrolling to the indicator in left part when clicking on it in rule part (and switching if necessary to context or profile).
                                 $(indicatorContainer).click(function(event){
                                 
                                     if($('#Profile' + ' #' +indicatorId).length > 0){
@@ -1218,7 +1252,7 @@
                                             });
                                         }
                                         
-                                        elementToExpand = $(elementToExpand).parent()[0]
+                                        elementToExpand = $(elementToExpand).parent()[0];
                                     }
                                    
                                     indicatorSelectionContainer[0].scrollIntoView(true); 
@@ -1243,7 +1277,7 @@
                         
                         
                         
-                        
+                        //when the html of the condition is generated : genrate the html for the 'then' and 'else' parts, and display all these elements.
                         function todoWhenConditionReady(){
                             
                             var thenContainer = getConsequencesContainer($(rule).find('then')[0], 'then');
@@ -1304,10 +1338,9 @@
                                 
                                 $(typeOfActivityContainer).click(function(){
                                     typeOfActivitySelectionContainer[0].scrollIntoView(true); 
-                                
-                                
                                 });
                                 
+                                //add buttons to edit, remove and 'up' an activity (make it pass above the precedent one in the list)
                                 if(editMode){
                                     var activityRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle activityRemover').attr('title', _('Remove activity'));
                                     $(typeOfActivityContainer).append(activityRemover);
@@ -1318,6 +1351,7 @@
                                         }
                                     });
                                     
+                                    //make the activity go above the precedent one
                                     var activityUpper = $('<span>').addClass('glyphicon glyphicon glyphicon-arrow-up activityUpper').attr('title', _('Place above'));
                                     $(typeOfActivityContainer).append(activityUpper);
                                     $(activityUpper).click(function(){							
@@ -1326,6 +1360,7 @@
                                     });
                                 }
                                 
+                                //display the list of parameters
                                 var parametersContainer =$('<ul>').addClass('parameters');
                                 $(this).find('parameter').each(function(){
                                     var parameter = this;
@@ -1366,7 +1401,7 @@
                                     
                                     
                                     
-                                    
+                                    //add buttons to edit the value and remove the parameter
                                     if(editMode){
                                         var parameterValueEditor = $('<span>').addClass('glyphicon glyphicon-edit parameterValueEditor').attr('title', _('Edit value'));
                                         $(parameterContainer).append(parameterValueEditor);
@@ -1390,7 +1425,7 @@
                                     
                                 });
                                 
-                                if(editMode){//enabling to add a parameter
+                                if(editMode){//enabling to add a parameter at the end of the list
                                     if(formToDisplay == 'parameter' && currentActivity == activity){//highlight this zone where the user is chosing a new parameter
                                         $(parametersContainer).append($('<li>').addClass('newParameterToAdd').addClass('instruction').append(_('strategy.rules.newrule.chose.parameter')));
                                     }
@@ -1413,10 +1448,10 @@
                                 
                             });
                             if(editMode){
-                                if(formToDisplay == 'thenActivity' && containerName == 'then'){
+                                if(formToDisplay == 'thenActivity' && containerName == 'then'){//if user has to select an activity for the then part
                                     $(activitiesContainer).append($('<div>').addClass('instruction').text(_('strategy.rules.newrule.chose.activity')));
                                 }
-                                else if(formToDisplay == 'elseActivity' && containerName == 'else'){
+                                else if(formToDisplay == 'elseActivity' && containerName == 'else'){//if user has to select an activity for the else part
                                     $(activitiesContainer).append($('<div>').addClass('instruction').text(_('strategy.rules.newrule.chose.activity')));
                                 }
                             

@@ -59,7 +59,7 @@
 				$profilePath = $profilepath.$profilefile;
 				$sequenceContextPath = $sequenceContextpath.$sequenceContextfile;
 				$liveContextPath = $liveContextpath.$liveContextfile;
-				$generator = new ActivitiesGenerator($strategyPath, $profilePath, $sequenceContextPath, $liveContextPath);
+				$generator = new ActivitiesGenerator($strategyPath);
 				$generator->generate($profilePath, $sequenceContextPath, $liveContextPath);
 				
 				class ActivitiesGenerator{
@@ -98,8 +98,8 @@
 						$seqContext = new DOMDocument();
 						$seqContext->load($sequenceContextPath);
 						//TODO : us it as argument (or not ?)
-						$profileScales = json_decode(file_get_contents('data/schemas/profileScales.json'));
-						$contextScales = json_decode(file_get_contents('data/schemas/contextScales.json'));
+						$profileScales = json_decode(file_get_contents('data/infos/profileScales.json'));
+						$contextScales = json_decode(file_get_contents('data/infos/contextScales.json'));
 						
 						
 						
@@ -622,19 +622,6 @@
         </div>
 		
 		
-        
-        
-        
-      
-        
-        
-        
-        
-        
-        
-        
-        
-        
        
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
