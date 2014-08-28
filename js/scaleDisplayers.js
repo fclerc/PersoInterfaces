@@ -1,8 +1,15 @@
 /*
+In this file are the functions called in the interfaces to display more information about the elements manipulated by the user.
+
+*/
+
+/*
 Takes a scale element, and displays an information about allowed values next to the value form
-clickable : boolean to know if the user has the possibility to click on the values (currently only used in order not to display the 'click on the value you want')
+scaleelement : the part of the json containing scales data that concerns the element for which we need informations.
 reesourcesData : list of the values the parameter takes in the resources definition
-style : if 'list', display it as an html list (used when enumeration with lots of elements
+container : the html element in which the information has to be displayed
+clickable : boolean to know if the user has the possibility to click on the values (currently only used in order not to display the 'click on the value you want in the rules interface when the user has to enter an indicator value in the input')
+style : if 'list', display it as an html list (used when enumeration with lots of elements, for example forthe list of ressources)
 */
 function displayParameterScale(scaleElement, resourcesData, container, clickable, style){//TODO : add elements
     var informationToDisplay = $('<span>').addClass('scaleInformation');
@@ -47,15 +54,15 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
     
     else if(scaleType == 'ScaleNumerical'){//display the type of value, integer or number, and the step.
         $(informationToDisplay).append(_('scales.value.intro'));
-        if($(scaleElement).find('Step').length === 0){
+        if($(scaleElement).find('Step').length === 0){//no step : no precision about the number to display
             $(informationToDisplay).append(_(' number'));
         }
         else{
             var step = $($(scaleElement).find('Step')[0]).text();
-            if(step=='1'){
+            if(step=='1'){//step 1 : it's an integer
                 $(informationToDisplay).append(_('n integer'));
             }
-            else{
+            else{//another value of step is provided
                 $(informationToDisplay).append( (_(' number, with step ')+step));
             }
         
@@ -78,8 +85,7 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
 
 /*
 Takes the name of an indicator, and displays the corresponding scale.
-function displayIndicatorScale(indicatorName){//TODO : merge with precedent one, with argument profile or activity
-style : if 'list', display it as an html list (used when enumeration with lots of elements)
+See function above for explanations about the arguments
 */
 function displayIndicatorScale(indicatorName, container, currentIndicatorId, scales, clickable, style){//TODO : merge with precedent one, with argument profile or activity
     
@@ -94,11 +100,11 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, sca
         else if(scaleElement.nature == 'restriction'){//restriction
             if(scaleElement.baseTypeName == 'xs:float' || scaleElement.baseTypeName == 'xs:integer'){//if number
                 $(informationToDisplay).append((_('scales.value.intro') + _(scaleElement.baseTypeName)));
-                if(scaleElement.min && scaleElement.max){//if min and max are set
+                if(scaleElement.min && scaleElement.max){//if min and max are set : geenrate a sentence telling the min and max
                     $(informationToDisplay).append((_(' between ') + scaleElement.min + _(' and ') + scaleElement.max));
                 }
             }
-            else if(scaleElement.baseTypeName == 'xs:string' && scaleElement.enumeration){//there's an enumeration
+            else if(scaleElement.baseTypeName == 'xs:string' && scaleElement.enumeration){//there's an enumeration : display the elements
                 if(scaleElement.enumeration.length > 0){
                     $(informationToDisplay).append(_('scales.enumeration.intro'));
                     getEnumerationStringFromArray(informationToDisplay, scaleElement.enumeration, clickable, style)
@@ -106,10 +112,11 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, sca
             }
             
         }
-        else{
+        else{//no information available
             $(informationToDisplay).append(_('scales.noscale'));
         }
         
+        //if more information is available : and we want infos to be clickable : display an 'alert' containing the documentation 
         var commentPopover;
         if(scaleElement.documentation && clickable){
             commentPopover = $('<span>').addClass('glyphicon glyphicon-info-sign commentPopover').attr('title', _('More information'));
@@ -149,7 +156,6 @@ function getEnumerationStringFromArray(container, valueArray, clickable, style){
             $($('#newRuleContainer').find('input')[0]).attr('value', value);
         });
     });
-    //container = container.slice(0, -2);
     $(container).append(enumeration);
     if(clickable){
         $(enumeration).append(_('scales.enumeration.conclu'));
