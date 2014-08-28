@@ -117,12 +117,6 @@
         
         
         
-        
-        
-        
-        
-        
-        
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/resourcesManipulator.js"></script>
@@ -211,9 +205,10 @@
                     //the basic form of an order form (2 inputs)
                     var orderForm = '<div class="orderForm"><span class="glyphicon glyphicon-minus orderRemover" title="Remove order"></span><label for="context">Context: </label><input type="text" name="context"/><label for="position">Position: </label><input type="number" step="1" name="position"/></div>';
                     
+                    //adding a new 'order' form
                     $('.orderAdder').click(function(){
                         $('#orderForms').append($(orderForm).clone());
-                    
+                        //when removing the order form : remove all the elements.
                         $('.orderRemover').unbind().click(function(){
                             $(this).next().remove();
                             $(this).next().remove();

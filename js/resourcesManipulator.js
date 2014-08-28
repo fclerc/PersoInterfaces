@@ -168,7 +168,8 @@ function displayThis(xmlNode){
                 $(form).children('input').last().val($(this).next().text());
                 $('#orderForms').append(form);
                 
-                //TODO : remove duplication, same code in resourcesModification.php
+                //when removing the order form : remove all the elements.
+                //TODO : refact, same code in resourcesModification.php
                 $('.orderRemover').unbind().click(function(){
                     $(this).next().remove();
                     $(this).next().remove();
@@ -180,19 +181,9 @@ function displayThis(xmlNode){
         
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         $('#paramModal').modal('show');
     });
-    
+    //removing the resource : remove the html and the resource in the xml tree
     $(resourceRemover).click(function(){
         if(confirm('Are you sure ? Any deletion is definitive')){
             $(xmlNode).remove();
@@ -200,7 +191,7 @@ function displayThis(xmlNode){
         }
     });
     
-	//if this s a group of resources : enable addition of a children
+	//if this is a group of resources : enable addition of a child
 	if($($(xmlNode).children('type')).text() == 'group'){
 		var resourceAdder = $('<span>').addClass('glyphicon glyphicon-plus resourceAdder').attr('title', _('Add resource'));
 		result.append(resourceAdder);
@@ -266,7 +257,7 @@ $('#paramModalSaver').click(function(){
     }
     
     
-    //removing all orders, then adding all the orders corresponding to inputs
+    //removing all orders in the xml, then adding all the orders corresponding to inputs
     var orderElement;
     if($(currentResource).children('order').length > 0){
         $(currentResource).children('order').first().text('');
@@ -305,10 +296,7 @@ $('#paramModalSaver').click(function(){
     $(currentResourceContainer).replaceWith(newContent);
     
     
-    
-    
-    
-    
+    //hiding the form
     $('#paramModal').modal('hide');
     
 });

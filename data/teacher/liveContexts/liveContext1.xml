@@ -5,10 +5,10 @@
         <connecteds id="CTX3">
             <connected id="CTX4">
                 <role id="CTX5" fixed="true">teacher</role>
-                <number id="CTX6">1</number>
+                <number id="CTX6">2</number>
             </connected>
             <connected id="CTX7">
-                <role id="CTX8"  fixed="true">learner</role>
+                <role id="CTX8" fixed="true">learner</role>
                 <number id="CTX9">147</number>
             </connected>
         </connecteds>
