@@ -121,6 +121,7 @@
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/resourcesManipulator.js"></script>
         <script type="text/javascript" src="js/scaleDisplayers.js"></script>
+        <script type="text/javascript" src="js/closeEditorWarning.js"></script>
         <script type="text/javascript" src="translation/translate.js"></script>
         <script type="text/javascript" src="translation/icu.js"></script>
         <script type="text/javascript">

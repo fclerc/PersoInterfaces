@@ -182,11 +182,6 @@ require_once 'phphelpers/langFinder.php';
 			});
 		
         }});//translation file
-        
-        window.onbeforeunload = function(){
-  return 'Are you sure you want to leave?';
-};
-        
 		});//jQuery
 	
 	</script>
