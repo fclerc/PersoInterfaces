@@ -1008,7 +1008,7 @@ msgid "boussole.learning.groupCcl"
 msgstr "elles sont listées ci-dessous"
 
 msgid "Consult "
-msgstr "Consultez"
+msgstr "Consultez "
 
 msgid "boussole.exercice.grade"
 msgstr "Faites l'exercice"

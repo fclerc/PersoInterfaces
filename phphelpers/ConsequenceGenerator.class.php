@@ -185,7 +185,7 @@ class ConsequenceGenerator{
             else if($activityName == 'Learning' && $type != 'quiz' && $type != 'assignment'){
                 $valid = $this->checkFilter('type', $resource, $filters);
                 if($valid){
-                    $activities[] = array('text' => '<span class="toTranslate">Consultez </span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+                    $activities[] = array('text' => '<span class="toTranslate">Consult </span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
                 }
             }
             

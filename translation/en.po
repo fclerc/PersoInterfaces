@@ -11,7 +11,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #
@@ -964,6 +964,61 @@ msgstr ""
 msgid "Sequence Context"
 msgstr ""
 
+msgid "boussole.hello"
+msgstr "Hi ! We suggest you to realize the following activities: "
+
+msgid "boussole.conclusion.begin"
+msgstr "It makes "
+
+msgid "boussole.conclusion.nbAct"
+msgstr " activities to reealize, and should take you about "
+
+msgid "boussole.social.intro"
+msgstr "Go on "
+
+msgid "boussole.social.twitter"
+msgstr "the social network Twitter"
+
+msgid "boussole.social.forum"
+msgstr "the forum of this course"
+
+msgid "boussole.social.facebook"
+msgstr "the social network Facebook"
+
+msgid "boussole.social.google"
+msgstr "the social network Google+"
+
+msgid "boussole.social.answer"
+msgstr " and help the other  learners asking questions"
+
+msgid "boussole.social.read"
+msgstr " and read the messages you could be interested in"
+
+msgid "boussole.social.create"
+msgstr ""
+" and ask your questions or expose you reflections to the other participants"
+
+msgid "boussole.social.time"
+msgstr "you might spend about"
+
+msgid "boussole.message.encouraging"
+msgstr "Keep going this way!"
+
+msgid "boussole.message.greeting"
+msgstr "Hi, very glad to see you for this new sequence of the MOOC!"
+
+msgid "boussole.learning.groupIntro"
+msgstr "Consult the resources of the section "
+
+msgid "boussole.learning.groupCcl"
+msgstr "which are listed just below"
+
+msgid "Consult "
+msgstr ""
+
+msgid "boussole.exercice.grade"
+msgstr "Do the exercise"
+
 #
 #
 # Statistics
@@ -1001,6 +1056,17 @@ msgid "association.instructions"
 msgstr ""
 "For each sequence of the MOOC, select the strategy and sequence context to "
 "be used in order to perform personalization for each learner of the MOOC."
+
+#
+#
+# Titles of the main parts
+#
+#
+msgid "Strategy: "
+msgstr ""
+
+msgid "Context: "
+msgstr ""
 
 #~ msgid "Selection of indicators"
 #~ msgstr "Selection of indicators"
