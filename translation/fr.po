@@ -1002,7 +1002,7 @@ msgstr ""
 "qu'est l'anatomie !"
 
 msgid "boussole.learning.groupIntro"
-msgstr "Consultez les ressources de la section "
+msgstr "Consultez certaines ressources de la section "
 
 msgid "boussole.learning.groupCcl"
 msgstr "elles sont listées ci-dessous"
@@ -1011,7 +1011,10 @@ msgid "Consult "
 msgstr "Consultez "
 
 msgid "boussole.exercice.grade"
-msgstr "Faites l'exercice"
+msgstr "Faites l'exercice noté "
+
+msgid "boussole.exercice.nograde"
+msgstr "Faites l'exercice (non noté) "
 
 #
 #

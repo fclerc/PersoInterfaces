@@ -40,10 +40,6 @@ class ConsequenceGenerator{
     }
     
     
-    
-    
-    
-    
     //takes activity from a rule as an argument, returns information about what has to be done by learner in an array
     private function treatActivity($activity){
         $activityName = $this->getActivityName($activity);
@@ -193,12 +189,14 @@ class ConsequenceGenerator{
             else if($activityName == 'Exercise' && ($type == 'quiz' || $type == 'assignment')){
                 $valid = $this->checkFilter('grade', $resource, $filters);//for a quiz : true iff not graded, for an assignment : true iff graded
                 //graded exercise
-                if($valid){
+                if($valid && $this->getResourceProperty($resource, 'grade') == 'true'){
                     $activities[] = array('text' => '<span class="toTranslate">boussole.exercice.grade</span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+                }
+                else if($valid){
+                    $activities[] = array('text' => '<span class="toTranslate">boussole.exercice.nograde</span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
                 }
             }
         }
-        
         
         return $activities;
     

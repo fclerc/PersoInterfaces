@@ -1031,9 +1031,8 @@ msgstr ""
 msgid "boussole.exercice.grade"
 msgstr ""
 
-
-
-
+msgid "boussole.exercice.nograde"
+msgstr ""
 
 
 

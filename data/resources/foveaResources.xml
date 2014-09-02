@@ -32,7 +32,7 @@
 					<sequence id="R26">1</sequence>
 					<length id="R27">20</length>
 					<categories id="R28">beginner noob</categories>
-					<description id="R29">  mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description><grade xmlns="http://www.w3.org/1999/xhtml" maxpoints="" maxPoints="3" id="R769">true</grade></resource>
+					<description id="R29">  mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description></resource>
 				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426" id="R30">
 					<name id="R31">Quiz1</name>
 					<type id="R32">quiz</type>

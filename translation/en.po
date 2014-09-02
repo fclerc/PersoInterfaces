@@ -1008,7 +1008,7 @@ msgid "boussole.message.greeting"
 msgstr "Hi, very glad to see you for this new sequence of the MOOC!"
 
 msgid "boussole.learning.groupIntro"
-msgstr "Consult the resources of the section "
+msgstr "Consult some resources of the section "
 
 msgid "boussole.learning.groupCcl"
 msgstr "which are listed just below"
@@ -1017,7 +1017,10 @@ msgid "Consult "
 msgstr ""
 
 msgid "boussole.exercice.grade"
-msgstr "Do the exercise"
+msgstr "Do the exercise (graded) "
+
+msgid "boussole.exercice.nograde"
+msgstr "Do the exercise (no grade issued) "
 
 #
 #
