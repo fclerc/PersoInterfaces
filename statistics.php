@@ -81,7 +81,7 @@
 					}
                     
                     //getting the scales (used to know what type of data is contained for each element)
-                    $scalesFile = file_get_contents('data/schemas/profileScales.json');
+                    $scalesFile = file_get_contents('data/infos/profileScales.json');
                     $scales = json_decode($scalesFile);
                     
                     //this array will store the data in an adapted form for the display of graphs, after a treatment on data contained in $initialData.
