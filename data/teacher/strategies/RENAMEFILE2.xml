@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<strategyRules>
+	<exploitedProfile>data/teacher/profiles/profile1.xml</exploitedProfile>
+	<exploitedContext>data/teacher/liveContexts/liveContext1.xml</exploitedContext>
+	<OKEP/>
+	<pedagogicalProperties>data/models/foveaPedagogicalProperties.xml</pedagogicalProperties>
+</strategyRules>
