@@ -83,15 +83,15 @@ class ConsequenceGenerator{
         
         //in case of social : tell the learner to go on the website, with some instructions
         else if($activityName == 'Social'){
-            $text = '<span class="toTranslate">Allez sur </span>';
+            $text = '<span class="toTranslate">boussole.social.intro</span>';
             
             //tell the learner to go on the website
             //TODO : enable url as param (or defined somewhere else), to enable teacher to lead learners directly on the course's page on the social networks
             $toolsText = array(
-                'Twitter' => '<a target="_blank" href="http://twitter.com"><span class="toTranslate">le réseau social Twitter</span></a> ',
-                'Forum' => '<span class="toTranslate">le forum du cours </span>',
-                'Facebook' => '<a target="_blank" href="http://facebook.com"><span class="toTranslate">le réseau social Facebook</span></a> ',
-                'Google+' => '<a target="_blank" href="http://plus.google.com"><span class="toTranslate">le réseau social Google+</span></a> ',
+                'Twitter' => '<a target="_blank" href="http://twitter.com"><span class="toTranslate">boussole.social.twitter</span></a> ',
+                'Forum' => '<span class="toTranslate">boussole.social.forum</span>',
+                'Facebook' => '<a target="_blank" href="http://facebook.com"><span class="toTranslate">boussole.social.facebook</span></a> ',
+                'Google+' => '<a target="_blank" href="http://plus.google.com"><span class="toTranslate">boussole.social.google</span></a> ',
             );
             $toolParam = $this->getParameterByName('Tool', $activity);
             if($toolParam){
@@ -101,9 +101,9 @@ class ConsequenceGenerator{
             
            //tell the learner what to do 
             $actionsText = array(
-                'Answer' => '<span class="toTranslate">, et portez secours aux autres apprenants qui y posent des questions </span>',
-                'Read' => '<span class="toTranslate">, et lisez les messages qui pourraient vous intéresser </span>',
-                'Create' => '<span class="toTranslate">, et posez vos questions ou présentez vos réflexions aux autres participants </span>',
+                'Answer' => '<span class="toTranslate">boussole.social.answer</span>',
+                'Read' => '<span class="toTranslate">boussole.social.read</span>',
+                'Create' => '<span class="toTranslate">boussole.social.create</span>',
             );
             
             $actionParam = $this->getParameterByName('Action', $activity);
@@ -113,7 +113,7 @@ class ConsequenceGenerator{
             }
             //if information about length : give the learner an indication about the time he should spend on it.
             if($length){
-                $text = $text . '(<span class="toTranslate">passez-y environ </span>'.$length.' minutes).';
+                $text = $text . '(<span class="toTranslate">boussole.social.time</span>'.$length.' minutes).';
             }
             
             //returning an array with information
@@ -124,8 +124,8 @@ class ConsequenceGenerator{
         //simply displaying an encouragement message to the learner, depending on the nature of the message
         else if($activityName == 'Message'){
             $goalsText = array(
-                'Encouraging' => '<span class="toTranslate">Continuez vos efforts, bientôt vous serez un as de la colonne vertébrale !</span>',
-                'Greeting' => '<span class="toTranslate">Bonjour, ravi de vous retrouver aujourd\'hui pour étudier cette belle matière qu\'est l\'anatomie !</span>',
+                'Encouraging' => '<span class="toTranslate">boussole.message.encouraging</span>',
+                'Greeting' => '<span class="toTranslate">boussole.message.greeting</span>',
             );
             
             $goalParam = $this->getParameterByName('Goal', $activity);
@@ -177,7 +177,7 @@ class ConsequenceGenerator{
                     }
                 }
                 if(count($activities) > 0){//if at least one child resource has been added : add the current resource also at the beginning of the array, and tell the user to consult the ressources below it
-                    array_unshift($activities, array('text' => '<span class="toTranslate">Consultez les ressources de la section </span><a target="_blank" href="'.$URI.'">'.$name.'</a> (<span class="toTranslate">elles sont listées ci-dessous</span>)', 'length' => 0, 'countActivity' => false));
+                    array_unshift($activities, array('text' => '<span class="toTranslate">boussole.learning.groupIntro</span><a target="_blank" href="'.$URI.'">'.$name.'</a> (<span class="toTranslate">boussole.learning.groupCcl</span>)', 'length' => 0, 'countActivity' => false));
                 }
             }
             
@@ -194,7 +194,7 @@ class ConsequenceGenerator{
                 $valid = $this->checkFilter('grade', $resource, $filters);//for a quiz : true iff not graded, for an assignment : true iff graded
                 //graded exercise
                 if($valid){
-                    $activities[] = array('text' => '<span class="toTranslate">Faites le devoir noté </span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+                    $activities[] = array('text' => '<span class="toTranslate">boussole.exercice.grade</span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
                 }
             }
         }

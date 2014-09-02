@@ -977,6 +977,73 @@ msgstr ""
 msgid "Sequence Context"
 msgstr ""
 
+msgid "boussole.hello"
+msgstr ""
+
+msgid "boussole.conclusion.begin"
+msgstr ""
+
+msgid "boussole.conclusion.nbAct"
+msgstr ""
+
+msgid "boussole.social.intro"
+msgstr ""
+
+msgid "boussole.social.twitter"
+msgstr ""
+
+msgid "boussole.social.forum"
+msgstr ""
+
+msgid "boussole.social.facebook"
+msgstr ""
+
+msgid "boussole.social.google"
+msgstr ""
+
+msgid "boussole.social.answer"
+msgstr ""
+
+msgid "boussole.social.read"
+msgstr ""
+
+msgid "boussole.social.create"
+msgstr ""
+
+msgid "boussole.social.time"
+msgstr ""
+
+msgid "boussole.message.encouraging"
+msgstr ""
+
+msgid "boussole.message.greeting"
+msgstr ""
+
+msgid "boussole.learning.groupIntro"
+msgstr ""
+
+msgid "boussole.learning.groupCcl"
+msgstr ""
+
+msgid "Consult "
+msgstr ""
+
+msgid "boussole.exercice.grade"
+msgstr ""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #
 #

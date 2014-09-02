@@ -121,7 +121,7 @@ class ActivitiesGenerator{
     */
     private function displayActivities($activities, $seqContext){
         //echoing welcome message
-        echo '<span class="toTranslate">Bonjour. Nous vous proposons de réaliser les activités suivantes : </span><br/><ul>';
+        echo '<span class="toTranslate">boussole.hello</span><br/><ul>';
         
         //getting values of min and max for time and number of activities
         $maxAct = intval($seqContext->getElementsByTagName('numberOfActivities')->item(0)->getElementsByTagName('max')->item(0)->nodeValue);
@@ -155,7 +155,7 @@ class ActivitiesGenerator{
         
         echo '</ul>';
         
-        echo '<p><span class="toTranslate">Vous avez ainsi </span>'.$nbAct.'<span class="toTranslate"> activités à réaliser, et cela devrait durer environ </span>'.round($time, -1).'<span class="toTranslate"> minutes</span></p>';
+        echo '<p><span class="toTranslate">boussole.conclusion.begin</span>'.$nbAct.'<span class="toTranslate">boussole.conclusion.nbAct</span>'.round($time, -1).'<span class="toTranslate"> minutes.</span></p>';
     }
     
     //get the priority of the rule in argument (default is 0)

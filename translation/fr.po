@@ -11,7 +11,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "strategy.h1"
@@ -954,6 +954,64 @@ msgstr "Contexte 'en direct'"
 
 msgid "Sequence Context"
 msgstr "Contexte de la séquence"
+
+msgid "boussole.hello"
+msgstr "Bonjour. Nous vous proposons de réaliser les activités suivantes : "
+
+msgid "boussole.conclusion.begin"
+msgstr "Vous avez ainsi "
+
+msgid "boussole.conclusion.nbAct"
+msgstr " activités à réaliser, et cela devrait durer environ "
+
+msgid "boussole.social.intro"
+msgstr "Allez sur "
+
+msgid "boussole.social.twitter"
+msgstr "le réseau social Twitter"
+
+msgid "boussole.social.forum"
+msgstr "le forum du cours "
+
+msgid "boussole.social.facebook"
+msgstr "le réseau social Facebook"
+
+msgid "boussole.social.google"
+msgstr "le réseau social Google+"
+
+msgid "boussole.social.answer"
+msgstr ", et portez secours aux autres apprenants qui y posent des questions "
+
+msgid "boussole.social.read"
+msgstr ", et lisez les messages qui pourraient vous intéresser "
+
+msgid "boussole.social.create"
+msgstr ""
+", et posez vos questions ou présentez vos réflexions aux autres participants "
+
+msgid "boussole.social.time"
+msgstr "passez-y environ"
+
+msgid "boussole.message.encouraging"
+msgstr ""
+"Continuez vos efforts, bientôt vous serez un as de la colonne vertébrale !"
+
+msgid "boussole.message.greeting"
+msgstr ""
+"Bonjour, ravi de vous retrouver aujourd'hui pour étudier cette belle matière "
+"qu'est l'anatomie !"
+
+msgid "boussole.learning.groupIntro"
+msgstr "Consultez les ressources de la section "
+
+msgid "boussole.learning.groupCcl"
+msgstr "elles sont listées ci-dessous"
+
+msgid "Consult "
+msgstr "Consultez"
+
+msgid "boussole.exercice.grade"
+msgstr "Faites l'exercice"
 
 #
 #
