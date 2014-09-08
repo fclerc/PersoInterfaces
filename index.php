@@ -48,6 +48,9 @@ require_once 'phphelpers/langFinder.php';
             <h1>fileChoice.h1</h1>
             <p>fileChoice.explanations</p>
             
+            <a href="manuals/manuel_utilisateur.pdf">Manuel Utilisateur de l'application</a>
+            <br/>
+            <a href="manuals/rapport.pdf">Rapport détaillant le modèle exploité</a></p>.
             <hr/>
             <a href="statistics.php" class="toTranslate btn btn-primary" id="statsLink">fileChoice.statistics.link</a><br/>
             <a href="sequence_association.php" class="toTranslate btn btn-primary" id="associationsLink">fileChoice.association.link</a>
