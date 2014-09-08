@@ -2,9 +2,6 @@
 Script used to display in web browser the values contained in an XML file. Modification is possible in mode = "modify"
 
 In mode 'select', "leafValueReading" events will be triggered, containing the id of the xml leaf concerned, and the value it contains.
-
-
-
 */
 
 
@@ -14,7 +11,7 @@ In mode 'select', "leafValueReading" events will be triggered, containing the id
 
 //mode : 'modify' (to modify the leaves  and attributes values in the file), 'selectWithValues' (used to enable the user to select elements in the tree, and sending events to the reader to enable treatment), 'selectWithoutValues' (same, but leaves values aren't displayed)
 //container : the id of the container of the displayed XML, for example : '#MyXMLContainer'. Used as a sort of namespace for data manipulation in case of using several times this function in the same page (see xml[container] or selectors to define events).
-//reader : "leafValueReading" events will be triggered when user clicks on elements names, and reader will be your own element (on your web page) that will trigger these events, and then treat them (to display the content on which the user clicked).
+//reader : "leafValueReading" events will be triggered when user clicks on elements names, and reader will be your own element (on your web page) that will trigger these events, and then treat them (for example to display the content on which the user clicked).
 //scales : json with information about the indicators. WARNING : scalesDisplayers have to be loaded before.
 //scaleContainer : the html element you want the scale to be displayed
 //filenameContainer : if elements in your page display the name of the file, give their selector in order to have name changed if the user renames his file.

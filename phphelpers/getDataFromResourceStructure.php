@@ -6,7 +6,7 @@
 
 //use the 2 following lines to generate the data from the file you want
 $t = new getDataFromResourceStructure();
-//$t->generateJSONFromDoc('../data/resources/foveaResources.xml', '../data/schemas/resourcesData.json');
+//$t->generateJSONFromDoc('../data/resources/foveaResources.xml', '../data/infos/resourcesData.json');
 
 class getDataFromResourceStructure{
     private $dictionnary;//the array that will contain all the data

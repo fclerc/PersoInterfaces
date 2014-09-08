@@ -3,8 +3,8 @@
 
 //use next  lines to generate the documentation for the schema you want
 $t = new JSONFromXMLSchemaGenerator();
-//$t->generateJSONFromXMLSchema('../data/schemas/context.xsd', '../data/schemas/contextScales.json');
-$t->generateJSONFromXMLSchema('../data/schemas/learnerMoocProfile.xsd', '../data/schemas/profileScales.json');
+//$t->generateJSONFromXMLSchema('../data/models/context.xsd', '../data/infos/contextScales.json');
+$t->generateJSONFromXMLSchema('../data/models/learnerMoocProfile.xsd', '../data/infos/profileScales.json');
 
 class JSONFromXMLSchemaGenerator{
     private $dictionnary;//the array that will contain all the informations extracted

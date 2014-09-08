@@ -1,8 +1,5 @@
 /*
 Script used to display and modify the parameters and the whole tree of resources
-
-
-
 */
 
 
