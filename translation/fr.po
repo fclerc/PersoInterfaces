@@ -359,6 +359,18 @@ msgstr "date de fin"
 msgid "comment"
 msgstr "commentaire"
 
+msgid "spaceStructuring"
+msgstr "structuration de l'espace"
+
+msgid "mentalImagesCreation"
+msgstr "aptitude à la création d'images mentales"
+
+msgid "mentalRotations"
+msgstr "aptitude aux rotations mentales"
+
+msgid "content"
+msgstr "Contenu"
+
 msgid "sequenceContext"
 msgstr "contexte de la séquence"
 

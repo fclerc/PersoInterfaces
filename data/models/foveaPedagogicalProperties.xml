@@ -386,7 +386,18 @@
 								<Name>Encouraging</Name>
 							</Value>
 						</ScaleList>
-					</Parameter>				
+					</Parameter>
+                    <Parameter ID="P013">
+                        <Name>Content</Name>
+                        <Comment>Just give the text you directly want to display to the learner.</Comment>
+                        <ScaleList>
+                            <Variable>true</Variable>
+                            <Ordered>false</Ordered>
+                        </ScaleList>
+                        <Category>
+                            <Name>String</Name>
+                        </Category>
+                    </Parameter>                    
 				</Parameters>
 			</TypeOfActivity>
 			

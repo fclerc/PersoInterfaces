@@ -119,16 +119,24 @@ class ConsequenceGenerator{
         
         //simply displaying an encouragement message to the learner, depending on the nature of the message
         else if($activityName == 'Message'){
-            $goalsText = array(
-                'Encouraging' => '<span class="toTranslate">boussole.message.encouraging</span>',
-                'Greeting' => '<span class="toTranslate">boussole.message.greeting</span>',
-            );
-            
-            $goalParam = $this->getParameterByName('Goal', $activity);
             $text = '<hr/>';
-            if($goalParam){
-                $goalName = $goalParam->getElementsByTagName('value')->item(0)->nodeValue;
-                $text = $text . $goalsText[$goalName];
+            
+            $contentParam = $this->getParameterByName('Content', $activity);
+            if($contentParam){
+                $text = $text . '<span>'.$contentParam->getElementsByTagName('value')->item(0)->nodeValue.'</span>';
+            }
+            
+            else{            
+                $goalsText = array(
+                    'Encouraging' => '<span class="toTranslate">boussole.message.encouraging</span>',
+                    'Greeting' => '<span class="toTranslate">boussole.message.greeting</span>',
+                );
+                
+                $goalParam = $this->getParameterByName('Goal', $activity);
+                if($goalParam){
+                    $goalName = $goalParam->getElementsByTagName('value')->item(0)->nodeValue;
+                    $text = $text . $goalsText[$goalName];
+                }
             }
             
             //returning an array with information

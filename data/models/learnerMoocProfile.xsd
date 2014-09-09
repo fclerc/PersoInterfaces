@@ -24,7 +24,7 @@ Draft version, describing the main parts of the profile to include, some necessa
 	</xs:complexType>
 	<!--*************************************************************
 
-Interactions part
+Resources Interactions part
 
 *****************************************************************
 -->
@@ -49,6 +49,44 @@ Interactions part
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			<xs:element name="forumInteraction">
+				<xs:annotation>
+					<xs:documentation>
+						These indicators describe, sequence by sequence, the activity of the user on the forum : it indicates, for each week, the number of messages posted by the learner, and the number of topics he read.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="forumReading" type="forumReadingType"/>
+						<xs:element name="forumParticipation" type="forumParticipationType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="quizInteraction">
+				<xs:annotation>
+					<xs:documentation>
+						For each sequence of the MOOC, contains the number of (distinct) quiz questions that were submitted, and the percentage compared to the available questions for this sequence
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sequence" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>
+									Name is the name given to the sequence ('Sequence1', 'S1',...), submittedQuestions the number of questions the user answered in this sequence (a question can't be counted twice, even if the user submits his answer twice), and questionsCompletion is the percentage of questions the user answered, compared to the total number of questions available (asked to the user) in this sequence.
+								</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="name" type="xs:string"/>
+									<xs:element name="submittedQuestions" type="xs:integer"/>
+									<xs:element name="questionsCompletion" type="percentageType"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
 			<xs:element name="consultationDuringHomework" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>
@@ -69,6 +107,20 @@ Interactions part
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="realisationComparison" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						This indicator compares the number of realisations of 2 different resources. R1 and R2 contain each a resource (identified by their name, URI or any other identifier), and ratio is nbOfRealisation(R1) / nbOfRealisation(R2); eg if learner realised activity (resource) R1 3 times and R2 twice, ratio is 1.5.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="R1" type="xs:string"/>
+						<xs:element name="R2" type="xs:string"/>
+						<xs:element name="ratio" type="xs:float"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -142,6 +194,41 @@ Interactions part
 							</xs:attribute>
 						</xs:extension>
 					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="forumReadingType">
+		<xs:sequence>
+			<xs:element name="sequence" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						Name is the name given to the sequence ('Sequence1', 'S1',...) and topicReadings is the number of topics read during this sequence by the learner.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string"/>
+						<xs:element name="topicReadings" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="forumParticipationType">
+		<xs:sequence>
+			<xs:element name="sequence" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						Name is the name given to the sequence ('Sequence1', 'S1',...) and postedMessages is the number of messages posted during this sequence by the learner. averageLength is the average length of the post (number of characters) posted by the learner during this week
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string"/>
+						<xs:element name="postedMessages" type="xs:integer"/>
+						<xs:element name="averageLength" type="xs:integer"/>
+					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -380,7 +467,7 @@ Knowledge part
 	<xs:complexType name="knowledgeType">
 		<xs:annotation>
 			<xs:documentation>
-				This part of the profil describes what the learner knows about the course which is being taught to him, and also how well he masters the tools he uses (or could be using) during the MOOC.
+				This part of the profil describes what the learner knows about the course which is being taught to him, and also how well he masters the tools he uses (or could be using) during the MOOC. <!-- This is of course an example of the way you can build this knowledge part - other patterns can be -->
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
@@ -396,6 +483,27 @@ Knowledge part
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="knowledgeGroup" type="knowledgeGroupType"/>
+			<xs:element name="spaceStructuring" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>
+					
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mentalImagesCreation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>
+					
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mentalRotations" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>
+					
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="knowledgeGroupType">
@@ -458,7 +566,7 @@ LearnerInformation part
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:enumeration value="F"/>
-						<xs:enumeration value="M"/>
+						<xs:enumeration value="H"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -591,6 +699,7 @@ moocInteractions part
 		<xs:sequence>
 			<xs:element name="activityDistributions" type="activityDistributionsType"/>
 			<xs:element name="lastVisits" type="lastVisitsType"/>
+			<xs:element name="preDeadlineSubmissionTime" type="preDeadlineSubmissionTimeType"/>
 			<xs:element name="otherDynamics" minOccurs="0">
 				<!-- 
 This part gives the possibility to add all the indicators you require.
@@ -655,6 +764,23 @@ Other information has to be placed inside a tag (and not at the same level as ab
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="visit" type="xs:dateTime" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="preDeadlineSubmissionTimeType">
+		<xs:sequence>
+			<xs:element name="sequence" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						Name is the name given to the sequence ('Sequence1', 'S1',...) and hoursBeforeDeadline is the average, for all problems the learner has to submit during the sequence, of time he had before the deadline when he submitted his work, expressed in hours. For example, if all homeworks are due on Sunday at 11.59 PM, and learner submits one on Saturday at 6.00PM and the other one on sunday 8.00 PM, result is (30 + 4) / 2 = 17 
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string"/>
+						<xs:element name="hoursBeforeDeadline" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="activityDistributionElementType">

@@ -61,6 +61,9 @@
 					<value id="LP48"/>
 				</knowledgeUnit>
 			</knowledgeGroup>
+            <spaceStructuring id="LP136"></spaceStructuring>
+            <mentalImagesCreation id="LP137"></mentalImagesCreation>
+            <mentalRotations id="LP138"></mentalRotations>
 		</courseKnowledge>
 		<toolsKnowledge id="LP49">
 			<knowledgeTool id="LP50">

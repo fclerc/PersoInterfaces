@@ -54,6 +54,9 @@
 					<value id="LP72">70</value>
 				</knowledgeUnit>
 			</knowledgeGroup>
+            <spaceStructuring id="LP136">true</spaceStructuring>
+            <mentalImagesCreation id="LP137">false</mentalImagesCreation>
+            <mentalRotations id="LP138">false</mentalRotations>
 		</courseKnowledge>
 		<toolsKnowledge id="R70">
 			<knowledgeTool id="R71">

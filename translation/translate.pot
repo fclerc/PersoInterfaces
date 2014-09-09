@@ -377,6 +377,19 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
+msgid "spaceStructuring"
+msgstr ""
+
+msgid "mentalImagesCreation"
+msgstr ""
+
+msgid "mentalRotations"
+msgstr ""
+
+msgid "content"
+msgstr ""
+
+
 
 #
 #
