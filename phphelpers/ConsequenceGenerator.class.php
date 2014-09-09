@@ -71,7 +71,7 @@ class ConsequenceGenerator{
                 $resourceQuery = "//*[local-name()='resource' and ./*[local-name()='name' and .='".$resourceName."']]";
                 $resource = $this->xpathResources->query($resourceQuery)->item(0);
                 
-                return $this->treatLearningActivity($resource, $filters, $activityName);
+                return $this->treatLearningActivity($resource, $filters, $activityName, 1);
                 
             }
             
@@ -79,7 +79,7 @@ class ConsequenceGenerator{
         
         //in case of social : tell the learner to go on the website, with some instructions
         else if($activityName == 'Social'){
-            $text = '<span class="toTranslate">boussole.social.intro</span>';
+            $text = '<hr/><span class="toTranslate">boussole.social.intro</span>';
             
             //tell the learner to go on the website
             //TODO : enable url as param (or defined somewhere else), to enable teacher to lead learners directly on the course's page on the social networks
@@ -125,7 +125,7 @@ class ConsequenceGenerator{
             );
             
             $goalParam = $this->getParameterByName('Goal', $activity);
-            $text = '';
+            $text = '<hr/>';
             if($goalParam){
                 $goalName = $goalParam->getElementsByTagName('value')->item(0)->nodeValue;
                 $text = $text . $goalsText[$goalName];
@@ -141,8 +141,10 @@ class ConsequenceGenerator{
     //argument : resource, coming from the XML file of resources
     //returns array of arrays describing activities (but doesn't consider exercises)
     //realizes simple filters that are done directly on eahc resource (status, type, difficulty, sequence)
+    //$depth : how deep are we in the resources tree ? used to display different titles, h2, h3,... when indicating a group of resources
     //TODO : use it for each resource identified as having to be done
-    private function treatLearningActivity($resource, $filters, $activityName){
+    private function treatLearningActivity($resource, $filters, $activityName, $depth){
+        
         $activities = array();
         $URI = $resource->getAttribute('URI');
         
@@ -165,7 +167,7 @@ class ConsequenceGenerator{
                 foreach($resource->childNodes as $child){
                     if(isset($child->tagName)){
                         if($child->tagName == 'resource'){
-                            $result = $this->treatLearningActivity($child, $filters, $activityName);
+                            $result = $this->treatLearningActivity($child, $filters, $activityName, $depth + 1);
                             foreach($result as $r){
                                 $activities[] = $r;
                             }
@@ -173,7 +175,8 @@ class ConsequenceGenerator{
                     }
                 }
                 if(count($activities) > 0){//if at least one child resource has been added : add the current resource also at the beginning of the array, and tell the user to consult the ressources below it
-                    array_unshift($activities, array('text' => '<span class="toTranslate">boussole.learning.groupIntro</span><a target="_blank" href="'.$URI.'">'.$name.'</a> (<span class="toTranslate">boussole.learning.groupCcl</span>)', 'length' => 0, 'countActivity' => false));
+                    //array_unshift($activities, array('text' => '<span class="toTranslate">boussole.learning.groupIntro</span><a target="_blank" href="'.$URI.'">'.$name.'</a> (<span class="toTranslate">boussole.learning.groupCcl</span>)', 'length' => 0, 'countActivity' => false));
+                    array_unshift($activities, array('text' => '<h'.($depth+1).'><a target="_blank" href="'.$URI.'">'.$name.'</a></h'.($depth+1).'>', 'length' => 0, 'countActivity' => false, 'depth' => $depth));
                 }
             }
             
@@ -181,7 +184,7 @@ class ConsequenceGenerator{
             else if($activityName == 'Learning' && $type != 'quiz' && $type != 'assignment'){
                 $valid = $this->checkFilter('type', $resource, $filters);
                 if($valid){
-                    $activities[] = array('text' => '<span class="toTranslate">Consult </span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+                    $activities[] = array('text' => '<span class="toTranslate">Consult </span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length, 'depth' => $depth);
                 }
             }
             
@@ -190,10 +193,10 @@ class ConsequenceGenerator{
                 $valid = $this->checkFilter('grade', $resource, $filters);//for a quiz : true iff not graded, for an assignment : true iff graded
                 //graded exercise
                 if($valid && $this->getResourceProperty($resource, 'grade') == 'true'){
-                    $activities[] = array('text' => '<span class="toTranslate">boussole.exercice.grade</span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+                    $activities[] = array('text' => '<span class="toTranslate">boussole.exercice.grade</span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length, 'depth' => $depth);
                 }
                 else if($valid){
-                    $activities[] = array('text' => '<span class="toTranslate">boussole.exercice.nograde</span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length);
+                    $activities[] = array('text' => '<span class="toTranslate">boussole.exercice.nograde</span><a target="_blank" href="'.$URI.'">'.$name.'</a>', 'length' => $length, 'depth' => $depth);
                 }
             }
         }

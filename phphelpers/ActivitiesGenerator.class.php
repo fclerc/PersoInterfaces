@@ -139,7 +139,12 @@ class ActivitiesGenerator{
             if($nbAct < $maxAct){
                 $activityTime = $activity['length'];
                 if($time + $activityTime <= $maxTime){
-                    $result = $result . '<li>'.$activity['text'].'</li>';
+                    $result = $result . '<li';
+                    //adding indentation
+                    if(isset($activity['depth'])){
+                        $result = $result . ' style="margin-left:'.(($activity['depth'] - 1) * 50 ).'px;"';
+                    }
+                    $result = $result .'>'.$activity['text'].'</li>';
                     //incrementing nbAct, except if 'countActivity' is set to false (eg this is not a 'real' activity, but a message for the user with nothing special to do)
                     if(isset($activity['countActivity'])){
                         if($activity['countActivity'] == true){
