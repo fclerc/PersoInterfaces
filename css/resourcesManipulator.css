@@ -148,13 +148,13 @@
     color: #666666;
 }
 
-.resourcesContainer .resourceEditor, .resourcesContainer .resourceRemover, .resourcesContainer .resourceAdder, .commentPopover{
+.resourcesContainer .resourceEditor, .resourcesContainer .resourceRemover, .resourcesContainer .resourceAdder, .commentPopover, .resourcesContainer .resourceUpper{
     margin-left: 3px;
     margin-right: 3px;
     opacity: 0.6;
 }
 
-.resourcesContainer .resourceEditor:hover, .resourcesContainer .resourceRemover:hover, .resourcesContainer .resourceAdder:hover, .commentPopover:hover{
+.resourcesContainer .resourceEditor:hover, .resourcesContainer .resourceRemover:hover, .resourcesContainer .resourceAdder:hover, .commentPopover:hover, .resourcesContainer .resourceUpper:hover{
     cursor: pointer;
     opacity: 1;
 }

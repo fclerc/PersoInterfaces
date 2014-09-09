@@ -122,8 +122,9 @@ function displayThis(xmlNode){
     
     var resourceEditor = $('<span>').addClass('glyphicon glyphicon-edit resourceEditor').attr('title', _('Edit properties'));
     var resourceRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle resourceRemover').attr('title', _('Remove resource'));
+    var resourceUpper = $('<span>').addClass('glyphicon glyphicon glyphicon-arrow-up resourceUpper').attr('title', _('Place above'));
     
-    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append(resourceNameContainer).append(resourceURIContainer).append(resourceEditor).append(resourceRemover);
+    var result = $('<li>').attr('id', $(xmlNode).attr('id')).append(resourceNameContainer).append(resourceURIContainer).append(resourceEditor).append(resourceRemover).append(resourceUpper);
     
 	
     $(resourceEditor).click(function(){
@@ -187,6 +188,15 @@ function displayThis(xmlNode){
             $(result).remove();
         }
     });
+    
+    
+    //button to 'up' the ressource : make it pass above the precedent one in the tree
+    $(resourceUpper).click(function(){							
+        $(xmlNode).insertBefore($(xmlNode).prev());
+        $(result).insertBefore($(result).prev());
+    });
+    
+    
     
 	//if this is a group of resources : enable addition of a child
 	if($($(xmlNode).children('type')).text() == 'group'){

@@ -20,9 +20,6 @@
 			<description id="R13">Première session du MOOC FOVEA, présentation du fonctionnement de la colonne vertébrale.</description>
             
 			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A" id="R14">
-				<name id="R15">A) Étude de la colonne vertébrale simplifiée et la vertèbre type </name>
-				<type id="R16">group</type>
-				<status id="R17">Optional</status>
 				<resource URI="http://youtu.be/LCUZF4THcrQ" id="R18">
 					<name id="R19">La colonne vertébrale simplifiée et la vertèbre type</name>
 					<type id="R20">video</type>
@@ -32,8 +29,7 @@
 					<sequence id="R26">1</sequence>
 					<length id="R27">20</length>
 					<categories id="R28">beginner noob</categories>
-					<description id="R29">  mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description><grade xmlns="http://www.w3.org/1999/xhtml" maxpoints="" maxPoints="3" id="R769">true</grade></resource>
-				<resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426" id="R30">
+					<description id="R29">  mentalement, d'imaginer les notions décrites. N'hésitez pas à faire des arrêts sur image.</description><grade xmlns="http://www.w3.org/1999/xhtml" maxpoints="" maxPoints="3" id="R769">true</grade></resource><resource URI="http://claco.univ-lyon1.fr/resource/open/ujm_exercise/7426" id="R30">
 					<name id="R31">Quiz1</name>
 					<type id="R32">quiz</type>
 					<status id="R33">Mandatory</status>
@@ -42,7 +38,11 @@
 					<sequence id="R38">1</sequence>
 					<grade maxPoints="22" id="R39">true</grade>
 					<length id="R40">15</length>
-				</resource>
+				</resource><name id="R15">A) Étude de la colonne vertébrale simplifiée et la vertèbre type </name>
+				<type id="R16">group</type>
+				<status id="R17">Optional</status>
+				
+				
 				<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-A-1" id="R41">
 					<name id="R42">Colonne vertébrale : video non sonorisée + document</name>
 					<type id="R43">group</type>
@@ -82,9 +82,7 @@
                         <categories id="R73">pdf</categories>
 					<order xmlns="http://www.w3.org/1999/xhtml" id="R775"><context id="R776">jhh,y</context><position id="R777">11</position></order></resource>
 				</resource>
-			<resource xmlns="http://www.w3.org/1999/xhtml" uri="" URI="" id="R778"><name id="R779">hju,uk,</name><type id="R780"/><status id="R781"/><order id="R782"/><difficulty id="R783"/><sequence id="R784"/><grade id="R785">false</grade><length id="R786"/><categories id="R787">blabla</categories><grade id="R788">false</grade><order id="R789"/><description id="R790"/></resource></resource>
-	
-			<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-B" id="R74">
+			<resource xmlns="http://www.w3.org/1999/xhtml" uri="" URI="" id="R778"><name id="R779">hju,uk,</name><type id="R780"/><status id="R781"/><order id="R782"/><difficulty id="R783"/><sequence id="R784"/><grade id="R785">false</grade><length id="R786"/><categories id="R787">blabla</categories><grade id="R788">false</grade><order id="R789"/><description id="R790"/></resource></resource><resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1-B" id="R74">
 				<name id="R75">Étude des courbures vertébrales</name>
 				<type id="R76">group</type>
 				<status id="R77">Mandatory</status>
@@ -155,7 +153,9 @@
                         <categories id="R134">pdf</categories>
 					</resource>
 				</resource>
-			</resource>	
+			</resource>
+	
+				
 		</resource>
         
         
