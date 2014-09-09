@@ -67,7 +67,7 @@
                 //creating the generator from the  strategy
 				$generator = new ActivitiesGenerator($strategyPath);
                 //generating the list of activities from the different elements.
-				$generator->generate($profilePath, $sequenceContextPath, $liveContextPath);
+				echo $generator->generate($profilePath, $sequenceContextPath, $liveContextPath);
 				
 				
 			

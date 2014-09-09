@@ -15,25 +15,28 @@ class ActivitiesGenerator{
     
     //argument is the path to the strategy used to generate the activities
     public function __construct($strategyPath){
+        $root = 'http://localhost/test/';
         //loading strategy file
         $this->strategy = new DOMDocument();
         $this->strategy->load($strategyPath);
         $this->xpathStrategy = new DOMXPath($this->strategy);
         
         //loading pedagogical properties
-        $pedagogicalPropertiesFile = $this->strategy->getElementsByTagName('pedagogicalProperties')->item(0)->nodeValue;
+        //$pedagogicalPropertiesFile = $this->strategy->getElementsByTagName('pedagogicalProperties')->item(0)->nodeValue;
         $this->pedaProp = new DOMDocument();
-        $this->pedaProp->load($pedagogicalPropertiesFile);
+        //$this->pedaProp->load($pedagogicalPropertiesFile);
+        $this->pedaProp->load($root.'data/models/foveaPedagogicalProperties.xml');
         
         //loading resources XML
         $this->resources = new DOMDocument();
-        $this->resources->load('data/resources/foveaResources.xml');
+        //$this->resources->load('data/resources/foveaResources.xml');
+        $this->resources->load($root.'data/resources/foveaResources.xml');
         $this->xpathResources = new DOMXPath($this->resources);
     }
 
     //arguments are paths to the different files we want to use to generate the list of activities.
     public function generate($profilePath, $sequenceContextPath, $liveContextPath){
-        
+        $root = 'http://localhost/test/';
         //loading the files
         $profile = new DOMDocument();
         $profile->load($profilePath);
@@ -41,12 +44,10 @@ class ActivitiesGenerator{
         $liveContext->load($liveContextPath);
         $seqContext = new DOMDocument();
         $seqContext->load($sequenceContextPath);
-        
         //loading the scales (used to get informations about the indicators, for example to know what type of variable the indicator is)
         //TODO : us it as argument (or not ?)
-        $profileScales = json_decode(file_get_contents('data/infos/profileScales.json'));
-        $contextScales = json_decode(file_get_contents('data/infos/contextScales.json'));
-        
+        $profileScales = json_decode(file_get_contents($root.'data/infos/profileScales.json'));
+        $contextScales = json_decode(file_get_contents($root.'data/infos/contextScales.json'));
         
         //used to check the conditions contained in the rules ('<if>' parts)
         $checker = new ConditionChecker($profile, $liveContext, $profileScales, $contextScales);
@@ -59,7 +60,7 @@ class ActivitiesGenerator{
         //contains the final list of activities, in the right order, that have to be realized by learner
         $activities = array();
         
-        //getting the context from which the activities must be taken
+        //getting the context from which the activities must be taken - not yet used
         $activitiesContext = $seqContext->getElementsByTagName('activitiesContext')->item(0)->nodeValue;
         
         //used to generate lists of activities from the 'then' or 'else' parts of a rule
@@ -108,7 +109,7 @@ class ActivitiesGenerator{
         }
         
         //display the activities, filtering it with the sequenceContext
-        $this->displayActivities($activities, $seqContext);
+        return $this->getActivities($activities, $seqContext);
     
     }
     
@@ -119,9 +120,9 @@ class ActivitiesGenerator{
     
     
     */
-    private function displayActivities($activities, $seqContext){
+    private function getActivities($activities, $seqContext){
         //echoing welcome message
-        echo '<span class="toTranslate">boussole.hello</span><br/><ul>';
+        $result = '<span class="toTranslate">boussole.hello</span><br/><ul>';
         
         //getting values of min and max for time and number of activities
         $maxAct = intval($seqContext->getElementsByTagName('numberOfActivities')->item(0)->getElementsByTagName('max')->item(0)->nodeValue);
@@ -138,7 +139,7 @@ class ActivitiesGenerator{
             if($nbAct < $maxAct){
                 $activityTime = $activity['length'];
                 if($time + $activityTime <= $maxTime){
-                    echo '<li>'.$activity['text'].'</li>';
+                    $result = $result . '<li>'.$activity['text'].'</li>';
                     //incrementing nbAct, except if 'countActivity' is set to false (eg this is not a 'real' activity, but a message for the user with nothing special to do)
                     if(isset($activity['countActivity'])){
                         if($activity['countActivity'] == true){
@@ -153,9 +154,10 @@ class ActivitiesGenerator{
             }
         }
         
-        echo '</ul>';
+        $result = $result . '</ul>';
         
-        echo '<p><span class="toTranslate">boussole.conclusion.begin</span>'.$nbAct.'<span class="toTranslate">boussole.conclusion.nbAct</span>'.round($time, -1).'<span class="toTranslate"> minutes.</span></p>';
+        $result = $result . '<p><span class="toTranslate">boussole.conclusion.begin</span>'.$nbAct.'<span class="toTranslate">boussole.conclusion.nbAct</span>'.round($time, -1).'<span class="toTranslate"> minutes.</span></p>';
+        return $result;
     }
     
     //get the priority of the rule in argument (default is 0)
