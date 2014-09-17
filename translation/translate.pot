@@ -386,7 +386,7 @@ msgstr ""
 msgid "mentalRotations"
 msgstr ""
 
-msgid "content"
+msgid "Content"
 msgstr ""
 
 

@@ -368,7 +368,7 @@ msgstr "aptitude à la création d'images mentales"
 msgid "mentalRotations"
 msgstr "aptitude aux rotations mentales"
 
-msgid "content"
+msgid "Content"
 msgstr "Contenu"
 
 msgid "sequenceContext"

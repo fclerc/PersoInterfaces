@@ -13,7 +13,11 @@
         </resource>
         
         
-		<resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1" id="R9">
+        
+        
+		<resource xmlns="http://www.w3.org/1999/xhtml" uri="" URI="http://claco.univ-lyon1.fr/workspaces/4276/open/tool/resource_manager" id="R783"><name id="R784">Exercices Entraînement</name><type id="R785">group</type><status id="R786">Optional</status><order id="R787"/><difficulty id="R788"/><sequence id="R789"/><grade id="R790">false</grade><length id="R791"/><categories id="R792"/><grade id="R793">false</grade><order id="R794"/><description id="R795"/><resource uri="" URI="http://claco.univ-lyon1.fr/claire_exercise/front/#/learner/model/7" id="R796"><name id="R797">Exercice 1</name><type id="R798">quiz</type><status id="R799">Optional</status><order id="R800"/><difficulty id="R801">2</difficulty><sequence id="R802"/><grade id="R803">false</grade><length id="R804">6</length><categories id="R805"/><grade id="R806">false</grade><order id="R807"/><description id="R808"/></resource></resource>
+        
+        <resource URI="http://claco.univ-lyon1.fr/workspaces/802/open/tool/no_config/home/tab/1181#session_1" id="R9">
 			<name id="R10">Session1 : PRESENTATION GENERALE DU FONCTIONNEMENT DE LA COLONNE VERTEBRALE</name>
 			<type id="R11">group</type>
 			<length id="R12">125</length>

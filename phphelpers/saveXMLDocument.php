@@ -17,7 +17,7 @@ if($_POST['file'] == $_POST['formerFile'] || !(file_exists($_POST['file']))){//n
         
         //updating data about the resources
         include 'getDataFromResourceStructure.php';
-        $t->generateJSONFromDoc($_POST['file'], '../data/schemas/resourcesData.json');
+        $t->generateJSONFromDoc($_POST['file'], '../data/infos/resourcesData.json');
     }
 }
 else{//the filename already exists, and it is not the currently edited file : abort
