@@ -122,6 +122,9 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, sca
                 if(scaleElement.enumeration.length > 0){
                     $(informationToDisplay).append(_('scales.enumeration.intro'));
                     getEnumerationStringFromArray(informationToDisplay, scaleElement.enumeration, clickable, style)
+                    
+                    formInformation = {'type' : 'select' , 'values' : scaleElement.enumeration};
+                    
                 }
             }
             
