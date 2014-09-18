@@ -98,3 +98,13 @@ p{
     border-radius: 3px;
     background-color: #ccc;
 }
+
+#newTestForm select{
+  width: 20%;
+  display:inline;
+  margin-right: 0.7%;
+}
+
+#newTestForm form{
+  display:inline;
+}

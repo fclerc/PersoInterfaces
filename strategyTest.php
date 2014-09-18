@@ -49,6 +49,26 @@
                 ?>
             </p>
             
+            <!-- Form to enable user to make a new test  -->
+            <div id="newTestForm">
+            <?php
+                $data = json_decode(file_get_contents('resources/filePageData.json'));
+            
+                //adding for each section the list of files available (for example the list of strategy files in data/teacher/strategies)
+                $sections = $data->sections;
+                $files = array();
+                foreach($sections as $section){
+                    $path = $data->path->$section;
+                    $sectionFiles = scandir($path);
+                    $files[$section] = $sectionFiles;
+                }
+                $data->files = $files;
+            
+            ?>
+            </div>
+            
+            
+            
 			<p><a href="index.php" id="mainLink">common.back</a></p>
 			<p id="generalInstructions">strategyTest.instructions</p>
 			
@@ -80,8 +100,8 @@
 		
 		
        
-        <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
        
         <script type="text/javascript" src="translation/translate.js"></script>
         <script type="text/javascript" src="translation/icu.js"></script>
@@ -97,7 +117,83 @@
                     $('.toTranslate, #currentFile, #generalInstructions, #mainLink, #sectionName').each(function(){
                         $(this).text(_($(this).text()));
                     });
-                   }
+                    
+                    /*This section displays the form enabling the user to regenerate a list of activities (without going back to the homepage to select the files)
+                    
+                    
+                    
+                    */
+                    
+                    //passing the data to js
+                    var data = <?php echo json_encode($data); ?>;
+                    var strategyfile = <?php echo "'".$file."'" ; ?> ;
+                    var profilefile = <?php echo "'".$profilefile."'" ; ?> ;
+                    var sequenceContextfile = <?php echo "'".$sequenceContextfile."'" ; ?> ;
+                    var liveContextfile = <?php echo "'".$liveContextfile."'" ; ?> ;
+                    
+                    
+                    
+                    var form = $('<form>').attr('action', data['interface']['strategyTest']).attr('method', 'POST');
+                    
+                    
+                    var fileSelect = $('<select>').addClass('form-control').attr('name', 'file');
+                    $(data['files']['strategyTest']).each(function(id, file){
+                        if(file != '.' && file !='..' && file!='empty.xml'){
+                            var option = $('<option>').append(file);
+                            if(strategyfile == file){
+                                $(option).attr('selected', 'selected');
+                            }
+                            $(fileSelect).append(option);
+                        }
+                    });
+                    
+                    
+                    var pathForm = $('<input>').attr('type', 'hidden').attr('name', 'path').attr('value', data['path']['strategyTest']);
+                    var sectionForm = $('<input>').attr('type', 'hidden').attr('name', 'section').attr('value', 'strategyTest');
+                    var scalesForm = $('<input>').attr('type', 'hidden').attr('name', 'scales').attr('value', data['scales']['strategyTest']);
+                    var schemaForm = $('<input>').attr('type', 'hidden').attr('name', 'schema').attr('value', data['schema']['strategyTest']);
+                    var actionForm = $('<input>').attr('type', 'hidden').attr('name', 'action').attr('value', data['interface']['strategyTest']);
+                    
+                    
+                    var newTestButton = $('<input>').attr('type', 'submit').attr('Value', _('New test')).addClass('btn btn-success').attr('name', 'newTestButton');
+                    
+                    //$(form).append($('<label>').append(_('Chose your strategy')).attr('for', 'file'));
+                    $(form).append(fileSelect).append(pathForm).append(sectionForm).append(schemaForm).append(scalesForm).append(actionForm);
+                    
+                    
+                    
+                    //displaying the other files select for the test
+                    var otherFiles = ['profile', 'liveContext', 'sequenceContext'];
+                    //for each type of file, display the select
+                    $(otherFiles).each(function(id, name){
+                        //var label = $('<label>').append(_(name)).attr('for', name+'file');
+                        var fileSelect = $('<select>').addClass('form-control').attr('name', name+'file');
+                        $(data['files'][name]).each(function(id, file){
+                            if(file != '.' && file !='..' && file!='empty.xml'){
+                                //$(fileSelect).append($('<option>').append(file));
+                                
+                                var option = $('<option>').append(file);
+                                if((name == 'profile' && profilefile == file) || (name == 'liveContext' && liveContextfile == file) || (name == 'sequenceContext' && sequenceContextfile == file)){
+                                    $(option).attr('selected', 'selected');
+                                }
+                                $(fileSelect).append(option);
+                                
+                                
+                                
+                                
+                            }
+                        });
+                        //passing to the interface the path to the folder
+                        var pathForm = $('<input>').attr('type', 'hidden').attr('name', name+'path').attr('value', data['path'][name]);
+                        
+                        //$(form).append(label).append(fileSelect).append(pathForm);
+                        $(form).append(fileSelect).append(pathForm);
+                    });
+                    
+                    $(form).append(newTestButton);
+                    
+                    $('#newTestForm').append(form);
+                }
             });
         });
         </script>
