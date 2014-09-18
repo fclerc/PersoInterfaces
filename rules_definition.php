@@ -588,7 +588,7 @@
                                 style = 'list';
                             }
                             if(parametersDictionnary[currentParameterId]){
-                                displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true, style);
+                                formType = displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true, style);
                             }
                         },
                         function(){//7

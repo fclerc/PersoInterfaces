@@ -29,8 +29,11 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
             //this variable will contain the list of possibilities, the values are clickable to fill the input, and display the translation if available
             var enumeration = $('<ul>').addClass('enumeration');
             //TODO : if enumeration is void, then go in the json file
+            
+            var enumerationArray = new Array();
             $(scaleElement).find('Name').each(function(){
                 var value = $(this).text();
+                enumerationArray.push(value);
                 var elementContainer = $('<span>');
                 if(style == 'list'){
                     elementContainer = $('<li>');
@@ -52,6 +55,8 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
                 $(enumeration).append(_('scales.enumeration.conclu'));
             }
             $(informationToDisplay).append(enumeration);
+            
+            formInformation = {'type' : 'select' , 'values' : enumerationArray};
         }
     
     }
