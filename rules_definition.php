@@ -394,6 +394,8 @@
                     //'conditionType' if the user has to chose between 'and' and 'or'
                     //'conditionTypeEdition' if the user has to chose between 'and' and 'or' to MODIFY a condition operator
                     
+                    var formType = '';//used to fill the 'type' attribute of the form that is displayed (number, date, text,...), and gives the list of values in case it is a select
+                    
                     /*
                     variables value and id take represent various informations depending on the operation, but most of the time they indeed contain a value (eg the value given as refValue in a rule) and an id.
                     container represents the part of the interface from which the message initially comes (profile, liveContext,...)
@@ -559,13 +561,13 @@
                             formToDisplay = 'refValueConstraint';
                             //getting informations about the indicator, and displaying it below the currently defined rule
                             var indicatorName;
-                            if($(profile).find('#'+currentIndicatorId)[0]){
+                            if($(profile).find('#'+currentIndicatorId)[0]){//searching for the indicator in the profile
                                 indicatorName = $(profile).find('#'+currentIndicatorId)[0].nodeName;
-                                displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, profileScales, true);
+                                formType = displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, profileScales, true);
                             }
-                            else{
+                            else{//else search it in the liveContext
                                 indicatorName = $(context).find('#'+currentIndicatorId)[0].nodeName;
-                                displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, contextScales, true);
+                                formType = displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, contextScales, true);
                             }
                         },
                         function(){//4
@@ -644,30 +646,37 @@
                         function(){//2
                             removeForms();
                             formToDisplay = '';
+                            formType = '';
                         },
                         function(){//3
                             formToDisplay = '';
+                            formType = '';
                             removeForms();
                         
                         },
                         function(){//4
                             formToDisplay = '';
+                            formType = '';
                         
                         },
                         function(){//5
                             formToDisplay = '';
+                            formType = '';
                         
                         },
                         function(){//6
                             removeForms();
                             formToDisplay = '';
+                            formType = '';
                         },
                         function(){//7
                             formToDisplay = '';
+                            formType = '';
                         
                         },
                         function(){//8
                             formToDisplay = '';
+                            formType = '';
                         
                         },
                         function(){//9
@@ -677,6 +686,7 @@
                         function(){//10
                             removeForms();
                             formToDisplay = '';
+                            formType = '';
                         },
                         function(){//11
                             removeForms();
@@ -693,6 +703,7 @@
                         function(){//13
                             removeForms();
                             formToDisplay = '';
+                            formType = '';
                         }
                     ];
                     
@@ -1153,7 +1164,26 @@
                                 
                                 //if currently editing the value of this constraint, display a form
                                 if(mode == 'full' && formToDisplay == 'refValueConstraint' && constraint == currentCondition){
-                                    var valueInput = $('<input>').attr('type', 'text').attr('value', referenceValue);
+                                    
+                                    console.log(formType);
+                                    var valueInput = '';
+                                    //if we have to display a list of choices to the user
+                                    if(formType.type == 'select'){
+                                        valueInput = $('<select>');
+                                        $(formType.values).each(function(){
+                                            var option = $('<option>').text(this);
+                                            if(referenceValue == this){
+                                                $(option).attr('selected', 'selected');
+                                            }
+                                            $(valueInput).append(option);
+                                        });
+                                    }
+                                    
+                                    //if none of the above cases, just display a text input
+                                    else{
+                                        valueInput = $('<input>').attr('type', 'text').attr('value', referenceValue);
+                                    }
+                                    
                                     $(referenceValueContainer).append(valueInput);
                                     var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
                                     $(referenceValueContainer).append(formValidator);

@@ -15,8 +15,12 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
     var informationToDisplay = $('<span>').addClass('scaleInformation');
     var scaleType = scaleElement[0].nodeName;
     
+    var formInformation = '' //information about what  kind of form has to be displayed in the rule edition - this is returned by the function
+    
     if(scaleType == 'ScaleBoolean'){
         $(informationToDisplay).append(_('true or false'));
+        
+        formInformation = {'type' : 'select' , 'values' : ['true', 'false']};
     }
     else if(scaleType == 'ScaleList'){//display the  possibilities
         
@@ -80,6 +84,9 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
         }
     }
     $(container).append(informationToDisplay);
+    
+    return formInformation;
+    
 }
 
 
@@ -90,11 +97,18 @@ See function above for explanations about the arguments
 function displayIndicatorScale(indicatorName, container, currentIndicatorId, scales, clickable, style){//TODO : merge with precedent one, with argument profile or activity
     
     var informationToDisplay = $('<span>').addClass('scaleInformation');
+    
+    var formInformation = '' //information about what  kind of form has to be displayed in the rule edition - this is returned by the function
+    
     if(scales[indicatorName]){//if a constraint concerning this indicator is present
         var scaleElement = scales[indicatorName];
         if(scaleElement.nature == 'predefined'){
             $(informationToDisplay).append(_('scales.value.intro'));
             $(informationToDisplay).append(_(scaleElement.typeName));
+            
+            if(scaleElement.typeName == 'xs:boolean'){
+                formInformation = {'type' : 'select' , 'values' : ['true', 'false']};
+            }
         
         }
         else if(scaleElement.nature == 'restriction'){//restriction
@@ -129,6 +143,7 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, sca
                                                      
     }
     
+    return formInformation;
     
 }
 
