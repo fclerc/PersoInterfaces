@@ -19,6 +19,7 @@
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        <link href="css/main.css" type="text/css" rel="stylesheet"/>
         <link href="css/XMLManipulator.css" type="text/css" rel="stylesheet"/>
         <link href="css/RulesInterface.css" type="text/css" rel="stylesheet"/>
         
@@ -29,7 +30,7 @@
     
     <body>
 		<h1><span id="strategyPageTitle">strategy.h1</span><small><span id="currentFile">strategy.currentFileIntro</span><span class="currentFileName"><?php echo $file; ?></span></small></h1>
-		<p><a href="index.php" id="mainLink">common.back</a></p>
+		<a href="index.php" id="mainLink">common.back</a>
 			
         <div id="ProfileAndContext" class="mains">
             <h2>strategy.profiles.h2</h2>
@@ -203,7 +204,7 @@
                                 //displaying the rules in the center part of the page.
                                 //placed here in the code : the parametersDictionnary is defined just above and ready to be used.
                                 $(strategy).find("rule").each(function(){
-                                    displayRule(this, '#uselessDivToInsertRulesAbove', false, false);
+                                    displayRule(this, '#uselessDivToInsertRulesAbove', false, 'icons');
                                 });
                                 
                                 
@@ -703,7 +704,7 @@
                         if(ruleInXMLFile.length === 0){//this is a new rule, add it to the end of the file
                             $($(strategy).find('strategyRules')[0]).append(builtRule);
                            rulesMaxId++;//the rule is now stored, let's go the next id for future rules
-                           displayRule(builtRule, '#uselessDivToInsertRulesAbove', true, false);
+                           displayRule(builtRule, '#uselessDivToInsertRulesAbove', true, 'icons');
                         }
                         else{//the rule already exists, replace it in the file
                             $(ruleInXMLFile[0]).replaceWith(builtRule);
@@ -720,6 +721,9 @@
                             var nextRuleId = rulesMaxId+1;
                             builtRule = $('<rule>').attr('id', 'R'+(nextRuleId));
                             goFromTo(0,1);
+                        }
+                        else{
+                            alert(_('Please save or delete the rule you are currently defining before creating another one'));
                         }
                     });
                     //obsolete
@@ -756,7 +760,7 @@
                     function displayNewRule(){//when creating a new rule, displays the rule in the #newRuleContainer and displays instruction
                         $('#newRuleContainer').text('');//empty the container
                         $('#newRuleContainer').append($('<div>').attr('id', 'emptyDiv'));//adding empty div to pass it as insBeofre argument in displayRule function
-                        (displayRule(builtRule[0], '#emptyDiv', true, true));//displaying the in-process rule
+                        (displayRule(builtRule[0], '#emptyDiv', true, 'full'));//displaying the in-process rule
                         
                     }
                     
@@ -818,7 +822,7 @@
                         formerRuleContainer = $('#Rules').find('.ruleContainer[id="' + id + '"]');
                         insBefore = $(formerRuleContainer).next();
                         $(formerRuleContainer).remove();
-                        displayRule(ruleXML, insBefore, false, false);                        
+                        displayRule(ruleXML, insBefore, false, 'icons');                        
                     }
                     
                     
@@ -838,10 +842,10 @@
                         Argument is a xml node containing a rule .
                         This function displays the rule just before the second argument insBefore
                         createdRule is a boolean, true iff the rule is has been built by the user during current use of the page (thus don't go in the part that tries to find the highest id of rules)
-                        editMode is a boolean, true iff rule is currently being enabled (this allow click on elements to edit them directly)
                         
+                        edit : if 'full' it is the currently edited rule (this allows click on elements to edit them directly), 'icons' if this is an already defined rule the teacher can modify, 'none' if we just display the rule with no modification possibility.
                     */
-                    function displayRule(rule, insBefore, createdRule, editMode){
+                    function displayRule(rule, insBefore, createdRule, mode){
                         
                         //top-right sign to remove the rule
                         var ruleRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle ruleRemover pull-right').attr('title', _('Delete rule'));
@@ -854,7 +858,7 @@
                         //displaying the priority and enabling its modification when edit mode and priority is thecurrently edited element
                         var priority = $($(rule).find("priority")[0]).text();
                         var priorityContainer = $('<div>').addClass('priority').append(_('Priority: '));
-                        if(editMode && formToDisplay == 'priority'){//we are editing the priority
+                        if(mode == 'full' && formToDisplay == 'priority'){//we are editing the priority
                             var valueInput = $('<input>').attr('type', 'text').attr('value', priority);
                             $(priorityContainer).append(valueInput);
                             var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
@@ -866,7 +870,7 @@
                             });
                            
                         }
-                        else if(editMode){//just display the value, and an icon to modify it
+                        else if(mode == 'full'){//just display the value, and an icon to modify it
                             $(priorityContainer).append(priority);
                             
                             var priorityEditor = $('<span>').addClass('glyphicon glyphicon-edit priorityEditor').attr('title', _('Edit priority'));
@@ -882,10 +886,14 @@
                         }
                         
                         //fill the ruleContainer with all created html
-                        var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append(_('Rule') + $(rule).attr('id'))).append(ruleRemover).append(ruleEditor).append(ruleDuplicator).append(priorityContainer);
+                        var ruleContainer = $('<div>').attr('id', $(rule).attr('id')).addClass('ruleContainer').append($('<h4>').append(_('Rule') + $(rule).attr('id'))).append(priorityContainer);
+                        
+                        if(mode != 'none'){
+                            $(ruleContainer).append(ruleRemover).append(ruleEditor).append(ruleDuplicator);
+                        }
                         
                         //add sace button
-                        if(editMode){
+                        if(mode == 'full'){
                             var ruleSaver = $('<span>').addClass('glyphicon glyphicon-floppy-disk ruleSaver pull-right').attr('title', _('Save rule'));
                             $(ruleSaver).click(function(){
                                 goFromTo(currentOperation, 11);
@@ -958,10 +966,10 @@
                                 $(ifContainer).append(getConditionElementContainer(this));
                             });
                         }
-                        else if(editMode && formToDisplay == 'indicator'){//no constraint and we are in edit mode, wanting to modify indicator : tell the user he has to select an indicator
+                        else if(mode == 'full' && formToDisplay == 'indicator'){//no constraint and we are in edit mode, wanting to modify indicator : tell the user he has to select an indicator
                             $(ifContainer).append($('<span>').addClass('instruction').append(_('strategy.rules.newrule.chose.indicator')));
                         }
-                        else if(editMode && formToDisplay !='indicator'){//editmode, with 'if' void and which is not currently edited : display a '+' icon to enable to add a constraint
+                        else if(mode == 'full' && formToDisplay !='indicator'){//mode == 'full', with 'if' void and which is not currently edited : display a '+' icon to enable to add a constraint
                             var constraintAdder = $('<span>').addClass('glyphicon glyphicon-plus constraintAdder').attr('title', _('Add constraint'));
                             $(constraintAdder).click(function(){
                                 goFromTo(currentOperation, 1);
@@ -988,7 +996,7 @@
                                         if($(element).children().length >= 2){
                                             c2 = getConditionElementContainer($(element).children()[1]);
                                         }
-                                        else if(editMode){//add buttons to remove the condition
+                                        else if(mode == 'full'){//add buttons to remove the condition
                                             var constraintRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle constraintRemover').attr('title', _('Remove complex condition'));
                                             $(constraintRemover).click(function(){//when clicking on remove button of a complex condition : remove the second constraint, and keep the first one.
                                                 var constraintToKeep = $(element).children()[0];
@@ -1010,7 +1018,7 @@
                                 //conditionTypeContainer contains the name of the operator, 'AND' or 'OR', with eventually forms and buttons
                                 var conditionTypeContainer = $('<span>').addClass('conditionType');
                                 
-                                if(editMode){
+                                if(mode == 'full'){
                                     if(formToDisplay == 'conditionTypeEdition' && currentCondition == element){
                                         var conditionSelect = $('<select>');
                                         var conditions = ['AND', 'OR'];
@@ -1062,7 +1070,7 @@
                             }
                             
                             
-                            if(editMode && currentCondition == element && formToDisplay == 'conditionType'){//display the form to chose 'and' or 'or' (which will be then combined with the currentCondition)
+                            if(mode == 'full' && currentCondition == element && formToDisplay == 'conditionType'){//display the form to chose 'and' or 'or' (which will be then combined with the currentCondition)
                                 var conditionSelect = $('<select>');
                                 var conditions = ['AND', 'OR'];
                                 $(conditions).each(function(id, op){
@@ -1111,7 +1119,7 @@
                                 var referenceValue = $($(constraint).find("referencevalue")[0]).text();
                                 var indicatorContainer = $('<span>').addClass('indicator').append(' '+indicatorName);
                                 
-                                if(editMode && formToDisplay == 'indicator' && currentCondition == constraint && editingCondition){//if we are currently editing this indicator, show it clearly
+                                if(mode == 'full' && formToDisplay == 'indicator' && currentCondition == constraint && editingCondition){//if we are currently editing this indicator, show it clearly
                                     $(indicatorContainer).addClass('editedIndicator');
                                 }
                                 
@@ -1119,7 +1127,7 @@
                                 var referenceValueContainer = $('<span>').addClass('referenceValue').append(' ');
                                 
                                 var allowComplex = true;//true iff user is allowed to define a complex condition (eg add a AND or OR). This is always the case, except when he is currently chosing between 'AND' and 'OR' in the form.
-                                if(editMode && formToDisplay == 'comparisonOperator' && constraint == currentCondition){
+                                if(mode == 'full' && formToDisplay == 'comparisonOperator' && constraint == currentCondition){
                                     allowComplex = false;
                                     //displaying the form to select operator
                                     var operatorSelect = $('<select>');
@@ -1144,7 +1152,7 @@
                                 }
                                 
                                 //if currently editing the value of this constraint, display a form
-                                if(editMode && formToDisplay == 'refValueConstraint' && constraint == currentCondition){
+                                if(mode == 'full' && formToDisplay == 'refValueConstraint' && constraint == currentCondition){
                                     var valueInput = $('<input>').attr('type', 'text').attr('value', referenceValue);
                                     $(referenceValueContainer).append(valueInput);
                                     var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
@@ -1172,7 +1180,7 @@
                                 $(constraintContainer).append(referenceValueContainer);
                                 
                                 //enable the user to combine with other constraints, remove or edit the constraint
-                                if(editMode){
+                                if(mode == 'full'){
                                     var otherConstraintAdder;
                                     if(allowComplex){//enable conditions combination only if you aren't currently selecting the operator
                                         var otherConstraintAdder = $('<span>').addClass('glyphicon glyphicon-plus otherConstraintAdder').attr('title', _('Combine with another constraint'));
@@ -1297,7 +1305,7 @@
                         
                             var consequenceContainer = $('<div>').addClass(containerName).append($('<span>').append(_(containerName.toUpperCase())+_('strategy.rules.learnerActivity')));
                             
-                            if(editMode){//displaying '+' icon to add a new activity
+                            if(mode == 'full'){//displaying '+' icon to add a new activity
                                 var activityAdder = $('<span>').addClass('glyphicon glyphicon-plus activityAdder').attr('title', _('Add activity'));
                                 $(activityAdder).click(function(){
                                     var operationIfClicked;
@@ -1342,7 +1350,7 @@
                                 });
                                 
                                 //add buttons to edit, remove and 'up' an activity (make it pass above the precedent one in the list)
-                                if(editMode){
+                                if(mode == 'full'){
                                     var activityRemover = $('<span>').addClass('glyphicon glyphicon-remove-circle activityRemover').attr('title', _('Remove activity'));
                                     $(typeOfActivityContainer).append(activityRemover);
                                     $(activityRemover).click(function(){
@@ -1370,7 +1378,7 @@
                                     var paramValueContainer = $('<span>').append(paramValue);
                                     var parameterContainer = $('<li>').append((_((parametersDictionnary[paramId]).name))+_(': ')).append(paramValueContainer);
                                     
-                                    if(editMode && formToDisplay == 'refValueParameter' && parameter == currentParameter){//currently edited parameter, and we want to change its value.
+                                    if(mode == 'full' && formToDisplay == 'refValueParameter' && parameter == currentParameter){//currently edited parameter, and we want to change its value.
                                         var valueInput = $('<input>').attr('type', 'text').attr('value', paramValue);
                                         $(paramValueContainer).append(valueInput);
                                         var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
@@ -1403,7 +1411,7 @@
                                     
                                     
                                     //add buttons to edit the value and remove the parameter
-                                    if(editMode){
+                                    if(mode == 'full'){
                                         var parameterValueEditor = $('<span>').addClass('glyphicon glyphicon-edit parameterValueEditor').attr('title', _('Edit value'));
                                         $(parameterContainer).append(parameterValueEditor);
                                         $(parameterValueEditor).click(function(){
@@ -1426,7 +1434,7 @@
                                     
                                 });
                                 
-                                if(editMode){//enabling to add a parameter at the end of the list
+                                if(mode == 'full'){//enabling to add a parameter at the end of the list
                                     if(formToDisplay == 'parameter' && currentActivity == activity){//highlight this zone where the user is chosing a new parameter
                                         $(parametersContainer).append($('<li>').addClass('newParameterToAdd').addClass('instruction').append(_('strategy.rules.newrule.chose.parameter')));
                                     }
@@ -1448,7 +1456,7 @@
                                 
                                 
                             });
-                            if(editMode){
+                            if(mode == 'full'){
                                 if(formToDisplay == 'thenActivity' && containerName == 'then'){//if user has to select an activity for the then part
                                     $(activitiesContainer).append($('<div>').addClass('instruction').text(_('strategy.rules.newrule.chose.activity')));
                                 }

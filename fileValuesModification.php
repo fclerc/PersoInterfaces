@@ -31,7 +31,7 @@
 		<div class="container">
 			<h1><span id="valuesPageTitle">valuesModification.h1</span><span id="sectionName"><?php echo $section; ?></span><small><span id="currentFile">valuesModification.currentFileIntro</span><span id="currentFileName"><?php echo $file; ?></span></small></h1>
 			<p id="generalInstructions">valuesModification.instructions</p>
-			<p><a href="index.php" id="mainLink">common.back</a></p>
+            <a href="index.php" id="mainLink">common.back</a>
 			<div id="XMLcontainer"></div>
         </div>
         

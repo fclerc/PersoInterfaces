@@ -17,6 +17,19 @@
             
 body{
 	overflow-y: scroll;
+    background-color:#FFF;
+}
+
+#mainLink{
+    position:absolute;
+    margin-top:1px;
+    padding:3px;
+    right: 20px;
+    top:0px;
+    border-radius: 10px;
+    border:1px solid black;
+    color: black;
+    float:left;
 }
 
 #scalesContainer{
