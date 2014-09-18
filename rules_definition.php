@@ -773,17 +773,17 @@
                     
                     
                     //displays the value input together with a button to click on
-                    function displayValueInput(){							
-                        var valueInput = $('<input>').attr('type', 'text');
+                    // function displayValueInput(){							
+                        // var valueInput = $('<input>').attr('type', 'text');
                         
-                        $('#newRuleForm').append(valueInput);
-                        $('#newRuleForm').append($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
+                        // $('#newRuleForm').append(valueInput);
+                        // $('#newRuleForm').append($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
                         
-                        $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
-                            var val = $('#newRuleForm input').val();
-                            $(reader).trigger("leafValueReading",  [val, 0, '#newRuleForm']);									
-                        });
-                    }
+                        // $('#newRuleForm .glyphicon-ok-sign').unbind('click').click(function(){
+                            // var val = $('#newRuleForm input').val();
+                            // $(reader).trigger("leafValueReading",  [val, 0, '#newRuleForm']);									
+                        // });
+                    // }
                     
                     //removes all forms in the rules part.
                     function removeForms(){
@@ -859,7 +859,7 @@
                         var priority = $($(rule).find("priority")[0]).text();
                         var priorityContainer = $('<div>').addClass('priority').append(_('Priority: '));
                         if(mode == 'full' && formToDisplay == 'priority'){//we are editing the priority
-                            var valueInput = $('<input>').attr('type', 'text').attr('value', priority);
+                            var valueInput = $('<input>').attr('type', 'number').attr('value', priority);
                             $(priorityContainer).append(valueInput);
                             var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
                             $(priorityContainer).append(formValidator);
