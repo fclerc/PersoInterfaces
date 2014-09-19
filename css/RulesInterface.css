@@ -54,7 +54,7 @@ h1 small{
 #Activities .activity >span{
     font-weight: bold;
 }
-#Activities .activity > span:hover, #Activities .activity  li> span:first-child:hover{
+#Activities .activityParameter:hover, #Activities .activity > span:hover{
     background-color: green;
     cursor: pointer;
 }
