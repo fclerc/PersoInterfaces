@@ -29,8 +29,10 @@ class ConsequenceGenerator{
                 $activities = $consequence->getElementsByTagName('activity');
                 foreach($activities as $activity){
                     $computedActivities = $this->treatActivity($activity);
-                    foreach($computedActivities as $acti){
-                        $generatedActivities[] = $acti;
+                    if($computedActivities != null){
+                        foreach($computedActivities as $acti){
+                            $generatedActivities[] = $acti;
+                        }
                     }
                 }
             }

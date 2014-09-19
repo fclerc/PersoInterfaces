@@ -851,16 +851,7 @@
                     
                     
                     
-                    /*
-                    This function returns an input element that is then placed in the rule
-                    formInformation : information about the type of form that as to be displayed (as returned by the functions in scaleDisplayer.js)
-                    refValue : the value the input must be filled at first (or the 'option' you have to select in case of a <select>)
-                    */
-                    function getRuleForm(formInformation, refValue){
                     
-                    
-                    
-                    }
                     
                     
                     /*
@@ -1179,23 +1170,7 @@
                                 //if currently editing the value of this constraint, display a form
                                 if(mode == 'full' && formToDisplay == 'refValueConstraint' && constraint == currentCondition){
                                     
-                                    var valueInput = '';
-                                    //if we have to display a list of choices to the user
-                                    if(formInformation.type == 'select'){
-                                        valueInput = $('<select>');
-                                        $(formInformation.values).each(function(){
-                                            var option = $('<option>').text(this);
-                                            if(referenceValue == this){
-                                                $(option).attr('selected', 'selected');
-                                            }
-                                            $(valueInput).append(option);
-                                        });
-                                    }
-                                    
-                                    //if none of the above cases, just display a text input
-                                    else{
-                                        valueInput = $('<input>').attr('type', 'text').attr('value', referenceValue);
-                                    }
+                                    var valueInput = getRuleForm(formInformation, referenceValue);
                                     
                                     $(referenceValueContainer).append(valueInput);
                                     var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
@@ -1423,24 +1398,9 @@
                                     
                                     if(mode == 'full' && formToDisplay == 'refValueParameter' && parameter == currentParameter){//currently edited parameter, and we want to change its value.
                                         
-                                        var valueInput = '';
-                                        //if we have to display a list of choices to the user
-                                        if(formInformation.type == 'select'){
-                                            valueInput = $('<select>');
-                                            $(formInformation.values).each(function(){
-                                                var option = $('<option>').text(this);
-                                                if(paramValue == this){
-                                                    $(option).attr('selected', 'selected');
-                                                }
-                                                $(valueInput).append(option);
-                                            });
-                                        }
                                         
                                         
-                                        //if none of the above cases, just display a text input
-                                        else{
-                                            valueInput = $('<input>').attr('type', 'text').attr('value', paramValue);
-                                        }
+                                        var valueInput = getRuleForm(formInformation, paramValue);
                                         
                                         $(paramValueContainer).append(valueInput);
                                         var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
@@ -1538,6 +1498,40 @@
                     }
                     
                     
+                    
+                    /*
+                    This function returns an input element that is then placed in the rule
+                    formInformation : information about the type of form that as to be displayed (as returned by the functions in scaleDisplayer.js)
+                    refenceValue : the value the input must be filled with at first (or the 'option' you have to select in case of a <select>)
+                    */
+                    function getRuleForm(formInformation, referenceValue){
+                        
+                        var valueInput = '';
+                        //if we have to display a list of choices to the user
+                        if(formInformation.type == 'select'){
+                            valueInput = $('<select>');
+                            $(formInformation.values).each(function(){
+                                var option = $('<option>').text(this);
+                                if(referenceValue == this){
+                                    $(option).attr('selected', 'selected');
+                                }
+                                $(valueInput).append(option);
+                            });
+                        }
+                        
+                        
+                        else if(formInformation!= ''){
+                             valueInput = $('<input>').attr('type', formInformation.type).attr('value', referenceValue);
+                        
+                        }
+                        //if none of the above cases, just display a text input
+                        else{
+                            valueInput = $('<input>').attr('type', 'text').attr('value', referenceValue);
+                        }
+                        
+                        return valueInput;
+                    
+                    }
                 });
                 
                     

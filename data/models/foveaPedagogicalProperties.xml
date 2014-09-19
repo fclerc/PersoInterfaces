@@ -10,6 +10,7 @@
 						<Name>Length</Name>
 						<Comment>The estimated time, in minutes, required to study the resource</Comment>
 						<ScaleNumerical>
+                            <Step>1</Step>
 						</ScaleNumerical>
 					</Parameter>
 				</Parameters>

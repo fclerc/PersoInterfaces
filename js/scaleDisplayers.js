@@ -65,6 +65,7 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
         $(informationToDisplay).append(_('scales.value.intro'));
         if($(scaleElement).find('Step').length === 0){//no step : no precision about the number to display
             $(informationToDisplay).append(_(' number'));
+            formInformation = {'type' : 'number' };
         }
         else{
             var step = $($(scaleElement).find('Step')[0]).text();
@@ -123,6 +124,9 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, sca
             else if(scaleElement.typeName == 'xs:datetime'){
                 formInformation = {'type' : 'datetime' };
             }
+            else if(scaleElement.typeName == 'xs:integer'){
+                formInformation = {'type' : 'number'};
+            }
         
         }
         else if(scaleElement.nature == 'restriction'){//restriction
@@ -132,7 +136,7 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, sca
                     $(informationToDisplay).append((_(' between ') + scaleElement.min + _(' and ') + scaleElement.max));
                 }
                 
-                if(scaleElement.typeName == 'xs:integer'){
+                if(scaleElement.baseTypeName == 'xs:integer'){
                     formInformation = {'type' : 'number'};
                 }
                 
