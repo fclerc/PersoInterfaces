@@ -70,6 +70,7 @@ function displayParameterScale(scaleElement, resourcesData, container, clickable
             var step = $($(scaleElement).find('Step')[0]).text();
             if(step=='1'){//step 1 : it's an integer
                 $(informationToDisplay).append(_('n integer'));
+                formInformation = {'type' : 'number' };
             }
             else{//another value of step is provided
                 $(informationToDisplay).append( (_(' number, with step ')+step));
@@ -114,14 +115,27 @@ function displayIndicatorScale(indicatorName, container, currentIndicatorId, sca
             if(scaleElement.typeName == 'xs:boolean'){
                 formInformation = {'type' : 'select' , 'values' : ['true', 'false']};
             }
+            
+            else if(scaleElement.typeName == 'xs:date'){
+                formInformation = {'type' : 'date' };
+            }
+            
+            else if(scaleElement.typeName == 'xs:datetime'){
+                formInformation = {'type' : 'datetime' };
+            }
         
         }
         else if(scaleElement.nature == 'restriction'){//restriction
             if(scaleElement.baseTypeName == 'xs:float' || scaleElement.baseTypeName == 'xs:integer'){//if number
                 $(informationToDisplay).append((_('scales.value.intro') + _(scaleElement.baseTypeName)));
-                if(scaleElement.min && scaleElement.max){//if min and max are set : geenrate a sentence telling the min and max
+                if(scaleElement.min && scaleElement.max){//if min and max are set : generate a sentence telling the min and max
                     $(informationToDisplay).append((_(' between ') + scaleElement.min + _(' and ') + scaleElement.max));
                 }
+                
+                if(scaleElement.typeName == 'xs:integer'){
+                    formInformation = {'type' : 'number'};
+                }
+                
             }
             else if(scaleElement.baseTypeName == 'xs:string' && scaleElement.enumeration){//there's an enumeration : display the elements
                 if(scaleElement.enumeration.length > 0){

@@ -394,7 +394,7 @@
                     //'conditionType' if the user has to chose between 'and' and 'or'
                     //'conditionTypeEdition' if the user has to chose between 'and' and 'or' to MODIFY a condition operator
                     
-                    var formType = '';//used to fill the 'type' attribute of the form that is displayed (number, date, text,...), and gives the list of values in case it is a select
+                    var formInformation = '';//used to fill the 'type' attribute of the form that is displayed (number, date, text,...), and gives the list of values in case it is a select
                     
                     /*
                     variables value and id take represent various informations depending on the operation, but most of the time they indeed contain a value (eg the value given as refValue in a rule) and an id.
@@ -563,11 +563,11 @@
                             var indicatorName;
                             if($(profile).find('#'+currentIndicatorId)[0]){//searching for the indicator in the profile
                                 indicatorName = $(profile).find('#'+currentIndicatorId)[0].nodeName;
-                                formType = displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, profileScales, true);
+                                formInformation = displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, profileScales, true);
                             }
                             else{//else search it in the liveContext
                                 indicatorName = $(context).find('#'+currentIndicatorId)[0].nodeName;
-                                formType = displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, contextScales, true);
+                                formInformation = displayIndicatorScale(indicatorName, '#newRuleForm', currentIndicatorId, contextScales, true);
                             }
                         },
                         function(){//4
@@ -588,7 +588,7 @@
                                 style = 'list';
                             }
                             if(parametersDictionnary[currentParameterId]){
-                                formType = displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true, style);
+                                formInformation = displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true, style);
                             }
                         },
                         function(){//7
@@ -609,7 +609,7 @@
                                 style = 'list';
                             }
                             if(parametersDictionnary[currentParameterId]){
-                                displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true, style);
+                                formInformation = displayParameterScale((parametersDictionnary[currentParameterId]).scale,resourcesData[currentParameterName], '#newRuleForm', true, style);
                             }
                         
                         },
@@ -646,37 +646,37 @@
                         function(){//2
                             removeForms();
                             formToDisplay = '';
-                            formType = '';
+                            formInformation = '';
                         },
                         function(){//3
                             formToDisplay = '';
-                            formType = '';
+                            formInformation = '';
                             removeForms();
                         
                         },
                         function(){//4
                             formToDisplay = '';
-                            formType = '';
+                            formInformation = '';
                         
                         },
                         function(){//5
                             formToDisplay = '';
-                            formType = '';
+                            formInformation = '';
                         
                         },
                         function(){//6
                             removeForms();
                             formToDisplay = '';
-                            formType = '';
+                            formInformation = '';
                         },
                         function(){//7
                             formToDisplay = '';
-                            formType = '';
+                            formInformation = '';
                         
                         },
                         function(){//8
                             formToDisplay = '';
-                            formType = '';
+                            formInformation = '';
                         
                         },
                         function(){//9
@@ -686,7 +686,7 @@
                         function(){//10
                             removeForms();
                             formToDisplay = '';
-                            formType = '';
+                            formInformation = '';
                         },
                         function(){//11
                             removeForms();
@@ -703,7 +703,7 @@
                         function(){//13
                             removeForms();
                             formToDisplay = '';
-                            formType = '';
+                            formInformation = '';
                         }
                     ];
                     
@@ -848,6 +848,20 @@
                                 $('#newRuleInstruction')[0].scrollIntoView(true);
                         }
                     }
+                    
+                    
+                    
+                    /*
+                    This function returns an input element that is then placed in the rule
+                    formInformation : information about the type of form that as to be displayed (as returned by the functions in scaleDisplayer.js)
+                    refValue : the value the input must be filled at first (or the 'option' you have to select in case of a <select>)
+                    */
+                    function getRuleForm(formInformation, refValue){
+                    
+                    
+                    
+                    }
+                    
                     
                     /*
                         Argument is a xml node containing a rule .
@@ -1165,12 +1179,11 @@
                                 //if currently editing the value of this constraint, display a form
                                 if(mode == 'full' && formToDisplay == 'refValueConstraint' && constraint == currentCondition){
                                     
-                                    console.log(formType);
                                     var valueInput = '';
                                     //if we have to display a list of choices to the user
-                                    if(formType.type == 'select'){
+                                    if(formInformation.type == 'select'){
                                         valueInput = $('<select>');
-                                        $(formType.values).each(function(){
+                                        $(formInformation.values).each(function(){
                                             var option = $('<option>').text(this);
                                             if(referenceValue == this){
                                                 $(option).attr('selected', 'selected');
@@ -1409,7 +1422,26 @@
                                     var parameterContainer = $('<li>').append((_((parametersDictionnary[paramId]).name))+_(': ')).append(paramValueContainer);
                                     
                                     if(mode == 'full' && formToDisplay == 'refValueParameter' && parameter == currentParameter){//currently edited parameter, and we want to change its value.
-                                        var valueInput = $('<input>').attr('type', 'text').attr('value', paramValue);
+                                        
+                                        var valueInput = '';
+                                        //if we have to display a list of choices to the user
+                                        if(formInformation.type == 'select'){
+                                            valueInput = $('<select>');
+                                            $(formInformation.values).each(function(){
+                                                var option = $('<option>').text(this);
+                                                if(paramValue == this){
+                                                    $(option).attr('selected', 'selected');
+                                                }
+                                                $(valueInput).append(option);
+                                            });
+                                        }
+                                        
+                                        
+                                        //if none of the above cases, just display a text input
+                                        else{
+                                            valueInput = $('<input>').attr('type', 'text').attr('value', paramValue);
+                                        }
+                                        
                                         $(paramValueContainer).append(valueInput);
                                         var formValidator = ($('<span>').addClass('glyphicon glyphicon-ok-sign').attr('title', _('Validate')));
                                         $(paramValueContainer).append(formValidator);
