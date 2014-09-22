@@ -2,9 +2,38 @@
   width: 25%;
   float: left;
   margin-right: 2%;
+  overflow-y: scroll;
+  height: 1000px;
 }
 
 #boussole{
   float:left;
   width: 100%;
+  overflow-y: scroll;
+  height: 1000px;
+}
+
+
+.explanationRule .priority{
+    position:absolute;
+    right:115px;
+    top:5px;
+    font-weight:bold;
+}
+.explanationRule .indicator:hover{
+    background-color : #FF7F24;
+    cursor: pointer;
+    border-radius:5px;
+}
+.explanationRule .ruleContainer{
+    background-color: #9999FF;
+    border-radius: 10px;
+    padding-right: 4px;
+    padding-left: 4px;
+    width:97%;
+    margin-left:1.5%;
+    position: relative;
+}
+.explanationRule #ruleAdder{
+    margin-left:1%;
 }

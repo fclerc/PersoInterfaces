@@ -90,7 +90,19 @@ function displayRule(rule, activitiesDictionnary, parametersDictionnary){
             $(referenceValueContainer).append(referenceValue);
             
             
-                $(indicatorContainer).click(function(event){
+            
+            //displaying the indicator in the left part in color when hovering the indicator in the rule
+            var indicatorSelectionContainerColor = $(indicatorSelectionContainer).css('background-color');
+            $(indicatorContainer).hover(function(event){
+                $(indicatorSelectionContainer).css('background-color', '#FF7F24');
+            },
+            function(event){
+                $(indicatorSelectionContainer).css('background-color', indicatorSelectionContainerColor);
+            
+            });
+            
+            //scrolling to the appropriate part on the left when 
+            $(indicatorContainer).click(function(event){
                                     
                 if($('#Profile' + ' #' +indicatorId).length > 0){
                     if(!$('#Profile').hasClass('active')){
@@ -138,7 +150,20 @@ function displayRule(rule, activitiesDictionnary, parametersDictionnary){
     }
    
     
-    
+    function switchProfileContext(){//switches from profile to context and vice-versa in left part.
+        if($('#Profile').hasClass('active')){
+            $('#Context').addClass('active');
+            $('#contextTabLi').addClass('active');
+            $('#Profile').removeClass('active');
+            $('#profileTabLi').removeClass('active');
+        }
+        else{
+            $('#Context').removeClass('active');
+            $('#contextTabLi').removeClass('active');
+            $('#Profile').addClass('active');
+            $('#profileTabLi').addClass('active');
+        }
+    }
     
     
     
