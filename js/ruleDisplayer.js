@@ -2,7 +2,7 @@
     Argument is a xml node containing a rule, and returns the html to display it, without any edition possibility
     
 */
-function displayRule(rule){
+function displayRule(rule, activitiesDictionnary, parametersDictionnary){
     
    
     //displaying the priority
@@ -90,7 +90,36 @@ function displayRule(rule){
             $(referenceValueContainer).append(referenceValue);
             
             
-            
+                $(indicatorContainer).click(function(event){
+                                    
+                if($('#Profile' + ' #' +indicatorId).length > 0){
+                    if(!$('#Profile').hasClass('active')){
+                        switchProfileContext();
+                    }
+                    indicatorSelectionContainer[0].scrollIntoView(true);
+                }
+                else if($('#Context' + ' #' +indicatorId).length > 0){
+                    if(!$('#Context').hasClass('active')){
+                        switchProfileContext();
+                    }
+                    
+                }
+                //expanding all the parents, to see the indicator if hidden
+                var elementToExpand = indicatorSelectionContainer[0];
+                while(typeof $(elementToExpand).parent()[0] != 'undefined'){//for each of the ancestors, seee if it has a child with 'glyphicon-plus'. If yes, expand
+                    if($(elementToExpand).children('.glyphicon-plus').length > 0){
+                        $(elementToExpand).children('.glyphicon-plus').each(function(){
+                            $(this).trigger('click');
+                        });
+                    }
+                    
+                    elementToExpand = $(elementToExpand).parent()[0];
+                }
+               
+                indicatorSelectionContainer[0].scrollIntoView(true); 
+                    
+                    
+            });
             
             
             
@@ -123,7 +152,7 @@ function displayRule(rule){
         $(ruleContainer).append(ifContainer);
         $(ruleContainer).append(thenContainer);
         $(ruleContainer).append(elseContainer);
-        $(ruleContainer).insertBefore($(insBefore));
+        return ruleContainer;
     
     }
     
@@ -144,23 +173,6 @@ function displayRule(rule){
             var typeOfActivityId = $($(this).find("typeofactivity")[0]).text();
             var typeOfActivityContainer = $('<span>').addClass('typeOfActivity').append(' '+activitiesDictionnary[typeOfActivityId] + _('strategy.rules.parametersListIntro'));
             
-            
-            
-            //link between activity in the rule and activity in the right part when hovering and clicking
-            var typeOfActivitySelectionContainer = $('#Activities #'+typeOfActivityId);
-            //var typeOfActivitySelectionContainerColor = $(typeOfActivitySelectionContainer).css('background-color');
-            
-            $(typeOfActivityContainer).hover(function(){
-                $(typeOfActivitySelectionContainer).css('background-color', '#FF7F24');
-            },
-            function(){
-                $(typeOfActivitySelectionContainer).css('background-color', 'transparent');
-            });
-            
-            $(typeOfActivityContainer).click(function(){
-                typeOfActivitySelectionContainer[0].scrollIntoView(true); 
-            });
-            
            
             //display the list of parameters
             var parametersContainer =$('<ul>').addClass('parameters');
@@ -169,23 +181,9 @@ function displayRule(rule){
                 var paramId = $($(this).find('id')[0]).text();
                 var paramValue = $($(this).find('value')[0]).text();
                 var paramValueContainer = $('<span>').append(paramValue);
-                var parameterContainer = $('<li>').append((_((parametersDictionnary[paramId]).name))+_(': ')).append(paramValueContainer);
+                var parameterContainer = $('<li>').append((_((parametersDictionnary[paramId])))+_(': ')).append(paramValueContainer);
                 
                 paramValueContainer = paramValue;
-                    //link between parameter in the rule and parameter in the right part when hovering and clicking
-                    var parameterSelectionContainer = $('#Activities #'+typeOfActivityId +' +ul li #'+paramId);
-                    //var parameterSelectionContainerColor = $(parameterSelectionContainer).css('background-color');
-                    
-                    $(parameterContainer).hover(function(){
-                        $(parameterSelectionContainer).css('background-color', '#FF7F24');
-                    },
-                    function(){
-                        $(parameterSelectionContainer).css('background-color', 'transparent');
-                    });
-                    
-                    $(parameterContainer).click(function(){
-                        parameterSelectionContainer[0].scrollIntoView(true);
-                    });
                 
                 $(parametersContainer).append(parameterContainer);
                 
@@ -194,8 +192,6 @@ function displayRule(rule){
             $(activityContainer).append(typeOfActivityContainer);
             $(activityContainer).append(parametersContainer);
             $(activitiesContainer).append(activityContainer);
-            
-            
             
         });
         

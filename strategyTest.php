@@ -75,7 +75,7 @@
 			<p id="generalInstructions">strategyTest.instructions</p>
 			
             <div><button id="explanationToggler" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>Explain me why</span></button></div>
-            <div id="ProfileAndContext" class="mains" style="display:none;">
+            <div id="ProfileAndContext" style="display:none;">
                 <ul class="nav nav-tabs">
                     <li class="active" id="profileTabLi"><a href="#Profile" data-toggle="tab">Profile</a></li>
                     <li id="contextTabLi"><a href="#Context" data-toggle="tab">Context</a></li>
@@ -114,6 +114,7 @@
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/XMLManipulator.js"></script>
+        <script type="text/javascript" src="js/ruleDisplayer.js"></script>
        
         <script type="text/javascript" src="translation/translate.js"></script>
         <script type="text/javascript" src="translation/icu.js"></script>
@@ -240,25 +241,71 @@
                         
                         
                         
-                        var strategyPath = <?php echo "'".$strategyPath."'"; ?>;
                         
-                        $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
+                        
+                        
+                        
+                        
+                        //this object will be used as a dictionnary to make a list of parameters corresponding to their IDs, like 'P012' : 'Length' .
+                        var parametersDictionnary= [];
+                        //this object will be used as a dictionnary to make a list of activities corresponding to their IDs, like 'A001' : 'Learning' .
+                        var activitiesDictionnary= [];
+                        
+                        
+                        
+                        
+                        $.ajax({
                             type: "GET",
-                            url: strategyPath,
-                            success: function(data){//get the xml document
-                                var strategy = $(data);//load xml tree
-                                
-                                $('.displayRuleThere').each(function(){
-                                    var div = this;
-                                    $(strategy).find("rule").each(function(){
-                                        if($(this).attr('id') == $(div).attr('id')){
-                                            $(div).html(this);
-                                        }
-                                        
+                            url: 'data/models/foveaPedagogicalProperties.xml',
+                            success: function(data){
+                            
+                            //going through all activities and parameters to fill the dictionnaries, then used to display the rules.
+                            var xml = {};
+                            xml['#Activities']=$(data);//load xml tree
+                        
+                            var allActivityParameters = [];
+                            $(xml['#Activities']).find('TypeOfActivity').each(function(){
+                                var activity = this;
+                                var activityName = _($($(activity).children('Name')[0]).text());
+                                //filling the activitiesDictionnary                                    
+                                var activityId = $(activity).attr('ID');
+                                if(!activitiesDictionnary.hasOwnProperty(activityId)){
+                                    activitiesDictionnary[activityId] = activityName;
+                                }
+                            });
+                            
+                            $(xml['#Activities']).find('Parameter').each(function(){
+                                var parameter = this;
+                                var parameterName = _($($(parameter).children('Name')[0]).text());
+                                //filling the parametersDictionnary                                    
+                                var parameterId = $(parameter).attr('ID');
+                                if(!parametersDictionnary.hasOwnProperty(parameterId)){
+                                    parametersDictionnary[parameterId] = parameterName;
+                                }
+                            });
+                            
+                            
+                            
+                            var strategyPath = <?php echo "'".$strategyPath."'"; ?>;
+                            
+                            $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
+                                type: "GET",
+                                url: strategyPath,
+                                success: function(data){//get the xml document
+                                    var strategy = $(data);//load xml tree
+                                    
+                                    $('.displayRuleThere').each(function(){
+                                        var div = this;
+                                        $(strategy).find("rule").each(function(){
+                                            if($(this).attr('id') == $(div).attr('id')){
+                                                $(div).append(displayRule(this, activitiesDictionnary, parametersDictionnary));
+                                            }
+                                            
+                                        });
                                     });
-                                });
-                            }
-                        });
+                                }
+                            });
+                        }});
                     });
                 }
             });
