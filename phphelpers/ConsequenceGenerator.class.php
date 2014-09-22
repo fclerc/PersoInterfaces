@@ -1,5 +1,5 @@
 <?php
-//This class generates lists of activities based on a consequence part of the rule, eg a 'then' pr 'else' element
+//This class generates lists of activities based on a consequence part of the rule, eg a 'then' or 'else' element
 
 class ConsequenceGenerator{
     private $pedaProp;

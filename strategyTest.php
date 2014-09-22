@@ -8,6 +8,8 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
         <link href="css/main.css" type="text/css" rel="stylesheet"/>
+        <link href="css/XMLManipulator.css" type="text/css" rel="stylesheet"/>
+        <link href="css/boussoleDisplayer.css" type="text/css" rel="stylesheet"/>
         
     </head>
     
@@ -72,6 +74,18 @@
 			<p><a href="index.php" id="mainLink">common.back</a></p>
 			<p id="generalInstructions">strategyTest.instructions</p>
 			
+            <div><button id="explanationToggler" class = "btn btn-info"><span class="glyphicon glyphicon-plus"></span> <span>Explain me why</span></button></div>
+            <div id="ProfileAndContext" class="mains" style="display:none;">
+                <ul class="nav nav-tabs">
+                    <li class="active" id="profileTabLi"><a href="#Profile" data-toggle="tab">Profile</a></li>
+                    <li id="contextTabLi"><a href="#Context" data-toggle="tab">Context</a></li>
+                </ul>
+                <div class="tab-content">
+                <div class="tab-pane active" id="Profile"></div>
+                <div class="tab-pane" id="Context"></div>
+            </div>
+        
+            </div>
 			<div id="boussole">
 			
 			<?php
@@ -88,9 +102,6 @@
 				$generator = new ActivitiesGenerator($strategyPath);
                 //generating the list of activities from the different elements.
 				echo $generator->generate($profilePath, $sequenceContextPath, $liveContextPath);
-				
-				
-			
 			
 			?>
 			
@@ -102,6 +113,7 @@
        
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/XMLManipulator.js"></script>
        
         <script type="text/javascript" src="translation/translate.js"></script>
         <script type="text/javascript" src="translation/icu.js"></script>
@@ -193,6 +205,61 @@
                     $(form).append(newTestButton);
                     
                     $('#newTestForm').append(form);
+                    
+                    
+                    
+                    
+                    
+                    
+                    var profilePath = <?php echo "'".$profilePath."'"; ?>;
+                    var liveContextPath = <?php echo "'".$liveContextPath."'"; ?>;
+                    var t1 = manipulateXML(profilePath,'#Profile', 'selectWithValues', "#Rules", '', '#scaleDisplayer');
+                    var t2 = manipulateXML(liveContextPath,'#Context', 'selectWithValues', '#Rules', '', '#scaleDisplayer');
+                    $.when(t1, t2).done(function() {//when profile and context are displayed
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                        var explDisplayed = false;
+                        $('#explanationToggler').click(function(){
+                            $('.explanationRule').toggle(300);
+                            
+                            if(!explDisplayed){
+                                $('#boussole').css('width', '65%');
+                                explDisplayed = true;
+                            }
+                            else{
+                                $('#boussole').css('width', '100%');
+                                explDisplayed = false;
+                            }
+                            $('#ProfileAndContext').toggle(300);
+                        });
+                        
+                        
+                        
+                        var strategyPath = <?php echo "'".$strategyPath."'"; ?>;
+                        
+                        $.ajax({//loading the strategy file, which contains all the required informations (including other files names)
+                            type: "GET",
+                            url: strategyPath,
+                            success: function(data){//get the xml document
+                                var strategy = $(data);//load xml tree
+                                
+                                $('.displayRuleThere').each(function(){
+                                    var div = this;
+                                    $(strategy).find("rule").each(function(){
+                                        if($(this).attr('id') == $(div).attr('id')){
+                                            $(div).html(this);
+                                        }
+                                        
+                                    });
+                                });
+                            }
+                        });
+                    });
                 }
             });
         });

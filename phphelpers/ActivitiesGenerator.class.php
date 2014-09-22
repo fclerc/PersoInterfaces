@@ -70,7 +70,6 @@ class ActivitiesGenerator{
         foreach ($rules as $rule){	
             $priority = $this->getPriority($rule);
             
-            
             //True iff condition of the rule is verified. If 'if' part is void, evaluate at true by default
             $verified = true; 
             if($rule->getElementsByTagName('if')->length > 0){
@@ -90,8 +89,9 @@ class ActivitiesGenerator{
             }
             
             
-            //gettting the list of activities generated with this consequence, and storing it together with the priority
-            $consequences[] = array('activities' => $csqMgr->generate($consequence), 'priority' => $priority);
+            //getting the list of activities generated with this consequence, and storing it together with the priority
+            $consequenceArray = array('activities' => $csqMgr->generate($consequence), 'priority' => $priority, 'rule' => $rule);
+            $consequences[] = $consequenceArray;
             
         }
         
@@ -102,6 +102,7 @@ class ActivitiesGenerator{
             
         //now that everything is ordered according to the priorities, we can simply make an array containing the activities the learner has to realize.
         foreach($consequences as $consequence){
+        $activities[] = array('rule' => $consequence['rule']);
             $csqAct = $consequence['activities'];
             foreach($csqAct as $activity){
                 $activities[] = $activity;
@@ -124,6 +125,7 @@ class ActivitiesGenerator{
         //echoing welcome message
         $result = '<span class="toTranslate">boussole.hello</span><br/><ul>';
         
+        
         //getting values of min and max for time and number of activities
         $maxAct = intval($seqContext->getElementsByTagName('numberOfActivities')->item(0)->getElementsByTagName('max')->item(0)->nodeValue);
         $minAct = intval($seqContext->getElementsByTagName('numberOfActivities')->item(0)->getElementsByTagName('min')->item(0)->nodeValue);
@@ -137,24 +139,38 @@ class ActivitiesGenerator{
         //go through activities, display them until one of the max bounds is reached
         foreach($activities as $activity){
             if($nbAct < $maxAct){
-                $activityTime = $activity['length'];
-                if($time + $activityTime <= $maxTime){
-                    $result = $result . '<li';
-                    //adding indentation
-                    if(isset($activity['depth'])){
-                        $result = $result . ' style="margin-left:'.(($activity['depth'] - 1) * 50 ).'px;"';
-                    }
-                    $result = $result .'>'.$activity['text'].'</li>';
-                    //incrementing nbAct, except if 'countActivity' is set to false (eg this is not a 'real' activity, but a message for the user with nothing special to do)
-                    if(isset($activity['countActivity'])){
-                        if($activity['countActivity'] == true){
+            
+                //if this is a rule to display : let an empty div in the result, and store the rule in an array. CURRENTLY NOTHING IS MADE WITH IT.
+                if(isset($activity['rule'])){
+                    $ruleId = $activity['rule']->getAttribute('id');
+                    $result = $result.'<div class="explanationRule" style="display:none;">';
+                    $result = $result.'<span class="toTranslate">Because of the rule: </span>';
+                    
+                    $result = $result . '<div class="displayRuleThere" id="'.$ruleId.'"></div>';
+                    
+                    $result = $result.'<span class="toTranslate">We suggest you to do the following activities: </span>';
+                    $result = $result . '</div>';
+                }
+                else{
+                    $activityTime = $activity['length'];
+                    if($time + $activityTime <= $maxTime){
+                        $result = $result . '<li';
+                        //adding indentation
+                        if(isset($activity['depth'])){
+                            $result = $result . ' style="margin-left:'.(($activity['depth'] - 1) * 50 ).'px;"';
+                        }
+                        $result = $result .'>'.$activity['text'].'</li>';
+                        //incrementing nbAct, except if 'countActivity' is set to false (eg this is not a 'real' activity, but a message for the user with nothing special to do)
+                        if(isset($activity['countActivity'])){
+                            if($activity['countActivity'] == true){
+                                $nbAct++;
+                            }
+                        }
+                        else{
                             $nbAct++;
                         }
+                        $time += $activity['length'];
                     }
-                    else{
-                        $nbAct++;
-                    }
-                    $time += $activity['length'];
                 }
             }
         }

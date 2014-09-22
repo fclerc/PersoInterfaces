@@ -97,7 +97,7 @@
             type: "GET",
             url: strategyPath + strategyFilename,
             success: function(data){//get the xml document
-				var strategy = $(data);//load xml tree
+                var strategy = $(data);//load xml tree
                 var profileFilename = $($(strategy).find('exploitedProfile')[0]).text();
                 var contextFilename = $($(strategy).find('exploitedContext')[0]).text();
         
